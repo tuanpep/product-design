@@ -1,0 +1,13 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "product-design",
+  "version": "0.2.0",
+  "description": "Turn a human idea into an evidence-labeled product design, from the problem through an implementation-ready slice.",
+  "keywords": [
+    "product-design",
+    "design-product",
+    "discovery",
+    "principles",
+    "requirements"
+  ]
+}
