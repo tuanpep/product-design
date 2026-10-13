@@ -13,6 +13,11 @@ function fixture(t) {
   t.after(() => rmSync(folder, { recursive: true, force: true }))
   cpSync(join(root, '.cursor-plugin'), join(folder, '.cursor-plugin'), { recursive: true })
   cpSync(join(root, 'skills'), join(folder, 'skills'), { recursive: true })
+  cpSync(join(root, 'agents'), join(folder, 'agents'), { recursive: true })
+  cpSync(join(root, 'commands'), join(folder, 'commands'), { recursive: true })
+  cpSync(join(root, '.opencode'), join(folder, '.opencode'), { recursive: true })
+  cpSync(join(root, 'plugin.json'), join(folder, 'plugin.json'))
+  cpSync(join(root, 'LICENSE'), join(folder, 'LICENSE'))
   return folder
 }
 

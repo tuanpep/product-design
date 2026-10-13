@@ -1,8 +1,15 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "product-design",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Turn a human idea into an evidence-labeled product design, from the problem through an implementation-ready slice.",
+  "author": {
+    "name": "tuanpep",
+    "email": "tuanbt209@gmail.com"
+  },
+  "homepage": "https://github.com/tuanpep/product-design",
+  "repository": "https://github.com/tuanpep/product-design",
+  "license": "MIT",
   "keywords": [
     "product-design",
     "design-product",

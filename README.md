@@ -2,15 +2,15 @@
 
 A Cursor and OpenCode V2 plugin that takes a human idea and develops an end-to-end product **design proposal**. It separates the feature from the problem, investigates the context, defines requirements, compares options, describes the whole experience, plans the riskiest test, and specifies the first useful slice. It does not claim that untested ideas have been validated, or write production code.
 
-## Cursor: try locally
+## Cursor: install
 
-Copy this directory to `~/.cursor/plugins/local/product-design/` and reload Cursor. In Customize → Skills, confirm that `design-product` appears. Then run:
+This repository is a Cursor plugin and an [Agent Plugin](https://cursor.com/docs/plugins). `.cursor-plugin/marketplace.json` lists it at the repository root, so Customize can import `https://github.com/tuanpep/product-design`. For a local copy, put this directory at `~/.cursor/plugins/local/product-design/` and reload Cursor. In Customize, confirm that the `design-product` skill, agent, and command appear. Then run:
 
 ```text
 /design-product Staff coordinate shift swaps in chat, but the roster stays wrong. Design a product approach.
 ```
 
-Cursor's [local plugin instructions](https://cursor.com/docs/plugins#test-plugins-locally) describe this development path. The `.cursor-plugin/plugin.json` manifest identifies this as a Cursor plugin; the `skills/` directory holds the instructions. No global configuration files are modified by this project.
+Skills are discovered from `skills/`, the Cursor agent from `agents/design-product.md`, and the Cursor command from `commands/design-product.md`. The [plugin reference](https://cursor.com/docs/reference/plugins) defines those paths. No global configuration files are modified by this project.
 
 ## OpenCode V2: try locally
 

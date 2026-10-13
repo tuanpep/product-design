@@ -1,0 +1,17 @@
+{
+  "name": "product-design",
+  "owner": {
+    "name": "tuanpep",
+    "email": "tuanbt209@gmail.com"
+  },
+  "metadata": {
+    "description": "Turn a human idea into an evidence-labeled product design, from the problem through an implementation-ready slice."
+  },
+  "plugins": [
+    {
+      "name": "product-design",
+      "source": ".",
+      "description": "Turn a human idea into an evidence-labeled product design, from the problem through an implementation-ready slice."
+    }
+  ]
+}

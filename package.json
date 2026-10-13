@@ -1,13 +1,16 @@
 {
   "name": "opencode-product-design",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "exports": "./index.js",
   "files": [
     ".cursor-plugin/",
     "plugin.json",
     "index.js",
+    "LICENSE",
     ".opencode/",
+    "agents/",
+    "commands/",
     "skills/",
     "docs/",
     "README.md"
