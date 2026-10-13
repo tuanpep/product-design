@@ -1,20 +1,32 @@
 # Product Design
 
-A Cursor and OpenCode V2 plugin that takes a human idea and develops an end-to-end product **design proposal**. It separates the feature from the problem, investigates the context, defines requirements, compares options, describes the whole experience, plans the riskiest test, and specifies the first useful slice. It does not claim that untested ideas have been validated, or write production code.
+Turn a human idea into an evidence-labeled product design, from the problem through a slice someone can build. The proposal records what is given, observed, inferred, proposed, or unknown. A proposal leaves the decision to build with a person.
 
-## Cursor: install
-
-This repository is a Cursor plugin and an [Agent Plugin](https://cursor.com/docs/plugins). `.cursor-plugin/marketplace.json` lists it at the repository root, so Customize can import `https://github.com/tuanpep/product-design`. For a local copy, put this directory at `~/.cursor/plugins/local/product-design/` and reload Cursor. In Customize, confirm that the `design-product` skill, agent, and command appear. Then run:
+Run it in the project being designed:
 
 ```text
 /design-product Staff coordinate shift swaps in chat, but the roster stays wrong. Design a product approach.
 ```
 
-Skills are discovered from `skills/`, the Cursor agent from `agents/design-product.md`, and the Cursor command from `commands/design-product.md`. The [plugin reference](https://cursor.com/docs/reference/plugins) defines those paths. No global configuration files are modified by this project.
+The result is `docs/product-design/<slug>/product-design.md`, with Draw.io journey and screen files beside it when a flow or prototype is needed. The working contract is in [the guide](docs/guide/README.md).
 
-## OpenCode V2: try locally
+## Install
 
-Run `npm install` in this plugin directory, then add it to the **product project's** `opencode.json` (substitute this project's absolute path):
+### Cursor
+
+Import `https://github.com/tuanpep/product-design` from Customize. `.cursor-plugin/marketplace.json` points at this repository root. Reload, then confirm the `design-product` skill, agent, and command.
+
+For a local copy while editing this repo, place it at `~/.cursor/plugins/local/product-design/` and reload Cursor. See [Test plugins locally](https://cursor.com/docs/plugins#test-plugins-locally).
+
+### OpenCode V2
+
+```sh
+opencode plugin add github:tuanpep/product-design
+```
+
+That adds the plugin to the global OpenCode config. Restart OpenCode, then select the `design-product` agent or run `/design-product`. The agent can also run as a subagent. It leaves your default coding agent in place.
+
+To load this checkout instead of the GitHub package, run `npm install` here and add the absolute path to the product project's `opencode.json`:
 
 ```json
 {
@@ -23,29 +35,33 @@ Run `npm install` in this plugin directory, then add it to the **product project
 }
 ```
 
-Start OpenCode in the product project. Select the `design-product` agent, or run `/design-product <your idea>`. The [OpenCode V2 plugin API](https://v2.opencode.ai/docs/build/plugins) registers the bundled skills, the [agent](https://v2.opencode.ai/docs/agents), and the slash command without copying files to global configuration. The agent can run as the session agent or as a subagent. It writes under `docs/product-design/` and leaves `build` as the default coding agent. The command attaches the entry skill to the prompt. OpenCode V2 is required; the V1 plugin API and `plugin` (singular) configuration are different.
+Use either the GitHub package or the local path. OpenCode V2 is required. Install and plugin layout are documented at [Plugins](https://v2.opencode.ai/docs/plugins) and [Build a plugin](https://v2.opencode.ai/docs/build/plugins).
 
-For a published npm/Git package, use [OpenCode's package install flow](https://v2.opencode.ai/docs/plugins) instead of a local path. Do not install the same plugin both globally and per project.
+## Skills
 
-## What it does
+`/design-product` picks a playbook and calls the other skills as the steps need them. You can also invoke a skill on its own.
 
-`/design-product` routes a new idea through framing, discovery, requirements, option comparison, experience design, an evaluation plan, an implementation-ready slice, and a stop-or-build decision. A later invocation can revise the same design when evidence or a decision changes. Supporting skills can also be invoked directly in Cursor or loaded by ID in OpenCode:
+| Skill | Role |
+| --- | --- |
+| `/frame-problem` | Separate a requested feature from the people, problem, and outcome. |
+| `/discover-needs` | Investigate users, current journeys, constraints, and sources. |
+| `/define-requirements` | Turn that context into stable needs and derived requirements. |
+| `/explore-solutions` | Compare approaches, including no-build, and name the reversing assumption. |
+| `/design-experience` | Describe the chosen approach across interactions, rules, data, and support. |
+| `/drawio` | Draw the journey or screen prototype as a Draw.io file. |
+| `/plan-evaluation` | Plan the smallest real test of the assumption that would reverse the recommendation. |
+| `/specify-build` | Write the first useful slice as stories, acceptance outcomes, and checks. |
+| `/decide-next` | Recommend stop, learn more, test, specify a slice, or hand a named slice to builders. |
+| `/review-design` | Check coherence, and report evidence and delivery readiness separately. |
 
-- `/frame-problem` separates a proposed feature from the people, problem, and outcome.
-- `/discover-needs` investigates users, current journeys, constraints, and sources.
-- `/define-requirements` turns that context into stable needs and derived requirements.
-- `/explore-solutions` compares approaches and their risky assumptions.
-- `/design-experience` describes the chosen approach across interactions, rules, data, and support.
-- `/drawio` draws the journey flow chart or screen prototype as a Draw.io file.
-- `/plan-evaluation` plans the smallest real test of the assumption that would reverse the recommendation.
-- `/specify-build` writes the first useful slice as stories, acceptance outcomes, and checks.
-- `/decide-next` recommends stop, learn more, test solutions, specify a slice, or hand a named slice to builders.
-- `/review-design` checks coherence and reports evidence and delivery readiness separately.
-
-By default, the proposal lives in `docs/product-design/<slug>/product-design.md` in the **project being designed**. The document remains useful even when the agent has no access to actual users: unknowns stay unknown, and proposed choices stay proposed. See [the guide](docs/guide/README.md) for the working contract. The decision rules are separate skills, listed in [Principles](docs/guide/03-principles.md).
+Decision rules are separate skills. Their order is in [Principles](docs/guide/03-principles.md).
 
 ## Develop
 
-Run `npm test` to check the manifests, skill metadata, links, and OpenCode registration behavior. These are package checks, **not** evidence that Cursor loaded the plugin or that a proposed product works for users. Test the local installation in each host before distributing it.
+```sh
+npm test
+```
 
-This is a standalone project. It does not depend on another plugin or package.
+The tests check the manifests, skill metadata, links, and OpenCode registration. They confirm the package is well formed. Try the installed plugin on a real idea before treating a proposal as ready.
+
+MIT License. Copyright 2026 tuanpep.
