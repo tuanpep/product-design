@@ -2,15 +2,47 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import plugin from '../index.js'
 
-test('OpenCode V2 registers bundled skills and a command that attaches the entry skill', async () => {
+test('OpenCode V2 registers bundled skills, the design agent, and a command that attaches the entry skill', async () => {
   const skills = []
   const commands = []
   const prompts = []
+  const agents = new Map()
+  const defaults = []
   await plugin.setup({
     skill: { transform: async (callback) => callback({ add: (skill) => skills.push(skill) }) },
+    agent: {
+      transform: async (callback) => callback({
+        default: (id) => defaults.push(id),
+        update: (id, update) => {
+          const current = agents.get(id) ?? {
+            id,
+            name: id,
+            mode: 'primary',
+            hidden: false,
+            permissions: [{ action: '*', resource: '*', effect: 'allow' }],
+          }
+          agents.set(id, current)
+          update(current)
+          current.id = id
+        },
+      }),
+    },
     command: { transform: async (callback) => callback({ add: (command) => commands.push(command) }) },
     session: { prompt: async (prompt) => { prompts.push(prompt) } },
   })
+  const agent = agents.get('design-product')
+  assert.equal(defaults.length, 0)
+  assert.equal(agents.size, 1)
+  assert.equal(agent.mode, 'all')
+  assert.equal(agent.hidden, false)
+  assert.equal(agent.color, '#1f6b4a')
+  assert.equal(agent.description, 'Turns a human idea into an evidence-labeled product design proposal')
+  assert.match(agent.system, /Load the design-product skill/)
+  assert.deepEqual(agent.permissions.slice(1), [
+    { action: 'edit', resource: '*', effect: 'deny' },
+    { action: 'edit', resource: 'docs/product-design/**', effect: 'allow' },
+    { action: 'shell', resource: '*', effect: 'deny' },
+  ])
   assert.deepEqual(skills.map(({ id }) => id), [
     'design-product',
     'frame-problem',

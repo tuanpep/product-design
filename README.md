@@ -23,7 +23,7 @@ Run `npm install` in this plugin directory, then add it to the **product project
 }
 ```
 
-Start OpenCode in the product project and run `/design-product <your idea>`, or ask the agent to load the `design-product` skill. The [OpenCode V2 plugin API](https://v2.opencode.ai/docs/build/plugins) registers the bundled skills and the slash command without copying files to global configuration. The command explicitly attaches the entry skill to the prompt; the agent can then read its playbooks and supporting skills. OpenCode V2 is required; the V1 plugin API and `plugin` (singular) configuration are different.
+Start OpenCode in the product project. Select the `design-product` agent, or run `/design-product <your idea>`. The [OpenCode V2 plugin API](https://v2.opencode.ai/docs/build/plugins) registers the bundled skills, the [agent](https://v2.opencode.ai/docs/agents), and the slash command without copying files to global configuration. The agent can run as the session agent or as a subagent. It writes under `docs/product-design/` and leaves `build` as the default coding agent. The command attaches the entry skill to the prompt. OpenCode V2 is required; the V1 plugin API and `plugin` (singular) configuration are different.
 
 For a published npm/Git package, use [OpenCode's package install flow](https://v2.opencode.ai/docs/plugins) instead of a local path. Do not install the same plugin both globally and per project.
 

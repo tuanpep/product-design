@@ -1,6 +1,6 @@
 # Start
 
-Run `/design-product` in the product's project, in Cursor or OpenCode V2. Supply whatever you already know about people, goals, constraints, and existing research.
+Run `/design-product` in the product's project, in Cursor or OpenCode V2. In OpenCode V2 you can also select the `design-product` agent for the session. Supply whatever you already know about people, goals, constraints, and existing research.
 
 ```text
 /design-product Staff coordinate shift swaps in chat, but the roster stays wrong. Design a product approach.
