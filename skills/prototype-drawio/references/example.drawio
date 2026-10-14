@@ -1,186 +1,516 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mxfile host="app.diagrams.net" type="device">
-  <diagram id="prototype" name="Prototype">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="8" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2800" pageHeight="2000" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-
-        <!-- SC1 My shifts · default -->
-        <mxCell id="SC1-default-caption" value="SC1 My shifts · default" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="800" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-default" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c9ced6;" vertex="1" parent="1"><mxGeometry x="40" y="80" width="1280" height="800" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef0f3;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="41" y="81" width="1278" height="39" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-dot1" value="" style="ellipse;html=1;fillColor=#ff5f57;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="56" y="95" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-dot2" value="" style="ellipse;html=1;fillColor=#febc2e;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="72" y="95" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-dot3" value="" style="ellipse;html=1;fillColor=#28c840;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="88" y="95" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-url" value="https://roster.example.com/shifts" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;align=left;spacingLeft=12;fontSize=12;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="120" y="88" width="560" height="24" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-nav" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2937;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="40" y="120" width="1280" height="56" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-logo" value="▦ Ward Roster" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=16;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="64" y="132" width="160" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-nav1" value="Shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="260" y="132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-nav2" value="Swaps" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" vertex="1" parent="1"><mxGeometry x="340" y="132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-nav3" value="Team" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" vertex="1" parent="1"><mxGeometry x="420" y="132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-bell" value="🔔" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=16;" vertex="1" parent="1"><mxGeometry x="1190" y="132" width="32" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-avatar" value="PL" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=#ffffff;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1240" y="132" width="32" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-side" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f8fa;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="41" y="176" width="240" height="703" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-side1" value="My shifts" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#e6f0ff;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#0b57d0;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="56" y="200" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-side2" value="Swap requests" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="56" y="244" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-side3" value="Availability" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="56" y="288" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-crumb" value="Home / My shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="320" y="200" width="400" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-title" value="My shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="320" y="224" width="600" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-sub" value="Next 4 weeks · Ward 4B · 3 shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="320" y="264" width="600" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-tab1" value="Upcoming (3)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1f6b4a;" vertex="1" parent="1"><mxGeometry x="320" y="300" width="130" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-tab1-line" value="" style="rounded=0;html=1;fillColor=#1f6b4a;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="320" y="332" width="130" height="3" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-tab2" value="Past" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="460" y="300" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-tabs-line" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="320" y="335" width="960" height="1" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-table" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" vertex="1" parent="1"><mxGeometry x="320" y="356" width="960" height="236" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-thead" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f8fa;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="321" y="357" width="958" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-th1" value="DATE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="340" y="357" width="200" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-th2" value="TIME" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="560" y="357" width="160" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-th3" value="WARD" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="740" y="357" width="120" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-th4" value="STATUS" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="880" y="357" width="160" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-th5" value="ACTION" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1080" y="357" width="180" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r1c1" value="Thu 16 Oct" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="340" y="397" width="200" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r1c2" value="19:00–07:00 · Night" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="560" y="397" width="160" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r1c3" value="4B" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="740" y="397" width="120" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r1c4" value="Scheduled" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#eaeef2;strokeColor=none;fontColor=#1b1f24;fontSize=12;" vertex="1" parent="1"><mxGeometry x="880" y="415" width="100" height="28" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-ask" value="Ask for cover" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f6b4a;fontColor=#1f6b4a;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1080" y="409" width="150" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-sep1" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="321" y="461" width="958" height="1" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r2c1" value="Sat 18 Oct" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="340" y="462" width="200" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r2c2" value="07:00–19:00 · Day" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="560" y="462" width="160" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r2c3" value="4B" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="740" y="462" width="120" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r2c4" value="Waiting for Lan" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#fff4ce;strokeColor=none;fontColor=#7a5a00;fontSize=12;" vertex="1" parent="1"><mxGeometry x="880" y="480" width="130" height="28" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r2c5" value="Cancel request" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#0b57d0;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="1080" y="462" width="180" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-sep2" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="321" y="526" width="958" height="1" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r3c1" value="Tue 21 Oct" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="340" y="527" width="200" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r3c2" value="07:00–19:00 · Day" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="560" y="527" width="160" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r3c3" value="4B" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="740" y="527" width="120" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r3c4" value="Covered by Khoa" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=none;fontColor=#166534;fontSize=12;" vertex="1" parent="1"><mxGeometry x="880" y="545" width="140" height="28" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-r3c5" value="No action needed" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1080" y="527" width="180" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-default-note" value="Rows sorted by date. Status shows the shift state (build-spec: States and lifecycle). Ask for cover appears only on Scheduled shifts (BR1)." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;" vertex="1" parent="1"><mxGeometry x="40" y="900" width="620" height="60" as="geometry" /></mxCell>
-
-        <!-- SC1 My shifts · empty -->
-        <mxCell id="SC1-empty-caption" value="SC1 My shifts · empty" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1480" y="40" width="800" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c9ced6;" vertex="1" parent="1"><mxGeometry x="1480" y="80" width="1280" height="800" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef0f3;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1481" y="81" width="1278" height="39" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-dot1" value="" style="ellipse;html=1;fillColor=#ff5f57;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1496" y="95" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-dot2" value="" style="ellipse;html=1;fillColor=#febc2e;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1512" y="95" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-dot3" value="" style="ellipse;html=1;fillColor=#28c840;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1528" y="95" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-url" value="https://roster.example.com/shifts" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;align=left;spacingLeft=12;fontSize=12;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1560" y="88" width="560" height="24" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-nav" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2937;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1480" y="120" width="1280" height="56" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-logo" value="▦ Ward Roster" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=16;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1504" y="132" width="160" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-nav1" value="Shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1700" y="132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-nav2" value="Swaps" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" vertex="1" parent="1"><mxGeometry x="1780" y="132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-nav3" value="Team" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" vertex="1" parent="1"><mxGeometry x="1860" y="132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-bell" value="🔔" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=16;" vertex="1" parent="1"><mxGeometry x="2630" y="132" width="32" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-avatar" value="PL" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=#ffffff;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="2680" y="132" width="32" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-side" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f8fa;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1481" y="176" width="240" height="703" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-side1" value="My shifts" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#e6f0ff;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#0b57d0;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1496" y="200" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-side2" value="Swap requests" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1496" y="244" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-side3" value="Availability" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1496" y="288" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-crumb" value="Home / My shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1760" y="200" width="400" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-title" value="My shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1760" y="224" width="600" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-sub" value="Next 4 weeks · Ward 4B · 0 shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1760" y="264" width="600" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-tab1" value="Upcoming (0)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1f6b4a;" vertex="1" parent="1"><mxGeometry x="1760" y="300" width="130" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-tab1-line" value="" style="rounded=0;html=1;fillColor=#1f6b4a;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1760" y="332" width="130" height="3" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-tab2" value="Past" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1900" y="300" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-tabs-line" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1760" y="335" width="960" height="1" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-card" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" vertex="1" parent="1"><mxGeometry x="1760" y="356" width="960" height="320" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-icon" value="📅" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e6f0ff;strokeColor=none;fontSize=28;" vertex="1" parent="1"><mxGeometry x="2208" y="396" width="64" height="64" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-heading" value="No shifts in the next 4 weeks" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1940" y="476" width="600" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-text" value="New shifts appear here when the ward manager publishes the roster. You will get a notification." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1890" y="512" width="700" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-past" value="View past shifts" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f6b4a;fontColor=#1f6b4a;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="2160" y="568" width="160" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC1-empty-note" value="Shown when the nurse has no Scheduled, Waiting, or Covered shift in the next 28 days. 28 days is a proposed default; owner: ward manager." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1480" y="900" width="620" height="60" as="geometry" /></mxCell>
-
-        <!-- SC2 Ask for cover · default -->
-        <mxCell id="SC2-default-caption" value="SC2 Ask for cover · default" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="40" y="1040" width="800" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-default" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c9ced6;" vertex="1" parent="1"><mxGeometry x="40" y="1080" width="1280" height="800" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef0f3;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="41" y="1081" width="1278" height="39" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-dot1" value="" style="ellipse;html=1;fillColor=#ff5f57;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="56" y="1095" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-dot2" value="" style="ellipse;html=1;fillColor=#febc2e;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="72" y="1095" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-dot3" value="" style="ellipse;html=1;fillColor=#28c840;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="88" y="1095" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-url" value="https://roster.example.com/shifts/16-oct-night/cover" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;align=left;spacingLeft=12;fontSize=12;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="120" y="1088" width="560" height="24" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-nav" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2937;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="40" y="1120" width="1280" height="56" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-logo" value="▦ Ward Roster" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=16;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="64" y="1132" width="160" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-nav1" value="Shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="260" y="1132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-nav2" value="Swaps" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" vertex="1" parent="1"><mxGeometry x="340" y="1132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-nav3" value="Team" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" vertex="1" parent="1"><mxGeometry x="420" y="1132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-bell" value="🔔" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=16;" vertex="1" parent="1"><mxGeometry x="1190" y="1132" width="32" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-avatar" value="PL" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=#ffffff;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1240" y="1132" width="32" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-side" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f8fa;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="41" y="1176" width="240" height="703" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-side1" value="My shifts" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#e6f0ff;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#0b57d0;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="56" y="1200" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-side2" value="Swap requests" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="56" y="1244" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-side3" value="Availability" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="56" y="1288" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-crumb" value="Home / My shifts / Ask for cover" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="320" y="1200" width="400" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-title" value="Who could cover Thu 16 Oct, night?" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="320" y="1224" width="900" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-sub" value="19:00–07:00 · Ward 4B · 12 hours" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="320" y="1264" width="600" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-form" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" vertex="1" parent="1"><mxGeometry x="320" y="1300" width="640" height="440" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-label1" value="Colleague" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="352" y="1332" width="300" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-hint1" value="Only staff qualified for Ward 4B nights are listed." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="352" y="1354" width="576" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-select" value="Nguyễn Thị Phương Lan · 36 h this week" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8c959f;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="352" y="1380" width="576" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-caret" value="▾" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="896" y="1380" width="24" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-label2" value="Message (optional)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="352" y="1444" width="300" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-message" value="Hi Lan, could you cover my Thursday night? I can take your Saturday day shift in return." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8c959f;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;verticalAlign=top;spacingTop=8;spacingRight=12;" vertex="1" parent="1"><mxGeometry x="352" y="1470" width="576" height="96" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-check" value="✓" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=#1f6b4a;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="352" y="1592" width="18" height="18" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-check-label" value="Tell the charge nurse when Lan replies" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="380" y="1588" width="540" height="26" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-divider" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="321" y="1636" width="638" height="1" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-send" value="Send request to Lan" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=none;fontColor=#ffffff;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="352" y="1664" width="200" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-cancel" value="Cancel" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f6b4a;fontColor=#1f6b4a;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="568" y="1664" width="100" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-hours" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" vertex="1" parent="1"><mxGeometry x="992" y="1300" width="288" height="200" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-hours-title" value="Lan's hours this week" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1016" y="1320" width="240" height="24" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-hours-value" value="36 of 48 hours" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1016" y="1348" width="240" height="28" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-hours-track" value="" style="rounded=1;arcSize=50;html=1;fillColor=#eaeef2;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1016" y="1384" width="240" height="8" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-hours-fill" value="" style="rounded=1;arcSize=50;html=1;fillColor=#1f6b4a;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1016" y="1384" width="180" height="8" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-hours-text" value="BR2: nobody works more than 48 hours in a week. This shift adds 12 hours." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1016" y="1404" width="240" height="76" as="geometry" /></mxCell>
-        <mxCell id="SC2-default-note" value="Colleague list = staff qualified for this ward and shift type (BR1). Hours are shown so the nurse can predict BR2 before sending. Cancel returns to SC1." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;" vertex="1" parent="1"><mxGeometry x="40" y="1900" width="620" height="60" as="geometry" /></mxCell>
-
-        <!-- SC2 Ask for cover · denied -->
-        <mxCell id="SC2-denied-caption" value="SC2 Ask for cover · denied" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1480" y="1040" width="800" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c9ced6;" vertex="1" parent="1"><mxGeometry x="1480" y="1080" width="1280" height="800" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef0f3;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1481" y="1081" width="1278" height="39" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-dot1" value="" style="ellipse;html=1;fillColor=#ff5f57;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1496" y="1095" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-dot2" value="" style="ellipse;html=1;fillColor=#febc2e;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1512" y="1095" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-dot3" value="" style="ellipse;html=1;fillColor=#28c840;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1528" y="1095" width="10" height="10" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-url" value="https://roster.example.com/shifts/16-oct-night/cover" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;align=left;spacingLeft=12;fontSize=12;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1560" y="1088" width="560" height="24" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-nav" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2937;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1480" y="1120" width="1280" height="56" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-logo" value="▦ Ward Roster" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=16;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1504" y="1132" width="160" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-nav1" value="Shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1700" y="1132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-nav2" value="Swaps" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" vertex="1" parent="1"><mxGeometry x="1780" y="1132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-nav3" value="Team" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" vertex="1" parent="1"><mxGeometry x="1860" y="1132" width="80" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-bell" value="🔔" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=16;" vertex="1" parent="1"><mxGeometry x="2630" y="1132" width="32" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-avatar" value="PL" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=#ffffff;fontColor=#ffffff;fontSize=12;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="2680" y="1132" width="32" height="32" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-side" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f8fa;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1481" y="1176" width="240" height="703" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-side1" value="My shifts" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#e6f0ff;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#0b57d0;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1496" y="1200" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-side2" value="Swap requests" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1496" y="1244" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-side3" value="Availability" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1496" y="1288" width="208" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-crumb" value="Home / My shifts / Ask for cover" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1760" y="1200" width="400" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-title" value="Who could cover Thu 16 Oct, night?" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1760" y="1224" width="900" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-sub" value="19:00–07:00 · Ward 4B · 12 hours" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1760" y="1264" width="600" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-alert" value="" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#fef3f2;strokeColor=#f4c7c3;" vertex="1" parent="1"><mxGeometry x="1760" y="1300" width="640" height="72" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-alert-bar" value="" style="rounded=0;html=1;fillColor=#b42318;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1760" y="1300" width="4" height="72" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-alert-title" value="Lan can't cover this shift" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#b42318;" vertex="1" parent="1"><mxGeometry x="1780" y="1308" width="600" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-alert-text" value="Lan would work 60 hours this week, over the 48-hour limit. Choose another colleague, or ask the charge nurse for an exception." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=13;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1780" y="1330" width="610" height="36" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-form" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" vertex="1" parent="1"><mxGeometry x="1760" y="1388" width="640" height="272" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-label1" value="Colleague" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1792" y="1420" width="300" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-hint1" value="Only staff qualified for Ward 4B nights are listed." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="1792" y="1442" width="576" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-select" value="Nguyễn Thị Phương Lan · 48 h this week" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b42318;strokeWidth=2;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="1792" y="1468" width="576" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-caret" value="▾" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="2336" y="1468" width="24" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-error" value="Lan has no hours left this week. Choose someone else." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#b42318;" vertex="1" parent="1"><mxGeometry x="1792" y="1512" width="576" height="20" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-divider" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="1761" y="1556" width="638" height="1" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-send" value="Send request to Lan" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaeef2;strokeColor=none;fontColor=#8c959f;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1792" y="1584" width="200" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-escalate" value="Ask the charge nurse" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f6b4a;fontColor=#1f6b4a;fontSize=14;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="2008" y="1584" width="200" height="40" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-hours" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" vertex="1" parent="1"><mxGeometry x="2432" y="1300" width="288" height="200" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-hours-title" value="Lan's hours this week" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" vertex="1" parent="1"><mxGeometry x="2456" y="1320" width="240" height="24" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-hours-value" value="48 of 48 hours" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontStyle=1;fontColor=#b42318;" vertex="1" parent="1"><mxGeometry x="2456" y="1348" width="240" height="28" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-hours-track" value="" style="rounded=1;arcSize=50;html=1;fillColor=#eaeef2;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="2456" y="1384" width="240" height="8" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-hours-fill" value="" style="rounded=1;arcSize=50;html=1;fillColor=#b42318;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="2456" y="1384" width="240" height="8" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-hours-text" value="This shift would add 12 hours, over the BR2 limit." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" vertex="1" parent="1"><mxGeometry x="2456" y="1404" width="240" height="76" as="geometry" /></mxCell>
-        <mxCell id="SC2-denied-note" value="Example data: Lan already has 48 hours. Denied by BR2, message M1. Recovery: choose another colleague, or escalate to the charge nurse (out of scope for this slice)." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1480" y="1900" width="620" height="60" as="geometry" /></mxCell>
-
-        <!-- Flow -->
-        <mxCell id="flow-1" value="No upcoming shifts" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#0b57d0;strokeWidth=2;fontSize=13;fontColor=#0b57d0;labelBackgroundColor=#ffffff;dashed=1;exitX=1;exitY=0.15;exitDx=0;exitDy=0;entryX=0;entryY=0.15;entryDx=0;entryDy=0;" edge="1" parent="1" source="SC1-default" target="SC1-empty"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="flow-2" value="Ask for cover" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#0b57d0;strokeWidth=2;fontSize=13;fontColor=#0b57d0;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.1;entryDx=0;entryDy=0;" edge="1" parent="1" source="SC1-default-ask" target="SC2-default"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1400" y="429" /><mxPoint x="1400" y="1160" /></Array></mxGeometry></mxCell>
-        <mxCell id="flow-3" value="Send · BR2 denies" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#0b57d0;strokeWidth=2;fontSize=13;fontColor=#0b57d0;labelBackgroundColor=#ffffff;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.95;entryDx=0;entryDy=0;" edge="1" parent="1" source="SC2-default-send" target="SC2-denied"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="452" y="1840" /></Array></mxGeometry></mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
+<mxfile host="65bd71144e">
+    <diagram id="prototype" name="Prototype">
+        <mxGraphModel dx="4227" dy="3763" grid="1" gridSize="8" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2800" pageHeight="2000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="SC1-default-caption" value="SC1 My shifts · default" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="40" width="800" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c9ced6;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="80" width="1280" height="800" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef0f3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="41" y="81" width="1278" height="39" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-dot1" value="" style="ellipse;html=1;fillColor=#ff5f57;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="56" y="95" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-dot2" value="" style="ellipse;html=1;fillColor=#febc2e;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="72" y="95" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-dot3" value="" style="ellipse;html=1;fillColor=#28c840;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="88" y="95" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-url" value="https://roster.example.com/shifts" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;align=left;spacingLeft=12;fontSize=12;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="88" width="560" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-nav" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2937;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="120" width="1280" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-logo" value="▦ Ward Roster" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=16;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="64" y="132" width="160" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-nav1" value="Shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-nav2" value="Swaps" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-nav3" value="Team" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-bell" value="🔔" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="1190" y="132" width="32" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-avatar" value="PL" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=#ffffff;fontColor=#ffffff;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1240" y="132" width="32" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-side" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f8fa;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="41" y="176" width="240" height="703" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-side1" value="My shifts" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#e6f0ff;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#0b57d0;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="56" y="200" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-side2" value="Swap requests" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="56" y="244" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-side3" value="Availability" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="56" y="288" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-crumb" value="Home / My shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="200" width="400" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-title" value="My shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="224" width="600" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-sub" value="Next 4 weeks · Ward 4B · 3 shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="264" width="600" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-tab1" value="Upcoming (3)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1f6b4a;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="300" width="130" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-tab1-line" value="" style="rounded=0;html=1;fillColor=#1f6b4a;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="332" width="130" height="3" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-tab2" value="Past" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="300" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-tabs-line" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="335" width="960" height="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-table" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="356" width="960" height="236" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-thead" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f8fa;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="321" y="357" width="958" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-th1" value="DATE" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="357" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-th2" value="TIME" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="357" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-th3" value="WARD" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="740" y="357" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-th4" value="STATUS" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="357" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-th5" value="ACTION" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="357" width="180" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r1c1" value="Thu 16 Oct" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="397" width="200" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r1c2" value="19:00–07:00 · Night" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="397" width="160" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r1c3" value="4B" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="740" y="397" width="120" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r1c4" value="Scheduled" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#eaeef2;strokeColor=none;fontColor=#1b1f24;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="415" width="100" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-ask" value="Ask for cover" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f6b4a;fontColor=#1f6b4a;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="409" width="150" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-sep1" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="321" y="461" width="958" height="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r2c1" value="Sat 18 Oct" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="462" width="200" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r2c2" value="07:00–19:00 · Day" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="462" width="160" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r2c3" value="4B" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="740" y="462" width="120" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r2c4" value="Waiting for Lan" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#fff4ce;strokeColor=none;fontColor=#7a5a00;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="480" width="130" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r2c5" value="Cancel request" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#0b57d0;fontStyle=4;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="462" width="180" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-sep2" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="321" y="526" width="958" height="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r3c1" value="Tue 21 Oct" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="527" width="200" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r3c2" value="07:00–19:00 · Day" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="527" width="160" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r3c3" value="4B" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="740" y="527" width="120" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r3c4" value="Covered by Khoa" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=none;fontColor=#166534;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="880" y="545" width="140" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-r3c5" value="No action needed" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="527" width="180" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-default-note" value="Rows sorted by date. Status shows the shift state (build-spec: States and lifecycle). Ask for cover appears only on Scheduled shifts (BR1)." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="900" width="620" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-caption" value="SC1 My shifts · empty" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1480" y="40" width="800" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c9ced6;" parent="1" vertex="1">
+                    <mxGeometry x="1480" y="80" width="1280" height="800" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef0f3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1481" y="81" width="1278" height="39" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-dot1" value="" style="ellipse;html=1;fillColor=#ff5f57;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1496" y="95" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-dot2" value="" style="ellipse;html=1;fillColor=#febc2e;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1512" y="95" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-dot3" value="" style="ellipse;html=1;fillColor=#28c840;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1528" y="95" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-url" value="https://roster.example.com/shifts" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;align=left;spacingLeft=12;fontSize=12;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1560" y="88" width="560" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-nav" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2937;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1480" y="120" width="1280" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-logo" value="▦ Ward Roster" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=16;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1504" y="132" width="160" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-nav1" value="Shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1700" y="132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-nav2" value="Swaps" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="1780" y="132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-nav3" value="Team" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="1860" y="132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-bell" value="🔔" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="2630" y="132" width="32" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-avatar" value="PL" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=#ffffff;fontColor=#ffffff;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="2680" y="132" width="32" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-side" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f8fa;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1481" y="176" width="240" height="703" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-side1" value="My shifts" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#e6f0ff;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#0b57d0;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1496" y="200" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-side2" value="Swap requests" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1496" y="244" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-side3" value="Availability" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1496" y="288" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-crumb" value="Home / My shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="200" width="400" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-title" value="My shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="224" width="600" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-sub" value="Next 4 weeks · Ward 4B · 0 shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="264" width="600" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-tab1" value="Upcoming (0)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;fontColor=#1f6b4a;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="300" width="130" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-tab1-line" value="" style="rounded=0;html=1;fillColor=#1f6b4a;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="332" width="130" height="3" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-tab2" value="Past" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1900" y="300" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-tabs-line" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="335" width="960" height="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-card" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="356" width="960" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-icon" value="📅" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e6f0ff;strokeColor=none;fontSize=28;" parent="1" vertex="1">
+                    <mxGeometry x="2208" y="396" width="64" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-heading" value="No shifts in the next 4 weeks" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1940" y="476" width="600" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-text" value="New shifts appear here when the ward manager publishes the roster. You will get a notification." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1890" y="512" width="700" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-past" value="View past shifts" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f6b4a;fontColor=#1f6b4a;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="2160" y="568" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC1-empty-note" value="Shown when the nurse has no Scheduled, Waiting, or Covered shift in the next 28 days. 28 days is a proposed default; owner: ward manager." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1480" y="900" width="620" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-caption" value="SC2 Ask for cover · default" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1040" width="800" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c9ced6;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1080" width="1280" height="800" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef0f3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="41" y="1081" width="1278" height="39" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-dot1" value="" style="ellipse;html=1;fillColor=#ff5f57;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="56" y="1095" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-dot2" value="" style="ellipse;html=1;fillColor=#febc2e;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="72" y="1095" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-dot3" value="" style="ellipse;html=1;fillColor=#28c840;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="88" y="1095" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-url" value="https://roster.example.com/shifts/16-oct-night/cover" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;align=left;spacingLeft=12;fontSize=12;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="1088" width="560" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-nav" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2937;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1120" width="1280" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-logo" value="▦ Ward Roster" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=16;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="64" y="1132" width="160" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-nav1" value="Shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="1132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-nav2" value="Swaps" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-nav3" value="Team" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="1132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-bell" value="🔔" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="1190" y="1132" width="32" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-avatar" value="PL" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=#ffffff;fontColor=#ffffff;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1240" y="1132" width="32" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-side" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f8fa;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="41" y="1176" width="240" height="703" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-side1" value="My shifts" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#e6f0ff;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#0b57d0;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="56" y="1200" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-side2" value="Swap requests" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="56" y="1244" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-side3" value="Availability" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="56" y="1288" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-crumb" value="Home / My shifts / Ask for cover" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="1200" width="400" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-title" value="Who could cover Thu 16 Oct, night?" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="1224" width="900" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-sub" value="19:00–07:00 · Ward 4B · 12 hours" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="1264" width="600" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-form" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="1300" width="640" height="440" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-label1" value="Colleague" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="352" y="1332" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-hint1" value="Only staff qualified for Ward 4B nights are listed." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="352" y="1354" width="576" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-select" value="Nguyễn Thị Phương Lan · 36 h this week" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8c959f;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="352" y="1380" width="576" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-caret" value="▾" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="896" y="1380" width="24" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-label2" value="Message (optional)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="352" y="1444" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-message" value="Hi Lan, could you cover my Thursday night? I can take your Saturday day shift in return." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8c959f;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;verticalAlign=top;spacingTop=8;spacingRight=12;" parent="1" vertex="1">
+                    <mxGeometry x="352" y="1470" width="576" height="96" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-check" value="✓" style="rounded=1;arcSize=20;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=#1f6b4a;fontColor=#ffffff;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="352" y="1592" width="18" height="18" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-check-label" value="Tell the charge nurse when Lan replies" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="1588" width="540" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-divider" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="321" y="1636" width="638" height="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-send" value="Send request to Lan" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=none;fontColor=#ffffff;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="352" y="1664" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-cancel" value="Cancel" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f6b4a;fontColor=#1f6b4a;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="568" y="1664" width="100" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-hours" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" parent="1" vertex="1">
+                    <mxGeometry x="992" y="1300" width="288" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-hours-title" value="Lan's hours this week" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1016" y="1320" width="240" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-hours-value" value="36 of 48 hours" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1016" y="1348" width="240" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-hours-track" value="" style="rounded=1;arcSize=50;html=1;fillColor=#eaeef2;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1016" y="1384" width="240" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-hours-fill" value="" style="rounded=1;arcSize=50;html=1;fillColor=#1f6b4a;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1016" y="1384" width="180" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-hours-text" value="BR2: nobody works more than 48 hours in a week. This shift adds 12 hours." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1016" y="1404" width="240" height="76" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-default-note" value="Colleague list = staff qualified for this ward and shift type (BR1). Hours are shown so the nurse can predict BR2 before sending. Cancel returns to SC1." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="1900" width="620" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-caption" value="SC2 Ask for cover · denied" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1480" y="1040" width="800" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c9ced6;" parent="1" vertex="1">
+                    <mxGeometry x="1480" y="1080" width="1280" height="800" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-bar" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef0f3;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1481" y="1081" width="1278" height="39" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-dot1" value="" style="ellipse;html=1;fillColor=#ff5f57;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1496" y="1095" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-dot2" value="" style="ellipse;html=1;fillColor=#febc2e;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1512" y="1095" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-dot3" value="" style="ellipse;html=1;fillColor=#28c840;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1528" y="1095" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-url" value="https://roster.example.com/shifts/16-oct-night/cover" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;align=left;spacingLeft=12;fontSize=12;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1560" y="1088" width="560" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-nav" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1f2937;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1480" y="1120" width="1280" height="56" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-logo" value="▦ Ward Roster" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=16;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1504" y="1132" width="160" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-nav1" value="Shifts" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1700" y="1132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-nav2" value="Swaps" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="1780" y="1132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-nav3" value="Team" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#ffffff;fontSize=14;" parent="1" vertex="1">
+                    <mxGeometry x="1860" y="1132" width="80" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-bell" value="🔔" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="2630" y="1132" width="32" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-avatar" value="PL" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1f6b4a;strokeColor=#ffffff;fontColor=#ffffff;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="2680" y="1132" width="32" height="32" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-side" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f8fa;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1481" y="1176" width="240" height="703" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-side1" value="My shifts" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#e6f0ff;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#0b57d0;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1496" y="1200" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-side2" value="Swap requests" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1496" y="1244" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-side3" value="Availability" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1496" y="1288" width="208" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-crumb" value="Home / My shifts / Ask for cover" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="1200" width="400" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-title" value="Who could cover Thu 16 Oct, night?" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=24;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="1224" width="900" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-sub" value="19:00–07:00 · Ward 4B · 12 hours" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="1264" width="600" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-alert" value="" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#fef3f2;strokeColor=#f4c7c3;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="1300" width="640" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-alert-bar" value="" style="rounded=0;html=1;fillColor=#b42318;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="1300" width="4" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-alert-title" value="Lan can't cover this shift" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#b42318;" parent="1" vertex="1">
+                    <mxGeometry x="1780" y="1308" width="600" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-alert-text" value="Lan would work 60 hours this week, over the 48-hour limit. Choose another colleague, or ask the charge nurse for an exception." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=13;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1780" y="1330" width="610" height="36" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-form" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" parent="1" vertex="1">
+                    <mxGeometry x="1760" y="1388" width="640" height="272" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-label1" value="Colleague" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1792" y="1420" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-hint1" value="Only staff qualified for Ward 4B nights are listed." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="1792" y="1442" width="576" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-select" value="Nguyễn Thị Phương Lan · 48 h this week" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b42318;strokeWidth=2;align=left;spacingLeft=12;fontSize=14;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="1792" y="1468" width="576" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-caret" value="▾" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="2336" y="1468" width="24" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-error" value="Lan has no hours left this week. Choose someone else." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=13;fontColor=#b42318;" parent="1" vertex="1">
+                    <mxGeometry x="1792" y="1512" width="576" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-divider" value="" style="rounded=0;html=1;fillColor=#d0d7de;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="1761" y="1556" width="638" height="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-send" value="Send request to Lan" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#eaeef2;strokeColor=none;fontColor=#8c959f;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1792" y="1584" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-escalate" value="Ask the charge nurse" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1f6b4a;fontColor=#1f6b4a;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="2008" y="1584" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-hours" value="" style="rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;" parent="1" vertex="1">
+                    <mxGeometry x="2432" y="1300" width="288" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-hours-title" value="Lan's hours this week" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontStyle=1;fontColor=#1b1f24;" parent="1" vertex="1">
+                    <mxGeometry x="2456" y="1320" width="240" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-hours-value" value="48 of 48 hours" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontStyle=1;fontColor=#b42318;" parent="1" vertex="1">
+                    <mxGeometry x="2456" y="1348" width="240" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-hours-track" value="" style="rounded=1;arcSize=50;html=1;fillColor=#eaeef2;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="2456" y="1384" width="240" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-hours-fill" value="" style="rounded=1;arcSize=50;html=1;fillColor=#b42318;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="2456" y="1384" width="240" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-hours-text" value="This shift would add 12 hours, over the BR2 limit." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=13;fontColor=#57606a;" parent="1" vertex="1">
+                    <mxGeometry x="2456" y="1404" width="240" height="76" as="geometry"/>
+                </mxCell>
+                <mxCell id="SC2-denied-note" value="Example data: Lan already has 48 hours. Denied by BR2, message M1. Recovery: choose another colleague, or escalate to the charge nurse (out of scope for this slice)." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1480" y="1900" width="620" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-1" value="System: No upcoming shifts" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#0b57d0;strokeWidth=2;fontSize=13;fontColor=#0b57d0;labelBackgroundColor=#ffffff;exitX=1;exitY=0.15;exitDx=0;exitDy=0;entryX=0;entryY=0.15;entryDx=0;entryDy=0;" parent="1" source="SC1-default" target="SC1-empty" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-2" value="Ask for cover" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#0b57d0;strokeWidth=2;fontSize=13;fontColor=#0b57d0;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="SC1-default-ask" target="SC2-default" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1400" y="429"/>
+                            <mxPoint x="1400" y="1000"/>
+                            <mxPoint x="680" y="1000"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="flow-3" value="Send request to Lan" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#0b57d0;strokeWidth=2;fontSize=13;fontColor=#0b57d0;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.85;entryDx=0;entryDy=0;" parent="1" source="SC2-default-send" target="SC2-denied" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="452" y="1760"/>
+                            <mxPoint x="1400" y="1760"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
 </mxfile>

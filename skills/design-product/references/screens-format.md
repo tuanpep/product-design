@@ -20,9 +20,9 @@ Use these level-two headings in order:
 ## Accessibility
 ```
 
-**Navigation map.** Entry points, the path through the journey, back and cancel destinations, and exits. Link the journey and navigation files if they exist. Several flows are linked in business order: `01-<step>/journey.drawio`, then `02-<step>/navigation.drawio`.
+**Navigation map.** Entry points, the path through the journey, back and cancel destinations, and exits. Link the journey and navigation files if they exist. Several flows are linked in parent/child index order: `1-<step>/journey.drawio`, then `1.1-<step>/` for a split of that step, then `2-<step>/navigation.drawio`.
 
-**Screen inventory.** One row per screen, in the order and with the IDs of the sketch files. Several sketch files are read by their step folder, 01 then 02, and left to right inside each file. Serves lists story IDs once a story map exists, and requirement IDs before that:
+**Screen inventory.** One row per screen, in the order and with the IDs of the sketch files. Several sketch files are read by their step folder, parent before its children (`1`, then `1.1`, then `2`), and left to right inside each file. Serves lists story IDs once a story map exists, and requirement IDs before that:
 
 | ID | Screen | Role | Purpose | Entered from | Exits to | Serves |
 | --- | --- | --- | --- | --- | --- | --- |

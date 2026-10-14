@@ -12,7 +12,7 @@ Read [principle-see-the-whole-service](../principle-see-the-whole-service/SKILL.
 2. Mark each pain point with the evidence that shows it: delay, duplicate entry, lost information, error, or workaround.
 3. Model the **to-be** process for the recommended option. Each change removes a named pain point or serves a need. Steps that stay manual or offline remain visible. Say which actor or system now carries each rule and exception.
 4. For every handoff between actors, name what is passed, how the receiver learns of it, and what happens when it does not arrive: timeout, reminder, escalation, or owner.
-5. When more than one actor acts, use `drawio` to write the swimlane process, one lane per actor. As-is and to-be of one close flow share `process.drawio` on separate pages when each page still fits. A second outcome is `NN-<step>/process.drawio`, in the same folder as the journey for that step. Keep critical branches in the text too.
+5. When more than one actor acts, use `drawio` to write the swimlane process, one lane per actor. As-is and to-be of one close flow share `process.drawio` on separate pages when each page still fits. A second outcome is `1-<step>/process.drawio`, in the same folder as the journey for that step. Keep critical branches in the text too.
 
 Summarize the to-be process under Product experience in `product-design.md` and link the diagram with the question it answers. Do not claim the as-is process was observed unless someone observed it.
 

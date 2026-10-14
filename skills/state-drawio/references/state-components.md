@@ -4,7 +4,7 @@ Every shape below is a template from Draw.io's built-in **UML 2.5** library (sta
 
 ## Layout
 
-- One file per entity, one page: `<diagram id="<entity>" name="<Entity>">`, using the glossary term. One entity is `states.drawio`. Each further entity is `NN-<entity>/states.drawio`, numbered in the order the business creates the record.
+- One file per entity, one page: `<diagram id="<entity>" name="<Entity>">`, using the glossary term. One entity is `states.drawio`. Each further entity is `1-<entity>/states.drawio`, numbered in parent/child index order.
 - A caption at the top left names the entity and the slice. A note under the diagram names the question, the source sections, and what the diagram does not test.
 - The main path runs left to right at the top. Exceptions, failures, and terminal states sit in a column or a row below it.
 - States are 160×70. Leave at least 280 between columns so a transition label fits on one line, and 120 between rows.

@@ -32,7 +32,7 @@ The proposal decides. The package shows the shape and hands it to builders. All 
 
 Formats: [screens](screens-format.md) and [build spec](build-spec-format.md). When an option has no interface, such as a process or training change, say so in Product experience and skip the screen files. A file that is required but missing makes the package incomplete. Do not create files to fill the table.
 
-A Draw.io file holds one close flow. One flow keeps the name in the table. A sketch or prototype file is one actor and one task. Several flows are step folders in business order, `01-nurse-ask-cover/` then `02-colleague-accept-cover/`, and each folder holds that step's diagrams under their short names. States of that task stay with it. A second page is a paired view of that same flow: as-is and to-be, logical and physical, or context and containers. The rule is [one file per close flow](../../drawio/references/drawio-file.md#one-file-per-close-flow).
+A Draw.io file holds one close flow. One flow keeps the name in the table. A sketch or prototype file is one actor and one task. Several flows are step folders in parent/child index order, `1-nurse-ask-cover/` then `1.1-nurse-choose-colleague/` then `2-colleague-accept-cover/`, and each folder holds that step's diagrams under their short names. The index starts at `1`. States of that task stay with it. A second page is a paired view of that same flow: as-is and to-be, logical and physical, or context and containers. The rule is [one file per close flow](../../drawio/references/drawio-file.md#one-file-per-close-flow).
 
 Define each term, rule, state, screen, and message once and reference its ID elsewhere. When the same fact appears in two files, the owning file wins and the other must link to it: rules, states, and stories belong to `build-spec.md`, screens and copy to `screens.md`, and needs, evidence, and decisions to `product-design.md`. Before `build-spec.md` exists, proposed rules and the draft permission matrix sit under Needs and requirements in `product-design.md`. When the build spec is written, they move there with the same IDs, and the proposal links to them.
 
@@ -88,7 +88,7 @@ Link each Draw.io artifact with its question, assumptions, and limitations. Keep
 
 Link each sketch file with its question and the layout option chosen, by whom, or that the choice is still proposed. Screens in `screens.md` keep the sketch's screen IDs. Link each prototype file with its question. Together they draw every screen and state in `screens.md` with realistic web or mobile components, and each frame's id is `<screen>-<state>`, such as `SC2-denied`. Opening one is a design inspection, not a usability result.
 
-For a build-slice, acceptance outcomes use Given, When, Then with concrete values and name their check. Reversible open questions carry a proposed default and an owner. Questions that are irreversible, or touch safety, money, law, or privacy, stay blocking until an owner decides.
+For a build-slice, acceptance outcomes use Given, When, Then with concrete values and name their check. Reversible open questions carry a proposed default and an owner. Questions that are irreversible, or touch safety, money, law, or privacy, stay blocking until an owner decides. [Advise mode](advise-mode.md) does not remove that block from a ready verdict. It writes the recommended default and continues the draft instead of pausing for an answer.
 
 ## Review and revisions
 

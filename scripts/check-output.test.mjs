@@ -223,31 +223,58 @@ test('reads ids from object-wrapped Draw.io cells such as C4 elements', () => {
   assert.ok(checkDrawio(wrapped.replace('<object id="b"', '<object id="a"')).includes('diagram.drawio: Cell ids must be unique within a page.'))
 })
 
-test('reads several flows from step folders in business order', () => {
+test('reads several flows from step folders in parent/child order', () => {
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
-    '01-nurse-ask-cover/sketch.drawio': sketch,
-    '01-nurse-ask-cover/prototype.drawio': example,
-    '02-colleague-accept-cover/journey.drawio': journey,
+    '1-nurse-ask-cover/sketch.drawio': sketch,
+    '1-nurse-ask-cover/prototype.drawio': example,
+    '1.1-nurse-choose-colleague/journey.drawio': journey,
+    '2-colleague-accept-cover/journey.drawio': journey,
   }, (folder) => assert.deepEqual(checkPackage(folder), []))
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
-    '01-ask/sketch.drawio': sketch,
-    '01-ask/prototype.drawio': example,
-    '03-accept/journey.drawio': journey,
-  }, (folder) => assert.ok(checkPackage(folder).includes('Step folders are not numbered 01, 02, 03 in business order.')))
+    '1-ask/sketch.drawio': sketch,
+    '1-ask/prototype.drawio': example,
+    '3-accept/journey.drawio': journey,
+  }, (folder) => assert.ok(checkPackage(folder).includes('Step folders are not numbered in parent/child order. Parents are 1, 2, 3.')))
+  withPackage({
+    'product-design.md': proposal('evaluation', 'test solutions'),
+    'screens.md': screens,
+    '1-ask/sketch.drawio': sketch,
+    '1-ask/prototype.drawio': example,
+    '1.2-later/journey.drawio': journey,
+  }, (folder) => assert.ok(checkPackage(folder).includes('Children of step 1 are not numbered 1.1, 1.2.')))
+  withPackage({
+    'product-design.md': proposal('evaluation', 'test solutions'),
+    'screens.md': screens,
+    '1.1-choose/sketch.drawio': sketch,
+    '1.1-choose/prototype.drawio': example,
+  }, (folder) => assert.ok(checkPackage(folder).includes('Step 1.1 has no parent folder 1-.')))
+  withPackage({
+    'product-design.md': proposal('evaluation', 'test solutions'),
+    'screens.md': screens,
+    '1-ask/sketch.drawio': sketch,
+    '1-other/prototype.drawio': example,
+  }, (folder) => assert.ok(checkPackage(folder).includes('Step folders repeat an index. Number each business step once.')))
+  withPackage({
+    'product-design.md': proposal('evaluation', 'test solutions'),
+    'screens.md': screens,
+    '1-ask/sketch.drawio': sketch,
+    '1-ask/prototype.drawio': example,
+    '01-old/journey.drawio': journey,
+  }, (folder) => assert.ok(checkPackage(folder).some((error) => error.includes('Group a business step as <index>-<step>'))))
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
     'sketch.drawio': sketch,
-    '01-ask/sketch.drawio': sketch,
-    '01-ask/prototype.drawio': example,
+    '1-ask/sketch.drawio': sketch,
+    '1-ask/prototype.drawio': example,
   }, (folder) => assert.ok(checkPackage(folder).some((error) => error.includes('sketch.drawio is in the package folder and in a step folder.'))))
   withPackage({
     'product-design.md': proposal('discovery', 'stop'),
-    '01-ask/sketch.drawio': sketch,
+    '1-ask/sketch.drawio': sketch,
   }, (folder) => assert.ok(checkPackage(folder).includes('A discovery proposal must not design screens.')))
 })
 

@@ -44,4 +44,6 @@ design every state. what does the nurse see when nobody qualified is free to cov
 decide the reversible. propose a default reminder time instead of leaving it open; the ward manager can change it.
 ```
 
+In advise mode that default is written into the package and the run continues. A choice that is hard to reverse, or that touches safety, money, law, or privacy, stays a confirmation item on the draft. It does not pause the suggestion, and it does not make the build spec ready.
+
 Polish, novelty, and satisfaction yield to all of these. The same order is in [the agent index](../../skills/design-product/references/principles.md).

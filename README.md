@@ -8,6 +8,14 @@ Run it in the project being designed:
 /design-product Staff coordinate shift swaps in chat, but the roster stays wrong. Design a product approach.
 ```
 
+Without a level, that run asks you which of Understand, Design documents, Sketch, Prototype, or Full to stop at. To get a suggested solution and design in one pass, say advise:
+
+```text
+/design-product advise Staff coordinate shift swaps in chat, but the roster stays wrong.
+```
+
+Advise mode runs Full when you do not name a level. It recommends each open choice, labels it proposed, and keeps writing. It does not wait for you to pick a level or a layout. It does not approve the design, and it does not mark the build spec ready while a safety, policy, or feasibility confirmation is still open. Name a level to cap it, for example `advise sketch`.
+
 The result is a design package in `docs/product-design/<slug>/`. Which files appear depends on how far the evidence lets the design go:
 
 | File | What it gives you | Appears at |
@@ -16,7 +24,7 @@ The result is a design package in `docs/product-design/<slug>/`. Which files app
 | `journey.drawio` | The user's journey as a flowchart, with decisions, exceptions, and handoffs | evaluation, build-slice |
 | `process.drawio` | As-is and to-be BPMN swimlane process across roles and systems | when more than one actor acts |
 | `context.drawio` | A C4 system context: the product, its users, and the systems it depends on | when the option depends on other systems |
-| `sketch.drawio` | A hand-drawn, grayscale sketch of each screen in journey order, with alternative layouts where the choice is open. The agent stops here for you to choose before it details the screens | evaluation, build-slice, when there is an interface |
+| `sketch.drawio` | A hand-drawn, grayscale sketch of each screen in journey order, with alternative layouts where the choice is open. In guided mode the agent stops here for you to choose before it details the screens. In advise mode it recommends a layout and continues | evaluation, build-slice, when there is an interface |
 | `screens.md` | Navigation map, screen inventory, every screen's content, actions, and states, copy | evaluation, build-slice |
 | `navigation.drawio` | A navigation map between screens | when a list cannot make the navigation clear |
 | `prototype.drawio` | Every screen and state drawn as a real web or mobile layout: browser frame, navigation, sidebar, tables, forms, badges, alerts, with flow arrows between states | evaluation, build-slice |
@@ -26,7 +34,7 @@ The result is a design package in `docs/product-design/<slug>/`. Which files app
 | `sequence.drawio` | A UML sequence of who asks whom, with failure and timeout paths | build-slice, when an integration or notification can fail |
 | `dataflow.drawio` | Where personal data goes, the trust boundaries it crosses, and the controls and open threats at each crossing | build-slice, when the slice handles personal data or a third party |
 
-A large diagram is split into one file per close flow and grouped in a step folder, for example `01-nurse-ask-cover/journey.drawio` beside `01-nurse-ask-cover/prototype.drawio`, then `02-colleague-accept-cover/`. One flow keeps the name in the table.
+A large diagram is split into one file per close flow and grouped in a step folder, for example `1-nurse-ask-cover/journey.drawio` beside `1-nurse-ask-cover/prototype.drawio`, then `2-colleague-accept-cover/`. A split of the first step is a child index, `1.1-nurse-choose-colleague/`. The index starts at `1`. One flow keeps the name in the table.
 
 Every diagram uses Draw.io's built-in libraries first, so it opens as the real notation: Flowchart, BPMN, Sitemap, Entity Relation tables, UML, C4, and Threat Modeling. Sketches and screen prototypes use basic shapes on purpose, so they can follow the target product's look.
 
@@ -61,7 +69,7 @@ Use either the GitHub package or the local path. OpenCode V2 is required. Instal
 
 ## Skills
 
-`/design-product` asks which level to run, then picks a playbook and calls the other skills as far as that level: Understand, Design documents, Sketch, Prototype, or Full. Name the level in your message to skip the question. You can also invoke a skill on its own.
+`/design-product` asks which level to run, then picks a playbook and calls the other skills as far as that level: Understand, Design documents, Sketch, Prototype, or Full. Name the level in your message to skip the question. Say `advise` to skip the question and the later decision stops: the agent suggests the solution and design, labels each choice proposed, and continues. You can also invoke a skill on its own.
 
 | Stage | Skill | Role |
 | --- | --- | --- |

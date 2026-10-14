@@ -6,10 +6,10 @@ The shapes are basic shapes on purpose. Draw.io's **Mockup** library draws finis
 
 ## Board layout
 
-- One actor and one task per file. Caption it `Actor · Task`, such as `Nurse · Ask for cover`. One pair keeps `sketch.drawio`. A second task, or a second actor doing a different task, is a step folder `NN-<actor>-<task>/sketch.drawio`, numbered 01, 02, 03 in business order. The journey and the prototype of that step sit in the same folder. A happy path longer than 6 screens splits at the next handoff. Inside the file, one row for that actor's happy path, screens left to right. Each alternative layout of a screen in that task gets its own row below, under the screen it replaces. States that change the layout sit on that screen's row.
-- Frame size: desktop `1440×900`, mobile `200×400`. Desktop matches the prototype. Mobile is half scale, so a board stays readable at a glance.
+- One actor and one task per file. Caption it `Actor · Task`, such as `Nurse · Ask for cover`. One pair keeps `sketch.drawio`. A second task, or a second actor doing a different task, is a step folder `1-<actor>-<task>/sketch.drawio`. Parents are `1`, `2`, `3`. A split of that step is the child, `1.1-<actor>-<task>/sketch.drawio`. The journey and the prototype of that step sit in the same folder. A happy path longer than 6 screens splits at the next handoff into that child. Inside the file, one row for that actor's happy path, screens left to right. Each alternative layout of a screen in that task gets its own row below, under the screen it replaces. States that change the layout sit on that screen's row.
+- Frame size matches the prototype for the device: desktop `1440×900`, tablet `768×1024`, mobile `375×812`. [example.drawio](example.drawio) draws a reduced frame so the sample stays readable; a proposal uses the device size.
 - Gap between frames: 200 across, 200 down. A caption sits 36 above each frame, and a note sits 12 below it. The gap is the arrow lane, wide enough for its label and clear of the caption and the note.
-- Inside a desktop frame: top region 0–56, side region 0–240 wide, content from x 280, 1120 wide.
+- Inside a desktop frame: top region 0–56, side region 0–240 wide, content from x 280, 1120 wide. A tablet uses the same top region and the full width, and a side region only when the product already has one. A phone has a status region 0–44, content below it, and a tab region 64 high at the bottom, with no side region.
 - All coordinates are absolute on the page, and every cell's parent is `1`.
 
 ## IDs
@@ -45,7 +45,7 @@ Text without the prefix:
 | Caption | the screen title style, labelled `SC2 Ask for cover · option A: own page` |
 | Callout | 20×20 `ellipse;whiteSpace=wrap;html=1;fillColor=#ff6b00;strokeColor=none;fontColor=#ffffff;fontSize=11;fontStyle=1;` numbered, explained in the note |
 | Note | `shape=note;whiteSpace=wrap;html=1;size=12;sketch=1;curveFitting=1;jiggle=2;fillColor=#fff2cc;fillStyle=solid;strokeColor=#d6b656;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;` |
-| Flow arrow | `edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;sketch=1;curveFitting=1;jiggle=2;endArrow=open;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;` labelled with the action. Add `dashed=1;` for an arrow to an alternative. Route it by [Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap). Same-row arrows use the column gap. An arrow to the row below uses the row gap, beside the note and the caption |
+| Flow arrow | `edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;sketch=1;curveFitting=1;jiggle=2;endArrow=open;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;` The source is the control. The label is the action. Add `dashed=1;` only for a layout option. Follow [Lines](../../drawio/references/drawio-file.md#lines) and [Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap). A same-row arrow uses the column gap and enters the next frame on the left. An arrow to the row below uses the row gap, beside the note and the caption, and enters on the top |
 
 ## What to leave out
 

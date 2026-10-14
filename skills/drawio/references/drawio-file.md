@@ -20,28 +20,31 @@ Write this uncompressed XML. Draw.io and diagrams.net open it directly. Add cell
 
 One file answers one question and draws one close flow: one entry, the main steps, the decisions on that path, and the recovery that belongs to them. A second outcome is a second file.
 
-A sketch or a prototype is a wireflow: one actor completing one task, with an arrow from the control they use. The caption names both, `Nurse · Ask for cover`. States of those screens (empty, error, denied, loading) and layout alternatives of a screen in that task stay in the file. A second actor who does this same task with less access stays too, as a denied or read-only state. A second actor who does a different task gets their own file. End this file at the handoff. Start the other actor's file at what they receive, and name the handoff in both captions. The screen is drawn once, in the file of the actor who acts on it. The cross-actor picture stays in `process.drawio`.
+A sketch or a prototype is a wireflow: one actor completing one task, with an arrow from the control they use. The caption names both, `Nurse · Ask for cover`. States of those screens, in this order when they exist (default, empty, loading, partial, error, denied, success, offline), and layout alternatives of a screen in that task stay in the file. A second actor who does this same task with less access stays too, as a denied or read-only state. A second actor who does a different task gets their own file. End this file at the handoff. Start the other actor's file at what they receive, and name the handoff in both captions. The screen is drawn once, in the file of the actor who acts on it. The cross-actor picture stays in `process.drawio`.
 
 Name one flow `journey.drawio`, `process.drawio`, `navigation.drawio`, `sketch.drawio`, `prototype.drawio`, `context.drawio`, `erd.drawio`, `states.drawio`, `sequence.drawio`, or `dataflow.drawio`, in the package folder.
 
-Several flows are grouped in step folders, numbered in business order. The folder is the group a reader opens. The files inside keep the short names:
+Several flows are grouped in step folders. The index is a parent, or that parent and a child: `1`, then `1.1`, then `2`. It starts at `1`. Do not pad it with a zero. The folder is the group a reader opens. The files inside keep the short names:
 
 ```text
 docs/product-design/shift-swaps/
   product-design.md
   screens.md
-  01-nurse-ask-cover/
+  1-nurse-ask-cover/
     journey.drawio
     sketch.drawio
     prototype.drawio
-  02-colleague-accept-cover/
+  1.1-nurse-choose-colleague/
+    sketch.drawio
+    prototype.drawio
+  2-colleague-accept-cover/
     journey.drawio
     sketch.drawio
     prototype.drawio
     sequence.drawio
 ```
 
-`NN` is two digits starting at 01. The folder name is the business step, and includes the actor when the step is one actor's task. A folder holds every diagram of that step: the journey, the sketch, the prototype, the sequence, the state machine. The decision documents stay in the package folder. A diagram of the whole product that was not split stays there too, such as one `context.drawio`. A kind lives in the package folder or in the step folders. After a step is added or removed, renumber the folders so the sequence has no gaps, and update the links. Screen IDs stay as they are. Link each folder in index order, with the actor, the task, and the question it answers. A flow arrow stays inside its file.
+`1` is the first business step. `1.1` is a split of that step, such as the next handoff inside the same task. `2` is the next business step. Parents run `1`, `2`, `3` with no gaps. Children of a parent run `.1`, `.2`, `.3` with no gaps, and a child is named only when that parent folder exists. The folder name is the business step, and includes the actor when the step is one actor's task. A folder holds every diagram of that step: the journey, the sketch, the prototype, the sequence, the state machine. The decision documents stay in the package folder. A diagram of the whole product that was not split stays there too, such as one `context.drawio`. A kind lives in the package folder or in the step folders. After a step is added or removed, renumber that parent and its children so the sequence has no gaps, and update the links. Screen IDs stay as they are. Link each folder in index order, parent before its children, with the actor, the task, and the question it answers. A flow arrow stays inside its file.
 
 Keep one page. A second `<diagram>` is a paired view of that same flow, and only when each view still fits: as-is and to-be in a process, logical and physical in an ERD, context and containers in a context diagram.
 
@@ -88,31 +91,74 @@ Every connector keeps its own lane. Two edges do not share a segment, and they d
 
 Sketch and prototype frames use the gap between frames as the lane. The component page for a diagram says which lane is which.
 
+## Lines
+
+A line is the relationship. The same stroke means the same thing in a flowchart, a swimlane, a navigation map, a sketch, and a prototype.
+
+- **Solid.** This path happens. The label is the trigger. A person acts in the words they see (`Ask for cover`). Nobody acts: `System:` plus the condition or the rule id (`System: Hours rule fails (BR2)`). A line with no choice has an empty value.
+- **Dashed** (`dashed=1`). An alternative that is not a path the product takes: a layout option, or a design branch still open. A decision's Yes and No are solid. A state the product shows, including empty, error, and denied, is solid.
+
+Every edge has `edge="1"`, a `source`, and a `target`. A flowchart, navigation, sketch, or prototype edge has `parent="1"`. A swimlane sequence flow also has `parent="1"`, including a flow that stays inside one lane. A labelled edge keeps `labelBackgroundColor=#ffffff`.
+
+Direction is left to right and top to bottom. A line enters a shape on the left (`entryX=0`) or the top (`entryY=0`) and leaves on the right (`exitX=1`) or the bottom (`exitY=1`). Two lines that use one side take `0.25` and `0.75`, not the same point. A waypoint sits in the gap named below, not on a shape. When two lines arrive at one shape, offset the join so they do not share a segment.
+
+A wireflow arrow starts on the control the person uses. When nobody acts, it starts on the frame. A same-row arrow travels in the column gap and enters the next frame on the left. An arrow to the row below travels in the row gap, beside the caption and the note, and enters the next frame on the top.
+
+Set `pageWidth` and `pageHeight` to the bounds of the shapes plus 40, rounded up to a multiple of 10, so the chart is not left on the default A4 page when it is taller or wider.
+
 ## Flow chart cells
 
-Use the built-in **Flowchart** library. Place vertices on the layer and connect them with edges. Step x by 200 and y by 120. Do not overlap labels.
+Use the built-in **Flowchart** library. Copy a name from the table.
+
+**Organize.** One main column, top to bottom: a terminator, the steps, a terminator. The main path is the column. A decision has one entry, from the top. One exit stays in the column and leaves the bottom. Each other exit leaves a different side into its own column: the right side first, then the left. The exits are mutually exclusive and cover every case. Two exits may be labelled Yes and No. Three or more use the real conditions. A path that joins back runs through the gap and enters the main shape on the left or the top.
+
+The first shape is a terminator. The last shape of every path that leaves the chart is a terminator. When the next file continues this flow, both terminators use the same handoff words (`Colleague receives the request`). A step that is only a pointer to that file is a predefined process, labelled with the next file's caption. An off-page reference is the pair of shapes that break one line across two files of the same actor; both shapes use one label, such as `1.1 Choose colleague`. A handoff to someone else ends in a terminator. A line that the same actor continues in the next file ends in an off-page reference.
+
+An action label is a verb plus an object (`Ask a colleague to cover`). The same words mean the same step. A screen id (SC1) or a rule id (BR1) goes in the label when it exists. Text that does not fit is an annotation connected to the shape, not a second process.
+
+**Place.** On a grid of 10. The main column's 160-wide shapes sit at x = 320. A terminator in that column sits at x = 340, so the centres share x = 400. The first shape's y is 40. Each next shape on that path is 160 lower. The right-hand column's 160-wide shapes sit at x = 600 (a 120 gap for the label). A terminator in that column sits at x = 620. The left-hand column, used only for a third exit, sits at x = 40. A 60-wide off-page reference is centred on its column (main column x = 370).
 
 | Step | Size | style |
 | --- | --- | --- |
-| Start or end | 120×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;` |
-| Action | 160×60 | `rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;` |
+| Start, end, or handoff | 120×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;` |
+| Action in the product | 160×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.process;whiteSpace=wrap;` |
 | Decision | 160×80 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;` |
-| Handoff to a person or another channel | 160×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.document2;whiteSpace=wrap;size=0.25;` |
+| A person does it by hand, or the work leaves the product | 160×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.manual_operation;whiteSpace=wrap;` |
+| A form, message, or paper | 160×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.document;whiteSpace=wrap;` |
+| A screen the person is shown | 160×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.display;whiteSpace=wrap;` |
 | Wait | 160×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.delay;whiteSpace=wrap;` |
+| This step is drawn in the next file | 160×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.predefined_process;whiteSpace=wrap;` |
+| The line continues in the next file | 60×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.off-page_reference;whiteSpace=wrap;` |
+| Note that does not fit in the shape | as needed | `strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_1;whiteSpace=wrap;` |
+
+**Relate.** The connector is `edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;fontSize=12;labelBackgroundColor=#ffffff;`. The main path leaves the bottom and enters the top. Yes leaves the bottom. No leaves the right and enters the side column on the left. A third condition leaves the left. Follow [Lines](#lines) and [Edges do not overlap](#edges-do-not-overlap).
 
 ```xml
 <mxCell id="start" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
-  <mxGeometry x="80" y="40" width="120" height="60" as="geometry" />
+  <mxGeometry x="340" y="40" width="120" height="60" as="geometry" />
 </mxCell>
 <mxCell id="choice" value="Eligible?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
-  <mxGeometry x="60" y="160" width="160" height="80" as="geometry" />
+  <mxGeometry x="320" y="200" width="160" height="80" as="geometry" />
 </mxCell>
-<mxCell id="yes" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="start" target="choice">
+<mxCell id="ask" value="Ask a colleague to cover (SC2)" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.process;whiteSpace=wrap;" vertex="1" parent="1">
+  <mxGeometry x="320" y="360" width="160" height="60" as="geometry" />
+</mxCell>
+<mxCell id="end" value="Request sent" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
+  <mxGeometry x="340" y="520" width="120" height="60" as="geometry" />
+</mxCell>
+<mxCell id="handoff" value="Ask the charge nurse" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
+  <mxGeometry x="620" y="210" width="120" height="60" as="geometry" />
+</mxCell>
+<mxCell id="to-choice" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;fontSize=12;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="choice">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="yes" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="choice" target="ask">
+  <mxGeometry relative="1" as="geometry" />
+</mxCell>
+<mxCell id="no" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="choice" target="handoff">
   <mxGeometry relative="1" as="geometry" />
 </mxCell>
 ```
-
-Every edge has `edge="1"`, `parent="1"`, `source`, and `target`, and uses Draw.io's default connector, `edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;`. Put the condition in the edge `value`. Yes and No leave a decision from different sides. Route every edge by [Edges do not overlap](#edges-do-not-overlap).
 
 ## Swimlane process cells
 
@@ -158,7 +204,11 @@ Events, tasks, and gateways share these template prefixes; the table adds the re
 </mxCell>
 ```
 
-Label a decision's outgoing flows Yes or No, or with the condition. A wait is a timer event in the lane of whoever waits, not a step. A flow that crosses lanes runs through the gap between steps, not across a task, and follows [Edges do not overlap](#edges-do-not-overlap).
+**Organize.** The actor who starts is the top lane. Time runs left to right. Every shape sits on a path from a start event to an end event. A task has one way in and one way out. Branching is a gateway: an exclusive gateway's exits are mutually exclusive and cover every case, and a join is the gateway with several ways in and one way out. A parallel gateway's arrows have an empty value. An activity label is a verb plus an object. Two end events share a name only when they are the same outcome.
+
+**Place.** The first step in a lane is at x = 40, and each next step is 200 to the right (an 80 gap after a 120-wide task). A wait is a timer event in the lane of whoever waits, not a task.
+
+**Relate.** Follow [Lines](#lines). A cross-lane flow runs through the gap between steps, not across a task, and follows [Edges do not overlap](#edges-do-not-overlap). An exclusive exit is labelled Yes or No, or with the condition, and leaves the side that faces its target (`exitX=1` going right, `entryX=0` on the target).
 
 ## Navigation map cells
 
@@ -182,4 +232,4 @@ Use the built-in **Sitemap** library. One shape per screen, 160×90, labelled `S
 | Warning | `warning` |
 | Help | `faq` |
 
-Use `page` for any screen the table does not cover, rather than guessing another name. Label each arrow with the action that moves between screens, in the words the user sees, using the flow chart connector, and route it by [Edges do not overlap](#edges-do-not-overlap). Screen prototypes use the component library in `prototype-drawio`.
+Use `page` for any screen the table does not cover, rather than guessing another name. Place the entry screen at the left or the top, and step 200 to the next screen so the gap holds the label. Label each arrow with the action that moves between screens, in the words the user sees, using the flow chart connector. The line follows [Lines](#lines): it leaves the right or the bottom and enters the left or the top, and it follows [Edges do not overlap](#edges-do-not-overlap). Screen prototypes use the component library in `prototype-drawio`.

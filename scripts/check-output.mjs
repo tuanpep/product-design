@@ -23,7 +23,7 @@ const standards = ['product-design/1.0', 'product-design/1.1']
 const stateNames = ['default', 'empty', 'loading', 'partial', 'error', 'denied', 'success', 'offline']
 const drawioKinds = ['journey', 'process', 'navigation', 'sketch', 'prototype', 'context', 'erd', 'states', 'sequence', 'dataflow']
 const drawioFile = new RegExp(`^(${drawioKinds.join('|')})\\.drawio$`)
-const stepFolderName = /^(\d{2})-[a-z0-9]+(?:-[a-z0-9]+)*$/
+const stepFolderName = /^([1-9]\d*(?:\.[1-9]\d*)?)-[a-z0-9]+(?:-[a-z0-9]+)*$/
 const maxDrawioPages = 2
 const maxDrawioShapes = 400
 const idPattern = /\b(?:BR|SC|N|R|S|A|M)\d+\b/g
@@ -138,6 +138,30 @@ function cellsOf(xml) {
   })
 }
 
+function checkStepOrder(indexes) {
+  const errors = []
+  if (new Set(indexes).size !== indexes.length) errors.push('Step folders repeat an index. Number each business step once.')
+  const unique = [...new Set(indexes)]
+  const parents = unique.filter((index) => !index.includes('.')).map(Number).sort((a, b) => a - b)
+  if (parents.some((index, place) => index !== place + 1)) {
+    errors.push('Step folders are not numbered in parent/child order. Parents are 1, 2, 3.')
+  }
+  const children = new Map()
+  for (const index of unique) {
+    if (!index.includes('.')) continue
+    const [parent, child] = index.split('.')
+    if (!unique.includes(parent)) errors.push(`Step ${index} has no parent folder ${parent}-.`)
+    children.set(parent, [...(children.get(parent) ?? []), Number(child)])
+  }
+  for (const [parent, list] of children) {
+    const sorted = [...list].sort((a, b) => a - b)
+    if (sorted.some((index, place) => index !== place + 1)) {
+      errors.push(`Children of step ${parent} are not numbered ${parent}.1, ${parent}.2.`)
+    }
+  }
+  return errors
+}
+
 function packageDiagrams(folder) {
   const diagrams = []
   const steps = []
@@ -148,10 +172,10 @@ function packageDiagrams(folder) {
       const drawios = readdirSync(path).filter((file) => file.endsWith('.drawio'))
       const index = stepFolderName.exec(name)
       if (!index) {
-        if (drawios.length) errors.push(`${name}: Group a business step as NN-<step>, such as 01-nurse-ask-cover.`)
+        if (drawios.length) errors.push(`${name}: Group a business step as <index>-<step>, such as 1-nurse-ask-cover or 1.1-nurse-choose-colleague.`)
         continue
       }
-      steps.push(Number(index[1]))
+      steps.push(index[1])
       for (const file of drawios) {
         const kind = drawioFile.exec(file)?.[1]
         if (!kind) errors.push(`${name}/${file}: Inside a step folder, use the short name, such as sketch.drawio.`)
@@ -162,11 +186,7 @@ function packageDiagrams(folder) {
     if (!name.endsWith('.drawio')) continue
     diagrams.push({ kind: drawioFile.exec(name)?.[1], rel: name, path, dir: '' })
   }
-  if (steps.length) {
-    const sorted = [...steps].sort((a, b) => a - b)
-    if (new Set(sorted).size !== sorted.length) errors.push('Step folders repeat an index. Number each business step once.')
-    if (sorted.some((index, place) => index !== place + 1)) errors.push('Step folders are not numbered 01, 02, 03 in business order.')
-  }
+  if (steps.length) errors.push(...checkStepOrder(steps))
   for (const kind of drawioKinds) {
     const ofKind = diagrams.filter((diagram) => diagram.kind === kind)
     if (ofKind.some((diagram) => diagram.dir === '') && ofKind.some((diagram) => diagram.dir !== '')) {

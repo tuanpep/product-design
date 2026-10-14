@@ -4,7 +4,7 @@ The method follows [ISO 9241-210:2019](https://www.iso.org/standard/77520.html),
 
 ## What each skill owns
 
-The work moves through four stages. Each stage can send the work back to an earlier one. On a new idea, ask which level to run before the first stage, unless the person already named one: Understand, Design documents, Sketch, Prototype, or Full. Do not start a stage past that level. The levels are defined in [new-idea.md](../playbooks/new-idea.md).
+The work moves through four stages. Each stage can send the work back to an earlier one. On a new idea in guided mode, ask which level to run before the first stage, unless the person already named one: Understand, Design documents, Sketch, Prototype, or Full. Do not start a stage past that level. The levels are defined in [new-idea.md](../playbooks/new-idea.md). [Advise mode](advise-mode.md) does not ask. It runs the named level, or Full when none is named, recommends each open choice, and does not stop for a person to decide before the next file. The person still reviews the proposal afterward.
 
 **Understand** (discovery)
 
@@ -19,7 +19,7 @@ The work moves through four stages. Each stage can send the work back to an earl
 6. `explore-solutions` compares the current path, reuse, non-software options, and product options, including the assumption that would reverse the choice.
 7. `model-process` maps the as-is and to-be process across actors when more than one acts. `context-drawio` draws the product, its users, and the systems it depends on when it touches other systems.
 8. `design-experience` describes the chosen approach across the whole journey.
-9. `sketch-drawio` sketches the quick shape: which screens exist, in what order, and roughly where things go, with alternative layouts where the choice is open. A person reviews it before the detail.
+9. `sketch-drawio` sketches the quick shape: which screens exist, in what order, and roughly where things go, with alternative layouts where the choice is open. In guided mode, a person reviews it before the detail. In advise mode, recommend a layout and continue.
 10. `design-screens` and `write-content` turn the agreed sketch into screens, states, and words.
 11. `prototype-drawio` draws every screen and state with real web or mobile layout and components, so people can see the finished shape.
 12. `plan-evaluation` plans the smallest real test of the reversing assumption. A plan is not a result.

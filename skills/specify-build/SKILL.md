@@ -15,7 +15,7 @@ Read the story shape and requirement checks in [the workflow reference](../desig
 5. For every important behaviour, name the check: method, expected observable result, and responsible role. Separate planned checks from completed results.
 6. Write quality requirements the slice depends on: accessibility target and checks, privacy, security, performance, reliability, and the analytics events that measure the outcome. Use unknown instead of an invented number.
 7. Write rollout and verification: transition from the current service, data migration, rollout and rollback, support readiness, and the definition of done.
-8. List every assumption and open question in one table. Give a reversible one a **proposed** default and an owner. Keep one that is irreversible or touches safety, money, law, or privacy as blocking.
+8. List every assumption and open question in one table. Give a reversible one a **proposed** default and an owner. Keep one that is irreversible or touches safety, money, law, or privacy as blocking. In advise mode, write a recommended default for that blocking question too, label it **proposed — owner must confirm**, and do not pause the run. It still prevents `Status: ready`.
 9. Fill the traceability table and check it: no Must story without a need, no acceptance outcome without a check, no rule without an owner.
 
 Write `docs/product-design/<slug>/build-spec.md` using [the build spec format](../design-product/references/build-spec-format.md). Use `Status: ready` only when no blocking question remains. Otherwise use `Status: draft`. Summarize the slice under First useful release in `product-design.md` and link the spec.

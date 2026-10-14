@@ -38,9 +38,9 @@ Use these level-two headings in order. Keep each one. A heading that does not ap
 
 **Roles and permissions.** Actions as rows, roles as columns, each cell allowed, denied, or conditional with the rule ID.
 
-**Domain model.** Entities, key attributes (meaning, required, example, source, sensitivity), relationships with cardinality, and the system of record. Link `erd.drawio`, or each `NN-<cluster>/erd.drawio` in business order, when it is drawn. A physical schema appears only on its physical page, as a **proposed** design that follows the target project's conventions; no framework choices, SQL, or migrations.
+**Domain model.** Entities, key attributes (meaning, required, example, source, sensitivity), relationships with cardinality, and the system of record. Link `erd.drawio`, or each `1-<cluster>/erd.drawio` in parent/child index order, when it is drawn. A physical schema appears only on its physical page, as a **proposed** design that follows the target project's conventions; no framework choices, SQL, or migrations.
 
-**States and lifecycle.** For each entity with a lifecycle: state, meaning, allowed next states, trigger and actor, guarding rule, side effect. Link `states.drawio`, or each `NN-<entity>/states.drawio` in business order, when it is drawn.
+**States and lifecycle.** For each entity with a lifecycle: state, meaning, allowed next states, trigger and actor, guarding rule, side effect. Link `states.drawio`, or each `1-<entity>/states.drawio` in parent/child index order, when it is drawn.
 
 **Business rules.** The catalogue with IDs, decision tables, and examples that pass, are denied, and sit on the boundary. Owner and approval status for each.
 

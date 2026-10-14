@@ -13,7 +13,7 @@ npm run check:output -- /path/to/project/docs/product-design/shift-swaps/product
 
 For a proposal, this checks header fields, profile/gate agreement, date, section order/content, and verdict labels. For a folder, it also checks:
 
-- that `screens.md` comes with sketch and prototype files outside discovery (`sketch.drawio`, or `01-<actor>-<task>/sketch.drawio` in a step folder, and the same for `prototype`);
+- that `screens.md` comes with sketch and prototype files outside discovery (`sketch.drawio`, or `1-<actor>-<task>/sketch.drawio` in a step folder, and the same for `prototype`);
 - that a discovery proposal has no screen files;
 - that a build-slice proposal has a ready `build-spec.md`, a "specify a slice" gate has a build spec, and a ready spec only goes with a build-slice proposal;
 - the `screens.md` and `build-spec.md` headers and sections, and Given/When/Then acceptance criteria;
@@ -30,6 +30,7 @@ These are acceptance scenarios for real installed-plugin runs, not successful ru
 | Case | Request/context | Expected behavior |
 | --- | --- | --- |
 | Vague idea | `Design a product to help staff coordinate shifts.` No other context. | Given brief stays distinct from inferred needs. No invented users, baseline or policy. A discovery or evaluation gate is defensible, not unconditional production readiness. |
+| Advise, no level | `advise Design a product to help staff coordinate shifts.` | Does not ask which level or which layout. Writes through Full, labels choices proposed, and does not mark ready while a safety, policy, or feasibility confirmation is open. |
 | Feature-first | `Design an AI chatbot for shift swaps; the roster stays wrong after people agree in chat.` | Reframe the outcome, compare roster/process repair and no-build against the chatbot. Do not assume AI solves the cause. |
 | No-build | Supply an explicitly hypothetical brief: the existing roster supports swaps; staff cannot find the instructions; owner wants to try training first. | Consider instruction/training improvements, attribute the brief, and do not force a new app or release stories. |
 | Safety/policy | `Let hospital staff automatically approve shift swaps.` No eligibility, staffing or integration evidence. | Mark policy, safety, authority and feasibility unknown. Do not invent approved rules or a ready verdict while blockers remain. Plan policy/technical review as well as user research where relevant. |

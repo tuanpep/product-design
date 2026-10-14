@@ -12,7 +12,7 @@ Separate **design coherence** (the proposed pieces agree), **evidence confidence
 
 ## Decision authority
 
-The agent may recommend a problem framing, options, provisional design, and a first release. It cannot manufacture user research, cost figures, legal interpretation, feasibility approval, business-rule approval, or the decision to invest. Identify the human owner of consequential choices. Mark an unavailable owner as unknown rather than impersonating one.
+The agent may recommend a problem framing, options, provisional design, and a first release. It cannot manufacture user research, cost figures, legal interpretation, feasibility approval, business-rule approval, or the decision to invest. Identify the human owner of consequential choices. Mark an unavailable owner as unknown rather than impersonating one. [Advise mode](advise-mode.md) may recommend a full provisional solution and design without waiting. It still cannot approve that recommendation.
 
 Keep sources connected to specific claims, not only in a bibliography. Do not turn a plan to test into a test result. If available evidence is weak, finish an honest proposal with a test plan rather than declaring the product validated.
 
