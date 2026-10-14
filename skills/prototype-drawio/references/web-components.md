@@ -7,9 +7,9 @@ This is the one place where basic shapes come before a built-in library, because
 ## Board layout
 
 - One actor and one task per file. Caption it `Actor · Task`. One pair keeps `prototype.drawio`. A second task, or a second actor doing a different task, is a step folder `NN-<actor>-<task>/prototype.drawio`, numbered 01, 02, 03 in business order. The sketch of that step sits in the same folder. Inside the file, one row per screen, in task order. One frame per state, left to right: default first, then empty, loading, partial, error, denied, success, and offline, drawing only the states `screens.md` lists. A modal or panel that stays on the same screen is a state of that screen.
-- Frame size by device: desktop `1280×800`, tablet `768×1024`, mobile `375×812`. Use the device from the context of use.
-- Gap between frames: 160 across, 200 down. A caption sits 40 above each frame, and a note sits 20 below it.
-- Content grid inside a desktop frame: browser bar 0–40, top navigation 40–96, sidebar 0–240 wide, content from x 280 to x 1240 (960 wide), starting at y 120. Use multiples of 8 for spacing.
+- Frame size by device: desktop `1440×900`, tablet `768×1024`, mobile `375×812`. Use the device from the context of use.
+- Gap between frames: 240 across, 280 down. A caption sits 40 above each frame, and a note sits 20 below it. The gap is the arrow lane, wide enough for its label and clear of the caption and the note.
+- Content grid inside a desktop frame: browser bar 0–40, top navigation 40–96, sidebar 0–240 wide, content from x 280 to x 1400 (1120 wide), starting at y 120. Use multiples of 8 for spacing.
 - All coordinates are absolute on the page, and every cell's parent is `1`.
 
 ## IDs
@@ -39,8 +39,8 @@ If the target project has a design system or tokens, replace these colours, the 
 
 | Component | Size | style |
 | --- | --- | --- |
-| Browser frame | 1280×800 | `rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c9ced6;` |
-| Browser bar | 1280×40 at frame top | `rounded=0;whiteSpace=wrap;html=1;fillColor=#eef0f3;strokeColor=none;` |
+| Browser frame | 1440×900 | `rounded=1;arcSize=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c9ced6;` |
+| Browser bar | 1440×40 at frame top | `rounded=0;whiteSpace=wrap;html=1;fillColor=#eef0f3;strokeColor=none;` |
 | Window dot | 10×10, red, amber, green | `ellipse;html=1;fillColor=#ff5f57;strokeColor=none;` with `#febc2e` and `#28c840` |
 | Address field | 560×24 | `rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d0d7de;align=left;spacingLeft=12;fontSize=12;fontColor=#57606a;` |
 | Mobile frame | 375×812 | `rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#1b1f24;strokeWidth=2;` |
@@ -119,4 +119,4 @@ If the target project has a design system or tokens, replace these colours, the 
 | --- | --- |
 | Caption | `text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;` label `SC2 Ask for cover · denied` |
 | Note | `shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;` naming the rules, messages, and states shown |
-| Flow arrow | `edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#0b57d0;strokeWidth=2;fontSize=13;fontColor=#0b57d0;labelBackgroundColor=#ffffff;` from the control the user acts on to the next frame, labelled with the action. Add `dashed=1;` for a system-caused change such as a denial or an empty result. Set `exitX`, `exitY`, `entryX`, and `entryY` so the arrow runs through the gaps between frames, not across controls |
+| Flow arrow | `edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#0b57d0;strokeWidth=2;fontSize=13;fontColor=#0b57d0;labelBackgroundColor=#ffffff;` from the control the user acts on to the next frame, labelled with the action. Add `dashed=1;` for a system-caused change such as a denial or an empty result. Route it by [Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap), through the gaps, not across controls. Same-row arrows use the column gap at different heights. An arrow to the next row uses the row gap, beside the note and the caption |

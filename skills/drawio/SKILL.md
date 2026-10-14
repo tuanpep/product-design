@@ -17,7 +17,7 @@ Use Draw.io's built-in library shapes first, as [drawio-file.md](references/draw
 5. For a navigation map, draw one sitemap shape per screen labelled with its ID and name, and an arrow for each way between them, labelled with the action. One close flow per file. Screens drawn as the real product belong to `prototype-drawio`.
 6. Link the file from `product-design.md` under the section it supports. State what the diagram does not test.
 
-Every shape's parent is `1`, except a step inside a swimlane, whose parent is the lane. Ids `0` and `1` are reserved. Escape `&`, `<`, and `>` in labels. Open the file in Draw.io or the diagrams.net editor and confirm every arrow has a source and a target.
+Every shape's parent is `1`, except a step inside a swimlane, whose parent is the lane. Ids `0` and `1` are reserved. Escape `&`, `<`, and `>` in labels. Open the file in Draw.io or the diagrams.net editor and confirm every arrow has a source and a target, and that no two arrows share a segment or cross ([Edges do not overlap](references/drawio-file.md#edges-do-not-overlap)).
 
 A diagram is **proposed**. It is not evidence that a user succeeded, and it is not permission to build.
 

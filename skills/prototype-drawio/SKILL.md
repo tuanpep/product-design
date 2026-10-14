@@ -17,7 +17,7 @@ Read [principle-use-real-content](../principle-use-real-content/SKILL.md), [prin
 7. Put real content in every control: the words from `write-content`, plausible fictional data, the longest name, the empty list, and the denied message. Name each button by its action.
 8. Draw the error, empty, loading, and denied states that `screens.md` lists, with the recovery visible. Show a denied state with the message ID and rule ID in the note.
 9. Connect frames with flow arrows from the control the user acts on to the frame that follows, labelled with the action. Dash arrows for system-caused changes. Route arrows through the gaps between frames.
-10. Check the file: every cell id is unique, every arrow has a source and a target, nothing overlaps or clips inside a frame. Open it in Draw.io or diagrams.net before claiming that it renders. If you could not open it, say so.
+10. Check the file: every cell id is unique, every arrow has a source and a target, nothing overlaps or clips inside a frame, and no two arrows share a segment or cross ([Edges do not overlap](../drawio/references/drawio-file.md#edges-do-not-overlap)). Open it in Draw.io or diagrams.net before claiming that it renders. If you could not open it, say so.
 
 Link the file under Product experience in `product-design.md`, with its question. State what it does not test: no real interaction, no data, no responsive behaviour beyond the frames drawn, and no accessibility conformance or usability result.
 

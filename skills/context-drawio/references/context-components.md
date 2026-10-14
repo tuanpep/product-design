@@ -75,7 +75,7 @@ The boundary label is `<font style="font-size: 16px"><b><div style="text-align: 
 | With a description | `c4Type` `Relationship`, `c4Description` | `<div style="text-align: left"><div style="text-align: center"><b>%c4Description%</b></div>` |
 | With a technology, only when the project already uses it | add `c4Technology` | `<div style="text-align: left"><div style="text-align: center"><b>%c4Description%</b></div><div style="text-align: center">[%c4Technology%]</div></div>` |
 
-A relationship is an `<object>` wrapping an `<mxCell edge="1" parent="1" source="…" target="…">`. Point it from the one who acts to the one acted on, and describe what flows in the words of the build-spec, with the integration ID: `Reads shifts, changes shift owner (I1)`. Set `exitX`, `exitY`, `entryX`, and `entryY` so two relationships do not share a side of an element.
+A relationship is an `<object>` wrapping an `<mxCell edge="1" parent="1" source="…" target="…">`. Point it from the one who acts to the one acted on, and describe what flows in the words of the build-spec, with the integration ID: `Reads shifts, changes shift owner (I1)`. Route it by [Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap): set `exitX`, `exitY`, `entryX`, and `entryY` so two relationships do not share a point, and do not rely on the style's arc jump when a separate lane exists.
 
 ## Board annotations
 

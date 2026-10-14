@@ -289,10 +289,10 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="rel-4" value="requests" style="edgeStyle=entityRelationEdgeStyle;html=1;startFill=0;endFill=0;strokeColor=#57606a;fontSize=11;fontColor=#57606a;labelBackgroundColor=#ffffff;startArrow=ERmandOne;endArrow=ERzeroToMany;" parent="1" source="ent-staff-id" target="ent-cover-request-requester" edge="1">
-                    <mxGeometry x="0.7" relative="1" as="geometry"/>
+                    <mxGeometry x="0.2" relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="rel-5" value="is asked" style="edgeStyle=entityRelationEdgeStyle;html=1;startFill=0;endFill=0;strokeColor=#57606a;fontSize=11;fontColor=#57606a;labelBackgroundColor=#ffffff;startArrow=ERmandOne;endArrow=ERzeroToMany;" parent="1" source="ent-staff-id" target="ent-cover-request-colleague" edge="1">
-                    <mxGeometry x="0.7" relative="1" as="geometry"/>
+                    <mxGeometry x="0.8" relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="logical-note" value="Question: can a cover request exist without a shift and two staff? No. Each cover request has exactly one shift, one requester, and one colleague; a shift or a staff member can have none or many.&lt;br&gt;Source: build-spec.md Glossary, Domain model, and States and lifecycle. Red rows are personal data. Proposed. It does not test the schema, performance, or retention." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="40" y="640" width="1080" height="72" as="geometry"/>

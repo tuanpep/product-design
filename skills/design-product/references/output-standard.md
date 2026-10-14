@@ -84,7 +84,7 @@ Give the evaluation plan a research question, intended participants or relevant 
 
 For a build-slice, state in/out scope, stories, acceptance outcomes, verification, known dependencies, decision owners, rollout/transition and recovery implications, and outcome measurement. Where applicable, cover accessibility, privacy, security, reliability, and support. Explain exclusions. State an accessibility target and relevant checks, not an unsupported claim that a sketch is WCAG conformant.
 
-Link each Draw.io artifact with its question, assumptions, and limitations. Keep critical branches and rules in text as well. XML must be well formed, cell IDs unique, and edge references resolved; inspect the opened diagram for clipping and overlap before claiming visual verification. If it was not opened, say so.
+Link each Draw.io artifact with its question, assumptions, and limitations. Keep critical branches and rules in text as well. XML must be well formed, cell IDs unique, and edge references resolved; inspect the opened diagram for clipping and for edges that share a segment or cross ([Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap)) before claiming visual verification. If it was not opened, say so.
 
 Link each sketch file with its question and the layout option chosen, by whom, or that the choice is still proposed. Screens in `screens.md` keep the sketch's screen IDs. Link each prototype file with its question. Together they draw every screen and state in `screens.md` with realistic web or mobile components, and each frame's id is `<screen>-<state>`, such as `SC2-denied`. Opening one is a design inspection, not a usability result.
 

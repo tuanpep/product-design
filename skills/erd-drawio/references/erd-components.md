@@ -32,7 +32,7 @@ Draw each relationship between rows, never between cells: cells are `connectable
 
 - Put parent entities on the left and their children to the right, so relationships run left to right. Columns of tables are 400 apart on the logical page and 560 apart on the physical page. Start at x 40, y 80.
 - A label that would not fit its cell is shortened, not wrapped.
-- When a relationship's vertical segment would cross another table, move the target table down until the path is clear.
+- When a relationship's vertical segment would cross another table, move the target table down until the path is clear. Two relationships do not share a segment ([Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap)). When several leave one row, give each its own exit and a parallel lane.
 
 ## IDs
 
@@ -101,7 +101,7 @@ Draw each relationship from the row of the parent's key to the row of the child'
 | One or many | `ERoneToMany` |
 | Zero or many | `ERzeroToMany` |
 
-For example, a ward runs zero or many shifts: `startArrow=ERmandOne;endArrow=ERzeroToMany;`. Label the logical relationship with its glossary verb, such as `runs`. When several relationships leave the same row, move each label toward its target with `<mxGeometry x="0.7" relative="1" as="geometry" />` so labels do not overlap.
+For example, a ward runs zero or many shifts: `startArrow=ERmandOne;endArrow=ERzeroToMany;`. Label the logical relationship with its glossary verb, such as `runs`. When several relationships leave the same row, give each label a different `x` on `<mxGeometry x="0.3" relative="1" as="geometry" />` (from `-1` to `1`) so the labels do not stack.
 
 A link to an external reference uses `edgeStyle=entityRelationEdgeStyle;html=1;dashed=1;startArrow=none;endArrow=open;strokeColor=#8c959f;fontSize=11;fontColor=#57606a;labelBackgroundColor=#ffffff;`, labelled with the integration ID.
 

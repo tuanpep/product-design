@@ -76,6 +76,18 @@ Draw.io ships a library for most software diagrams. A shape from the library ope
 | Sketch | `sketch.drawio` | Basic shapes with Draw.io's built-in `sketch=1` rendering | `sketch-drawio` |
 | Screen prototype | `prototype.drawio` | Basic shapes styled as the product; see `prototype-drawio` for why | `prototype-drawio` |
 
+## Edges do not overlap
+
+Every connector keeps its own lane. Two edges do not share a segment, and they do not cross. A label does not sit on another edge or on a shape. This applies to every Draw.io file: journey, process, navigation, sketch, prototype, context, ERD, state, sequence, and data flow.
+
+1. Leave a gap between shapes wide enough for the label. That gap is the lane.
+2. Set `exitX`, `exitY`, `entryX`, and `entryY` so two edges do not leave or enter the same point. When several edges use one side, spread them (`0.25`, `0.5`, `0.75`).
+3. Add waypoints so each segment stays in its lane and runs through the gap, not across a shape. A waypoint is an `<mxPoint>` inside `<Array as="points">`.
+4. When two labels would meet, move one along its edge with `<mxGeometry x="-0.5" relative="1" as="geometry" />` (`x` from `-1` to `1`). A labelled edge keeps `labelBackgroundColor=#ffffff`.
+5. Reroute before you allow a crossing. A crossing that cannot be rerouted adds `jumpStyle=arc;jumpSize=12;`. Sequence messages stay horizontal, one y each, so they never jump. A crow's-foot line moves its table instead of crossing another table.
+
+Sketch and prototype frames use the gap between frames as the lane. The component page for a diagram says which lane is which.
+
 ## Flow chart cells
 
 Use the built-in **Flowchart** library. Place vertices on the layer and connect them with edges. Step x by 200 and y by 120. Do not overlap labels.
@@ -100,7 +112,7 @@ Use the built-in **Flowchart** library. Place vertices on the layer and connect 
 </mxCell>
 ```
 
-Every edge has `edge="1"`, `parent="1"`, `source`, and `target`, and uses Draw.io's default connector, `edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;`. Put the condition in the edge `value`.
+Every edge has `edge="1"`, `parent="1"`, `source`, and `target`, and uses Draw.io's default connector, `edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;`. Put the condition in the edge `value`. Yes and No leave a decision from different sides. Route every edge by [Edges do not overlap](#edges-do-not-overlap).
 
 ## Swimlane process cells
 
@@ -146,7 +158,7 @@ Events, tasks, and gateways share these template prefixes; the table adds the re
 </mxCell>
 ```
 
-Label a decision's outgoing flows Yes or No, or with the condition. A wait is a timer event in the lane of whoever waits, not a step.
+Label a decision's outgoing flows Yes or No, or with the condition. A wait is a timer event in the lane of whoever waits, not a step. A flow that crosses lanes runs through the gap between steps, not across a task, and follows [Edges do not overlap](#edges-do-not-overlap).
 
 ## Navigation map cells
 
@@ -170,4 +182,4 @@ Use the built-in **Sitemap** library. One shape per screen, 160×90, labelled `S
 | Warning | `warning` |
 | Help | `faq` |
 
-Use `page` for any screen the table does not cover, rather than guessing another name. Label each arrow with the action that moves between screens, in the words the user sees, using the flow chart connector. Screen prototypes use the component library in `prototype-drawio`.
+Use `page` for any screen the table does not cover, rather than guessing another name. Label each arrow with the action that moves between screens, in the words the user sees, using the flow chart connector, and route it by [Edges do not overlap](#edges-do-not-overlap). Screen prototypes use the component library in `prototype-drawio`.

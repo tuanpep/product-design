@@ -7,9 +7,9 @@ The shapes are basic shapes on purpose. Draw.io's **Mockup** library draws finis
 ## Board layout
 
 - One actor and one task per file. Caption it `Actor · Task`, such as `Nurse · Ask for cover`. One pair keeps `sketch.drawio`. A second task, or a second actor doing a different task, is a step folder `NN-<actor>-<task>/sketch.drawio`, numbered 01, 02, 03 in business order. The journey and the prototype of that step sit in the same folder. A happy path longer than 6 screens splits at the next handoff. Inside the file, one row for that actor's happy path, screens left to right. Each alternative layout of a screen in that task gets its own row below, under the screen it replaces. States that change the layout sit on that screen's row.
-- Frame size: desktop `640×400`, mobile `200×400`. That is half scale, so a board stays readable at a glance.
-- Gap between frames: 80 across, 120 down. A caption sits 36 above each frame, and a note sits 12 below it.
-- Inside a desktop frame: top region 0–32, side region 0–120 wide, content from x 140, 480 wide.
+- Frame size: desktop `1440×900`, mobile `200×400`. Desktop matches the prototype. Mobile is half scale, so a board stays readable at a glance.
+- Gap between frames: 200 across, 200 down. A caption sits 36 above each frame, and a note sits 12 below it. The gap is the arrow lane, wide enough for its label and clear of the caption and the note.
+- Inside a desktop frame: top region 0–56, side region 0–240 wide, content from x 280, 1120 wide.
 - All coordinates are absolute on the page, and every cell's parent is `1`.
 
 ## IDs
@@ -24,7 +24,7 @@ All shapes below share the prefix `whiteSpace=wrap;html=1;sketch=1;curveFitting=
 
 | Shape | Size | style after the prefix |
 | --- | --- | --- |
-| Frame | 640×400 | `rounded=0;fillColor=#ffffff;fillStyle=solid;strokeColor=#333333;strokeWidth=2;` |
+| Frame | 1440×900 | `rounded=0;fillColor=#ffffff;fillStyle=solid;strokeColor=#333333;strokeWidth=2;` |
 | Region (top bar, menu, footer) | as needed | `rounded=0;fillColor=#eeeeee;fillStyle=solid;strokeColor=#666666;fontColor=#666666;fontSize=11;` labelled with its role, such as `Top nav` |
 | Content block (list, table, card, chart, map) | as needed | `rounded=0;fillColor=none;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=8;spacingTop=2;fontSize=11;fontColor=#666666;` labelled with what it holds, such as `Upcoming shifts` |
 | Selected or highlighted block | as needed | `rounded=0;fillColor=#dddddd;fillStyle=solid;strokeColor=#333333;` |
@@ -45,7 +45,7 @@ Text without the prefix:
 | Caption | the screen title style, labelled `SC2 Ask for cover · option A: own page` |
 | Callout | 20×20 `ellipse;whiteSpace=wrap;html=1;fillColor=#ff6b00;strokeColor=none;fontColor=#ffffff;fontSize=11;fontStyle=1;` numbered, explained in the note |
 | Note | `shape=note;whiteSpace=wrap;html=1;size=12;sketch=1;curveFitting=1;jiggle=2;fillColor=#fff2cc;fillStyle=solid;strokeColor=#d6b656;align=left;verticalAlign=top;spacingLeft=6;fontSize=11;` |
-| Flow arrow | `edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;sketch=1;curveFitting=1;jiggle=2;endArrow=open;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;` labelled with the action. Add `dashed=1;` for an arrow to an alternative |
+| Flow arrow | `edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;sketch=1;curveFitting=1;jiggle=2;endArrow=open;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;` labelled with the action. Add `dashed=1;` for an arrow to an alternative. Route it by [Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap). Same-row arrows use the column gap. An arrow to the row below uses the row gap, beside the note and the caption |
 
 ## What to leave out
 
