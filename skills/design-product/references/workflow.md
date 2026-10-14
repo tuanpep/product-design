@@ -20,7 +20,7 @@ A small idea can satisfy a skill in a few sentences inside the same proposal. Do
 
 **Continue learning.** Discovery showed a problem worth more investigation. The next work is prototypes of the riskiest assumptions. Those prototypes are disposable. This is not permission to build the service.
 
-**Ready for a named build slice.** The need, chosen approach, stories, acceptance outcomes, and checks are specified well enough for a person to decide to invest. This is the handoff in ISO 9241-210 for communicating a design to implementers. It is not permission to launch, and it is not evidence that users succeed.
+**Ready for a named build slice.** The need, chosen approach, stories, acceptance outcomes, and checks are specified well enough for a person to decide to invest. Retain their traceability in the document. Unresolved safety, policy, feasibility, or ownership issues that block this slice prevent a ready verdict. Untested non-blocking assumptions remain visible; a planned test is not a completed result. This is the handoff in ISO 9241-210 for communicating a design to implementers. It is not permission to build or launch, and it is not evidence that users succeed. Match document depth and header to [the output standard](output-standard.md).
 
 Stopping is a valid outcome when nothing viable would improve on what exists, a hard constraint blocks a better outcome, or an existing path already solves the problem.
 

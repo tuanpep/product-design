@@ -12,7 +12,8 @@ Read the full proposal, any linked artifacts, and [the principles index](../desi
 2. Check that an alternative and the current baseline were considered, that claims have the stated evidence, and that the first release reaches a useful outcome.
 3. A consistent proposal can still violate a higher principle. Name that principle and the choice it should have changed.
 4. Compare rules, role permissions, journeys, copy, exceptions, measures, and acceptance examples for contradictions. Check that operations, transition, and accessibility needs have owners where relevant.
-5. Correct inconsistencies in the owning section before reporting.
+5. Check [the output standard](../design-product/references/output-standard.md): header/profile/gate agreement, retained needs and requirements, evidence links, traceability through acceptance outcomes and checks, artifact agreement, and decision history. A discovery proposal need not invent release stories. Unresolved blockers to a named slice prevent a ready verdict.
+6. Correct inconsistencies in the owning section before reporting. State which checks actually ran; structural validation is not a semantic review or user test.
 
 Report three independent verdicts:
 

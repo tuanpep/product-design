@@ -32,6 +32,6 @@ test('detects a missing skill and a broken local link', (t) => {
   writeFileSync(playbook, readFileSync(playbook, 'utf8') + '\n[missing](../references/absent.md)\n')
   assert.deepEqual(checkPlugin(folder), [
     'Missing design-product/SKILL.md',
-    'Broken link in skills/design-product/playbooks/new-idea.md: ../references/absent.md',
+    `Broken link in ${join('skills', 'design-product', 'playbooks', 'new-idea.md')}: ../references/absent.md`,
   ])
 })

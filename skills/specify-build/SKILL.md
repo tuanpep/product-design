@@ -10,7 +10,7 @@ Read the story shape and requirement checks in [the workflow reference](../desig
 
 1. Communicate the chosen design to implementers: context of use, needs, the approach and the rejected alternatives, journeys, exceptions, rules, and support or offline handoffs.
 2. Define the first useful outcome and what explicitly waits.
-3. Write each slice as who needs it, what they need to do, and why. Add acceptance outcomes that say when the user need is met, and link them to the need, evidence, or rule they come from. Keep implementation choices out of those outcomes.
+3. Write each slice as who needs it, what they need to do, and why. Add acceptance outcomes that say when the user need is met, and link them to the need, evidence, or rule they come from. Retain the needs and requirements in the final proposal using [the output standard](../design-product/references/output-standard.md), with explicit need → requirement/rule → story → acceptance outcome → check references. Keep implementation choices out of those outcomes.
 4. Split a slice that cannot be checked inside one iteration.
 5. For every important behavior, name how it will be checked. Where the slice depends on them, include accessibility, privacy, failure of the online channel, and transition from the current service.
 6. Apply the requirement checks at this level. A failed check becomes an unknown or a smaller slice, not invented precision.

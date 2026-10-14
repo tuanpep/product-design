@@ -1,11 +1,13 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
+import { basename } from 'node:path'
 import plugin from '../index.js'
 
 test('OpenCode V2 registers bundled skills, the design agent, and a command that attaches the entry skill', async () => {
   const skills = []
   const commands = []
   const prompts = []
+  const switches = []
   const agents = new Map()
   const defaults = []
   await plugin.setup({
@@ -28,7 +30,13 @@ test('OpenCode V2 registers bundled skills, the design agent, and a command that
       }),
     },
     command: { transform: async (callback) => callback({ add: (command) => commands.push(command) }) },
-    session: { prompt: async (prompt) => { prompts.push(prompt) } },
+    session: {
+      switchAgent: async (input) => { switches.push(input) },
+      prompt: async (prompt) => {
+        assert.deepEqual(switches, [{ sessionID: 'session-1', agent: 'design-product' }])
+        prompts.push(prompt)
+      },
+    },
   })
   const agent = agents.get('design-product')
   assert.equal(defaults.length, 0)
@@ -65,7 +73,7 @@ test('OpenCode V2 registers bundled skills, the design agent, and a command that
   ])
   assert.ok(skills.every(({ autoinvoke, description }) => autoinvoke === false && description && !description.startsWith('"')))
   assert.equal(skills.find(({ id }) => id === 'principle-start-from-the-outcome').description, 'Apply when a request names a feature, screen, or technology. Design for the goal and the people who have it. Effectiveness outranks speed and delight.')
-  assert.ok(skills.every(({ path, content, description }) => path.endsWith('/SKILL.md') && content.startsWith('# ') && description))
+  assert.ok(skills.every(({ path, content, description }) => basename(path) === 'SKILL.md' && content.startsWith('# ') && description))
   assert.equal(skills.find(({ id }) => id === 'design-product').autoinvoke, false)
   assert.equal(commands.length, 1)
   assert.equal(commands[0].name, 'design-product')

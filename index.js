@@ -120,6 +120,7 @@ export default Plugin.define({
         name: 'design-product',
         description: 'Develop or revise an evidence-labeled product design from an idea',
         execute: async ({ sessionID, prompt, delivery }) => {
+          await ctx.session.switchAgent({ sessionID, agent: 'design-product' })
           await ctx.session.prompt({
             ...prompt,
             sessionID,

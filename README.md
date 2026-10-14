@@ -8,7 +8,7 @@ Run it in the project being designed:
 /design-product Staff coordinate shift swaps in chat, but the roster stays wrong. Design a product approach.
 ```
 
-The result is `docs/product-design/<slug>/product-design.md`, with Draw.io journey and screen files beside it when a flow or prototype is needed. The working contract is in [the guide](docs/guide/README.md).
+The result is `docs/product-design/<slug>/product-design.md`, with Draw.io journey and screen files beside it when a flow or prototype is needed. Documents follow [output standard 1.0](skills/design-product/references/output-standard.md), with discovery, evaluation, or build-slice depth. The working contract is in [the guide](docs/guide/README.md).
 
 ## Install
 
@@ -24,7 +24,7 @@ For a local copy while editing this repo, place it at `~/.cursor/plugins/local/p
 opencode plugin add github:tuanpep/product-design
 ```
 
-That adds the plugin to the global OpenCode config. Restart OpenCode, then select the `design-product` agent or run `/design-product`. The agent can also run as a subagent. It leaves your default coding agent in place.
+That adds the plugin to the global OpenCode config. Restart OpenCode, then select the `design-product` agent or run `/design-product`. The command switches the current session to the restricted design agent before prompting; switch back to your coding agent for later implementation. The agent can also run as a subagent. The plugin does not change your configured default agent.
 
 To load this checkout instead of the GitHub package, run `npm install` here and add the absolute path to the product project's `opencode.json`:
 
@@ -62,6 +62,6 @@ Decision rules are separate skills. Their order is in [Principles](docs/guide/03
 npm test
 ```
 
-The tests check the manifests, skill metadata, links, and OpenCode registration. They confirm the package is well formed. Try the installed plugin on a real idea before treating a proposal as ready.
+The tests check the manifests, skill metadata, links, mocked OpenCode registration/routing, and output structure validator. They do not prove generated output quality or live host enforcement. See [output verification](docs/guide/04-output-standard.md) for the document check and behavioral evaluation corpus. Use Node 22.19 or newer for the current locked dependency tree.
 
 MIT License. Copyright 2026 tuanpep.

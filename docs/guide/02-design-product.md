@@ -22,4 +22,4 @@ That matches [revise-design.md](../../skills/design-product/playbooks/revise-des
 
 Invoke a specialist when you only need that stage: `/frame-problem`, `/discover-needs`, `/define-requirements`, `/explore-solutions`, `/design-experience`, `/drawio`, `/plan-evaluation`, `/specify-build`, `/decide-next`, or `/review-design`. `/drawio` writes a `.drawio` journey flow or screen prototype next to the proposal. Each skill runs only when you name it or the playbook reaches it.
 
-Next: [Steer with principle names](03-principles.md).
+Next: [Steer with principle names](03-principles.md), then [check output quality](04-output-standard.md).

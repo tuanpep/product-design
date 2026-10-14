@@ -13,12 +13,14 @@
     "commands/",
     "skills/",
     "docs/",
+    "scripts/check-output.mjs",
     "README.md"
   ],
   "dependencies": {
     "@opencode/plugin": "^2.0.28"
   },
   "scripts": {
-    "test": "node --test scripts/check-plugin.test.mjs scripts/opencode.test.mjs && node scripts/check-plugin.mjs"
+    "test": "node --test scripts/check-plugin.test.mjs scripts/opencode.test.mjs scripts/check-output.test.mjs && node scripts/check-plugin.mjs",
+    "check:output": "node scripts/check-output.mjs"
   }
 }

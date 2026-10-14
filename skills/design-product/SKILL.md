@@ -39,6 +39,6 @@ Polish, novelty, and satisfaction yield to all of the above.
 
 ## Write the proposal
 
-Create `docs/product-design/<slug>/product-design.md`, with a short kebab-case slug. Reuse the same folder for revisions. Follow [the proposal format](references/proposal-format.md). A small idea warrants a short proposal. Flow charts and screen prototypes are `.drawio` files from `drawio`, beside the proposal. Link each to the question it tests.
+Create `docs/product-design/<slug>/product-design.md`, with a short kebab-case slug. Reuse the same folder for revisions. Follow [the output standard](references/output-standard.md) and [the proposal format](references/proposal-format.md). Choose discovery, evaluation, or build-slice depth based on the next gate, not on how polished the design is. Preserve needs, requirements, and traceability in the final document. A small idea warrants a short proposal. Flow charts and screen prototypes are `.drawio` files from `drawio`, beside the proposal. Link each to the question it tests.
 
 **Reply:** what you recommend, the strongest evidence and weakest assumption, each principle that changed a choice, what you actually checked, and the next human decision or test. A design proposal is not user validation, feasibility approval, or permission to launch.
