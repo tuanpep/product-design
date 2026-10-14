@@ -6,7 +6,7 @@ Entities use Draw.io's built-in **Entity Relation → Table** shape (`shape=tabl
 
 - Page 1 is `Logical`, with `<diagram id="logical" name="Logical">`. It is always drawn.
 - Page 2 is `Physical`, with `<diagram id="physical" name="Physical">`. It is drawn only when the target project has a database or the human asks.
-- One cluster of entities that share relationships is one file, `erd.drawio`. A second cluster that shares none is `erd-<cluster>.drawio`, with the same two pages when a physical view is drawn.
+- One cluster of entities that share relationships is one file, `erd.drawio`. A second cluster that shares none is `NN-<cluster>/erd.drawio`, numbered in the order the business needs the data, with the same two pages when a physical view is drawn.
 - Each page starts with a caption at the top left, and ends with a note under the diagram that names the question, the source sections in `build-spec.md`, the conventions followed, and what the diagram does not test.
 
 ## Structure

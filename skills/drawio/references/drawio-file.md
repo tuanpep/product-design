@@ -22,7 +22,26 @@ One file answers one question and draws one close flow: one entry, the main step
 
 A sketch or a prototype is a wireflow: one actor completing one task, with an arrow from the control they use. The caption names both, `Nurse · Ask for cover`. States of those screens (empty, error, denied, loading) and layout alternatives of a screen in that task stay in the file. A second actor who does this same task with less access stays too, as a denied or read-only state. A second actor who does a different task gets their own file. End this file at the handoff. Start the other actor's file at what they receive, and name the handoff in both captions. The screen is drawn once, in the file of the actor who acts on it. The cross-actor picture stays in `process.drawio`.
 
-Name one flow `journey.drawio`, `process.drawio`, `navigation.drawio`, `sketch.drawio`, `prototype.drawio`, `context.drawio`, `erd.drawio`, `states.drawio`, `sequence.drawio`, or `dataflow.drawio`. Name each further flow with a short kebab-case suffix. A sketch or prototype suffix is the actor and the task when either is the reason for the split: `sketch-nurse-ask-cover.drawio`, `prototype-colleague-accept-cover.drawio`. Other diagrams use the flow name: `journey-ask-cover.drawio`, `sequence-accept-cover.drawio`. Several flows use only the suffixed names. Link each file from the proposal with the actor, the task, and the question it answers. A flow arrow stays inside its file.
+Name one flow `journey.drawio`, `process.drawio`, `navigation.drawio`, `sketch.drawio`, `prototype.drawio`, `context.drawio`, `erd.drawio`, `states.drawio`, `sequence.drawio`, or `dataflow.drawio`, in the package folder.
+
+Several flows are grouped in step folders, numbered in business order. The folder is the group a reader opens. The files inside keep the short names:
+
+```text
+docs/product-design/shift-swaps/
+  product-design.md
+  screens.md
+  01-nurse-ask-cover/
+    journey.drawio
+    sketch.drawio
+    prototype.drawio
+  02-colleague-accept-cover/
+    journey.drawio
+    sketch.drawio
+    prototype.drawio
+    sequence.drawio
+```
+
+`NN` is two digits starting at 01. The folder name is the business step, and includes the actor when the step is one actor's task. A folder holds every diagram of that step: the journey, the sketch, the prototype, the sequence, the state machine. The decision documents stay in the package folder. A diagram of the whole product that was not split stays there too, such as one `context.drawio`. A kind lives in the package folder or in the step folders. After a step is added or removed, renumber the folders so the sequence has no gaps, and update the links. Screen IDs stay as they are. Link each folder in index order, with the actor, the task, and the question it answers. A flow arrow stays inside its file.
 
 Keep one page. A second `<diagram>` is a paired view of that same flow, and only when each view still fits: as-is and to-be in a process, logical and physical in an ERD, context and containers in a context diagram.
 

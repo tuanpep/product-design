@@ -13,7 +13,7 @@ npm run check:output -- /path/to/project/docs/product-design/shift-swaps/product
 
 For a proposal, this checks header fields, profile/gate agreement, date, section order/content, and verdict labels. For a folder, it also checks:
 
-- that `screens.md` comes with sketch and prototype files outside discovery (`sketch.drawio` or `sketch-<flow>.drawio`, and the same for `prototype`);
+- that `screens.md` comes with sketch and prototype files outside discovery (`sketch.drawio`, or `01-<actor>-<task>/sketch.drawio` in a step folder, and the same for `prototype`);
 - that a discovery proposal has no screen files;
 - that a build-slice proposal has a ready `build-spec.md`, a "specify a slice" gate has a build spec, and a ready spec only goes with a build-slice proposal;
 - the `screens.md` and `build-spec.md` headers and sections, and Given/When/Then acceptance criteria;

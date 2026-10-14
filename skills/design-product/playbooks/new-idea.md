@@ -13,11 +13,11 @@
 **Shape**
 
 6. `explore-solutions`. Include the current approach or no-build baseline and at least one credible alternative when there is a real choice. Read [principle-see-the-whole-service](../../principle-see-the-whole-service/SKILL.md).
-7. `model-process` when more than one actor or system takes part. Write `process.drawio`, or `process-<flow>.drawio` per close flow when the process is large. When the approach depends on other systems, `context-drawio` to write `context.drawio`.
-8. `design-experience` for the recommended approach. Read [principle-behave-predictably](../../principle-behave-predictably/SKILL.md). Write `journey.drawio` when a few sentences cannot make the journey's decisions, exceptions, or handoffs clear. A second outcome is `journey-<flow>.drawio`.
-9. If the approach has an interface, `sketch-drawio` to write `sketch.drawio`, or `sketch-<flow>.drawio` per close flow when the board would be large. If it has none, say so under Product experience and skip to step 12.
+7. `model-process` when more than one actor or system takes part. Write `process.drawio`, or `NN-<step>/process.drawio` in business order when the process is large. When the approach depends on other systems, `context-drawio` to write `context.drawio`.
+8. `design-experience` for the recommended approach. Read [principle-behave-predictably](../../principle-behave-predictably/SKILL.md). Write `journey.drawio` when a few sentences cannot make the journey's decisions, exceptions, or handoffs clear. A second outcome is `NN-<step>/journey.drawio` in business order.
+9. If the approach has an interface, `sketch-drawio` to write `sketch.drawio`, or `NN-<actor>-<task>/sketch.drawio` in business order when the board would be large. If it has none, say so under Product experience and skip to step 12.
 10. **Shape checkpoint.** Write `product-design.md` so far, then stop and show the sketch. Ask one question: which layout option to take, if any is open, and whether the screens and their order are right. Continue on the person's answer and record it in the decision history. Skip the stop only when the person asked for the whole package in one pass; then pick the option the deciding principle favours, label it **proposed**, and say so in the reply.
-11. `design-screens` and `write-content` to write `screens.md` from the agreed sketch, then `prototype-drawio` to write `prototype.drawio`, or `prototype-<flow>.drawio` per close flow when the board would be large.
+11. `design-screens` and `write-content` to write `screens.md` from the agreed sketch, then `prototype-drawio` to write `prototype.drawio`, or `NN-<actor>-<task>/prototype.drawio` in the same step folder when the board would be large.
 12. `plan-evaluation` for the assumption that would reverse the recommendation. Use the sketch or prototype as test material where it fits. Record the plan as a plan.
 
 **Specify**

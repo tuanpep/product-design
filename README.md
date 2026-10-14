@@ -26,7 +26,7 @@ The result is a design package in `docs/product-design/<slug>/`. Which files app
 | `sequence.drawio` | A UML sequence of who asks whom, with failure and timeout paths | build-slice, when an integration or notification can fail |
 | `dataflow.drawio` | Where personal data goes, the trust boundaries it crosses, and the controls and open threats at each crossing | build-slice, when the slice handles personal data or a third party |
 
-A large diagram is split into one file per close flow, for example `journey-ask-cover.drawio` and `prototype-accept-cover.drawio`. One flow keeps the name in the table.
+A large diagram is split into one file per close flow and grouped in a step folder, for example `01-nurse-ask-cover/journey.drawio` beside `01-nurse-ask-cover/prototype.drawio`, then `02-colleague-accept-cover/`. One flow keeps the name in the table.
 
 Every diagram uses Draw.io's built-in libraries first, so it opens as the real notation: Flowchart, BPMN, Sitemap, Entity Relation tables, UML, C4, and Threat Modeling. Sketches and screen prototypes use basic shapes on purpose, so they can follow the target product's look.
 

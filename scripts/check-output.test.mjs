@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 import test from 'node:test'
 import { checkBuildSpec, checkDrawio, checkIds, checkOutput, checkPackage, checkPrototypeDrawio, checkSketchDrawio, screenStates } from './check-output.mjs'
 
@@ -107,7 +107,11 @@ const journey = `<mxfile><diagram id="p" name="Journey"><mxGraphModel><root>
 function withPackage(files, run) {
   const folder = mkdtempSync(join(tmpdir(), 'product-design-'))
   try {
-    for (const [name, content] of Object.entries(files)) writeFileSync(join(folder, name), content)
+    for (const [name, content] of Object.entries(files)) {
+      const path = join(folder, name)
+      mkdirSync(dirname(path), { recursive: true })
+      writeFileSync(path, content)
+    }
     return run(folder)
   } finally {
     rmSync(folder, { recursive: true, force: true })
@@ -217,6 +221,34 @@ test('reads ids from object-wrapped Draw.io cells such as C4 elements', () => {
   const wrapped = journey.replace('<mxCell id="b" value="End" vertex="1" parent="1" />', '<object id="b" label="End" placeholders="1" c4Type="Person"><mxCell vertex="1" parent="1" /></object>')
   assert.deepEqual(checkDrawio(wrapped), [])
   assert.ok(checkDrawio(wrapped.replace('<object id="b"', '<object id="a"')).includes('diagram.drawio: Cell ids must be unique within a page.'))
+})
+
+test('reads several flows from step folders in business order', () => {
+  withPackage({
+    'product-design.md': proposal('evaluation', 'test solutions'),
+    'screens.md': screens,
+    '01-nurse-ask-cover/sketch.drawio': sketch,
+    '01-nurse-ask-cover/prototype.drawio': example,
+    '02-colleague-accept-cover/journey.drawio': journey,
+  }, (folder) => assert.deepEqual(checkPackage(folder), []))
+  withPackage({
+    'product-design.md': proposal('evaluation', 'test solutions'),
+    'screens.md': screens,
+    '01-ask/sketch.drawio': sketch,
+    '01-ask/prototype.drawio': example,
+    '03-accept/journey.drawio': journey,
+  }, (folder) => assert.ok(checkPackage(folder).includes('Step folders are not numbered 01, 02, 03 in business order.')))
+  withPackage({
+    'product-design.md': proposal('evaluation', 'test solutions'),
+    'screens.md': screens,
+    'sketch.drawio': sketch,
+    '01-ask/sketch.drawio': sketch,
+    '01-ask/prototype.drawio': example,
+  }, (folder) => assert.ok(checkPackage(folder).some((error) => error.includes('sketch.drawio is in the package folder and in a step folder.'))))
+  withPackage({
+    'product-design.md': proposal('discovery', 'stop'),
+    '01-ask/sketch.drawio': sketch,
+  }, (folder) => assert.ok(checkPackage(folder).includes('A discovery proposal must not design screens.')))
 })
 
 test('every Draw.io skill example is a valid diagram', () => {

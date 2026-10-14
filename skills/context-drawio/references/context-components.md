@@ -20,7 +20,7 @@ Every element and relationship has `placeholders="1"`. Escape `&`, `<`, `>`, and
 
 - Page 1 is `Context`, with `<diagram id="context" name="Context">`. It is always drawn: the product as one system, the people who use it, and the systems it talks to directly.
 - Page 2 is `Containers`, with `<diagram id="containers" name="Containers">`. Draw it only when the target project already has an architecture, from its code or docs, and the slice changes which part talks to which. Mark each container existing or new in its description.
-- One slice is `context.drawio`. A second slice with different dependencies is `context-<slice>.drawio`.
+- One slice is `context.drawio`. A second slice with different dependencies is `NN-<slice>/context.drawio`, numbered in business order.
 
 ## Layout
 

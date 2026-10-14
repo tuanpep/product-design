@@ -4,7 +4,7 @@ Every shape below is a template from Draw.io's built-in **Threat Modeling** libr
 
 ## Layout
 
-- One page: `<diagram id="dataflow" name="Data flow">`. One data journey is `dataflow.drawio`. Each further journey is its own file, `dataflow-<journey>.drawio`.
+- One page: `<diagram id="dataflow" name="Data flow">`. One data journey is `dataflow.drawio`. Each further journey is `NN-<step>/dataflow.drawio`, in that step's folder.
 - People on the left, the product's processes and stores in the middle inside its trust boundary, other systems on the right inside their own boundary, and third parties outside every boundary.
 - Leave 140 between shapes so flow labels fit. Route a flow with waypoints when a straight line would cross another shape or another flow's label.
 - A caption at the top left, a legend under the diagram, and a note under the legend.

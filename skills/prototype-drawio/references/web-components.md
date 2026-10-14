@@ -6,7 +6,7 @@ This is the one place where basic shapes come before a built-in library, because
 
 ## Board layout
 
-- One actor and one task per file. Caption it `Actor · Task`. One pair keeps `prototype.drawio`. A second task, or a second actor doing a different task, is `prototype-<actor>-<task>.drawio`. Inside the file, one row per screen, in task order. One frame per state, left to right: default first, then empty, loading, partial, error, denied, success, and offline, drawing only the states `screens.md` lists. A modal or panel that stays on the same screen is a state of that screen.
+- One actor and one task per file. Caption it `Actor · Task`. One pair keeps `prototype.drawio`. A second task, or a second actor doing a different task, is a step folder `NN-<actor>-<task>/prototype.drawio`, numbered 01, 02, 03 in business order. The sketch of that step sits in the same folder. Inside the file, one row per screen, in task order. One frame per state, left to right: default first, then empty, loading, partial, error, denied, success, and offline, drawing only the states `screens.md` lists. A modal or panel that stays on the same screen is a state of that screen.
 - Frame size by device: desktop `1280×800`, tablet `768×1024`, mobile `375×812`. Use the device from the context of use.
 - Gap between frames: 160 across, 200 down. A caption sits 40 above each frame, and a note sits 20 below it.
 - Content grid inside a desktop frame: browser bar 0–40, top navigation 40–96, sidebar 0–240 wide, content from x 280 to x 1240 (960 wide), starting at y 120. Use multiples of 8 for spacing.

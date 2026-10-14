@@ -22,7 +22,8 @@ const gates = {
 const standards = ['product-design/1.0', 'product-design/1.1']
 const stateNames = ['default', 'empty', 'loading', 'partial', 'error', 'denied', 'success', 'offline']
 const drawioKinds = ['journey', 'process', 'navigation', 'sketch', 'prototype', 'context', 'erd', 'states', 'sequence', 'dataflow']
-const drawioFile = new RegExp(`^(${drawioKinds.join('|')})(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?\\.drawio$`)
+const drawioFile = new RegExp(`^(${drawioKinds.join('|')})\\.drawio$`)
+const stepFolderName = /^(\d{2})-[a-z0-9]+(?:-[a-z0-9]+)*$/
 const maxDrawioPages = 2
 const maxDrawioShapes = 400
 const idPattern = /\b(?:BR|SC|N|R|S|A|M)\d+\b/g
@@ -137,15 +138,42 @@ function cellsOf(xml) {
   })
 }
 
-function filesOfKind(files, kind) {
-  return files.filter((name) => drawioFile.exec(name)?.[1] === kind)
-}
-
-function splitConflict(names, kind) {
-  if (names.includes(`${kind}.drawio`) && names.some((name) => name.startsWith(`${kind}-`))) {
-    return `${kind}.drawio shares the package with ${kind}-<flow>.drawio files. One flow uses ${kind}.drawio. Several flows use only ${kind}-<flow>.drawio files.`
+function packageDiagrams(folder) {
+  const diagrams = []
+  const steps = []
+  const errors = []
+  for (const name of readdirSync(folder)) {
+    const path = join(folder, name)
+    if (statSync(path).isDirectory()) {
+      const drawios = readdirSync(path).filter((file) => file.endsWith('.drawio'))
+      const index = stepFolderName.exec(name)
+      if (!index) {
+        if (drawios.length) errors.push(`${name}: Group a business step as NN-<step>, such as 01-nurse-ask-cover.`)
+        continue
+      }
+      steps.push(Number(index[1]))
+      for (const file of drawios) {
+        const kind = drawioFile.exec(file)?.[1]
+        if (!kind) errors.push(`${name}/${file}: Inside a step folder, use the short name, such as sketch.drawio.`)
+        diagrams.push({ kind, rel: `${name}/${file}`, path: join(path, file), dir: name })
+      }
+      continue
+    }
+    if (!name.endsWith('.drawio')) continue
+    diagrams.push({ kind: drawioFile.exec(name)?.[1], rel: name, path, dir: '' })
   }
-  return null
+  if (steps.length) {
+    const sorted = [...steps].sort((a, b) => a - b)
+    if (new Set(sorted).size !== sorted.length) errors.push('Step folders repeat an index. Number each business step once.')
+    if (sorted.some((index, place) => index !== place + 1)) errors.push('Step folders are not numbered 01, 02, 03 in business order.')
+  }
+  for (const kind of drawioKinds) {
+    const ofKind = diagrams.filter((diagram) => diagram.kind === kind)
+    if (ofKind.some((diagram) => diagram.dir === '') && ofKind.some((diagram) => diagram.dir !== '')) {
+      errors.push(`${kind}.drawio is in the package folder and in a step folder. One flow stays in the package folder. Several flows use only step folders.`)
+    }
+  }
+  return { diagrams, errors }
 }
 
 function checkFrames(xml, name, frames) {
@@ -269,12 +297,19 @@ export function checkPackage(folder) {
     ids = screenIds(screens)
     states = screenStates(screens)
   }
-  if (has('prototype.drawio')) {
+  const { diagrams, errors: diagramErrors } = packageDiagrams(folder)
+  errors.push(...diagramErrors)
+  const ofKind = (kind) => diagrams.filter((diagram) => diagram.kind === kind)
+  const prototypes = ofKind('prototype')
+  const sketches = ofKind('sketch')
+  const readDiagram = (diagram) => ({ name: diagram.rel, xml: readFileSync(diagram.path, 'utf8') })
+  if (prototypes.length) {
     if (!has('screens.md')) errors.push('prototype.drawio needs screens.md.')
-    errors.push(...checkPrototypeDrawio(read('prototype.drawio'), ids, states))
+    const frames = [...new Set([...ids.map((id) => `${id}-default`), ...states])]
+    errors.push(...checkFrameSet(prototypes.map(readDiagram), 'prototype.drawio', frames, true))
   } else if (v11 && has('screens.md') && profile !== 'discovery') errors.push('screens.md needs prototype.drawio.')
-  if (has('sketch.drawio')) {
-    errors.push(...checkSketchDrawio(read('sketch.drawio'), ids))
+  if (sketches.length) {
+    errors.push(...checkFrameSet(sketches.map(readDiagram), 'sketch.drawio', ids.map((id) => `${id}-sketch`), false))
   } else if (v11 && has('screens.md') && profile !== 'discovery') errors.push('screens.md needs sketch.drawio.')
 
   if (has('build-spec.md')) {
@@ -287,14 +322,14 @@ export function checkPackage(folder) {
   } else if (v11 && profile === 'build-slice') errors.push('A build-slice proposal needs build-spec.md.')
   else if (v11 && gate === 'specify a slice') errors.push('Next gate specify a slice needs a draft build-spec.md.')
 
-  if (profile === 'discovery' && v11 && ['screens.md', 'sketch.drawio', 'prototype.drawio'].some(has)) errors.push('A discovery proposal must not design screens.')
+  if (profile === 'discovery' && v11 && (has('screens.md') || sketches.length || prototypes.length)) errors.push('A discovery proposal must not design screens.')
 
-  const files = readdirSync(folder)
-  for (const name of files.filter((file) => file.endsWith('.drawio') && !['prototype.drawio', 'sketch.drawio'].includes(file))) {
-    errors.push(...checkDrawio(read(name), name))
+  const covered = new Set([...prototypes, ...sketches].map((diagram) => diagram.rel))
+  for (const diagram of diagrams) {
+    if (!covered.has(diagram.rel)) errors.push(...checkDrawio(readFileSync(diagram.path, 'utf8'), diagram.rel))
   }
   const markdown = Object.fromEntries(['product-design.md', 'screens.md', 'build-spec.md'].filter(has).map((name) => [name, read(name)]))
-  errors.push(...checkIds(markdown, files.filter((file) => file.endsWith('.drawio')).map(read)))
+  errors.push(...checkIds(markdown, diagrams.map((diagram) => readFileSync(diagram.path, 'utf8'))))
   return errors
 }
 
