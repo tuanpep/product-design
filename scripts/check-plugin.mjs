@@ -29,6 +29,8 @@ export function checkPlugin(folder = root) {
     const standard = JSON.parse(readFileSync(standardFile, 'utf8'))
     if (standard.$schema !== 'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json') errors.push('Root plugin.json needs the Agent Plugins schema.')
     if (standard.name !== manifest.name) errors.push('Root plugin.json name must match the Cursor manifest.')
+    if (!/^[a-zA-Z0-9-_]+$/.test(standard.name ?? '')) errors.push('Root plugin.json name must match the Antigravity plugin name pattern.')
+    if (typeof standard.description !== 'string' || !standard.description.trim()) errors.push('Root plugin.json needs a description.')
     if (standard.version !== manifest.version) errors.push('Root plugin.json version must match the Cursor manifest.')
     if (standard.license !== 'MIT') errors.push('Root plugin.json license must be MIT.')
   } catch (error) {
@@ -51,6 +53,8 @@ export function checkPlugin(folder = root) {
     if (opencodeBody !== agentBody) errors.push('Cursor and OpenCode design-product agents must share one prompt.')
   }
   component(folder, join(folder, 'commands', 'design-product.md'), 'design-product', errors)
+  checkAntigravityRule(folder, errors)
+  checkClaude(folder, manifest, errors)
 
   const skillsDir = join(folder, 'skills')
   if (!existsSync(skillsDir) || !statSync(skillsDir).isDirectory()) return [...errors, 'Missing skills directory.']
@@ -92,6 +96,61 @@ function component(folder, file, expectedName, errors) {
   if (name !== expectedName) errors.push(`${label} name must be ${expectedName}.`)
   if (!/^description:\s*\S/m.test(parsed.header)) errors.push(`${label} needs a description.`)
   return parsed.body
+}
+
+function checkAntigravityRule(folder, errors) {
+  const label = 'rules/design-product.md'
+  const file = join(folder, 'rules', 'design-product.md')
+  if (!existsSync(file)) {
+    errors.push(`Missing ${label}`)
+    return
+  }
+  const parsed = frontmatter(readFileSync(file, 'utf8'))
+  if (!parsed) {
+    errors.push(`${label} needs YAML frontmatter.`)
+    return
+  }
+  const trigger = /^trigger:\s*(.+)$/m.exec(parsed.header)?.[1]?.trim()
+  if (trigger !== 'model_decision') errors.push(`${label} trigger must be model_decision.`)
+  if (!/^description:\s*\S/m.test(parsed.header)) errors.push(`${label} needs a description.`)
+  if (!parsed.body) errors.push(`${label} needs a body.`)
+}
+
+function checkClaude(folder, manifest, errors) {
+  const pluginFile = join(folder, '.claude-plugin', 'plugin.json')
+  let claude
+  try {
+    claude = JSON.parse(readFileSync(pluginFile, 'utf8'))
+  } catch (error) {
+    errors.push(`Cannot read Claude plugin manifest: ${error.message}`)
+    return
+  }
+  if (claude.$schema !== 'https://json.schemastore.org/claude-code-plugin-manifest.json') errors.push('Claude plugin manifest needs the Claude Code plugin schema.')
+  if (claude.name !== manifest.name) errors.push('Claude plugin manifest name must match the Cursor manifest.')
+  if (claude.displayName !== manifest.displayName) errors.push('Claude plugin manifest displayName must match the Cursor manifest.')
+  if (claude.version !== manifest.version) errors.push('Claude plugin manifest version must match the Cursor manifest.')
+  if (claude.description !== manifest.description) errors.push('Claude plugin manifest description must match the Cursor manifest.')
+  if (claude.author?.name !== 'tuanpep' || claude.author?.email !== manifest.author?.email) errors.push('Claude plugin manifest author must match the Cursor manifest.')
+  if (claude.license !== 'MIT') errors.push('Claude plugin manifest license must be MIT.')
+  if (claude.homepage !== manifest.homepage || claude.repository !== manifest.repository) errors.push('Claude plugin manifest links must match the Cursor manifest.')
+  if (claude.icon !== './assets/avatar.png' || !existsSync(join(folder, 'assets', 'avatar.png'))) errors.push('Claude plugin manifest icon must be ./assets/avatar.png.')
+  if (claude.documentationUrl !== manifest.homepage) errors.push('Claude plugin manifest documentationUrl must match the homepage.')
+  if (claude.supportUrl !== 'https://github.com/tuanpep/product-design/issues') errors.push('Claude plugin manifest supportUrl must be the GitHub issues URL.')
+  if (!Array.isArray(claude.commands) || claude.commands.length !== 0) errors.push('Claude plugin manifest must set commands to an empty array so the design-product skill is the only slash command.')
+  if (claude.skills !== undefined || claude.agents !== undefined) errors.push('Claude plugin manifest must leave skills and agents on the default directories.')
+
+  try {
+    const marketplace = JSON.parse(readFileSync(join(folder, '.claude-plugin', 'marketplace.json'), 'utf8'))
+    const entry = marketplace.plugins?.find((plugin) => plugin.name === manifest.name)
+    if (marketplace.$schema !== 'https://json.schemastore.org/claude-code-marketplace.json') errors.push('Claude marketplace needs the Claude Code marketplace schema.')
+    if (marketplace.name !== manifest.name) errors.push('Claude marketplace name must match the plugin name.')
+    if (marketplace.owner?.name !== 'tuanpep') errors.push('Claude marketplace needs owner name tuanpep.')
+    if (typeof marketplace.description !== 'string' || !marketplace.description.trim()) errors.push('Claude marketplace needs a description.')
+    if (!entry || entry.source !== '.') errors.push('Claude marketplace must list this plugin with source ".".')
+    if (entry?.version !== undefined) errors.push('Claude marketplace entry must leave version to plugin.json.')
+  } catch (error) {
+    errors.push(`Cannot read Claude marketplace.json: ${error.message}`)
+  }
 }
 
 function checkLinks(directory, folder, errors) {

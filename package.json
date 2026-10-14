@@ -5,6 +5,7 @@
   "exports": "./index.js",
   "files": [
     ".cursor-plugin/",
+    ".claude-plugin/",
     "assets/",
     "plugin.json",
     "index.js",
@@ -12,6 +13,7 @@
     ".opencode/",
     "agents/",
     "commands/",
+    "rules/",
     "skills/",
     "docs/",
     "scripts/check-output.mjs",

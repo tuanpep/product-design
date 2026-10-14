@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "product-design",
+  "description": "Turn a human idea into an evidence-labeled product design, from the problem through a sketch, screens, a Draw.io screen prototype, and an implementation-ready build spec.",
+  "owner": {
+    "name": "tuanpep",
+    "email": "tuanbt209@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "product-design",
+      "source": ".",
+      "description": "Turn a human idea into an evidence-labeled product design, from the problem through a sketch, screens, a Draw.io screen prototype, and an implementation-ready build spec."
+    }
+  ]
+}

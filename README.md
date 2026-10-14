@@ -67,6 +67,41 @@ To load this checkout instead of the GitHub package, run `npm install` here and 
 
 Use either the GitHub package or the local path. OpenCode V2 is required. Install and plugin layout are documented at [Plugins](https://v2.opencode.ai/docs/plugins) and [Build a plugin](https://v2.opencode.ai/docs/build/plugins).
 
+### Google Antigravity
+
+Antigravity reads this repository as a plugin: root `plugin.json`, `skills/`, `agents/design-product.md`, and `rules/design-product.md`. The `design-product` skill becomes the `/design-product` slash command. The rule loads when the task is a product design, and it points the agent at that skill.
+
+The official catalog name `antigravity-plugins-official` is curated. These docs do not describe a public submission step. Install this plugin from GitHub or from a local directory.
+
+From a shell:
+
+```sh
+agy plugin install https://github.com/tuanpep/product-design
+```
+
+Or, inside the Antigravity CLI, `/plugin install` with that URL or with the path to this checkout. In the app or IDE, copy this directory to `.agents/plugins/product-design/` in one workspace, or to `~/.gemini/config/plugins/product-design/` for every workspace. Reload, then run `/design-product`.
+
+The root manifest stays on the [Agent Plugins](https://agent-plugins.org/schemas/1.0.0/plugin.schema.json) schema, which already has the `name` and `description` Antigravity requires. Antigravity's published schema lists only those two fields. This repo keeps the extra Agent Plugins fields so the open manifest stays valid. Plugin layout is documented at [Plugins](https://antigravity.google/docs/plugins) and [Marketplace](https://antigravity.google/docs/marketplace).
+
+### Claude Code
+
+Claude Code reads `.claude-plugin/marketplace.json` and `.claude-plugin/plugin.json`. Skills stay in `skills/`, and the agent stays in `agents/design-product.md`. The manifest sets `commands` to an empty array so `commands/design-product.md` does not register a second copy of the same slash command. In Claude Code that command is namespaced:
+
+```text
+/product-design:design-product
+```
+
+Add this repository as a marketplace, then install the plugin:
+
+```sh
+claude plugin marketplace add tuanpep/product-design
+claude plugin install product-design@product-design
+```
+
+For this checkout, use `claude plugin marketplace add` with the directory path, or load it in place with `claude --plugin-dir` pointed at this directory. Run `claude plugin validate .` before you publish.
+
+`claude-plugins-official` does not take submissions. To list the plugin for other people, submit the GitHub repository as a plugin bundle at [claude.ai/directory/manage](https://claude.ai/directory/manage). The community catalog is a separate review. Layout and publishing are documented at [Create a marketplace](https://code.claude.com/docs/en/plugins/create-marketplace) and [Publish a plugin](https://code.claude.com/docs/en/plugins/publish).
+
 ## Skills
 
 `/design-product` asks which level to run, then picks a playbook and calls the other skills as far as that level: Understand, Design documents, Sketch, Prototype, or Full. Name the level in your message to skip the question. Say `advise` to skip the question and the later decision stops: the agent suggests the solution and design, labels each choice proposed, and continues. You can also invoke a skill on its own.
