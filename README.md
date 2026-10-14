@@ -74,9 +74,9 @@ Use either the GitHub package or the local path. OpenCode V2 is required. Instal
 | | `/context-drawio` | Draw a C4 system context of the product, its users, and the systems it depends on. |
 | | `/design-experience` | Describe the chosen approach across the whole journey. |
 | | `/sketch-drawio` | Sketch each screen's rough layout in Draw.io, with alternative layouts, for a person to agree before the detail. |
-| | `/design-screens` | Write the navigation map and each screen's content, actions, and the states that change it. |
+| | `/design-screens` | Write the navigation map and each screen's content, actions, and every state. |
 | | `/write-content` | Write labels, actions, empty states, errors, and notifications. |
-| | `/prototype-drawio` | Draw each screen and the states `screens.md` lists, with realistic web or mobile components in Draw.io. |
+| | `/prototype-drawio` | Draw every screen and state with realistic web or mobile components in Draw.io. |
 | | `/drawio` | Draw a journey, swimlane process, or navigation map as a Draw.io file. |
 | | `/plan-evaluation` | Plan the smallest real test of the assumption that would reverse the recommendation. |
 | Specify | `/map-stories` | Build a story map and draw the first-release line. |

@@ -48,7 +48,7 @@ For every run, record pass, fail, or not applicable with a document locator for 
 6. **Evaluation:** the reversing assumption has a discriminating, ethical plan with decision criteria and limitations. Plans are never results.
 7. **Artifact and revision integrity:** files open where checked, diagrams agree with text, superseded claims and dependent edits are visible.
 8. **Proportionality:** discovery/no-build is concise and does not fabricate a production design to fill sections.
-9. **Product shape:** at evaluation or deeper with an interface, `screens.md` and the prototype files let a reader picture each screen's default and the other states that change it, as a real web or mobile layout with realistic content.
+9. **Product shape:** at evaluation or deeper with an interface, `screens.md` and the prototype files let a reader picture the main, empty, error, and denied states as a real web or mobile layout with realistic content.
 10. **Buildability:** a builder reading `build-spec.md` cold can name no undecided reversible choice; each blocking question has an owner; rules are defined once with examples; every Must story has concrete Given/When/Then outcomes and checks.
 
 Fabricated evidence/approval, a ready verdict despite a blocking safety/policy/feasibility gap, and contradictory consequential rules are critical failures. Do not average them away with a score. Structural passes cannot override them. Output behavior remains unverified until real host runs are recorded.

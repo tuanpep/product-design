@@ -1,6 +1,6 @@
 ---
 name: design-screens
-description: "Turn a journey and its agreed sketch into a navigation map and a screen inventory, with each screen's content, inputs, actions, the states that change it, and accessibility notes. Use for /design-screens, after sketch-drawio, or when people cannot picture the product."
+description: "Turn a journey and its agreed sketch into a navigation map and a screen inventory, with each screen's content, inputs, actions, every state, and accessibility notes. Use for /design-screens, after sketch-drawio, or when people cannot picture the product."
 disable-model-invocation: true
 ---
 
@@ -15,7 +15,7 @@ Read [principle-design-every-state](../principle-design-every-state/SKILL.md), [
    - content shown, with the entity attribute it comes from;
    - inputs with type, required or optional, validation rule ID, and an example value. A rule that a screen needs before `define-rules` has run gets its BR ID once, under Needs and requirements in `product-design.md`, as **proposed**; `define-rules` keeps that ID;
    - actions with their real label and result;
-   - states: default, plus a state a person can reach that changes this screen. Empty, error, and denied when the screen can be empty, fail, or refuse, with the recovery, rule, and message ID. Loading, partial, success, and offline only when they change this screen. Leave out a state that cannot happen or does not change the screen, and do not list it.
+   - states: default, empty, loading, partial, error with recovery, denied with rule and message ID, and success. Add offline or slow when the context makes it likely. Say why a state cannot happen rather than leaving it out.
 5. Inspect the target project for an existing design system, components, or platform conventions, and reuse them before inventing a pattern. Note layout differences for small screens when the context of use requires them.
 6. For each screen, note heading order, focus order, labels, error identification, target size, and meaning not carried by colour alone, with the [WCAG 2.2](https://www.w3.org/TR/WCAG22/) criteria to check. A specification does not establish conformance.
 7. Get labels and messages from `write-content`. Use realistic content, including the longest value, the empty list, and the long list.

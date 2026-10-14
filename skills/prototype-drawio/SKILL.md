@@ -1,6 +1,6 @@
 ---
 name: prototype-drawio
-description: "Draw a high-fidelity web or mobile screen prototype in Draw.io, using realistic layout and component shapes (browser frame, navigation, sidebar, tables, forms, badges, alerts, modals) for each screen and the states screens.md lists. Use for /prototype-drawio, after design-screens, or when people need to see the product's shape."
+description: "Draw a high-fidelity web or mobile screen prototype in Draw.io, using realistic layout and component shapes (browser frame, navigation, sidebar, tables, forms, badges, alerts, modals) for every screen and state in screens.md. Use for /prototype-drawio, after design-screens, or when people need to see the product's shape."
 disable-model-invocation: true
 ---
 
@@ -15,7 +15,7 @@ Read [principle-use-real-content](../principle-use-real-content/SKILL.md), [prin
 5. Build every frame from [the component library](references/web-components.md): the real chrome (browser bar, top navigation, sidebar, or mobile status and tab bars), then page title, breadcrumb, and content using the library's tables, cards, inputs, selects, checkboxes, radios, toggles, tabs, badges, alerts, toasts, modals, skeletons, and empty-state blocks. Copy styles exactly. Do not invent stencil names.
 6. Name cells so they trace to the spec: the frame is `SC2-denied`, its children start with `SC2-denied-`. Every screen has at least a `-default` frame.
 7. Put real content in every control: the words from `write-content`, plausible fictional data, the longest name, the empty list, and the denied message. Name each button by its action.
-8. Draw the states `screens.md` lists, with the recovery visible. A state it leaves out is not drawn. Show a denied state with the message ID and rule ID in the note.
+8. Draw the error, empty, loading, and denied states that `screens.md` lists, with the recovery visible. Show a denied state with the message ID and rule ID in the note.
 9. Connect frames with flow arrows from the control the user acts on to the frame that follows, labelled with the action. Dash arrows for system-caused changes. Route arrows through the gaps between frames.
 10. Check the file: every cell id is unique, every arrow has a source and a target, nothing overlaps or clips inside a frame. Open it in Draw.io or diagrams.net before claiming that it renders. If you could not open it, say so.
 

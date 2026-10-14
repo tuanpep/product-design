@@ -21,7 +21,7 @@ The work moves through four stages. Each stage can send the work back to an earl
 8. `design-experience` describes the chosen approach across the whole journey.
 9. `sketch-drawio` sketches the quick shape: which screens exist, in what order, and roughly where things go, with alternative layouts where the choice is open. A person reviews it before the detail.
 10. `design-screens` and `write-content` turn the agreed sketch into screens, states, and words.
-11. `prototype-drawio` draws each screen and the states `screens.md` lists, with real web or mobile layout and components, so people can see the finished shape.
+11. `prototype-drawio` draws every screen and state with real web or mobile layout and components, so people can see the finished shape.
 12. `plan-evaluation` plans the smallest real test of the reversing assumption. A plan is not a result.
 
 **Specify** (build slice)
