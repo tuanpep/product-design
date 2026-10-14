@@ -10,9 +10,8 @@ Which level should this run stop at?
 
 1. **Understand.** Problem, needs, and whether to continue. Only `product-design.md`.
 2. **Design documents.** The proposal, the journey, and the process. No screens.
-3. **Sketch.** Rough screens in `sketch.drawio`, then a stop to choose the layout.
-4. **Prototype.** Screens and a Draw.io prototype. The layout is marked **proposed**.
-5. **Full.** The whole package in one pass, including the build spec.
+3. **Mockup.** Screens and a Draw.io mockup. When a layout option is open, guided mode stops to choose it.
+4. **Full.** The whole package in one pass, including the build spec.
 
 "Brainstorm" means Understand. "The whole package" means Full. If they already named a level, use it and do not ask. Run only the steps of that level. After the last of those steps, do Check on what was written. An earlier stop still wins: if `decide-next` says stop or repeat discovery, write `product-design.md` and stop even when the level is later.
 
@@ -29,18 +28,17 @@ Which level should this run stop at?
 6. `explore-solutions`. Include the current approach or no-build baseline and at least one credible alternative when there is a real choice. Read [principle-see-the-whole-service](../../principle-see-the-whole-service/SKILL.md).
 7. `model-process` when more than one actor or system takes part. Write `process.drawio`, or `1-<step>/process.drawio` in parent/child index order when the process is large. When the approach depends on other systems, `context-drawio` to write `context.drawio`.
 8. `design-experience` for the recommended approach. Read [principle-behave-predictably](../../principle-behave-predictably/SKILL.md). Write `journey.drawio` when a few sentences cannot make the journey's decisions, exceptions, or handoffs clear. A second outcome is `2-<step>/journey.drawio`. A split of the first step is `1.1-<step>/journey.drawio`. If the level is Design documents, stop here.
-9. If the approach has an interface, `sketch-drawio` to write `sketch.drawio`, or `1-<actor>-<task>/sketch.drawio` in parent/child index order when the board would be large. If it has none, say so under Product experience and skip to step 12. Skip this step when the level is Understand or Design documents.
-10. **Shape checkpoint.** In guided mode, write `product-design.md` so far, then stop and show the sketch. Ask one question: which layout option to take, if any is open, and whether the screens and their order are right. Continue on the person's answer and record it in the decision history. This stop is the end when the level is Sketch. Skip it when the level is Prototype or Full, and skip it in advise mode: pick the option the deciding principle favours, label it **proposed**, and say so in the reply. In advise mode, continue into the screens when the level includes them.
-11. Run this when the level is Prototype or Full, or after the person answers the layout question. `design-screens` and `write-content` to write `screens.md` from the agreed sketch, then `prototype-drawio` to write `prototype.drawio`, or `1-<actor>-<task>/prototype.drawio` in the same step folder when the board would be large. If the level is Prototype, stop after step 12.
-12. `plan-evaluation` for the assumption that would reverse the recommendation. Use the sketch or prototype as test material where it fits. Record the plan as a plan.
+9. If the approach has an interface, `design-screens` and `write-content` to write `screens.md`, then `mockup-drawio` to write `mockup.drawio`, or `1-<actor>-<task>/mockup.drawio` in parent/child index order when the board would be large. If it has none, say so under Product experience and skip to step 10. Skip this step when the level is Understand or Design documents.
+10. `plan-evaluation` for the assumption that would reverse the recommendation. Use the mockup as test material where it fits. Record the plan as a plan.
+11. **Shape checkpoint.** In guided mode, write `product-design.md` so far and stop. When a layout option is open, show the mockup and ask one question: which layout option to take, and whether the screens and their order are right. Continue on the person's answer and record it in the decision history. This stop is the end when the level is Mockup. Skip it when the level is Full, and skip it in advise mode: pick the option the deciding principle favours, label it **proposed**, and say so in the reply.
 
 **Specify**
 
-13. Only when the level is Full. If the direction is chosen and a slice is worth specifying: `map-stories`, `model-domain`, `define-rules`, then `specify-build` to write `build-spec.md`. Draw what the package table calls for: `erd-drawio`, `state-drawio`, `sequence-drawio`, and `dataflow-drawio`, each linked from its build-spec section. Read [principle-decide-the-reversible](../../principle-decide-the-reversible/SKILL.md): give reversible questions a proposed default and keep irreversible or harmful ones blocking. Use `Status: ready` only when no blocker remains. Otherwise `Status: draft` with the blockers and their owners. If the slice is not yet worth specifying, explain why under First useful release.
+12. Only when the level is Full. If the direction is chosen and a slice is worth specifying: `map-stories`, `model-domain`, `define-rules`, then `specify-build` to write `build-spec.md`. Draw what the package table calls for: `erd-drawio`, `state-drawio`, `sequence-drawio`, and `dataflow-drawio`, each linked from its build-spec section. Read [principle-decide-the-reversible](../../principle-decide-the-reversible/SKILL.md): give reversible questions a proposed default and keep irreversible or harmful ones blocking. Use `Status: ready` only when no blocker remains. Otherwise `Status: draft` with the blockers and their owners. If the slice is not yet worth specifying, explain why under First useful release.
 
 **Check**
 
-14. Write `product-design.md` using [the proposal format](../references/proposal-format.md), linking every package file. Then `review-design` across the whole package and `decide-next`. Fix contradictions in the owning file before reporting.
+13. Write `product-design.md` using [the proposal format](../references/proposal-format.md), linking every package file. Then `review-design` across the whole package and `decide-next`. Fix contradictions in the owning file before reporting.
 
 A small idea can satisfy a skill in a few sentences. A skipped step stays visible with the reason. Do not block a useful proposal on facts the agent cannot obtain. In guided mode, if two goals conflict and a reversible default cannot be defended, ask one focused question. Otherwise, and always in advise mode, recommend a labeled provisional choice and continue. In advise mode, record the conflict and who can reverse the choice.
 

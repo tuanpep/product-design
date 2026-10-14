@@ -8,7 +8,7 @@ Turn it on when the person tells you to advise, to run advise mode, or to sugges
 
 Guided mode stays the default when none of that appears. In guided mode, a missing level is still a question you ask before any design work.
 
-A named level still caps the run: `advise sketch` stops after the sketch because that is the level, not because you are waiting. When they do not name a level, run **Full**.
+A named level still caps the run: `advise mockup` stops after the mockup because that is the level, not because you are waiting. When they do not name a level, run **Full**.
 
 ## What changes
 
@@ -16,7 +16,7 @@ These replace the questions in [new-idea.md](../playbooks/new-idea.md) and [revi
 
 - **Level.** Do not ask. Record `Level: Full (proposed)` in the decision history when they did not name one, and say so in the reply.
 - **Open choices.** Recommend one option. Name the principle that decided it, the option it costs, and who can reverse it. Label the choice **proposed**. Write the next file. Do not ask a question that must be answered first.
-- **Sketch.** Recommend the layout the deciding principle favours. Skip the shape checkpoint. When the level includes Prototype or Full, write `screens.md` and the prototype from that recommendation, and list the layouts you did not take.
+- **Mockup.** Recommend the layout the deciding principle favours. Skip the shape checkpoint. Write `screens.md` and `mockup.drawio` from that recommendation, and list the layouts you did not take.
 - **Hard choices.** Safety, money, law, privacy, and choices that are hard to reverse still get a recommended default. Label it **proposed — owner must confirm**, and say what goes wrong if it is wrong. Keep writing the rest of the package. Do not set `Status: ready` while one of these is unconfirmed. Do not treat the request for a design as approval. This applies [principle-decide-the-reversible](../../principle-decide-the-reversible/SKILL.md) without pausing the run.
 - **Facts you cannot obtain.** Leave them **unknown**. Do not pause to ask. Say how to learn each one, and design the rest around the unknown.
 - **Revision.** Apply the new evidence and recommend the updated design. Leave a human edit in place, name it, and design around it.

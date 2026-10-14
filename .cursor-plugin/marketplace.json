@@ -5,13 +5,13 @@
     "email": "tuanbt209@gmail.com"
   },
   "metadata": {
-    "description": "Turn a human idea into an evidence-labeled product design, from the problem through a sketch, screens, a Draw.io screen prototype, and an implementation-ready build spec."
+    "description": "Turn a human idea into an evidence-labeled product design, from the problem through screens, a Draw.io mockup, and an implementation-ready build spec."
   },
   "plugins": [
     {
       "name": "product-design",
       "source": ".",
-      "description": "Turn a human idea into an evidence-labeled product design, from the problem through a sketch, screens, a Draw.io screen prototype, and an implementation-ready build spec."
+      "description": "Turn a human idea into an evidence-labeled product design, from the problem through screens, a Draw.io mockup, and an implementation-ready build spec."
     }
   ]
 }

@@ -13,11 +13,11 @@ npm run check:output -- /path/to/project/docs/product-design/shift-swaps/product
 
 For a proposal, this checks header fields, profile/gate agreement, date, section order/content, and verdict labels. For a folder, it also checks:
 
-- that `screens.md` comes with sketch and prototype files outside discovery (`sketch.drawio`, or `1-<actor>-<task>/sketch.drawio` in a step folder, and the same for `prototype`);
+- that `screens.md` comes with a mockup outside discovery (`mockup.drawio`, or `1-<actor>-<task>/mockup.drawio` in a step folder);
 - that a discovery proposal has no screen files;
 - that a build-slice proposal has a ready `build-spec.md`, a "specify a slice" gate has a build spec, and a ready spec only goes with a build-slice proposal;
 - the `screens.md` and `build-spec.md` headers and sections, and Given/When/Then acceptance criteria;
-- a `<screen>-sketch` frame across the sketch files and a `<screen>-default` frame across the prototype files for every screen ID;
+- a `<screen>-default` frame across the mockup files for every screen ID, and a frame for every state `screens.md` lists;
 - Draw.io ids, parents, and edge references in every `.drawio` file;
 - that a Draw.io file has at most two pages and at most 400 shapes, so a large diagram is split into one file per close flow.
 
@@ -49,7 +49,7 @@ For every run, record pass, fail, or not applicable with a document locator for 
 6. **Evaluation:** the reversing assumption has a discriminating, ethical plan with decision criteria and limitations. Plans are never results.
 7. **Artifact and revision integrity:** files open where checked, diagrams agree with text, superseded claims and dependent edits are visible.
 8. **Proportionality:** discovery/no-build is concise and does not fabricate a production design to fill sections.
-9. **Product shape:** at evaluation or deeper with an interface, `screens.md` and the prototype files let a reader picture the main, empty, error, and denied states as a real web or mobile layout with realistic content.
+9. **Product shape:** at evaluation or deeper with an interface, `screens.md` and the mockup files let a reader see the main, empty, error, and denied states as a Draw.io wireframe with realistic labels and content.
 10. **Buildability:** a builder reading `build-spec.md` cold can name no undecided reversible choice; each blocking question has an owner; rules are defined once with examples; every Must story has concrete Given/When/Then outcomes and checks.
 
 Fabricated evidence/approval, a ready verdict despite a blocking safety/policy/feasibility gap, and contradictory consequential rules are critical failures. Do not average them away with a score. Structural passes cannot override them. Output behavior remains unverified until real host runs are recorded.

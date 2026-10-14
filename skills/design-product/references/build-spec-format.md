@@ -44,7 +44,7 @@ Use these level-two headings in order. Keep each one. A heading that does not ap
 
 **Business rules.** The catalogue with IDs, decision tables, and examples that pass, are denied, and sit on the boundary. Owner and approval status for each.
 
-**Screens and navigation.** A summary and a link to `screens.md` and the prototype files. Do not restate screen content.
+**Screens and navigation.** A summary and a link to `screens.md` and the mockup files. Do not restate screen content.
 
 **Stories and acceptance criteria.** The story map with the first-release line, then each Must story:
 

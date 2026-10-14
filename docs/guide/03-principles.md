@@ -34,7 +34,7 @@ The specification-quality principles come after those seven and never override t
 - [Make it testable](../../skills/principle-make-it-testable/SKILL.md) when writing a requirement, rule, or acceptance outcome.
 - [One source of truth](../../skills/principle-one-source-of-truth/SKILL.md) when a term, rule, state, or message appears in more than one place.
 - [Decide the reversible](../../skills/principle-decide-the-reversible/SKILL.md) when an open question would leave a builder guessing.
-- [Use real content](../../skills/principle-use-real-content/SKILL.md) when drafting screens, examples, copy, or a prototype.
+- [Use real content](../../skills/principle-use-real-content/SKILL.md) when drafting screens, examples, copy, or a mockup.
 
 ```text
 design every state. what does the nurse see when nobody qualified is free to cover?

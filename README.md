@@ -10,7 +10,7 @@ In the project being designed:
 /design-product Staff coordinate shift swaps in chat, but the roster stays wrong.
 ```
 
-It asks which level to stop at: Understand, Design documents, Sketch, Prototype, or Full. Name the level to skip that question. Say `advise` for a suggested solution and design in one pass:
+It asks which level to stop at: Understand, Design documents, Mockup, or Full. Name the level to skip that question. Say `advise` for a suggested solution and design in one pass:
 
 ```text
 /design-product advise Staff coordinate shift swaps in chat, but the roster stays wrong.

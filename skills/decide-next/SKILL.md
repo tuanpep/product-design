@@ -10,7 +10,7 @@ Read the gates in [the workflow reference](../design-product/references/workflow
 
 - **Stop.** Nothing viable would improve on what exists, a hard constraint blocks a better outcome, or an existing path already solves the problem.
 - **Repeat discovery.** The problem, people, or context is still too unclear to test a solution.
-- **Test solutions.** The problem is worth the cost of learning. Name the ideas to try and the riskiest assumption. This permits disposable prototypes, not the service itself.
+- **Test solutions.** The problem is worth the cost of learning. Name the ideas to try and the riskiest assumption. This permits a disposable mockup, not the service itself.
 - **Specify a slice.** A direction has been chosen, and the design is not yet verifiable enough to build. A draft `build-spec.md` should already exist, naming each blocker and its owner.
 - **Ready for a named build slice.** The need, approach, stories, acceptance outcomes, and checks are specified and traceable in a `build-spec.md` with `Status: ready`, well enough for a person to decide to invest. No unresolved safety, policy, feasibility, or ownership issue blocks that named slice. Untested non-blocking assumptions remain explicit as proposed defaults; use [the output standard](../design-product/references/output-standard.md).
 

@@ -4,7 +4,7 @@ The method follows [ISO 9241-210:2019](https://www.iso.org/standard/77520.html),
 
 ## What each skill owns
 
-The work moves through four stages. Each stage can send the work back to an earlier one. On a new idea in guided mode, ask which level to run before the first stage, unless the person already named one: Understand, Design documents, Sketch, Prototype, or Full. Do not start a stage past that level. The levels are defined in [new-idea.md](../playbooks/new-idea.md). [Advise mode](advise-mode.md) does not ask. It runs the named level, or Full when none is named, recommends each open choice, and does not stop for a person to decide before the next file. The person still reviews the proposal afterward.
+The work moves through four stages. Each stage can send the work back to an earlier one. On a new idea in guided mode, ask which level to run before the first stage, unless the person already named one: Understand, Design documents, Mockup, or Full. Do not start a stage past that level. The levels are defined in [new-idea.md](../playbooks/new-idea.md). [Advise mode](advise-mode.md) does not ask. It runs the named level, or Full when none is named, recommends each open choice, and does not stop for a person to decide before the next file. The person still reviews the proposal afterward.
 
 **Understand** (discovery)
 
@@ -19,27 +19,26 @@ The work moves through four stages. Each stage can send the work back to an earl
 6. `explore-solutions` compares the current path, reuse, non-software options, and product options, including the assumption that would reverse the choice.
 7. `model-process` maps the as-is and to-be process across actors when more than one acts. `context-drawio` draws the product, its users, and the systems it depends on when it touches other systems.
 8. `design-experience` describes the chosen approach across the whole journey.
-9. `sketch-drawio` sketches the quick shape: which screens exist, in what order, and roughly where things go, with alternative layouts where the choice is open. In guided mode, a person reviews it before the detail. In advise mode, recommend a layout and continue.
-10. `design-screens` and `write-content` turn the agreed sketch into screens, states, and words.
-11. `prototype-drawio` draws every screen and state with real web or mobile layout and components, so people can see the finished shape.
-12. `plan-evaluation` plans the smallest real test of the reversing assumption. A plan is not a result.
+9. `design-screens` and `write-content` turn the journey into screens, states, and words.
+10. `mockup-drawio` draws every screen and state with Draw.io's Mockup shapes, so people can see the shape. In guided mode, when a layout option is open, a person reviews the mockup before Full. In advise mode, recommend a layout and continue.
+11. `plan-evaluation` plans the smallest real test of the reversing assumption. A plan is not a result.
 
 **Specify** (build slice)
 
-13. `map-stories` arranges the work as a story map and draws the first-release line.
-14. `model-domain` writes the glossary, entities, lifecycle states, and integrations. Then, when the package table calls for them, `erd-drawio` draws the entities and a proposed schema, `state-drawio` the lifecycles, `sequence-drawio` the integrations that can fail, and `dataflow-drawio` the personal data and trust boundaries. Each draws the text; a difference is fixed in the text first.
-15. `define-rules` writes the business rule catalogue with decision tables and examples.
-16. `specify-build` assembles `build-spec.md` with acceptance criteria, quality requirements, rollout, open questions, and traceability.
+12. `map-stories` arranges the work as a story map and draws the first-release line.
+13. `model-domain` writes the glossary, entities, lifecycle states, and integrations. Then, when the package table calls for them, `erd-drawio` draws the entities and a proposed schema, `state-drawio` the lifecycles, `sequence-drawio` the integrations that can fail, and `dataflow-drawio` the personal data and trust boundaries. Each draws the text; a difference is fixed in the text first.
+14. `define-rules` writes the business rule catalogue with decision tables and examples.
+15. `specify-build` assembles `build-spec.md` with acceptance criteria, quality requirements, rollout, open questions, and traceability.
 
 **Check**
 
-17. `review-design` checks coherence, evidence, and delivery readiness separately, across every file in the package.
+16. `review-design` checks coherence, evidence, and delivery readiness separately, across every file in the package.
 
 A small idea can satisfy a skill in a few sentences. Write into the package files named in [the output standard](output-standard.md). Do not open a new document per skill.
 
 ## Two gates
 
-**Continue learning.** Discovery showed a problem worth more investigation. The next work is prototypes of the riskiest assumptions: a sketch, screens, a screen prototype, and a process model that people can react to. Those prototypes are disposable. This is not permission to build the service.
+**Continue learning.** Discovery showed a problem worth more investigation. The next work is a mockup of the riskiest assumptions: screens, a Draw.io mockup, and a process model that people can react to. That mockup is disposable. This is not permission to build the service.
 
 When the direction is chosen, do not stop at "specify a slice". Draft `build-spec.md` with `Status: draft`, give reversible questions a proposed default ([principle-decide-the-reversible](../../principle-decide-the-reversible/SKILL.md)), and list the remaining blockers with owners. The gate rises to ready only when no blocker remains.
 

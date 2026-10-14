@@ -1,6 +1,6 @@
 ---
 name: principle-use-real-content
-description: "Apply when drafting screens, examples, copy, or a prototype. Use realistic content in the users' own words, including the longest, emptiest, and most numerous cases, not placeholders."
+description: "Apply when drafting screens, examples, copy, or a mockup. Use realistic content in the users' own words, including the longest, emptiest, and most numerous cases, not placeholders."
 disable-model-invocation: true
 ---
 

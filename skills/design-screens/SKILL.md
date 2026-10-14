@@ -1,6 +1,6 @@
 ---
 name: design-screens
-description: "Turn a journey and its agreed sketch into a navigation map and a screen inventory, with each screen's content, inputs, actions, every state, and accessibility notes. Use for /design-screens, after sketch-drawio, or when people cannot picture the product."
+description: "Turn a journey into a navigation map and a screen inventory, with each screen's content, inputs, actions, every state, and accessibility notes. Use for /design-screens, before mockup-drawio, or when people cannot picture the product."
 disable-model-invocation: true
 ---
 
@@ -8,8 +8,8 @@ disable-model-invocation: true
 
 Read [principle-design-every-state](../principle-design-every-state/SKILL.md), [principle-use-real-content](../principle-use-real-content/SKILL.md), and [principle-behave-predictably](../principle-behave-predictably/SKILL.md). Screens serve steps of a user task. They are not a template to fill.
 
-1. Start from the sketch files (`sketch.drawio`, or `1-<actor>-<task>/sketch.drawio` onward) and the layout option the person chose. Keep their screen IDs. Read the step folders in parent/child index order, parent before its children, then left to right inside each file. If there is no sketch and the approach has an interface, run `sketch-drawio` first. Each screen serves one step of the journey. Merge steps when that reduces effort without hiding a decision. Split a screen that asks two unrelated questions, and give the new screen the next free ID.
-2. Write the navigation map: entry points (link, notification, search, menu), how screens connect, back and cancel destinations, and where the journey ends. Use `drawio` to write `navigation.drawio` for a map that a list cannot make clear. A second close flow is `1-<step>/navigation.drawio`, in the same folder as the sketch for that step.
+1. Start from the journey. Number the screens SC1, SC2, and so on in journey order, and keep those IDs when a mockup already exists. Each screen serves one step of the journey. Merge steps when that reduces effort without hiding a decision. Split a screen that asks two unrelated questions, and give the new screen the next free ID.
+2. Write the navigation map: entry points (link, notification, search, menu), how screens connect, back and cancel destinations, and where the journey ends. Use `drawio` to write `navigation.drawio` for a map that a list cannot make clear. A second close flow is `1-<step>/navigation.drawio`, in the same folder as the mockup for that step.
 3. Inventory each screen with a stable ID (SC1), name, role, purpose, entered from, exits to, and what it serves: story IDs once a story map exists, otherwise the requirement IDs. `map-stories` later adds the story IDs.
 4. For each screen, specify:
    - content shown, with the entity attribute it comes from;
@@ -20,6 +20,6 @@ Read [principle-design-every-state](../principle-design-every-state/SKILL.md), [
 6. For each screen, note heading order, focus order, labels, error identification, target size, and meaning not carried by colour alone, with the [WCAG 2.2](https://www.w3.org/TR/WCAG22/) criteria to check. A specification does not establish conformance.
 7. Get labels and messages from `write-content`. Use realistic content, including the longest value, the empty list, and the long list.
 
-Write `docs/product-design/<slug>/screens.md` using [the screens format](../design-product/references/screens-format.md). Then `prototype-drawio`. Screens are **proposed**; they are not a built interface or evidence of usability.
+Write `docs/product-design/<slug>/screens.md` using [the screens format](../design-product/references/screens-format.md). Then `mockup-drawio`. Screens are **proposed**; they are not a built interface or evidence of usability.
 
-**Reply:** the screens, any change from the sketch and why, the navigation, the states that were hardest to design, and the existing patterns reused.
+**Reply:** the screens, the navigation, the states that were hardest to design, and the existing patterns reused.

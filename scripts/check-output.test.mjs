@@ -3,10 +3,9 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import test from 'node:test'
-import { checkBuildSpec, checkDrawio, checkIds, checkOutput, checkPackage, checkPrototypeDrawio, checkSketchDrawio, screenStates } from './check-output.mjs'
+import { checkBuildSpec, checkDrawio, checkIds, checkMockupDrawio, checkOutput, checkPackage, screenStates } from './check-output.mjs'
 
-const example = readFileSync(new URL('../skills/prototype-drawio/references/example.drawio', import.meta.url), 'utf8')
-const sketch = readFileSync(new URL('../skills/sketch-drawio/references/example.drawio', import.meta.url), 'utf8')
+const example = readFileSync(new URL('../skills/mockup-drawio/references/example.drawio', import.meta.url), 'utf8')
 
 const document = `# Shift swaps
 Standard: product-design/1.0
@@ -127,16 +126,14 @@ test('accepts a complete evaluation package and a ready build-slice package', ()
   withPackage({
     'product-design.md': proposal('evaluation', 'specify a slice'),
     'screens.md': screens,
-    'sketch.drawio': sketch,
-    'prototype.drawio': example,
+    'mockup.drawio': example,
     'build-spec.md': spec('draft'),
     'journey.drawio': journey,
   }, (folder) => assert.deepEqual(checkPackage(folder), []))
   withPackage({
     'product-design.md': proposal('build-slice', 'ready for a named build slice'),
     'screens.md': screens,
-    'sketch.drawio': sketch,
-    'prototype.drawio': example,
+    'mockup.drawio': example,
     'build-spec.md': spec('ready'),
   }, (folder) => assert.deepEqual(checkPackage(folder), []))
 })
@@ -149,16 +146,15 @@ test('rejects packages whose files disagree with the profile', () => {
     assert.ok(checkPackage(folder).includes('build-spec.md is ready but the proposal is not a build-slice.'))
   })
   withPackage({ 'product-design.md': proposal('evaluation', 'test solutions'), 'screens.md': screens }, (folder) => {
-    assert.ok(checkPackage(folder).includes('screens.md needs prototype.drawio.'))
-    assert.ok(checkPackage(folder).includes('screens.md needs sketch.drawio.'))
+    assert.ok(checkPackage(folder).includes('screens.md needs mockup.drawio.'))
   })
   withPackage({ 'product-design.md': proposal('evaluation', 'specify a slice') }, (folder) => {
     assert.ok(checkPackage(folder).includes('Next gate specify a slice needs a draft build-spec.md.'))
   })
-  withPackage({ 'product-design.md': proposal('discovery', 'stop'), 'sketch.drawio': sketch }, (folder) => {
+  withPackage({ 'product-design.md': proposal('discovery', 'stop'), 'mockup.drawio': example }, (folder) => {
     assert.ok(checkPackage(folder).includes('A discovery proposal must not design screens.'))
   })
-  withPackage({ 'product-design.md': proposal('discovery', 'stop'), 'screens.md': screens, 'prototype.drawio': example }, (folder) => {
+  withPackage({ 'product-design.md': proposal('discovery', 'stop'), 'screens.md': screens, 'mockup.drawio': example }, (folder) => {
     assert.ok(checkPackage(folder).includes('A discovery proposal must not design screens.'))
   })
   withPackage({ 'product-design.md': proposal('evaluation', 'specify a slice'), 'build-spec.md': spec('draft').replace(/Given.*\n/, 'A1 Lan gets it.\n') }, (folder) => {
@@ -172,22 +168,22 @@ test('keeps 1.0 proposals valid without package files', () => {
   })
 })
 
-test('checks the Draw.io prototype covers every screen in screens.md', () => {
-  assert.deepEqual(checkPrototypeDrawio(example, ['SC1', 'SC2']), [])
-  assert.ok(checkPrototypeDrawio(example, ['SC3']).includes('prototype.drawio: Missing frame SC3-default for screens.md.'))
-  assert.ok(checkPrototypeDrawio(example.replace('target="SC2-denied"', 'target="SC9-denied"')).includes('prototype.drawio: Edge flow-3 points to unknown target SC9-denied.'))
+test('checks the Draw.io mockup covers every screen in screens.md', () => {
+  assert.deepEqual(checkMockupDrawio(example, ['SC1', 'SC2']), [])
+  assert.ok(checkMockupDrawio(example, ['SC3']).includes('mockup.drawio: Missing frame SC3-default for screens.md.'))
+  assert.ok(checkMockupDrawio(example.replace('target="SC2-denied"', 'target="SC9-denied"')).includes('mockup.drawio: Edge flow-3 points to unknown target SC9-denied.'))
 })
 
-test('checks the Draw.io prototype covers every state listed in screens.md', () => {
+test('checks the Draw.io mockup covers every state listed in screens.md', () => {
   assert.deepEqual(screenStates(screens), ['SC1-default', 'SC1-empty', 'SC2-default', 'SC2-denied'])
   assert.deepEqual(screenStates('### SC1 Rooms\n- **States:** default (list); empty: all busy; loading and error use the browser; denied does not apply.\n'), ['SC1-default', 'SC1-empty'])
-  assert.deepEqual(checkPrototypeDrawio(example, ['SC1', 'SC2'], screenStates(screens)), [])
-  assert.ok(checkPrototypeDrawio(example, ['SC1'], ['SC1-error']).includes('prototype.drawio: Missing frame SC1-error for screens.md.'))
+  assert.deepEqual(checkMockupDrawio(example, ['SC1', 'SC2'], screenStates(screens)), [])
+  assert.ok(checkMockupDrawio(example, ['SC1'], ['SC1-error']).includes('mockup.drawio: Missing frame SC1-error for screens.md.'))
 })
 
-test('flags prototype cells that stick out of their frame', () => {
+test('flags mockup cells that stick out of their frame', () => {
   const moved = example.replace(/(id="SC1-default-title"[\s\S]*?<mxGeometry x=")\d+/, '$15000')
-  assert.ok(checkPrototypeDrawio(moved).includes('prototype.drawio: Cell SC1-default-title sticks out of frame SC1-default.'))
+  assert.ok(checkMockupDrawio(moved).includes('mockup.drawio: Cell SC1-default-title sticks out of frame SC1-default.'))
 })
 
 test('flags IDs that are used but never defined, and requirements nobody uses', () => {
@@ -202,11 +198,6 @@ test('checks every acceptance outcome is traced and no trace cell is empty', () 
   assert.deepEqual(checkBuildSpec(spec('ready')), [])
   assert.ok(checkBuildSpec(spec('ready').replace('| S1 | A1 |', '| S1 | A2 |')).includes('build-spec.md: A1 is missing from Traceability.'))
   assert.ok(checkBuildSpec(spec('ready').replace('C1 scripted walkthrough', ' ')).includes('build-spec.md: Traceability has an empty cell.'))
-})
-
-test('checks the Draw.io sketch covers every screen in screens.md', () => {
-  assert.deepEqual(checkSketchDrawio(sketch, ['SC1', 'SC2', 'SC3']), [])
-  assert.ok(checkSketchDrawio(sketch, ['SC4']).includes('sketch.drawio: Missing frame SC4-sketch for screens.md.'))
 })
 
 test('checks Draw.io ids, parents, and edge references', () => {
@@ -227,59 +218,53 @@ test('reads several flows from step folders in parent/child order', () => {
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
-    '1-nurse-ask-cover/sketch.drawio': sketch,
-    '1-nurse-ask-cover/prototype.drawio': example,
+    '1-nurse-ask-cover/mockup.drawio': example,
     '1.1-nurse-choose-colleague/journey.drawio': journey,
     '2-colleague-accept-cover/journey.drawio': journey,
   }, (folder) => assert.deepEqual(checkPackage(folder), []))
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
-    '1-ask/sketch.drawio': sketch,
-    '1-ask/prototype.drawio': example,
+    '1-ask/mockup.drawio': example,
     '3-accept/journey.drawio': journey,
   }, (folder) => assert.ok(checkPackage(folder).includes('Step folders are not numbered in parent/child order. Parents are 1, 2, 3.')))
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
-    '1-ask/sketch.drawio': sketch,
-    '1-ask/prototype.drawio': example,
+    '1-ask/mockup.drawio': example,
     '1.2-later/journey.drawio': journey,
   }, (folder) => assert.ok(checkPackage(folder).includes('Children of step 1 are not numbered 1.1, 1.2.')))
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
-    '1.1-choose/sketch.drawio': sketch,
-    '1.1-choose/prototype.drawio': example,
+    '1.1-choose/mockup.drawio': example,
   }, (folder) => assert.ok(checkPackage(folder).includes('Step 1.1 has no parent folder 1-.')))
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
-    '1-ask/sketch.drawio': sketch,
-    '1-other/prototype.drawio': example,
+    '1-ask/mockup.drawio': example,
+    '1-other/journey.drawio': journey,
   }, (folder) => assert.ok(checkPackage(folder).includes('Step folders repeat an index. Number each business step once.')))
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
-    '1-ask/sketch.drawio': sketch,
-    '1-ask/prototype.drawio': example,
+    '1-ask/mockup.drawio': example,
     '01-old/journey.drawio': journey,
   }, (folder) => assert.ok(checkPackage(folder).some((error) => error.includes('Group a business step as <index>-<step>'))))
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
-    'sketch.drawio': sketch,
-    '1-ask/sketch.drawio': sketch,
-    '1-ask/prototype.drawio': example,
-  }, (folder) => assert.ok(checkPackage(folder).some((error) => error.includes('sketch.drawio is in the package folder and in a step folder.'))))
+    'mockup.drawio': example,
+    '1-ask/mockup.drawio': example,
+  }, (folder) => assert.ok(checkPackage(folder).some((error) => error.includes('mockup.drawio is in the package folder and in a step folder.'))))
   withPackage({
     'product-design.md': proposal('discovery', 'stop'),
-    '1-ask/sketch.drawio': sketch,
+    '1-ask/mockup.drawio': example,
   }, (folder) => assert.ok(checkPackage(folder).includes('A discovery proposal must not design screens.')))
 })
 
 test('every Draw.io skill example is a valid diagram', () => {
-  for (const skill of ['erd-drawio', 'state-drawio', 'sequence-drawio', 'context-drawio', 'dataflow-drawio']) {
+  for (const skill of ['mockup-drawio', 'erd-drawio', 'state-drawio', 'sequence-drawio', 'context-drawio', 'dataflow-drawio']) {
     const xml = readFileSync(new URL(`../skills/${skill}/references/example.drawio`, import.meta.url), 'utf8')
     assert.deepEqual(checkDrawio(xml, `${skill}/example.drawio`), [])
   }

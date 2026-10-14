@@ -1,6 +1,6 @@
 # Draw.io file
 
-Write this uncompressed XML. Draw.io and diagrams.net open it directly. Add cells inside `<root>`, after the two reserved cells. Keep `id="0"` and `id="1"` exactly as they are.
+Write this uncompressed XML into the `.drawio` file. Draw.io and diagrams.net open it directly. Do not create a Python script, an HTML page, or an image to generate or preview it. Add cells inside `<root>`, after the two reserved cells. Keep `id="0"` and `id="1"` exactly as they are.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -20,9 +20,9 @@ Write this uncompressed XML. Draw.io and diagrams.net open it directly. Add cell
 
 One file answers one question and draws one close flow: one entry, the main steps, the decisions on that path, and the recovery that belongs to them. A second outcome is a second file.
 
-A sketch or a prototype is a wireflow: one actor completing one task, with an arrow from the control they use. The caption names both, `Nurse · Ask for cover`. States of those screens, in this order when they exist (default, empty, loading, partial, error, denied, success, offline), and layout alternatives of a screen in that task stay in the file. A second actor who does this same task with less access stays too, as a denied or read-only state. A second actor who does a different task gets their own file. End this file at the handoff. Start the other actor's file at what they receive, and name the handoff in both captions. The screen is drawn once, in the file of the actor who acts on it. The cross-actor picture stays in `process.drawio`.
+A mockup is a wireflow: one actor completing one task, with an arrow from the control they use. The caption names both, `Nurse · Ask for cover`. States of those screens, in this order when they exist (default, empty, loading, partial, error, denied, success, offline), and layout alternatives of a screen in that task stay in the file. A second actor who does this same task with less access stays too, as a denied or read-only state. A second actor who does a different task gets their own file. End this file at the handoff. Start the other actor's file at what they receive, and name the handoff in both captions. The screen is drawn once, in the file of the actor who acts on it. The cross-actor picture stays in `process.drawio`.
 
-Name one flow `journey.drawio`, `process.drawio`, `navigation.drawio`, `sketch.drawio`, `prototype.drawio`, `context.drawio`, `erd.drawio`, `states.drawio`, `sequence.drawio`, or `dataflow.drawio`, in the package folder.
+Name one flow `journey.drawio`, `process.drawio`, `navigation.drawio`, `mockup.drawio`, `context.drawio`, `erd.drawio`, `states.drawio`, `sequence.drawio`, or `dataflow.drawio`, in the package folder.
 
 Several flows are grouped in step folders. The index is a parent, or that parent and a child: `1`, then `1.1`, then `2`. It starts at `1`. Do not pad it with a zero. The folder is the group a reader opens. The files inside keep the short names:
 
@@ -32,19 +32,16 @@ docs/product-design/shift-swaps/
   screens.md
   1-nurse-ask-cover/
     journey.drawio
-    sketch.drawio
-    prototype.drawio
+    mockup.drawio
   1.1-nurse-choose-colleague/
-    sketch.drawio
-    prototype.drawio
+    mockup.drawio
   2-colleague-accept-cover/
     journey.drawio
-    sketch.drawio
-    prototype.drawio
+    mockup.drawio
     sequence.drawio
 ```
 
-`1` is the first business step. `1.1` is a split of that step, such as the next handoff inside the same task. `2` is the next business step. Parents run `1`, `2`, `3` with no gaps. Children of a parent run `.1`, `.2`, `.3` with no gaps, and a child is named only when that parent folder exists. The folder name is the business step, and includes the actor when the step is one actor's task. A folder holds every diagram of that step: the journey, the sketch, the prototype, the sequence, the state machine. The decision documents stay in the package folder. A diagram of the whole product that was not split stays there too, such as one `context.drawio`. A kind lives in the package folder or in the step folders. After a step is added or removed, renumber that parent and its children so the sequence has no gaps, and update the links. Screen IDs stay as they are. Link each folder in index order, parent before its children, with the actor, the task, and the question it answers. A flow arrow stays inside its file.
+`1` is the first business step. `1.1` is a split of that step, such as the next handoff inside the same task. `2` is the next business step. Parents run `1`, `2`, `3` with no gaps. Children of a parent run `.1`, `.2`, `.3` with no gaps, and a child is named only when that parent folder exists. The folder name is the business step, and includes the actor when the step is one actor's task. A folder holds every diagram of that step: the journey, the mockup, the sequence, the state machine. The decision documents stay in the package folder. A diagram of the whole product that was not split stays there too, such as one `context.drawio`. A kind lives in the package folder or in the step folders. After a step is added or removed, renumber that parent and its children so the sequence has no gaps, and update the links. Screen IDs stay as they are. Link each folder in index order, parent before its children, with the actor, the task, and the question it answers. A flow arrow stays inside its file.
 
 Keep one page. A second `<diagram>` is a paired view of that same flow, and only when each view still fits: as-is and to-be in a process, logical and physical in an ERD, context and containers in a context diagram.
 
@@ -52,7 +49,7 @@ Split when any of these is true:
 
 - The file would hold a second close flow: another task, another actor doing a different task, another scenario, another entity lifecycle, or another data journey.
 - A flowchart or swimlane would need more than 12 steps.
-- A sketch or prototype happy path would need more than 6 screens. State frames of those screens stay with the task.
+- A mockup happy path would need more than 6 screens. State frames of those screens stay with the task.
 - The file would have more than 400 shapes, or a third page.
 
 An ERD splits when a second cluster of entities shares no relationship with the first. Logical and physical of one cluster stay together.
@@ -76,12 +73,11 @@ Draw.io ships a library for most software diagrams. A shape from the library ope
 | Sequence | `sequence.drawio` | UML: lifeline, activation, message, frame | `sequence-drawio` |
 | System context | `context.drawio` | C4 | `context-drawio` |
 | Data flow and trust boundaries | `dataflow.drawio` | Threat Modeling | `dataflow-drawio` |
-| Sketch | `sketch.drawio` | Basic shapes with Draw.io's built-in `sketch=1` rendering | `sketch-drawio` |
-| Screen prototype | `prototype.drawio` | Basic shapes styled as the product; see `prototype-drawio` for why | `prototype-drawio` |
+| Screen mockup | `mockup.drawio` | Mockup: browser window, window, buttons, fields, lists | `mockup-drawio` |
 
 ## Edges do not overlap
 
-Every connector keeps its own lane. Two edges do not share a segment, and they do not cross. A label does not sit on another edge or on a shape. This applies to every Draw.io file: journey, process, navigation, sketch, prototype, context, ERD, state, sequence, and data flow.
+Every connector keeps its own lane. Two edges do not share a segment, and they do not cross. A label does not sit on another edge or on a shape. This applies to every Draw.io file: journey, process, navigation, mockup, context, ERD, state, sequence, and data flow.
 
 1. Leave a gap between shapes wide enough for the label. That gap is the lane.
 2. Set `exitX`, `exitY`, `entryX`, and `entryY` so two edges do not leave or enter the same point. When several edges use one side, spread them (`0.25`, `0.5`, `0.75`).
@@ -89,16 +85,16 @@ Every connector keeps its own lane. Two edges do not share a segment, and they d
 4. When two labels would meet, move one along its edge with `<mxGeometry x="-0.5" relative="1" as="geometry" />` (`x` from `-1` to `1`). A labelled edge keeps `labelBackgroundColor=#ffffff`.
 5. Reroute before you allow a crossing. A crossing that cannot be rerouted adds `jumpStyle=arc;jumpSize=12;`. Sequence messages stay horizontal, one y each, so they never jump. A crow's-foot line moves its table instead of crossing another table.
 
-Sketch and prototype frames use the gap between frames as the lane. The component page for a diagram says which lane is which.
+Mockup frames use the gap between frames as the lane. The component page for a diagram says which lane is which.
 
 ## Lines
 
-A line is the relationship. The same stroke means the same thing in a flowchart, a swimlane, a navigation map, a sketch, and a prototype.
+A line is the relationship. The same stroke means the same thing in a flowchart, a swimlane, a navigation map, and a mockup.
 
 - **Solid.** This path happens. The label is the trigger. A person acts in the words they see (`Ask for cover`). Nobody acts: `System:` plus the condition or the rule id (`System: Hours rule fails (BR2)`). A line with no choice has an empty value.
 - **Dashed** (`dashed=1`). An alternative that is not a path the product takes: a layout option, or a design branch still open. A decision's Yes and No are solid. A state the product shows, including empty, error, and denied, is solid.
 
-Every edge has `edge="1"`, a `source`, and a `target`. A flowchart, navigation, sketch, or prototype edge has `parent="1"`. A swimlane sequence flow also has `parent="1"`, including a flow that stays inside one lane. A labelled edge keeps `labelBackgroundColor=#ffffff`.
+Every edge has `edge="1"`, a `source`, and a `target`. A flowchart, navigation, or mockup edge has `parent="1"`. A swimlane sequence flow also has `parent="1"`, including a flow that stays inside one lane. A labelled edge keeps `labelBackgroundColor=#ffffff`.
 
 Direction is left to right and top to bottom. A line enters a shape on the left (`entryX=0`) or the top (`entryY=0`) and leaves on the right (`exitX=1`) or the bottom (`exitY=1`). Two lines that use one side take `0.25` and `0.75`, not the same point. A waypoint sits in the gap named below, not on a shape. When two lines arrive at one shape, offset the join so they do not share a segment.
 
@@ -232,4 +228,4 @@ Use the built-in **Sitemap** library. One shape per screen, 160×90, labelled `S
 | Warning | `warning` |
 | Help | `faq` |
 
-Use `page` for any screen the table does not cover, rather than guessing another name. Place the entry screen at the left or the top, and step 200 to the next screen so the gap holds the label. Label each arrow with the action that moves between screens, in the words the user sees, using the flow chart connector. The line follows [Lines](#lines): it leaves the right or the bottom and enters the left or the top, and it follows [Edges do not overlap](#edges-do-not-overlap). Screen prototypes use the component library in `prototype-drawio`.
+Use `page` for any screen the table does not cover, rather than guessing another name. Place the entry screen at the left or the top, and step 200 to the next screen so the gap holds the label. Label each arrow with the action that moves between screens, in the words the user sees, using the flow chart connector. The line follows [Lines](#lines): it leaves the right or the bottom and enters the left or the top, and it follows [Edges do not overlap](#edges-do-not-overlap). Screen mockups use the component library in `mockup-drawio`.

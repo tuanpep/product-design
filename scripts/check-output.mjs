@@ -21,7 +21,7 @@ const gates = {
 }
 const standards = ['product-design/1.0', 'product-design/1.1']
 const stateNames = ['default', 'empty', 'loading', 'partial', 'error', 'denied', 'success', 'offline']
-const drawioKinds = ['journey', 'process', 'navigation', 'sketch', 'prototype', 'context', 'erd', 'states', 'sequence', 'dataflow']
+const drawioKinds = ['journey', 'process', 'navigation', 'mockup', 'context', 'erd', 'states', 'sequence', 'dataflow']
 const drawioFile = new RegExp(`^(${drawioKinds.join('|')})\\.drawio$`)
 const stepFolderName = /^([1-9]\d*(?:\.[1-9]\d*)?)-[a-z0-9]+(?:-[a-z0-9]+)*$/
 const maxDrawioPages = 2
@@ -178,7 +178,7 @@ function packageDiagrams(folder) {
       steps.push(index[1])
       for (const file of drawios) {
         const kind = drawioFile.exec(file)?.[1]
-        if (!kind) errors.push(`${name}/${file}: Inside a step folder, use the short name, such as sketch.drawio.`)
+        if (!kind) errors.push(`${name}/${file}: Inside a step folder, use the short name, such as mockup.drawio.`)
         diagrams.push({ kind, rel: `${name}/${file}`, path: join(path, file), dir: name })
       }
       continue
@@ -233,13 +233,9 @@ function checkClipping(xml, name) {
   return errors
 }
 
-export function checkPrototypeDrawio(xml, ids = [], states = []) {
+export function checkMockupDrawio(xml, ids = [], states = []) {
   const frames = [...new Set([...ids.map((id) => `${id}-default`), ...states])]
-  return [...checkFrames(xml, 'prototype.drawio', frames), ...checkClipping(xml, 'prototype.drawio')]
-}
-
-export function checkSketchDrawio(xml, ids = []) {
-  return checkFrames(xml, 'sketch.drawio', ids.map((id) => `${id}-sketch`))
+  return [...checkFrames(xml, 'mockup.drawio', frames), ...checkClipping(xml, 'mockup.drawio')]
 }
 
 export function checkIds(markdownFiles, diagrams = []) {
@@ -320,17 +316,13 @@ export function checkPackage(folder) {
   const { diagrams, errors: diagramErrors } = packageDiagrams(folder)
   errors.push(...diagramErrors)
   const ofKind = (kind) => diagrams.filter((diagram) => diagram.kind === kind)
-  const prototypes = ofKind('prototype')
-  const sketches = ofKind('sketch')
+  const mockups = ofKind('mockup')
   const readDiagram = (diagram) => ({ name: diagram.rel, xml: readFileSync(diagram.path, 'utf8') })
-  if (prototypes.length) {
-    if (!has('screens.md')) errors.push('prototype.drawio needs screens.md.')
+  if (mockups.length) {
+    if (!has('screens.md')) errors.push('mockup.drawio needs screens.md.')
     const frames = [...new Set([...ids.map((id) => `${id}-default`), ...states])]
-    errors.push(...checkFrameSet(prototypes.map(readDiagram), 'prototype.drawio', frames, true))
-  } else if (v11 && has('screens.md') && profile !== 'discovery') errors.push('screens.md needs prototype.drawio.')
-  if (sketches.length) {
-    errors.push(...checkFrameSet(sketches.map(readDiagram), 'sketch.drawio', ids.map((id) => `${id}-sketch`), false))
-  } else if (v11 && has('screens.md') && profile !== 'discovery') errors.push('screens.md needs sketch.drawio.')
+    errors.push(...checkFrameSet(mockups.map(readDiagram), 'mockup.drawio', frames, true))
+  } else if (v11 && has('screens.md') && profile !== 'discovery') errors.push('screens.md needs mockup.drawio.')
 
   if (has('build-spec.md')) {
     const spec = read('build-spec.md')
@@ -342,9 +334,9 @@ export function checkPackage(folder) {
   } else if (v11 && profile === 'build-slice') errors.push('A build-slice proposal needs build-spec.md.')
   else if (v11 && gate === 'specify a slice') errors.push('Next gate specify a slice needs a draft build-spec.md.')
 
-  if (profile === 'discovery' && v11 && (has('screens.md') || sketches.length || prototypes.length)) errors.push('A discovery proposal must not design screens.')
+  if (profile === 'discovery' && v11 && (has('screens.md') || mockups.length)) errors.push('A discovery proposal must not design screens.')
 
-  const covered = new Set([...prototypes, ...sketches].map((diagram) => diagram.rel))
+  const covered = new Set(mockups.map((diagram) => diagram.rel))
   for (const diagram of diagrams) {
     if (!covered.has(diagram.rel)) errors.push(...checkDrawio(readFileSync(diagram.path, 'utf8'), diagram.rel))
   }
@@ -364,6 +356,6 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     if (errors.length) {
       errors.forEach((error) => console.error(error))
       process.exitCode = 1
-    } else console.log(`${folder ? 'Package structure, IDs, and prototype states are valid' : 'Output structure is valid'}. Evidence, readiness, and how the diagrams look still need human review.`)
+    } else console.log(`${folder ? 'Package structure, IDs, and mockup states are valid' : 'Output structure is valid'}. Evidence, readiness, and how the diagrams look still need human review.`)
   }
 }

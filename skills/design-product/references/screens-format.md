@@ -22,7 +22,7 @@ Use these level-two headings in order:
 
 **Navigation map.** Entry points, the path through the journey, back and cancel destinations, and exits. Link the journey and navigation files if they exist. Several flows are linked in parent/child index order: `1-<step>/journey.drawio`, then `1.1-<step>/` for a split of that step, then `2-<step>/navigation.drawio`.
 
-**Screen inventory.** One row per screen, in the order and with the IDs of the sketch files. Several sketch files are read by their step folder, parent before its children (`1`, then `1.1`, then `2`), and left to right inside each file. Serves lists story IDs once a story map exists, and requirement IDs before that:
+**Screen inventory.** One row per screen, in journey order, numbered SC1, SC2, and so on. Several flows are step folders, parent before its children (`1`, then `1.1`, then `2`). Serves lists story IDs once a story map exists, and requirement IDs before that:
 
 | ID | Screen | Role | Purpose | Entered from | Exits to | Serves |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -34,7 +34,7 @@ Use these level-two headings in order:
 - **Content:** what is shown, with the entity attribute it comes from.
 - **Inputs:** field, type, required or optional, validation rule ID, example value.
 - **Actions:** the real label, its result, and the next screen.
-- **States:** consider default, empty, loading, partial, error, denied, success, and offline. List the designed ones on one line, each state name first with its details in brackets, separated by semicolons: `**States:** default; empty (M2, recovery: Book later); denied (BR1, M1, recovery: See free rooms)`. The prototype files need one frame for each listed state. After the list, say in a sentence why any other state cannot happen.
+- **States:** consider default, empty, loading, partial, error, denied, success, and offline. List the designed ones on one line, each state name first with its details in brackets, separated by semicolons: `**States:** default; empty (M2, recovery: Book later); denied (BR1, M1, recovery: See free rooms)`. The mockup files need one frame for each listed state. After the list, say in a sentence why any other state cannot happen.
 - **Rules:** referenced by ID, not restated.
 
 **Content and copy.** Voice, terms from the glossary, and the message catalogue:
