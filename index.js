@@ -1,29 +1,13 @@
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Plugin } from '@opencode/plugin'
 
 const directory = dirname(fileURLToPath(import.meta.url))
-const skills = [
-  'design-product',
-  'frame-problem',
-  'discover-needs',
-  'define-requirements',
-  'explore-solutions',
-  'design-experience',
-  'drawio',
-  'plan-evaluation',
-  'specify-build',
-  'decide-next',
-  'review-design',
-  'principle-protect-before-you-enable',
-  'principle-start-from-the-outcome',
-  'principle-include-the-hardest-case',
-  'principle-see-the-whole-service',
-  'principle-take-on-the-hard-work',
-  'principle-behave-predictably',
-  'principle-spend-less-of-the-world',
-]
+const skills = readdirSync(join(directory, 'skills'), { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .sort()
 
 function unquote(value) {
   const trimmed = value?.trim()

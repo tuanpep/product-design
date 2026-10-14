@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Frame Problem
 
-Read [the evidence contract](../design-product/references/evidence-and-decisions.md) and **principle-start-from-the-outcome**.
+Read [the evidence contract](../design-product/references/evidence-and-decisions.md) and [principle-start-from-the-outcome](../principle-start-from-the-outcome/SKILL.md).
 
 1. Restate the request as the people affected, what they are trying to achieve, how they do it today if that is known, the intended outcome, and the proposed feature if one was supplied.
 2. Keep the feature distinct from the need. State what is not part of the problem.

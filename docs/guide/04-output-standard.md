@@ -1,16 +1,26 @@
 # Output quality and verification
 
-The normative plugin contract is [Product design document standard 1.0](../../skills/design-product/references/output-standard.md). Its [format](../../skills/design-product/references/proposal-format.md) includes a decision header, retained needs and requirements, an evaluation plan, traceable acceptance outcomes, and independent review verdicts.
+The normative plugin contract is [Product design document standard 1.1](../../skills/design-product/references/output-standard.md). Its [format](../../skills/design-product/references/proposal-format.md) includes a decision header, retained needs and requirements, an evaluation plan, traceable acceptance outcomes, and independent review verdicts.
 
 Choose depth, not page count: discovery explains why to stop or learn; evaluation describes provisional options and learning; build-slice specifies a named production outcome. Inapplicable sections contain a short reason. No profile supplies human approval or proves validity.
 
-From this plugin checkout, check a generated document structurally:
+From this plugin checkout, check a whole package, or one proposal, structurally:
 
 ```sh
+npm run check:output -- /path/to/project/docs/product-design/shift-swaps
 npm run check:output -- /path/to/project/docs/product-design/shift-swaps/product-design.md
 ```
 
-This checks header fields, profile/gate agreement, date, section order/content, and verdict labels. It does not establish evidence truth, traceability correctness, approval, feasibility, accessibility, or diagram rendering. It is not installed as a host tool and the restricted design agent cannot run shell commands; a human or verification agent runs it separately.
+For a proposal, this checks header fields, profile/gate agreement, date, section order/content, and verdict labels. For a folder, it also checks:
+
+- that `screens.md` comes with `sketch.drawio` and `prototype.drawio` outside discovery;
+- that a discovery proposal has no screen files;
+- that a build-slice proposal has a ready `build-spec.md`, a "specify a slice" gate has a build spec, and a ready spec only goes with a build-slice proposal;
+- the `screens.md` and `build-spec.md` headers and sections, and Given/When/Then acceptance criteria;
+- a `<screen>-sketch` frame in `sketch.drawio` and a `<screen>-default` frame in `prototype.drawio` for every screen ID;
+- Draw.io ids, parents, and edge references in every `.drawio` file.
+
+It cannot tell whether `journey.drawio`, `process.drawio`, `context.drawio`, or the build diagrams (`erd.drawio`, `states.drawio`, `sequence.drawio`, `dataflow.drawio`) are needed, because that depends on the content. It reads ids from C4 elements wrapped in `<object>` as well as plain cells, but it does not check that a diagram uses Draw.io's built-in shapes. It does not establish evidence truth, traceability correctness, approval, feasibility, accessibility, or diagram rendering. It is not installed as a host tool and the restricted design agent cannot run shell commands; a human or verification agent runs it separately.
 
 ## Behavioral evaluation corpus
 
@@ -37,5 +47,7 @@ For every run, record pass, fail, or not applicable with a document locator for 
 6. **Evaluation:** the reversing assumption has a discriminating, ethical plan with decision criteria and limitations. Plans are never results.
 7. **Artifact and revision integrity:** files open where checked, diagrams agree with text, superseded claims and dependent edits are visible.
 8. **Proportionality:** discovery/no-build is concise and does not fabricate a production design to fill sections.
+9. **Product shape:** at evaluation or deeper with an interface, `screens.md` and `prototype.drawio` let a reader picture the main, empty, error, and denied states as a real web or mobile layout with realistic content.
+10. **Buildability:** a builder reading `build-spec.md` cold can name no undecided reversible choice; each blocking question has an owner; rules are defined once with examples; every Must story has concrete Given/When/Then outcomes and checks.
 
 Fabricated evidence/approval, a ready verdict despite a blocking safety/policy/feasibility gap, and contradictory consequential rules are critical failures. Do not average them away with a score. Structural passes cannot override them. Output behavior remains unverified until real host runs are recorded.

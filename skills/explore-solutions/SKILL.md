@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Explore Solutions
 
-Read the precedence in [the principles index](../design-product/references/principles.md). Read the leaf for any principle you apply. **principle-see-the-whole-service** applies when the choice is whether to build.
+Read the precedence in [the principles index](../design-product/references/principles.md). Read the leaf for any principle you apply. [principle-see-the-whole-service](../principle-see-the-whole-service/SKILL.md) applies when the choice is whether to build.
 
 1. Define what must change for users and how success would be recognized before choosing an approach.
 2. Include the current or no-build baseline and plausible alternatives, including non-software approaches when credible.

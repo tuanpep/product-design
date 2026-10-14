@@ -16,6 +16,14 @@ Apply the first principle that can settle the conflict. A lower one never overri
 6. [Behave predictably and recoverably](../../principle-behave-predictably/SKILL.md)
 7. [Spend less of the world](../../principle-spend-less-of-the-world/SKILL.md)
 
+The next five govern the quality of the specification. They never override the seven above.
+
+8. [Design every state](../../principle-design-every-state/SKILL.md)
+9. [Make it testable](../../principle-make-it-testable/SKILL.md)
+10. [One source of truth](../../principle-one-source-of-truth/SKILL.md)
+11. [Decide the reversible](../../principle-decide-the-reversible/SKILL.md)
+12. [Use real content](../../principle-use-real-content/SKILL.md)
+
 Polish, novelty, and satisfaction yield to all of the above. Name the principle that decided the trade-off and the principle it cost. If the evidence cannot support the higher principle, the gap stays unknown.
 
 "Make things open" is a GOV.UK operating rule for public work. Apply it when the product is a public service or the human asked for it.

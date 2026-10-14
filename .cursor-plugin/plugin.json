@@ -1,8 +1,8 @@
 {
   "name": "product-design",
   "displayName": "Product Design",
-  "version": "0.3.0",
-  "description": "Turn a human idea into an evidence-labeled product design, from the problem through an implementation-ready slice.",
+  "version": "0.4.0",
+  "description": "Turn a human idea into an evidence-labeled product design, from the problem through a sketch, screens, a Draw.io screen prototype, and an implementation-ready build spec.",
   "author": {
     "name": "tuanpep",
     "email": "tuanbt209@gmail.com"

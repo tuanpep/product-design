@@ -4,7 +4,7 @@ description: "Apply when shaping an interaction. It must fit the task, explain i
 disable-model-invocation: true
 ---
 
-# Behave Predictably
+# Behave Predictably and Recoverably
 
 Once a direction exists, judge the interaction with the seven principles of ISO 9241-110:2020. Nielsen's heuristics are a practical inspection of the same layer. Engagement never overrides the other six.
 

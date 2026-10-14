@@ -4,7 +4,7 @@ description: "Apply when a polished path would exclude the people who most need 
 disable-model-invocation: true
 ---
 
-# Include the Hardest Case
+# Include the Hardest Realistic Case
 
 The people who most need the outcome are often those a polished path excludes first. Elegance yields.
 

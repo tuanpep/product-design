@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readdirSync } from 'node:fs'
 import test from 'node:test'
 import { basename } from 'node:path'
 import plugin from '../index.js'
@@ -51,26 +52,13 @@ test('OpenCode V2 registers bundled skills, the design agent, and a command that
     { action: 'edit', resource: 'docs/product-design/**', effect: 'allow' },
     { action: 'shell', resource: '*', effect: 'deny' },
   ])
-  assert.deepEqual(skills.map(({ id }) => id), [
-    'design-product',
-    'frame-problem',
-    'discover-needs',
-    'define-requirements',
-    'explore-solutions',
-    'design-experience',
-    'drawio',
-    'plan-evaluation',
-    'specify-build',
-    'decide-next',
-    'review-design',
-    'principle-protect-before-you-enable',
-    'principle-start-from-the-outcome',
-    'principle-include-the-hardest-case',
-    'principle-see-the-whole-service',
-    'principle-take-on-the-hard-work',
-    'principle-behave-predictably',
-    'principle-spend-less-of-the-world',
-  ])
+  const bundled = readdirSync(new URL('../skills/', import.meta.url), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort()
+  assert.deepEqual(skills.map(({ id }) => id), bundled)
+  assert.equal(bundled.length, 37)
+  for (const id of ['design-product', 'sketch-drawio', 'prototype-drawio', 'erd-drawio', 'state-drawio', 'sequence-drawio', 'context-drawio', 'dataflow-drawio', 'principle-use-real-content']) assert.ok(bundled.includes(id))
   assert.ok(skills.every(({ autoinvoke, description }) => autoinvoke === false && description && !description.startsWith('"')))
   assert.equal(skills.find(({ id }) => id === 'principle-start-from-the-outcome').description, 'Apply when a request names a feature, screen, or technology. Design for the goal and the people who have it. Effectiveness outranks speed and delight.')
   assert.ok(skills.every(({ path, content, description }) => basename(path) === 'SKILL.md' && content.startsWith('# ') && description))

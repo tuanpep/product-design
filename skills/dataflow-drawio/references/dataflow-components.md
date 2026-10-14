@@ -1,0 +1,59 @@
+# Data flow components for Draw.io
+
+Every shape below is a template from Draw.io's built-in **Threat Modeling** library: external entity, process, data store, data flow, trust boundary, and the asset, control, and threat labels. Each style is the library template followed by a font size. Two template values change: a data flow's label is dark instead of red, so red marks only trust boundaries and open threats, and the labels carry this plugin's IDs instead of the library's A01, C01, and TA01, because A and C already mean acceptance outcome and check. Copy a style exactly and change only the label, position, and size. [example.drawio](example.drawio) uses each one.
+
+## Layout
+
+- One page: `<diagram id="dataflow" name="Data flow">`. Split it only when one page cannot hold the slice; then use one page per journey.
+- People on the left, the product's processes and stores in the middle inside its trust boundary, other systems on the right inside their own boundary, and third parties outside every boundary.
+- Leave 140 between shapes so flow labels fit. Route a flow with waypoints when a straight line would cross another shape or another flow's label.
+- A caption at the top left, a legend under the diagram, and a note under the legend.
+- Every cell's parent is `1`. Boundaries are drawn first, so they sit behind.
+
+## IDs
+
+- External entities `ext-<name>`, processes `proc-<name>`, data stores `store-<entity>`, in kebab case. A store uses the entity's glossary term.
+- Flows `flow-1`, `flow-2`, and so on. Boundaries `boundary-<name>`. Labels `tag-1`, `tag-2`, and so on. Legend `legend-<kind>` and `legend-<kind>-text`.
+- Caption `dataflow-caption`, note `dataflow-note`.
+
+## Elements
+
+| Element | Size | style | Label |
+| --- | --- | --- | --- |
+| External entity: a person or a system outside the product | 140×60, or 160×60 for a system | `rounded=0;whiteSpace=wrap;html=1;fontSize=12;` | the role or the system and its integration ID, such as `Roster system (I1)` |
+| Process: something the product does with data | 120×120 | `ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontSize=12;` | a verb phrase, such as `Request and accept cover` |
+| Data store: where the product keeps data | 160×60 | `shape=partialRectangle;whiteSpace=wrap;html=1;left=0;right=0;fillColor=none;fontSize=12;` | the entity's glossary term, plural, such as `Cover requests` |
+| Trust boundary | around what it contains | `html=1;fontColor=#FF3333;fontStyle=1;align=left;verticalAlign=top;spacing=0;labelBorderColor=none;fillColor=none;dashed=1;strokeWidth=2;strokeColor=#FF3333;spacingLeft=4;spacingTop=-3;` | who controls what is inside, such as `Shift swaps service` or `Hospital core systems` |
+
+A trust boundary is drawn wherever control changes: between a person's device and the product, between the product and each other organisation's or team's system, and around a third party.
+
+## Flows
+
+| Flow | style |
+| --- | --- |
+| One way | `endArrow=classic;html=1;fontColor=#1b1f24;fontSize=11;labelBackgroundColor=#ffffff;` |
+| Both ways | `endArrow=classic;startArrow=classic;html=1;fontColor=#1b1f24;fontSize=11;labelBackgroundColor=#ffffff;` |
+
+Label a flow with the data it carries, in plain words, then the ID it traces to: `identity, ward, role (I2)`, `name, phone, message text`. A flow connects to a process at least at one end; data never moves between two stores or two external entities without a process. Set `exitX`, `exitY`, `entryX`, and `entryY`, and move a label along its flow with `<mxGeometry x="-0.5" relative="1" as="geometry" />` when two labels would meet.
+
+## Labels
+
+| Label | Size | style | Text |
+| --- | --- | --- | --- |
+| Asset: personal or sensitive data | 56×20 | `text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=10;` | `personal` or `sensitive` |
+| Control at a crossing | as needed × 20 | `text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=10;` | the rule or integration that controls it, such as `BR1 ward only` or `I2 sign-in` |
+| Open threat | as needed × 20 | `text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=10;` | the open question's ID and a short name, such as `Q5 retention` |
+
+Place a label beside the flow or store it describes, not on the line. A control label names something that exists in `build-spec.md`; a control that does not exist yet is an open threat with a question ID.
+
+## Board annotations
+
+| Item | style |
+| --- | --- |
+| Caption | `text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;` labelled `Data flow · shift swaps` |
+| Legend text | `text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#57606a;` beside one label of each kind |
+| Note | `shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;` naming the question, every flow that crosses a boundary, the sources, the blocking questions, and what the diagram does not test |
+
+## What to leave out
+
+Networks, servers, ports, protocols, encryption settings, and cloud services. Those belong to the build and its security review. Internal steps of a process, unless data leaves the process between them.

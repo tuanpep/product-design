@@ -4,7 +4,7 @@ description: "Apply when choosing scope. Map the real journey and context, then 
 disable-model-invocation: true
 ---
 
-# See the Whole Service
+# See the Whole Service, Then Do Less
 
 Map the real journey and the context around it, then do only the irreducible core.
 
