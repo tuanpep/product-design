@@ -61,7 +61,7 @@ Use either the GitHub package or the local path. OpenCode V2 is required. Instal
 
 ## Skills
 
-`/design-product` picks a playbook and calls the other skills as the steps need them. You can also invoke a skill on its own.
+`/design-product` asks which level to run, then picks a playbook and calls the other skills as far as that level: Understand, Design documents, Sketch, Prototype, or Full. Name the level in your message to skip the question. You can also invoke a skill on its own.
 
 | Stage | Skill | Role |
 | --- | --- | --- |

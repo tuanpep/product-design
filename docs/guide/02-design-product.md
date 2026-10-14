@@ -8,12 +8,20 @@
 /design-product Staff coordinate shift swaps in chat, but the roster stays wrong. Design a product approach.
 ```
 
-That matches [new-idea.md](../../skills/design-product/playbooks/new-idea.md) in four stages:
+That matches [new-idea.md](../../skills/design-product/playbooks/new-idea.md). Before it writes anything, it asks which level to run, unless your message already names one:
+
+1. **Understand.** Problem, needs, and whether to continue. Only `product-design.md`.
+2. **Design documents.** The proposal, the journey, and the process. No screens.
+3. **Sketch.** Rough screens, then a stop to choose the layout.
+4. **Prototype.** Screens and a Draw.io prototype. The layout is marked proposed.
+5. **Full.** The whole package in one pass, including the build spec.
+
+The four stages under those levels:
 
 1. **Understand:** frame the problem, map stakeholders, discover needs, define requirements, decide. If discovery says not to build, it stops here with only `product-design.md`.
-2. **Shape:** compare options, model the process, design the journey, then sketch the screens in `sketch.drawio`. A large journey, process, or sketch is one file per close flow, such as `01-nurse-ask-cover/sketch.drawio`. The agent stops here and asks which layout to take and whether the screens and their order are right. Ask for the whole package in one pass if you want it to pick a labeled **proposed** option and continue. After your answer it writes `screens.md` and `prototype.drawio`, a Draw.io board of every screen and state drawn with real web layout and components, so you can see the product. A large prototype is one file per close flow too.
-3. **Specify:** map stories, model the domain, define rules, and write `build-spec.md`. It is `Status: draft` while blockers remain, and lists each blocker with its owner. Reversible questions get a labeled default instead of blocking. Where the slice needs them, the agent draws `erd.drawio`, `states.drawio`, `sequence.drawio`, and `dataflow.drawio` from the build spec, each with Draw.io's built-in notation.
-4. **Check:** review the whole package and name the next gate.
+2. **Shape:** compare options, model the process, design the journey, then sketch the screens in `sketch.drawio`. A large journey, process, or sketch is one file per close flow, such as `01-nurse-ask-cover/sketch.drawio`. At Sketch it stops and asks which layout to take and whether the screens and their order are right. At Prototype or Full it picks a labeled **proposed** option and continues. It then writes `screens.md` and `prototype.drawio`, a Draw.io board of every screen and state drawn with real web layout and components, so you can see the product. A large prototype is one file per close flow too.
+3. **Specify:** only at Full. Map stories, model the domain, define rules, and write `build-spec.md`. It is `Status: draft` while blockers remain, and lists each blocker with its owner. Reversible questions get a labeled default instead of blocking. Where the slice needs them, the agent draws `erd.drawio`, `states.drawio`, `sequence.drawio`, and `dataflow.drawio` from the build spec, each with Draw.io's built-in notation.
+4. **Check:** review what this level wrote and name the next gate.
 
 Open `prototype.drawio` in Draw.io, diagrams.net, or the Draw.io VS Code extension to see each screen and state side by side. Hand `build-spec.md` to engineers once it says `Status: ready` and a person has decided to invest.
 

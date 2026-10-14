@@ -4,7 +4,7 @@ The method follows [ISO 9241-210:2019](https://www.iso.org/standard/77520.html),
 
 ## What each skill owns
 
-The work moves through four stages. Each stage can send the work back to an earlier one.
+The work moves through four stages. Each stage can send the work back to an earlier one. On a new idea, ask which level to run before the first stage, unless the person already named one: Understand, Design documents, Sketch, Prototype, or Full. Do not start a stage past that level. The levels are defined in [new-idea.md](../playbooks/new-idea.md).
 
 **Understand** (discovery)
 
