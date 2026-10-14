@@ -12,6 +12,7 @@ function fixture(t) {
   const folder = mkdtempSync(join(tmpdir(), 'product-design-plugin-'))
   t.after(() => rmSync(folder, { recursive: true, force: true }))
   cpSync(join(root, '.cursor-plugin'), join(folder, '.cursor-plugin'), { recursive: true })
+  cpSync(join(root, 'assets'), join(folder, 'assets'), { recursive: true })
   cpSync(join(root, 'skills'), join(folder, 'skills'), { recursive: true })
   cpSync(join(root, 'agents'), join(folder, 'agents'), { recursive: true })
   cpSync(join(root, 'commands'), join(folder, 'commands'), { recursive: true })

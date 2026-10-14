@@ -10,6 +10,7 @@
   "homepage": "https://github.com/tuanpep/product-design",
   "repository": "https://github.com/tuanpep/product-design",
   "license": "MIT",
+  "logo": "assets/avatar.png",
   "keywords": [
     "product-design",
     "design-product",

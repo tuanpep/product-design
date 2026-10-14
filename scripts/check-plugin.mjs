@@ -21,6 +21,7 @@ export function checkPlugin(folder = root) {
   if (manifest.skills !== './skills/') errors.push('Manifest must point skills to ./skills/.')
   if (manifest.agents !== './agents/') errors.push('Manifest must point agents to ./agents/.')
   if (manifest.commands !== './commands/') errors.push('Manifest must point commands to ./commands/.')
+  if (manifest.logo !== 'assets/avatar.png' || !existsSync(join(folder, 'assets', 'avatar.png'))) errors.push('Manifest logo must be assets/avatar.png.')
   if (!existsSync(join(folder, 'LICENSE'))) errors.push('Missing LICENSE.')
 
   const standardFile = join(folder, 'plugin.json')

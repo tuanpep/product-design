@@ -5,6 +5,7 @@
   "exports": "./index.js",
   "files": [
     ".cursor-plugin/",
+    "assets/",
     "plugin.json",
     "index.js",
     "LICENSE",
