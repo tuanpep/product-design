@@ -26,6 +26,8 @@ The result is a design package in `docs/product-design/<slug>/`. Which files app
 | `sequence.drawio` | A UML sequence of who asks whom, with failure and timeout paths | build-slice, when an integration or notification can fail |
 | `dataflow.drawio` | Where personal data goes, the trust boundaries it crosses, and the controls and open threats at each crossing | build-slice, when the slice handles personal data or a third party |
 
+A large diagram is split into one file per close flow, for example `journey-ask-cover.drawio` and `prototype-accept-cover.drawio`. One flow keeps the name in the table.
+
 Every diagram uses Draw.io's built-in libraries first, so it opens as the real notation: Flowchart, BPMN, Sitemap, Entity Relation tables, UML, C4, and Threat Modeling. Sketches and screen prototypes use basic shapes on purpose, so they can follow the target product's look.
 
 Files follow [output standard 1.1](skills/design-product/references/output-standard.md). The working contract is in [the guide](docs/guide/README.md).
@@ -72,9 +74,9 @@ Use either the GitHub package or the local path. OpenCode V2 is required. Instal
 | | `/context-drawio` | Draw a C4 system context of the product, its users, and the systems it depends on. |
 | | `/design-experience` | Describe the chosen approach across the whole journey. |
 | | `/sketch-drawio` | Sketch each screen's rough layout in Draw.io, with alternative layouts, for a person to agree before the detail. |
-| | `/design-screens` | Write the navigation map and each screen's content, actions, and every state. |
+| | `/design-screens` | Write the navigation map and each screen's content, actions, and the states that change it. |
 | | `/write-content` | Write labels, actions, empty states, errors, and notifications. |
-| | `/prototype-drawio` | Draw every screen and state with realistic web or mobile components in Draw.io. |
+| | `/prototype-drawio` | Draw each screen and the states `screens.md` lists, with realistic web or mobile components in Draw.io. |
 | | `/drawio` | Draw a journey, swimlane process, or navigation map as a Draw.io file. |
 | | `/plan-evaluation` | Plan the smallest real test of the assumption that would reverse the recommendation. |
 | Specify | `/map-stories` | Build a story map and draw the first-release line. |

@@ -32,6 +32,8 @@ The proposal decides. The package shows the shape and hands it to builders. All 
 
 Formats: [screens](screens-format.md) and [build spec](build-spec-format.md). When an option has no interface, such as a process or training change, say so in Product experience and skip the screen files. A file that is required but missing makes the package incomplete. Do not create files to fill the table.
 
+A Draw.io file holds one close flow. One flow keeps the name in the table. A sketch or prototype file is one actor and one task, named `sketch-nurse-ask-cover.drawio` or `prototype-colleague-accept-cover.drawio` when a second actor or a second task would share the file. States of that task stay with it. Several flows use only the suffixed names. A second page is a paired view of that same flow: as-is and to-be, logical and physical, or context and containers. The rule is [one file per close flow](../../drawio/references/drawio-file.md#one-file-per-close-flow).
+
 Define each term, rule, state, screen, and message once and reference its ID elsewhere. When the same fact appears in two files, the owning file wins and the other must link to it: rules, states, and stories belong to `build-spec.md`, screens and copy to `screens.md`, and needs, evidence, and decisions to `product-design.md`. Before `build-spec.md` exists, proposed rules and the draft permission matrix sit under Needs and requirements in `product-design.md`. When the build spec is written, they move there with the same IDs, and the proposal links to them.
 
 Profiles describe document depth, not evidence strength. A build-slice can contain untested assumptions, but unresolved safety, policy, feasibility, or ownership issues that block that slice must prevent a ready verdict. Use evaluation instead. Do not manufacture research to reach a profile. Older proposals can adopt this standard during their next revision without discarding their evidence or decision history.
@@ -64,7 +66,7 @@ Choose one value, not the list of alternatives. Follow with the named slice when
   | N1 | Need | `product-design.md` |
   | R1 | Requirement or constraint | `product-design.md` |
   | BR1 | Business rule | `build-spec.md`, or `product-design.md` before it exists |
-  | SC1 | Screen | `screens.md`, keeping the IDs of `sketch.drawio` |
+  | SC1 | Screen | `screens.md`, keeping the IDs of the sketch files |
   | M1 | Message or notification | `screens.md` |
   | S1 | Story | `build-spec.md` |
   | A1 | Acceptance outcome | `build-spec.md` |
@@ -84,7 +86,7 @@ For a build-slice, state in/out scope, stories, acceptance outcomes, verificatio
 
 Link each Draw.io artifact with its question, assumptions, and limitations. Keep critical branches and rules in text as well. XML must be well formed, cell IDs unique, and edge references resolved; inspect the opened diagram for clipping and overlap before claiming visual verification. If it was not opened, say so.
 
-Link `sketch.drawio` with its question and the layout option chosen, by whom, or that the choice is still proposed. Screens in `screens.md` keep the sketch's screen IDs. Link `prototype.drawio` with its question. It draws every screen and state in `screens.md` with realistic web or mobile components, and each frame's id is `<screen>-<state>`, such as `SC2-denied`. Opening it is a design inspection, not a usability result.
+Link each sketch file with its question and the layout option chosen, by whom, or that the choice is still proposed. Screens in `screens.md` keep the sketch's screen IDs. Link each prototype file with its question. Together they draw every screen and state in `screens.md` with realistic web or mobile components, and each frame's id is `<screen>-<state>`, such as `SC2-denied`. Opening one is a design inspection, not a usability result.
 
 For a build-slice, acceptance outcomes use Given, When, Then with concrete values and name their check. Reversible open questions carry a proposed default and an owner. Questions that are irreversible, or touch safety, money, law, or privacy, stay blocking until an owner decides.
 

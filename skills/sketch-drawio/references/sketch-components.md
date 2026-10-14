@@ -6,7 +6,7 @@ The shapes are basic shapes on purpose. Draw.io's **Mockup** library draws finis
 
 ## Board layout
 
-- One row for the main journey, screens left to right in order. Each alternative layout gets its own row below, under the screen it replaces.
+- One actor and one task per file. Caption it `Actor · Task`, such as `Nurse · Ask for cover`. One pair keeps `sketch.drawio`. A second task, or a second actor doing a different task, is `sketch-<actor>-<task>.drawio`. A happy path longer than 6 screens splits at the next handoff. Inside the file, one row for that actor's happy path, screens left to right. Each alternative layout of a screen in that task gets its own row below, under the screen it replaces. States that change the layout sit on that screen's row.
 - Frame size: desktop `640×400`, mobile `200×400`. That is half scale, so a board stays readable at a glance.
 - Gap between frames: 80 across, 120 down. A caption sits 36 above each frame, and a note sits 12 below it.
 - Inside a desktop frame: top region 0–32, side region 0–120 wide, content from x 140, 480 wide.

@@ -13,14 +13,15 @@ npm run check:output -- /path/to/project/docs/product-design/shift-swaps/product
 
 For a proposal, this checks header fields, profile/gate agreement, date, section order/content, and verdict labels. For a folder, it also checks:
 
-- that `screens.md` comes with `sketch.drawio` and `prototype.drawio` outside discovery;
+- that `screens.md` comes with sketch and prototype files outside discovery (`sketch.drawio` or `sketch-<flow>.drawio`, and the same for `prototype`);
 - that a discovery proposal has no screen files;
 - that a build-slice proposal has a ready `build-spec.md`, a "specify a slice" gate has a build spec, and a ready spec only goes with a build-slice proposal;
 - the `screens.md` and `build-spec.md` headers and sections, and Given/When/Then acceptance criteria;
-- a `<screen>-sketch` frame in `sketch.drawio` and a `<screen>-default` frame in `prototype.drawio` for every screen ID;
-- Draw.io ids, parents, and edge references in every `.drawio` file.
+- a `<screen>-sketch` frame across the sketch files and a `<screen>-default` frame across the prototype files for every screen ID;
+- Draw.io ids, parents, and edge references in every `.drawio` file;
+- that a Draw.io file has at most two pages and at most 400 shapes, so a large diagram is split into one file per close flow.
 
-It cannot tell whether `journey.drawio`, `process.drawio`, `context.drawio`, or the build diagrams (`erd.drawio`, `states.drawio`, `sequence.drawio`, `dataflow.drawio`) are needed, because that depends on the content. It reads ids from C4 elements wrapped in `<object>` as well as plain cells, but it does not check that a diagram uses Draw.io's built-in shapes. It does not establish evidence truth, traceability correctness, approval, feasibility, accessibility, or diagram rendering. It is not installed as a host tool and the restricted design agent cannot run shell commands; a human or verification agent runs it separately.
+It cannot tell whether a journey, process, context, or build diagram is needed, because that depends on the content, and it cannot tell whether two pages are a real pair (as-is and to-be, logical and physical, or context and containers) or whether a flow was split in the right place. It reads ids from C4 elements wrapped in `<object>` as well as plain cells, but it does not check that a diagram uses Draw.io's built-in shapes. It does not establish evidence truth, traceability correctness, approval, feasibility, accessibility, or diagram rendering. It is not installed as a host tool and the restricted design agent cannot run shell commands; a human or verification agent runs it separately.
 
 ## Behavioral evaluation corpus
 
@@ -47,7 +48,7 @@ For every run, record pass, fail, or not applicable with a document locator for 
 6. **Evaluation:** the reversing assumption has a discriminating, ethical plan with decision criteria and limitations. Plans are never results.
 7. **Artifact and revision integrity:** files open where checked, diagrams agree with text, superseded claims and dependent edits are visible.
 8. **Proportionality:** discovery/no-build is concise and does not fabricate a production design to fill sections.
-9. **Product shape:** at evaluation or deeper with an interface, `screens.md` and `prototype.drawio` let a reader picture the main, empty, error, and denied states as a real web or mobile layout with realistic content.
+9. **Product shape:** at evaluation or deeper with an interface, `screens.md` and the prototype files let a reader picture each screen's default and the other states that change it, as a real web or mobile layout with realistic content.
 10. **Buildability:** a builder reading `build-spec.md` cold can name no undecided reversible choice; each blocking question has an owner; rules are defined once with examples; every Must story has concrete Given/When/Then outcomes and checks.
 
 Fabricated evidence/approval, a ready verdict despite a blocking safety/policy/feasibility gap, and contradictory consequential rules are critical failures. Do not average them away with a score. Structural passes cannot override them. Output behavior remains unverified until real host runs are recorded.

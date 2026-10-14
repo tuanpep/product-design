@@ -38,13 +38,13 @@ Use these level-two headings in order. Keep each one. A heading that does not ap
 
 **Roles and permissions.** Actions as rows, roles as columns, each cell allowed, denied, or conditional with the rule ID.
 
-**Domain model.** Entities, key attributes (meaning, required, example, source, sensitivity), relationships with cardinality, and the system of record. Link `erd.drawio` when it is drawn. A physical schema appears only on its physical page, as a **proposed** design that follows the target project's conventions; no framework choices, SQL, or migrations.
+**Domain model.** Entities, key attributes (meaning, required, example, source, sensitivity), relationships with cardinality, and the system of record. Link `erd.drawio`, or each `erd-<cluster>.drawio`, when it is drawn. A physical schema appears only on its physical page, as a **proposed** design that follows the target project's conventions; no framework choices, SQL, or migrations.
 
-**States and lifecycle.** For each entity with a lifecycle: state, meaning, allowed next states, trigger and actor, guarding rule, side effect. Link `states.drawio` when it is drawn.
+**States and lifecycle.** For each entity with a lifecycle: state, meaning, allowed next states, trigger and actor, guarding rule, side effect. Link `states.drawio`, or each `states-<entity>.drawio`, when it is drawn.
 
 **Business rules.** The catalogue with IDs, decision tables, and examples that pass, are denied, and sit on the boundary. Owner and approval status for each.
 
-**Screens and navigation.** A summary and a link to `screens.md` and `prototype.drawio`. Do not restate screen content.
+**Screens and navigation.** A summary and a link to `screens.md` and the prototype files. Do not restate screen content.
 
 **Stories and acceptance criteria.** The story map with the first-release line, then each Must story:
 
@@ -60,9 +60,9 @@ A2 Given Lan has 40 hours this week
 Checked by: C1 (tester, scripted walkthrough), C2 (rule unit check by engineer)
 ```
 
-**Integrations and data.** Each integration: direction, data, trigger, frequency, failure behaviour, owner, feasibility evidence class. Personal data: purpose, visibility, proposed retention. Link `context.drawio` and `sequence.drawio` when they are drawn.
+**Integrations and data.** Each integration: direction, data, trigger, frequency, failure behaviour, owner, feasibility evidence class. Personal data: purpose, visibility, proposed retention. Link the context and sequence files when they are drawn.
 
-**Quality requirements.** Accessibility target and checks, privacy, security, performance, reliability, and observability or analytics events, each measurable or marked unknown. Link `dataflow.drawio` when it is drawn, and review each trust boundary crossing it lists.
+**Quality requirements.** Accessibility target and checks, privacy, security, performance, reliability, and observability or analytics events, each measurable or marked unknown. Link the data-flow files when they are drawn, and review each trust boundary crossing they list.
 
 **Rollout and verification.** Transition from the current service, data migration, rollout and rollback, support readiness, how the outcome will be measured, and the definition of done.
 

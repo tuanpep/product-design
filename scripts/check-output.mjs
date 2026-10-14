@@ -21,6 +21,10 @@ const gates = {
 }
 const standards = ['product-design/1.0', 'product-design/1.1']
 const stateNames = ['default', 'empty', 'loading', 'partial', 'error', 'denied', 'success', 'offline']
+const drawioKinds = ['journey', 'process', 'navigation', 'sketch', 'prototype', 'context', 'erd', 'states', 'sequence', 'dataflow']
+const drawioFile = new RegExp(`^(${drawioKinds.join('|')})(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?\\.drawio$`)
+const maxDrawioPages = 2
+const maxDrawioShapes = 400
 const idPattern = /\b(?:BR|SC|N|R|S|A|M)\d+\b/g
 const definitionPattern = /^(?:\s*[-*]\s+|\|\s*|#+\s+)?(?:\*\*)?((?:BR|SC|N|R|S|A|M)\d+)\b/gm
 
@@ -133,11 +137,36 @@ function cellsOf(xml) {
   })
 }
 
+function filesOfKind(files, kind) {
+  return files.filter((name) => drawioFile.exec(name)?.[1] === kind)
+}
+
+function splitConflict(names, kind) {
+  if (names.includes(`${kind}.drawio`) && names.some((name) => name.startsWith(`${kind}-`))) {
+    return `${kind}.drawio shares the package with ${kind}-<flow>.drawio files. One flow uses ${kind}.drawio. Several flows use only ${kind}-<flow>.drawio files.`
+  }
+  return null
+}
+
 function checkFrames(xml, name, frames) {
   const errors = checkDrawio(xml, name)
   const cellIds = new Set(cellsOf(xml).map((cell) => cell.id))
   for (const frame of frames) {
     if (!cellIds.has(frame)) errors.push(`${name}: Missing frame ${frame} for screens.md.`)
+  }
+  return errors
+}
+
+function checkFrameSet(parts, label, frames, clip) {
+  const errors = []
+  const found = new Set()
+  for (const part of parts) {
+    errors.push(...checkDrawio(part.xml, part.name))
+    if (clip) errors.push(...checkClipping(part.xml, part.name))
+    for (const cell of cellsOf(part.xml)) found.add(cell.id)
+  }
+  for (const frame of frames) {
+    if (!found.has(frame)) errors.push(`${label}: Missing frame ${frame} for screens.md.`)
   }
   return errors
 }
@@ -191,7 +220,11 @@ export function checkDrawio(xml, name = 'diagram.drawio') {
   const errors = []
   const label = `${name}: `
   if (!/<mxfile\b/.test(xml)) errors.push(`${label}Expected an uncompressed <mxfile>.`)
-  for (const diagram of xml.matchAll(/<diagram\b[^>]*>([\s\S]*?)<\/diagram>/g)) {
+  const diagrams = [...xml.matchAll(/<diagram\b[^>]*>([\s\S]*?)<\/diagram>/g)]
+  if (diagrams.length > maxDrawioPages) errors.push(`${label}Has ${diagrams.length} pages. Split into one file per close flow.`)
+  const shapes = xml.match(/\bvertex="1"/g)?.length ?? 0
+  if (shapes > maxDrawioShapes) errors.push(`${label}Has ${shapes} shapes. Split into one file per close flow.`)
+  for (const diagram of diagrams) {
     const body = diagram[1]
     if (body.trim() && !body.includes('<mxGraphModel')) { errors.push(`${label}Diagram is compressed; write uncompressed XML.`); continue }
     const cells = [...body.matchAll(/<(?:object|UserObject)\b([^>]*)>\s*<mxCell\b([^>]*?)\/?>|<mxCell\b([^>]*?)\/?>/g)]

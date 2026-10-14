@@ -16,7 +16,24 @@ Write this uncompressed XML. Draw.io and diagrams.net open it directly. Add cell
 </mxfile>
 ```
 
-A second `<diagram>` in the same `<mxfile>` is a second page. Use another page only when the first page cannot hold the question.
+## One file per close flow
+
+One file answers one question and draws one close flow: one entry, the main steps, the decisions on that path, and the recovery that belongs to them. A second outcome is a second file.
+
+A sketch or a prototype is a wireflow: one actor completing one task, with an arrow from the control they use. The caption names both, `Nurse · Ask for cover`. States of those screens (empty, error, denied, loading) and layout alternatives of a screen in that task stay in the file. A second actor who does this same task with less access stays too, as a denied or read-only state. A second actor who does a different task gets their own file. End this file at the handoff. Start the other actor's file at what they receive, and name the handoff in both captions. The screen is drawn once, in the file of the actor who acts on it. The cross-actor picture stays in `process.drawio`.
+
+Name one flow `journey.drawio`, `process.drawio`, `navigation.drawio`, `sketch.drawio`, `prototype.drawio`, `context.drawio`, `erd.drawio`, `states.drawio`, `sequence.drawio`, or `dataflow.drawio`. Name each further flow with a short kebab-case suffix. A sketch or prototype suffix is the actor and the task when either is the reason for the split: `sketch-nurse-ask-cover.drawio`, `prototype-colleague-accept-cover.drawio`. Other diagrams use the flow name: `journey-ask-cover.drawio`, `sequence-accept-cover.drawio`. Several flows use only the suffixed names. Link each file from the proposal with the actor, the task, and the question it answers. A flow arrow stays inside its file.
+
+Keep one page. A second `<diagram>` is a paired view of that same flow, and only when each view still fits: as-is and to-be in a process, logical and physical in an ERD, context and containers in a context diagram.
+
+Split when any of these is true:
+
+- The file would hold a second close flow: another task, another actor doing a different task, another scenario, another entity lifecycle, or another data journey.
+- A flowchart or swimlane would need more than 12 steps.
+- A sketch or prototype happy path would need more than 6 screens. State frames of those screens stay with the task.
+- The file would have more than 400 shapes, or a third page.
+
+An ERD splits when a second cluster of entities shares no relationship with the first. Logical and physical of one cluster stay together.
 
 ## Built-in shapes first
 
