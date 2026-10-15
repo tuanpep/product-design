@@ -33,7 +33,7 @@ Record the assumption/alternative, question, method, audience/recruitment, neutr
 
 ### Learning material is not the complete screen handoff
 
-A **learning prototype** isolates a question and may deliberately omit most of the journey. Default to an inline concept, task, or scenario in the proposal, or a link to externally supplied material. Respect the level's no-screen cap. Do not put a partial learning stimulus in `screens.md` or call it the complete `mockup.drawio` handoff. When those complete artifacts are produced, keep their existing screen/state coverage and split-board contracts intact. Do not generate production code or diagram scripts as a side effect of planning research.
+A **learning prototype** isolates a question and may deliberately omit most of the journey. Default to an inline concept, task, or scenario in the proposal, or a link to externally supplied material. Respect the level's no-screen cap. Do not put a partial learning stimulus in `screens.md` or call it the complete `mockup.drawio` handoff. Complete artifacts cover the declared screens, business views, consequential branches, and task handoffs; completeness does not require routine technical-state boards. Legacy explicitly declared states remain covered until the owning specification changes. Do not generate production code or diagram scripts as a side effect of planning research.
 
 ## Ingest supplied results and revise the decision
 

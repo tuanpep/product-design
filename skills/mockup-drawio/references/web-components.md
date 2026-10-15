@@ -22,7 +22,7 @@ Use project tokens first. Basic rectangles, ellipses, text, lines, and orthogona
 
 ### Extended recipes and Carbon styling
 
-Use [extended-components.md](extended-components.md) for reusable field groups, disclosures/accordions, action menus, date/time entry, file upload, comboboxes, and review summaries. The separate [component specimen board](component-recipes.drawio) demonstrates those recipes; it is a reference catalogue, not a product flow or a replacement for `screens.md` and its complete state coverage. The [cover-request example](example.drawio) remains task-focused; illustrative assets do not define a second default palette.
+Use [extended-components.md](extended-components.md) for reusable field groups, disclosures/accordions, action menus, date/time entry, file upload, comboboxes, and review summaries. The separate [component specimen board](component-recipes.drawio) demonstrates those recipes; it is a reference catalogue, not a product flow or a replacement for the journey views in `screens.md`. The [cover-request example](example.drawio) illustrates legacy state frames, not a mandatory state checklist; illustrative assets do not define a second default palette.
 
 Use the defaults below consistently across a board. Existing target-project tokens override these defaults; resolve the project's theme, layer, density and installed version before drawing. Do not introduce a separate optional style kit or mix unrelated palettes within one board.
 
@@ -44,7 +44,7 @@ For a closer Carbon button composition, use its button-specific geometry rather 
 
 For [Carbon typography](https://carbondesignsystem.com/guidelines/typography/type-sets/), productive compact body is 14/18 (size/line height), longer body 14/20, label/helper 12/16, heading-03 20/28 regular, and heading-05 32/40 regular. These are the default sizing allowances for text boxes. Arial metrics are not IBM Plex metrics; inspect wrapping rather than claiming exact Carbon typography.
 
-Component states such as expanded, focused, uploading, or selected are **variants inside a screen state**, not extra canonical state names. For example, an open action menu can be drawn in `SC2-default` if that is the specified default; if the owning screen spec needs a separate snapshot, use its supported state classification and explicit annotation. Do not invent `SC2-open` or `SC2-focused` frames that the output validator does not support. Reference specimen panels use descriptive IDs instead of SC IDs because they are not product screens.
+Component states such as expanded, focused, uploading, or selected usually stay inside a business view or a specification note. Create another snapshot only when the task needs a distinct decision or interaction; declare its descriptive kebab-case name under Views in `screens.md`. Do not multiply frames merely to demonstrate component variants. Reference specimen panels use descriptive IDs instead of SC IDs because they are not product screens.
 
 These are approximations for a static drawing, not Carbon components, a full theme implementation, or accessibility certification. See the extended recipes for source-specific component details, states and behaviour requirements.
 
@@ -54,10 +54,10 @@ See [Measured default pairs](#measured-default-pairs) for calculated contrast; m
 
 1. Read `screens.md` for task, screen order, states, exact copy, permissions, and recovery. Do not invent a new state contract through decoration.
 2. One actor/task per file. A close flow stays at root `mockup.drawio`; multiple flows use `1-<actor>-<task>/mockup.drawio`, with child steps such as `1.1-<actor>-<task>/mockup.drawio`. Keep that step's journey alongside it.
-3. One row per screen in task order, not numeric SC order. State columns are compact: default, empty, loading, partial, error, denied, success, offline. Draw only listed states. Same-screen dialogs and panels are states, not new screen IDs.
+3. Arrange views in business usage order, left to right and then top to bottom, not numeric SC order or technical-state columns. Keep decision branches near their origin and identify the main path. Same-screen review panels and confirmations can be named business views, not new screen IDs. Do not generate routine technical-state boards.
 4. Default full-size frames: desktop 1440×900, tablet 768×1024, mobile 375×812. These are assumptions, not a device research result. Do not shrink an example to avoid layout work.
 5. Gaps are 240 horizontally and 280 vertically. Caption 40 above a frame; note starts 20 below. Reserve separate lanes for notes and flow edges. For row height 900, next row starts 1180 lower.
-6. All cells use absolute coordinates and `parent="1"`. Frame ID `<screen>-<state>`; interior cells prefix that ID. Captions and notes end in `-caption` and `-note`; edges are `flow-1`, etc. Keep SC IDs stable when order changes.
+6. All cells use absolute coordinates and `parent="1"`. Frame ID `<screen>-<view>`; interior cells prefix that ID. Captions and notes end in `-caption` and `-note`; edges are `flow-1`, etc. View names must not prefix other view names of that screen. Keep SC IDs stable when order changes.
 7. Repeat the same shell and data across states; change only what the state requires. An empty filtered result is different from having no records; a denied action is different from a validation error.
 
 ### Desktop layout
@@ -199,7 +199,7 @@ Record the viewport, fold, scroll regions and sticky elements. A 20×20 radio or
 The example is one fictional task: nurse Mai Tran asks a colleague to cover a Cedar ward shift. Its owning scenario and state intent are in [example-screens.md](example-screens.md). It demonstrates the relevant subset—shell, table, buttons/focus, radio choices, textarea, loading/empty, validation, denied policy, and pending success—not every component in the kit. A fictional 48-hour rule is illustrative, not clinical or legal guidance. Full-size frames keep the same shell, records, and copy across states.
 
 Before handoff:
-- Validate XML IDs/parents/references, full-size geometry, compact state ordering, frame containment, screen/state coverage, and action sources.
+- Validate XML IDs/parents/references, full-size geometry, declared journey-view ordering, frame containment, screen/view coverage, and action sources.
 - Inspect the rendered board at reading scale in the intended viewer for clipping, font fallback, overlaps and edge lanes. Structural checks cannot establish these visual results.
 - Record measured contrast pairs and assumptions if checked. Validate keyboard access, semantics, announcements, target sizes in CSS pixels, zoom, and reflow on an appropriately implemented artifact, not this XML.
 - Treat supplied research results, design inspection, and automated checks as separate evidence. The example has no user-testing or accessibility-conformance claim.

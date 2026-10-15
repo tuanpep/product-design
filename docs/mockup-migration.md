@@ -14,7 +14,7 @@ This is a breaking rename with no legacy command, level, filename, or validator 
 
 Rename existing canonical files and update their links, command references, imports, and any explicit Level header. Keep screen IDs, state frames, copy, annotations, evidence, and decisions intact. Do not merge root and step boards: one close flow stays at the root; multiple flows use only indexed step folders for that kind. Run `npm run check:output -- docs/product-design/<slug>` afterward.
 
-The validator rejects `Level: prototype` and obsolete `prototype.drawio` at the root or in step folders, including when a canonical mockup also exists. Packages without a Level header still use their existing structural/profile contracts; do not add a header, infer evidence maturity, or require new deliverables just to migrate a name. This exception does not make the retired filenames valid. Standard versions and screen/state coverage contracts are unchanged. Mockup excludes build specs; Full permits them subject to profile/gate rules.
+The validator rejects `Level: prototype` and obsolete `prototype.drawio` at the root or in step folders, including when a canonical mockup also exists. Packages without a Level header still use their existing structural/profile contracts; do not add a header, infer evidence maturity, or require new deliverables just to migrate a name. This exception does not make the retired filenames valid. Standard versions remain supported. New handoffs use journey-ordered **Views:** with descriptive kebab-case frame suffixes, not mandatory technical-state matrices. Legacy **States:** declarations still require their listed frames. Mockup excludes build specs; Full permits them subject to profile/gate rules.
 
 ## Why this term, and what stays “prototype”
 

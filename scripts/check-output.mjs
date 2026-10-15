@@ -121,6 +121,18 @@ export function checkScreens(markdown) {
   for (const line of text.matchAll(/^\s*(?:[-*]\s+)?(?:\*\*)?States:(?:\*\*)?(.*)$/gm)) {
     if (line[1].split(/[;,](?![^(]*\))/).some((item) => /^\s*slow\b/i.test(item))) errors.push(`${label}Describe slow responses under loading, not as a separate slow state.`)
   }
+  for (const line of text.matchAll(/^\s*(?:[-*]\s+)?(?:\*\*)?Views:(?:\*\*)?(.*)$/gm)) {
+    const names = line[1].split(/[;,](?![^(]*\))/).map((item) => /^\s*([a-z][a-z0-9]*(?:-[a-z0-9]+)*)/.exec(item)?.[1]).filter(Boolean)
+    if (names[0] !== 'default') errors.push(`${label}Views must start with default.`)
+    if (new Set(names).size !== names.length || names.some((name) => /-(caption|note)$/.test(name) || names.some((other) => other !== name && other.startsWith(`${name}-`)))) {
+      errors.push(`${label}View names must be unique, not prefix other view names, and not end in -caption or -note.`)
+    }
+    for (const item of line[1].split(/[;,](?![^(]*\))/)) {
+      if (!/^\s*[a-z][a-z0-9]*(?:-[a-z0-9]+)*\s*(?:\([^)]*\)|\[[^\]]*\])?\s*\.?\s*$/.test(item)) {
+        errors.push(`${label}Views need lowercase kebab-case names with optional bracketed details, separated by semicolons.`)
+      }
+    }
+  }
   return errors
 }
 
@@ -132,11 +144,12 @@ export function screenStates(markdown) {
   const frames = []
   for (const section of normalize(markdown).split(/^(?=### )/m)) {
     const id = /^### (SC\d+)\b/.exec(section)?.[1]
-    const line = /^\s*(?:[-*]\s+)?(?:\*\*)?States:(?:\*\*)?(.*)$/m.exec(section)?.[1]
-    if (!id || !line) continue
-    for (const item of line.split(/[;,](?![^(]*\))/)) {
-      const state = /^\s*(\w+)\s*(?:\(|\[|:|with\b|\.?\s*$)/i.exec(item)?.[1].toLowerCase()
-      if (stateNames.includes(state) && !frames.includes(`${id}-${state}`)) frames.push(`${id}-${state}`)
+    if (!id) continue
+    for (const line of section.matchAll(/^\s*(?:[-*]\s+)?(?:\*\*)?(States|Views):(?:\*\*)?(.*)$/gm)) {
+      for (const item of line[2].split(/[;,](?![^(]*\))/)) {
+        const state = /^\s*([a-z][a-z0-9]*(?:-[a-z0-9]+)*)\s*(?:\(|\[|:|with\b|\.?\s*$)/i.exec(item)?.[1].toLowerCase()
+        if (state && (line[1] === 'Views' || stateNames.includes(state)) && !frames.includes(`${id}-${state}`)) frames.push(`${id}-${state}`)
+      }
     }
   }
   return frames
@@ -220,7 +233,7 @@ function packageDiagrams(folder) {
 
 function checkFrames(xml, name, frames, ids) {
   const errors = checkDrawio(xml, name)
-  errors.push(...checkStatePlacement(xml, name, ids))
+  errors.push(...checkStatePlacement(xml, name, ids, frames))
   const cellIds = new Set(cellsOf(xml).map((cell) => cell.id))
   for (const frame of frames) {
     if (!cellIds.has(frame)) errors.push(`${name}: Missing frame ${frame} for screens.md.`)
@@ -233,7 +246,7 @@ function checkFrameSet(parts, label, frames, clip, ids) {
   const found = new Set()
   for (const part of parts) {
     errors.push(...checkDrawio(part.xml, part.name))
-    errors.push(...checkStatePlacement(part.xml, part.name, ids))
+    errors.push(...checkStatePlacement(part.xml, part.name, ids, frames))
     if (clip) errors.push(...checkClipping(part.xml, part.name))
     for (const cell of cellsOf(part.xml)) found.add(cell.id)
   }
@@ -243,41 +256,34 @@ function checkFrameSet(parts, label, frames, clip, ids) {
   return errors
 }
 
-function checkStatePlacement(xml, name, ids) {
+function framesOf(cells) {
+  const candidates = cells.filter((cell) => /^SC\d+-[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(cell.id ?? '') && !/-(caption|note)$/.test(cell.id))
+  return candidates.filter((cell) => !candidates.some((other) => cell.id.startsWith(`${other.id}-`)))
+}
+
+function checkStatePlacement(xml, name, ids, declared) {
   const errors = []
-  // Coordinates belong to a page, not the whole file. SC numbers are stable IDs,
-  // so task order comes from screens.md rather than sorting their numeric suffixes.
   for (const page of xml.matchAll(/<diagram\b[^>]*>([\s\S]*?)<\/diagram>/g)) {
-    const rows = new Map()
-    for (const cell of cellsOf(page[1])) {
-      const match = /^(SC\d+)-([a-z]+)$/.exec(cell.id ?? '')
-      if (!match) continue
-      const [, id, state] = match
-      if (!stateNames.includes(state)) errors.push(`${name}: Unsupported state frame ${cell.id}.`)
-      rows.set(id, [...(rows.get(id) ?? []), { ...cell, state }])
+    const frames = framesOf(cellsOf(page[1]))
+    for (const frame of frames) {
+      if (frame.width <= 0 || frame.height <= 0) errors.push(`${name}: Frame ${frame.id} needs positive dimensions.`)
+      if (!stateNames.includes(frame.id.replace(/^SC\d+-/, '')) && !declared.includes(frame.id)) errors.push(`${name}: Undeclared business view ${frame.id}; list it in screens.md Views.`)
     }
-    const ordered = [...new Set([...ids, ...rows.keys()])].filter((id) => rows.has(id))
-    const starts = [...rows.values()].map((row) => Math.min(...row.map((cell) => cell.x)))
-    const origin = Math.min(...starts)
-    const gaps = [...rows.values()].flatMap((row) => {
-      const sorted = [...row].sort((a, b) => a.x - b.x)
-      return sorted.slice(1).map((cell, index) => cell.x - sorted[index].x - sorted[index].width)
-    })
-    const gap = Math.min(...gaps)
-    let previousBottom = -Infinity
-    for (const id of ordered) {
-      const row = rows.get(id).sort((a, b) => stateNames.indexOf(a.state) - stateNames.indexOf(b.state))
-      const top = row[0].y
-      if (row.some((cell) => cell.y !== top)) errors.push(`${name}: States of ${id} must share one row.`)
-      if (top <= previousBottom) errors.push(`${name}: Screen ${id} must follow the previous screen in task order without overlapping rows.`)
-      previousBottom = Math.max(...row.map((cell) => cell.y + cell.height))
-      let x = origin
-      for (const cell of row) {
-        if (cell.x !== x || cell.width <= 0 || cell.height <= 0 || gap <= 0) {
-          errors.push(`${name}: Frame ${cell.id} must use compact left-to-right state positions: ${stateNames.join(', ')}. Skip absent states.`)
+    for (let i = 0; i < frames.length; i++) {
+      for (const other of frames.slice(i + 1)) {
+        const frame = frames[i]
+        if (frame.x < other.x + other.width && other.x < frame.x + frame.width && frame.y < other.y + other.height && other.y < frame.y + frame.height) {
+          errors.push(`${name}: Frames ${frame.id} and ${other.id} overlap.`)
         }
-        x = cell.x + cell.width + gap
       }
+    }
+    const reading = [...frames].sort((a, b) => a.y - b.y || a.x - b.x).map((frame) => frame.id)
+    const screenOrder = [...new Set(reading.map((id) => id.split('-')[0]))].filter((id) => ids.includes(id))
+    if (screenOrder.join('|') !== ids.filter((id) => screenOrder.includes(id)).join('|')) errors.push(`${name}: Screens must follow screens.md task order.`)
+    for (const id of screenOrder) {
+      const expected = declared.filter((frame) => frame.startsWith(`${id}-`) && reading.includes(frame))
+      const actual = reading.filter((frame) => expected.includes(frame))
+      if (actual.join('|') !== expected.join('|')) errors.push(`${name}: Views of ${id} must follow screens.md journey order.`)
     }
   }
   return errors
@@ -286,7 +292,7 @@ function checkStatePlacement(xml, name, ids) {
 function checkClipping(xml, name) {
   const errors = []
   const cells = cellsOf(xml)
-  for (const frame of cells.filter((cell) => /^SC\d+-[a-z]+$/.test(cell.id ?? ''))) {
+  for (const frame of framesOf(cells)) {
     for (const cell of cells) {
       if (!cell.id?.startsWith(`${frame.id}-`) || /-(caption|note)$/.test(cell.id)) continue
       const inside = cell.x >= frame.x && cell.y >= frame.y

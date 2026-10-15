@@ -294,16 +294,33 @@ function stateDiagram(frames) {
   return `<mxfile><diagram id="p"><mxGraphModel><root><mxCell id="0"/><mxCell id="1" parent="0"/>${frames.map(([id, x, y]) => `<mxCell id="${id}" vertex="1" parent="1"><mxGeometry x="${x}" y="${y}" width="100" height="80" as="geometry"/></mxCell>`).join('')}</root></mxGraphModel></diagram></mxfile>`
 }
 
-test('places states in compact canonical order and screens in task order, not SC numeric order', () => {
+test('places screens in task order without imposing technical-state columns', () => {
   const frames = [['SC9-default', 40, 80], ['SC9-denied', 180, 80], ['SC2-default', 40, 240], ['SC2-empty', 180, 240], ['SC2-error', 320, 240]]
   assert.deepEqual(checkMockupDrawio(stateDiagram(frames), ['SC9', 'SC2']), [])
   assert.ok(checkMockupDrawio(stateDiagram(frames), ['SC2', 'SC9']).some((error) => error.includes('task order')))
   const shifted = (id, x, y) => frames.map((frame) => frame[0] === id ? [id, x, y] : frame)
-  assert.ok(checkMockupDrawio(stateDiagram(shifted('SC9-denied', 180, 90))).some((error) => error.includes('share one row')))
-  assert.ok(checkMockupDrawio(stateDiagram(shifted('SC9-denied', 320, 80))).some((error) => error.includes('compact left-to-right')))
+  assert.deepEqual(checkMockupDrawio(stateDiagram(shifted('SC9-denied', 180, 90))), [])
+  assert.deepEqual(checkMockupDrawio(stateDiagram(shifted('SC9-denied', 320, 80))), [])
   const reversed = frames.map(([id, x, y]) => [id === 'SC2-empty' ? 'SC2-error' : id === 'SC2-error' ? 'SC2-empty' : id, x, y])
-  assert.ok(checkMockupDrawio(stateDiagram(reversed)).some((error) => error.includes('compact left-to-right')))
-  assert.ok(checkMockupDrawio(stateDiagram([['SC1-slow', 40, 80]])).some((error) => error.includes('Unsupported state frame SC1-slow')))
+  assert.deepEqual(checkMockupDrawio(stateDiagram(reversed)), [])
+  assert.ok(checkMockupDrawio(stateDiagram(shifted('SC9-denied', 90, 80))).some((error) => error.includes('overlap')))
+})
+
+test('supports business journey views without requiring routine technical states', () => {
+  const markdown = screens.replace('States: default, empty.', 'Views: default (draft); awaiting-approval (owner); approved (obligations).')
+  assert.deepEqual(checkScreens(markdown), [])
+  assert.deepEqual(screenStates(markdown), ['SC1-default', 'SC1-awaiting-approval', 'SC1-approved', 'SC2-default', 'SC2-denied'])
+  const views = ['SC1-default', 'SC1-awaiting-approval', 'SC1-approved']
+  const xml = stateDiagram(views.map((id, i) => [id, 40 + i * 140, 80]))
+  assert.deepEqual(checkMockupDrawio(xml, ['SC1'], views), [])
+  assert.ok(checkMockupDrawio(xml, ['SC1'], [...views, 'SC1-withdrawal-request']).some((error) => error.includes('Missing frame SC1-withdrawal-request')))
+  assert.ok(checkMockupDrawio(xml, ['SC1'], [...views].reverse()).some((error) => error.includes('journey order')))
+  const clipped = xml.replace('</root>', '<mxCell id="SC1-awaiting-approval-title" vertex="1" parent="1"><mxGeometry x="900" y="80" width="100" height="20" as="geometry"/></mxCell></root>')
+  assert.ok(checkMockupDrawio(clipped).some((error) => error.includes('sticks out of frame SC1-awaiting-approval')))
+  assert.ok(checkScreens(markdown.replace('awaiting-approval (owner)', 'Awaiting Approval')).some((error) => error.includes('kebab-case')))
+  assert.ok(checkScreens(markdown.replace('approved (obligations)', 'awaiting-approval-confirm')).some((error) => error.includes('prefix')))
+  assert.ok(checkScreens(markdown.replace('approved (obligations)', 'approved-note')).some((error) => error.includes('-note')))
+  assert.ok(checkMockupDrawio(xml, ['SC1']).some((error) => error.includes('Undeclared business view')))
 })
 
 test('reads designed states with recovery details and treats slow responses as loading', () => {

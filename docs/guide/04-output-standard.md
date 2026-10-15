@@ -20,7 +20,7 @@ For a proposal, this checks header fields, profile/gate agreement, the optional 
 - that explicitly capped levels do not contain forbidden screen/mockup/build-spec artifacts;
 - that a build-slice proposal has a ready `build-spec.md`, a "specify a slice" gate has a build spec, and a ready spec only goes with a build-slice proposal;
 - the `screens.md` and `build-spec.md` headers and sections, and Given/When/Then acceptance criteria;
-- a `<screen>-default` frame across the mockup files for every screen ID, and a frame for every state `screens.md` lists;
+- a `<screen>-default` entry frame for every screen ID, and a frame for each business view declared in `screens.md`, arranged in usage order; legacy explicitly listed States remain covered;
 - Draw.io ids, parents, and edge references in every `.drawio` file;
 - that a Draw.io file has at most two pages and at most 400 shapes, so a large diagram is split into one file per close flow.
 
