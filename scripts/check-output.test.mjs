@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import test from 'node:test'
-import { checkBuildSpec, checkDrawio, checkIds, checkMockupDrawio, checkOutput, checkPackage, screenStates } from './check-output.mjs'
+import { checkBuildSpec, checkDrawio, checkIds, checkMockupDrawio, checkOutput, checkPackage, checkScreens, screenStates } from './check-output.mjs'
 
 const example = readFileSync(new URL('../skills/mockup-drawio/references/example.drawio', import.meta.url), 'utf8')
 
@@ -122,6 +122,107 @@ const proposal = (profile, gate) => document
   .replace('Profile: discovery', `Profile: ${profile}`)
   .replace('Next gate: repeat discovery', `Next gate: ${gate}`)
 
+const atLevel = (text, level) => text.replace('Profile:', `Level: ${level}\nProfile:`)
+
+test('checks optional Level headers without changing legacy proposals', () => {
+  for (const level of ['understand', 'design-documents', 'mockup', 'full']) {
+    assert.deepEqual(checkOutput(atLevel(document, level)), [])
+  }
+  assert.deepEqual(checkOutput(document), [])
+  for (const level of ['', 'production', 'prototype', 'full | mockup']) {
+    assert.ok(checkOutput(atLevel(document, level)).includes('Invalid level.'))
+  }
+  assert.ok(checkOutput(atLevel(atLevel(document, 'full'), 'full')).some((error) => error.includes('one Level')))
+  assert.ok(checkOutput(atLevel(proposal('evaluation', 'test solutions'), 'understand')).includes('Level understand requires the discovery profile.'))
+  for (const level of ['understand', 'design-documents', 'mockup']) {
+    assert.ok(checkOutput(atLevel(proposal('build-slice', 'ready for a named build slice'), level)).some((error) => error.includes('build-slice proposal requires Level: full')))
+    assert.ok(checkOutput(atLevel(proposal('evaluation', 'specify a slice'), level)).some((error) => error.includes('Next gate specify a slice requires Level: full')))
+  }
+  assert.deepEqual(checkOutput(atLevel(proposal('build-slice', 'ready for a named build slice'), 'full')), [])
+})
+
+test('rejects retired Draw.io filenames with or without an explicit level or canonical mockup', () => {
+  for (const level of [undefined, 'mockup', 'full']) {
+    for (const retired of ['prototype.drawio', '1-nurse-ask-cover/prototype.drawio', '1.1-choose-colleague/prototype.drawio']) {
+      for (const canonical of [false, true]) {
+        const text = proposal('evaluation', 'test solutions')
+        const files = {
+          'product-design.md': level ? atLevel(text, level) : text,
+          [retired]: example,
+        }
+        if (canonical) files[retired.replace('prototype.drawio', 'mockup.drawio')] = example
+        withPackage(files, (folder) => {
+          assert.ok(checkPackage(folder).includes(`${retired}: Obsolete prototype.drawio; rename to mockup.drawio and update links.`))
+        })
+      }
+    }
+  }
+})
+
+test('accepts lower-level packages with deliberate artifact deferrals', () => {
+  for (const [level, profile, gate] of [
+    ['understand', 'discovery', 'repeat discovery'],
+    ['design-documents', 'evaluation', 'test solutions'],
+  ]) {
+    const text = atLevel(proposal(profile, gate), level).replace('Deferred: no solution chosen.', 'Proposed interface; screens and mockup deliberately deferred by the requested level. Planned learning materials remain inline here.')
+    withPackage({ 'product-design.md': text }, (folder) => assert.deepEqual(checkPackage(folder), []))
+  }
+})
+
+test('rejects canonical artifacts above an explicit output cap, including step mockups', () => {
+  for (const level of ['understand', 'design-documents', 'mockup']) {
+    const text = atLevel(proposal(level === 'understand' ? 'discovery' : 'evaluation', level === 'understand' ? 'repeat discovery' : 'test solutions'), level)
+    withPackage({ 'product-design.md': text, 'build-spec.md': spec('draft') }, (folder) => {
+      assert.ok(checkPackage(folder).includes(`Level ${level} must not include build-spec.md.`))
+    })
+    if (level === 'mockup') continue
+    for (const files of [{ 'screens.md': screens }, { 'mockup.drawio': example }, { '1-ask/mockup.drawio': example }]) {
+      withPackage({ 'product-design.md': text, ...files }, (folder) => {
+        assert.ok(checkPackage(folder).includes(`Level ${level} must not include screens.md or mockup.drawio.`))
+      })
+    }
+  }
+})
+
+test('applies level caps consistently for accepted header whitespace', () => {
+  for (const header of ['Level:mockup', 'Level:\tmockup', 'Level: mockup']) {
+    const text = atLevel(proposal('evaluation', 'test solutions'), 'mockup').replace('Level: mockup', header)
+    assert.deepEqual(checkOutput(text), [])
+    withPackage({ 'product-design.md': text, 'build-spec.md': spec('draft') }, (folder) => {
+      assert.ok(checkPackage(folder).includes('Level mockup must not include build-spec.md.'))
+    })
+  }
+})
+
+test('rejects misplaced canonical Markdown files in package subfolders', () => {
+  for (const name of ['screens.md', 'build-spec.md', 'product-design.md']) {
+    for (const dir of ['1-ask', 'research']) {
+      withPackage({ 'product-design.md': atLevel(proposal('evaluation', 'test solutions'), 'mockup'), [`${dir}/${name}`]: 'Misplaced canonical file.' }, (folder) => {
+        assert.ok(checkPackage(folder).includes(`${dir}/${name}: Canonical Markdown files belong in the package root, not a subfolder.`))
+      })
+    }
+  }
+})
+
+test('keeps screen and state coverage at mockup and full levels', () => {
+  for (const level of ['mockup', 'full']) {
+    const files = { 'product-design.md': atLevel(proposal('evaluation', 'test solutions'), level), 'screens.md': screens }
+    withPackage(files, (folder) => assert.ok(checkPackage(folder).includes('screens.md needs mockup.drawio.')))
+    withPackage({ ...files, 'mockup.drawio': example }, (folder) => assert.deepEqual(checkPackage(folder), []))
+    withPackage({ ...files, 'screens.md': screens.replace('States: default, empty.', 'States: default, empty, error.'), 'mockup.drawio': example }, (folder) => {
+      assert.ok(checkPackage(folder).includes('mockup.drawio: Missing frame SC1-error for screens.md.'))
+    })
+  }
+  withPackage({ 'product-design.md': atLevel(proposal('evaluation', 'specify a slice'), 'full') }, (folder) => {
+    assert.ok(checkPackage(folder).includes('Next gate specify a slice needs a draft build-spec.md.'))
+  })
+  withPackage({ 'product-design.md': atLevel(proposal('evaluation', 'specify a slice'), 'mockup') }, (folder) => {
+    const errors = checkPackage(folder)
+    assert.ok(errors.some((error) => error.includes('Next gate specify a slice requires Level: full')))
+    assert.ok(!errors.includes('Next gate specify a slice needs a draft build-spec.md.'))
+  })
+})
+
 test('accepts a complete evaluation package and a ready build-slice package', () => {
   withPackage({
     'product-design.md': proposal('evaluation', 'specify a slice'),
@@ -178,12 +279,41 @@ test('checks the Draw.io mockup covers every state listed in screens.md', () => 
   assert.deepEqual(screenStates(screens), ['SC1-default', 'SC1-empty', 'SC2-default', 'SC2-denied'])
   assert.deepEqual(screenStates('### SC1 Rooms\n- **States:** default (list); empty: all busy; loading and error use the browser; denied does not apply.\n'), ['SC1-default', 'SC1-empty'])
   assert.deepEqual(checkMockupDrawio(example, ['SC1', 'SC2'], screenStates(screens)), [])
+  const missingDenied = example.replace(/<mxCell\b[^>]*\bid="SC2-denied"[^>]*>[\s\S]*?<\/mxCell>/, '')
+  assert.notEqual(missingDenied, example)
+  assert.ok(checkMockupDrawio(missingDenied, ['SC1', 'SC2'], screenStates(screens)).includes('mockup.drawio: Missing frame SC2-denied for screens.md.'))
   assert.ok(checkMockupDrawio(example, ['SC1'], ['SC1-error']).includes('mockup.drawio: Missing frame SC1-error for screens.md.'))
 })
 
 test('flags mockup cells that stick out of their frame', () => {
   const moved = example.replace(/(id="SC1-default-title"[\s\S]*?<mxGeometry x=")\d+/, '$15000')
   assert.ok(checkMockupDrawio(moved).includes('mockup.drawio: Cell SC1-default-title sticks out of frame SC1-default.'))
+})
+
+function stateDiagram(frames) {
+  return `<mxfile><diagram id="p"><mxGraphModel><root><mxCell id="0"/><mxCell id="1" parent="0"/>${frames.map(([id, x, y]) => `<mxCell id="${id}" vertex="1" parent="1"><mxGeometry x="${x}" y="${y}" width="100" height="80" as="geometry"/></mxCell>`).join('')}</root></mxGraphModel></diagram></mxfile>`
+}
+
+test('places states in compact canonical order and screens in task order, not SC numeric order', () => {
+  const frames = [['SC9-default', 40, 80], ['SC9-denied', 180, 80], ['SC2-default', 40, 240], ['SC2-empty', 180, 240], ['SC2-error', 320, 240]]
+  assert.deepEqual(checkMockupDrawio(stateDiagram(frames), ['SC9', 'SC2']), [])
+  assert.ok(checkMockupDrawio(stateDiagram(frames), ['SC2', 'SC9']).some((error) => error.includes('task order')))
+  const shifted = (id, x, y) => frames.map((frame) => frame[0] === id ? [id, x, y] : frame)
+  assert.ok(checkMockupDrawio(stateDiagram(shifted('SC9-denied', 180, 90))).some((error) => error.includes('share one row')))
+  assert.ok(checkMockupDrawio(stateDiagram(shifted('SC9-denied', 320, 80))).some((error) => error.includes('compact left-to-right')))
+  const reversed = frames.map(([id, x, y]) => [id === 'SC2-empty' ? 'SC2-error' : id === 'SC2-error' ? 'SC2-empty' : id, x, y])
+  assert.ok(checkMockupDrawio(stateDiagram(reversed)).some((error) => error.includes('compact left-to-right')))
+  assert.ok(checkMockupDrawio(stateDiagram([['SC1-slow', 40, 80]])).some((error) => error.includes('Unsupported state frame SC1-slow')))
+})
+
+test('reads designed states with recovery details and treats slow responses as loading', () => {
+  assert.deepEqual(screenStates('### SC8 Rooms\nStates: default; partial [cached rooms]; error with recovery; denied: M1; offline (retry); error with recovery.\n'), ['SC8-default', 'SC8-partial', 'SC8-error', 'SC8-denied', 'SC8-offline'])
+  assert.ok(checkScreens(screens.replace('States: default, empty.', 'States: default; slow (retry).')).some((error) => error.includes('under loading')))
+  const allStates = ['default', 'empty', 'loading', 'partial', 'error', 'denied', 'success', 'offline']
+  const markdown = `### SC8 Rooms\nStates: ${allStates.join('; ')}.\n`
+  assert.deepEqual(screenStates(markdown), allStates.map((state) => `SC8-${state}`))
+  const xml = stateDiagram(allStates.map((state, index) => [`SC8-${state}`, 40 + index * 140, 80]))
+  assert.deepEqual(checkMockupDrawio(xml, ['SC8'], screenStates(markdown)), [])
 })
 
 test('flags IDs that are used but never defined, and requirements nobody uses', () => {

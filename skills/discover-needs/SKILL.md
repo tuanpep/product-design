@@ -6,12 +6,16 @@ disable-model-invocation: true
 
 # Discover Needs
 
+Apply [the discovery interview and context gate](../design-product/references/discovery-interview.md). When supplied context is too general, interview in small turns, probe concrete examples, and separate stakeholder accounts from observed research. Confirm the summarized understanding before first Shape when an interview was needed. Core gaps keep the work in Understand, including advise and Full.
+
 Read [the evidence contract](../design-product/references/evidence-and-decisions.md). Start with the user's goal, not the requested screen or feature.
 
 1. Inspect supplied documents, relevant product context, and analytics or support data if accessible. Use trustworthy external sources for material facts. Record source links and dates.
 2. Map who acts, what they are trying to accomplish, how they do it today, where it fails, and who or what supports the work outside the interface.
 3. Include underserved users and access needs where relevant. Do not claim to represent them without research. Distinguish hard constraints from changeable current practice. Quantify the baseline only when data exists.
-4. Leave a short list of risky unknowns with a method to investigate each. Report the method and limitations of every investigation performed.
+4. Synthesize explicitly using [the learning loop](../design-product/references/learning-loop.md): source → observation → pattern (including contradictions, outliers, and group differences) → finding → solution-neutral opportunity. Keep interpretation separate from observation, link each step, and do not turn one account into a population pattern. With only hypothetical context, label the chain provisional rather than inventing findings.
+5. Compare opportunities against user and business/service outcomes, importance/consequences, inclusion, and uncertainty. Choose a bounded target opportunity with rationale before `explore-solutions`; keep alternatives visible. Do not rank opportunities by the effort of a solution not yet chosen.
+6. Leave a short list of risky unknowns with a method to investigate each. Report the method and limitations of every investigation actually performed. For supplied session reports or analytics, use the learning loop's result-ingestion procedure; do not claim to have conducted that research.
 
 Web research can establish public facts. It cannot interview users or validate their behaviour. Leave needs as observations and inferences. Deriving requirements is `define-requirements`. Do not specify the build here.
 

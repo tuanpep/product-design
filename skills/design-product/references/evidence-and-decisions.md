@@ -10,6 +10,10 @@
 
 Separate **design coherence** (the proposed pieces agree), **evidence confidence** (the important claims have credible support), and **delivery readiness** (the next slice is feasible and sufficiently specified). Passing one is not passing the others.
 
+Also distinguish context sufficiency, evidence confidence, specification completeness, and human approval as independent gates in [the learning loop](learning-loop.md). Confirming a hypothetical scenario is approval to explore that premise, not behavioural evidence. Understand / Design documents / Mockup / Full cap output, not confidence. A complete Full package can remain provisional and untested; a lower-cap package may contain strong supplied research without requiring screens or build stories.
+
+Use the learning loop as the single policy for source → observation → pattern (including contradictions) → finding → opportunity, choosing an opportunity before alternatives, question → method → artifact evaluation, supplied-result ingestion and decision revision, and post-release learning ownership. Attribute supplied research to its conductor/report; do not claim direct observation or actual execution merely by reading it. Preserve observed facts separately from inferred findings and consequential human decisions.
+
 ## Decision authority
 
 The agent may recommend a problem framing, options, provisional design, and a first release. It cannot manufacture user research, cost figures, legal interpretation, feasibility approval, business-rule approval, or the decision to invest. Identify the human owner of consequential choices. Mark an unavailable owner as unknown rather than impersonating one. [Advise mode](advise-mode.md) may recommend a full provisional solution and design without waiting. It still cannot approve that recommendation.

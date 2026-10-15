@@ -4,24 +4,29 @@ The method follows [ISO 9241-210:2019](https://www.iso.org/standard/77520.html),
 
 ## What each skill owns
 
-The work moves through four stages. Each stage can send the work back to an earlier one. On a new idea in guided mode, ask which level to run before the first stage, unless the person already named one: Understand, Design documents, Mockup, or Full. Do not start a stage past that level. The levels are defined in [new-idea.md](../playbooks/new-idea.md). [Advise mode](advise-mode.md) does not ask. It runs the named level, or Full when none is named, recommends each open choice, and does not stop for a person to decide before the next file. The person still reviews the proposal afterward.
+[The learning loop](learning-loop.md) owns research synthesis, opportunity selection, question-led evaluation, supplied-result ingestion and decision revision, and post-release learning handoff. It distinguishes context sufficiency, evidence confidence, specification completeness, and human approval. The four requested levels cap outputs, not evidence maturity; Full can remain a provisional draft. "Brainstorm" can mean problem or solution exploration: ask if unclear and keep the context gate intact.
+
+First apply [the discovery interview and context gate](discovery-interview.md), the single policy for sufficient context. It overrides level selection, advise continuation, proposed defaults, and the gates below. Resolve core gaps in Understand before asking a missing guided level or entering Shape. If an interview was triggered, confirm the summarized understanding before Shape. Explicitly refusing questions with insufficient context permits only discovery summary, gaps, and research plan, then a stop.
+
+The work moves through four stages. Each stage can send the work back to an earlier one. On a new idea in guided mode, resolve missing core context, then ask which level to run before Shape, unless the person already named one: Understand, Design documents, Mockup, or Full. Do not start a stage past that level. The levels are defined in [new-idea.md](../playbooks/new-idea.md). After the context gate passes, [advise mode](advise-mode.md) runs the named level, or Full when none is named, recommends each open choice, and does not pause for level or layout decisions. The person still reviews the proposal afterward.
 
 **Understand** (discovery)
 
-1. `frame-problem` separates the proposed feature from the people, problem, and outcome, and sets the discovery goal.
+1. `frame-problem` names the decision, owner, uncertainty, and discovery goal; separates the proposed feature from the people/problem, and user outcomes from business/service outcomes.
 2. `map-stakeholders` names the actors, the hardest realistic user, decision owners, and conflicting goals.
-3. `discover-needs` describes the context of use: users, tasks, environment, constraints, and the current journey. It does not build the service.
+3. `discover-needs` describes the context of use: users, tasks, environment, constraints, and the current journey. Synthesize source → observation → pattern including contradictions → finding → opportunity, preserving provenance and uncertainty. Select a bounded solution-neutral opportunity before solution generation. Hypothetical premises remain hypotheses, not findings. It does not build the service.
 4. `define-requirements` turns that context into stable user needs and derived requirements.
 5. `decide-next` chooses stop, repeat discovery, test solutions, specify a slice, or ready for a named build slice.
 
 **Shape** (evaluation)
 
 6. `explore-solutions` compares the current path, reuse, non-software options, and product options, including the assumption that would reverse the choice.
+   Then `plan-evaluation` **before detailed experience/screens**: consider desirability, usability, feasibility, viability, and ethics; select priority questions and capable methods before least necessary artifacts/fidelity. Design documents includes this plan before its stop. Default partial learning material to inline proposal content or externally supplied links, not `screens.md`.
 7. `model-process` maps the as-is and to-be process across actors when more than one acts. `context-drawio` draws the product, its users, and the systems it depends on when it touches other systems.
 8. `design-experience` describes the chosen approach across the whole journey.
 9. `design-screens` and `write-content` turn the journey into screens, states, and words.
-10. `mockup-drawio` draws every screen and state with Draw.io's Mockup shapes, so people can see the shape. In guided mode, when a layout option is open, a person reviews the mockup before Full. In advise mode, recommend a layout and continue.
-11. `plan-evaluation` plans the smallest real test of the reversing assumption. A plan is not a result.
+10. At Mockup or Full, `mockup-drawio` draws every screen and state from `screens.md` with product-styled basic shapes, matching the project's UI or the default component palette. At Mockup in guided mode, when a layout option is open, a person reviews the mockup. At Full or in advise mode, recommend a proposed layout and continue; neither bypasses the context gate.
+11. Update the earlier evaluation plan for new risks. A plan is not a result. Ingest supplied results through the learning loop, compare with prior criteria and revise the earliest affected decision; never fabricate actual execution. Add post-release learning ownership, user and business/service measures, harm guardrails, review cadence/triggers, and decision responsibilities. Implementation and live research execution are external.
 
 **Specify** (build slice)
 
@@ -38,9 +43,9 @@ A small idea can satisfy a skill in a few sentences. Write into the package file
 
 ## Two gates
 
-**Continue learning.** Discovery showed a problem worth more investigation. The next work is a mockup of the riskiest assumptions: screens, a Draw.io mockup, and a process model that people can react to. That mockup is disposable. This is not permission to build the service.
+**Continue learning.** The sufficient-context gate passed and discovery showed an opportunity worth more investigation. Choose the riskiest question, then the method and smallest material capable of answering it. This may be an interview guide, inline concept/scenario, supplied-data analysis, or externally owned specialist investigation, not necessarily screens or a full mockup. A partial learning prototype is disposable and does not replace complete `screens.md` / `mockup.drawio` coverage when those artifacts are produced. This is not permission to build the service.
 
-When the direction is chosen, do not stop at "specify a slice". Draft `build-spec.md` with `Status: draft`, give reversible questions a proposed default ([principle-decide-the-reversible](../../principle-decide-the-reversible/SKILL.md)), and list the remaining blockers with owners. The gate rises to ready only when no blocker remains.
+When the direction is chosen and the cap is Full, do not stop at "specify a slice" if the slice is worth specifying. Draft `build-spec.md` with `Status: draft`, give reversible questions a proposed default ([principle-decide-the-reversible](../../principle-decide-the-reversible/SKILL.md)), and list the remaining blockers with owners. Lower caps do not require a build spec or release stories. The gate rises to ready only when no blocker remains; readiness is proportionate to the slice's harm, irreversibility, uncertainty, and accepted risk, not a requirement to test every assumption.
 
 **Ready for a named build slice.** The need, chosen approach, stories, acceptance outcomes, and checks are specified well enough for a person to decide to invest. Retain their traceability in the document. Unresolved safety, policy, feasibility, or ownership issues that block this slice prevent a ready verdict. Untested non-blocking assumptions remain visible; a planned test is not a completed result. This is the handoff in ISO 9241-210 for communicating a design to implementers. It is not permission to build or launch, and it is not evidence that users succeed. Match document depth and header to [the output standard](output-standard.md).
 

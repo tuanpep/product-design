@@ -20,6 +20,7 @@ const gates = {
   'build-slice': ['ready for a named build slice'],
 }
 const standards = ['product-design/1.0', 'product-design/1.1']
+const levels = ['understand', 'design-documents', 'mockup', 'full']
 const stateNames = ['default', 'empty', 'loading', 'partial', 'error', 'denied', 'success', 'offline']
 const drawioKinds = ['journey', 'process', 'navigation', 'mockup', 'context', 'erd', 'states', 'sequence', 'dataflow']
 const drawioFile = new RegExp(`^(${drawioKinds.join('|')})\\.drawio$`)
@@ -36,9 +37,9 @@ function normalize(markdown) {
 function headerOf(text, errors, label) {
   const header = text.split(/^## /m)[0]
   if (!/^# \S.+$/m.test(header)) errors.push(`${label}Missing document title.`)
-  return (name) => {
-    const matches = [...header.matchAll(new RegExp(`^${name}: (.+)$`, 'gm'))]
-    if (matches.length !== 1) errors.push(`${label}Expected one ${name} field before the sections.`)
+  return (name, optional = false) => {
+    const matches = [...header.matchAll(new RegExp(optional ? `^${name}:(.*)$` : `^${name}: (.+)$`, 'gm'))]
+    if (matches.length !== 1 && !(optional && matches.length === 0)) errors.push(`${label}Expected one ${name} field before the sections.`)
     return matches[0]?.[1].trim()
   }
 }
@@ -66,6 +67,13 @@ export function checkOutput(markdown) {
   if (!standards.includes(field('Standard'))) errors.push('Unsupported output standard.')
   const profile = field('Profile')
   const gate = field('Next gate')
+  const level = field('Level', true)
+  if (level !== undefined) {
+    if (!levels.includes(level)) errors.push('Invalid level.')
+    if (level === 'understand' && profile !== 'discovery') errors.push('Level understand requires the discovery profile.')
+    if (profile === 'build-slice' && level !== 'full') errors.push('A build-slice proposal requires Level: full when Level is present.')
+    if (gate === 'specify a slice' && level !== 'full') errors.push('Next gate specify a slice requires Level: full when Level is present; use test solutions for a capped evaluation.')
+  }
   if (!Object.hasOwn(gates, profile ?? '')) errors.push('Invalid profile.')
   else if (!gates[profile].includes(gate)) errors.push('Profile and next gate disagree.')
   checkDate(field('Updated'), errors, '')
@@ -108,6 +116,9 @@ export function checkScreens(markdown) {
   checkDate(field('Updated'), errors, label)
   sectionsOf(text, screenHeadings, errors, label)
   if (!screenIds(text).length) errors.push(`${label}Expected at least one screen heading such as "### SC1 Name".`)
+  for (const line of text.matchAll(/^\s*(?:[-*]\s+)?(?:\*\*)?States:(?:\*\*)?(.*)$/gm)) {
+    if (line[1].split(/[;,](?![^(]*\))/).some((item) => /^\s*slow\b/i.test(item))) errors.push(`${label}Describe slow responses under loading, not as a separate slow state.`)
+  }
   return errors
 }
 
@@ -122,8 +133,8 @@ export function screenStates(markdown) {
     const line = /^\s*(?:[-*]\s+)?(?:\*\*)?States:(?:\*\*)?(.*)$/m.exec(section)?.[1]
     if (!id || !line) continue
     for (const item of line.split(/[;,](?![^(]*\))/)) {
-      const state = /^\s*(\w+)\s*(?:\(|:|\.?\s*$)/.exec(item)?.[1].toLowerCase()
-      if (stateNames.includes(state)) frames.push(`${id}-${state}`)
+      const state = /^\s*(\w+)\s*(?:\(|\[|:|with\b|\.?\s*$)/i.exec(item)?.[1].toLowerCase()
+      if (stateNames.includes(state) && !frames.includes(`${id}-${state}`)) frames.push(`${id}-${state}`)
     }
   }
   return frames
@@ -169,7 +180,11 @@ function packageDiagrams(folder) {
   for (const name of readdirSync(folder)) {
     const path = join(folder, name)
     if (statSync(path).isDirectory()) {
-      const drawios = readdirSync(path).filter((file) => file.endsWith('.drawio'))
+      const entries = readdirSync(path)
+      for (const file of entries.filter((file) => ['product-design.md', 'screens.md', 'build-spec.md'].includes(file))) {
+        errors.push(`${name}/${file}: Canonical Markdown files belong in the package root, not a subfolder.`)
+      }
+      const drawios = entries.filter((file) => file.endsWith('.drawio'))
       const index = stepFolderName.exec(name)
       if (!index) {
         if (drawios.length) errors.push(`${name}: Group a business step as <index>-<step>, such as 1-nurse-ask-cover or 1.1-nurse-choose-colleague.`)
@@ -187,6 +202,11 @@ function packageDiagrams(folder) {
     diagrams.push({ kind: drawioFile.exec(name)?.[1], rel: name, path, dir: '' })
   }
   if (steps.length) errors.push(...checkStepOrder(steps))
+  for (const diagram of diagrams) {
+    if (diagram.rel.split('/').at(-1) === 'prototype.drawio') {
+      errors.push(`${diagram.rel}: Obsolete prototype.drawio; rename to mockup.drawio and update links.`)
+    }
+  }
   for (const kind of drawioKinds) {
     const ofKind = diagrams.filter((diagram) => diagram.kind === kind)
     if (ofKind.some((diagram) => diagram.dir === '') && ofKind.some((diagram) => diagram.dir !== '')) {
@@ -196,8 +216,9 @@ function packageDiagrams(folder) {
   return { diagrams, errors }
 }
 
-function checkFrames(xml, name, frames) {
+function checkFrames(xml, name, frames, ids) {
   const errors = checkDrawio(xml, name)
+  errors.push(...checkStatePlacement(xml, name, ids))
   const cellIds = new Set(cellsOf(xml).map((cell) => cell.id))
   for (const frame of frames) {
     if (!cellIds.has(frame)) errors.push(`${name}: Missing frame ${frame} for screens.md.`)
@@ -205,16 +226,57 @@ function checkFrames(xml, name, frames) {
   return errors
 }
 
-function checkFrameSet(parts, label, frames, clip) {
+function checkFrameSet(parts, label, frames, clip, ids) {
   const errors = []
   const found = new Set()
   for (const part of parts) {
     errors.push(...checkDrawio(part.xml, part.name))
+    errors.push(...checkStatePlacement(part.xml, part.name, ids))
     if (clip) errors.push(...checkClipping(part.xml, part.name))
     for (const cell of cellsOf(part.xml)) found.add(cell.id)
   }
   for (const frame of frames) {
     if (!found.has(frame)) errors.push(`${label}: Missing frame ${frame} for screens.md.`)
+  }
+  return errors
+}
+
+function checkStatePlacement(xml, name, ids) {
+  const errors = []
+  // Coordinates belong to a page, not the whole file. SC numbers are stable IDs,
+  // so task order comes from screens.md rather than sorting their numeric suffixes.
+  for (const page of xml.matchAll(/<diagram\b[^>]*>([\s\S]*?)<\/diagram>/g)) {
+    const rows = new Map()
+    for (const cell of cellsOf(page[1])) {
+      const match = /^(SC\d+)-([a-z]+)$/.exec(cell.id ?? '')
+      if (!match) continue
+      const [, id, state] = match
+      if (!stateNames.includes(state)) errors.push(`${name}: Unsupported state frame ${cell.id}.`)
+      rows.set(id, [...(rows.get(id) ?? []), { ...cell, state }])
+    }
+    const ordered = [...new Set([...ids, ...rows.keys()])].filter((id) => rows.has(id))
+    const starts = [...rows.values()].map((row) => Math.min(...row.map((cell) => cell.x)))
+    const origin = Math.min(...starts)
+    const gaps = [...rows.values()].flatMap((row) => {
+      const sorted = [...row].sort((a, b) => a.x - b.x)
+      return sorted.slice(1).map((cell, index) => cell.x - sorted[index].x - sorted[index].width)
+    })
+    const gap = Math.min(...gaps)
+    let previousBottom = -Infinity
+    for (const id of ordered) {
+      const row = rows.get(id).sort((a, b) => stateNames.indexOf(a.state) - stateNames.indexOf(b.state))
+      const top = row[0].y
+      if (row.some((cell) => cell.y !== top)) errors.push(`${name}: States of ${id} must share one row.`)
+      if (top <= previousBottom) errors.push(`${name}: Screen ${id} must follow the previous screen in task order without overlapping rows.`)
+      previousBottom = Math.max(...row.map((cell) => cell.y + cell.height))
+      let x = origin
+      for (const cell of row) {
+        if (cell.x !== x || cell.width <= 0 || cell.height <= 0 || gap <= 0) {
+          errors.push(`${name}: Frame ${cell.id} must use compact left-to-right state positions: ${stateNames.join(', ')}. Skip absent states.`)
+        }
+        x = cell.x + cell.width + gap
+      }
+    }
   }
   return errors
 }
@@ -235,7 +297,7 @@ function checkClipping(xml, name) {
 
 export function checkMockupDrawio(xml, ids = [], states = []) {
   const frames = [...new Set([...ids.map((id) => `${id}-default`), ...states])]
-  return [...checkFrames(xml, 'mockup.drawio', frames), ...checkClipping(xml, 'mockup.drawio')]
+  return [...checkFrames(xml, 'mockup.drawio', frames, ids), ...checkClipping(xml, 'mockup.drawio')]
 }
 
 export function checkIds(markdownFiles, diagrams = []) {
@@ -300,9 +362,10 @@ export function checkPackage(folder) {
   if (!has('product-design.md')) return ['Missing product-design.md.']
   const proposal = read('product-design.md')
   errors.push(...checkOutput(proposal))
-  const field = (name) => new RegExp(`^${name}: (.+)$`, 'm').exec(normalize(proposal).split(/^## /m)[0])?.[1].trim()
+  const field = headerOf(normalize(proposal), [], '')
   const profile = field('Profile')
   const gate = field('Next gate')
+  const level = field('Level', true)
   const v11 = field('Standard') === 'product-design/1.1'
 
   let ids = []
@@ -317,11 +380,15 @@ export function checkPackage(folder) {
   errors.push(...diagramErrors)
   const ofKind = (kind) => diagrams.filter((diagram) => diagram.kind === kind)
   const mockups = ofKind('mockup')
+  if (['understand', 'design-documents'].includes(level) && (has('screens.md') || mockups.length)) {
+    errors.push(`Level ${level} must not include screens.md or mockup.drawio.`)
+  }
+  if (level !== undefined && level !== 'full' && has('build-spec.md')) errors.push(`Level ${level} must not include build-spec.md.`)
   const readDiagram = (diagram) => ({ name: diagram.rel, xml: readFileSync(diagram.path, 'utf8') })
   if (mockups.length) {
     if (!has('screens.md')) errors.push('mockup.drawio needs screens.md.')
     const frames = [...new Set([...ids.map((id) => `${id}-default`), ...states])]
-    errors.push(...checkFrameSet(mockups.map(readDiagram), 'mockup.drawio', frames, true))
+    errors.push(...checkFrameSet(mockups.map(readDiagram), 'mockup.drawio', frames, true, ids))
   } else if (v11 && has('screens.md') && profile !== 'discovery') errors.push('screens.md needs mockup.drawio.')
 
   if (has('build-spec.md')) {
@@ -332,7 +399,7 @@ export function checkPackage(folder) {
     if (status === 'ready' && profile !== 'build-slice') errors.push('build-spec.md is ready but the proposal is not a build-slice.')
     if (status !== 'ready' && profile === 'build-slice') errors.push('A build-slice proposal needs build-spec.md with Status: ready.')
   } else if (v11 && profile === 'build-slice') errors.push('A build-slice proposal needs build-spec.md.')
-  else if (v11 && gate === 'specify a slice') errors.push('Next gate specify a slice needs a draft build-spec.md.')
+  else if (v11 && gate === 'specify a slice' && (level === undefined || level === 'full')) errors.push('Next gate specify a slice needs a draft build-spec.md.')
 
   if (profile === 'discovery' && v11 && (has('screens.md') || mockups.length)) errors.push('A discovery proposal must not design screens.')
 

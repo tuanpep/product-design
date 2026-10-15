@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { readdirSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import test from 'node:test'
 import { basename } from 'node:path'
 import plugin from '../index.js'
@@ -47,6 +47,7 @@ test('OpenCode V2 registers bundled skills, the design agent, and a command that
   assert.equal(agent.color, '#1f6b4a')
   assert.equal(agent.description, 'Turns a human idea into an evidence-labeled product design proposal')
   assert.match(agent.system, /Load the design-product skill/)
+  assert.match(agent.system, /references\/learning-loop\.md/)
   assert.deepEqual(agent.permissions.slice(1), [
     { action: 'edit', resource: '*', effect: 'deny' },
     { action: 'edit', resource: 'docs/product-design/**', effect: 'allow' },
@@ -58,6 +59,8 @@ test('OpenCode V2 registers bundled skills, the design agent, and a command that
     .sort()
   assert.deepEqual(skills.map(({ id }) => id), bundled)
   assert.equal(bundled.length, 36)
+  assert.ok(!bundled.includes('prototype-drawio'))
+  assert.ok(!bundled.includes('sketch-drawio'))
   for (const id of ['design-product', 'mockup-drawio', 'erd-drawio', 'state-drawio', 'sequence-drawio', 'context-drawio', 'dataflow-drawio', 'principle-use-real-content']) assert.ok(bundled.includes(id))
   assert.ok(skills.every(({ autoinvoke, description }) => autoinvoke === false && description && !description.startsWith('"')))
   assert.equal(skills.find(({ id }) => id === 'principle-start-from-the-outcome').description, 'Apply when a request names a feature, screen, or technology. Design for the goal and the people who have it. Effectiveness outranks speed and delight.')
@@ -77,4 +80,10 @@ test('OpenCode V2 registers bundled skills, the design agent, and a command that
     skills: [{ id: 'existing' }, { id: 'design-product' }],
     delivery: 'queue',
   }])
+})
+
+test('host agent prompts share the same workflow instructions', () => {
+  const body = (path) => readFileSync(new URL(path, import.meta.url), 'utf8')
+    .replace(/\r\n/g, '\n').replace(/^---\n[\s\S]*?\n---\n/, '').trim()
+  assert.equal(body('../agents/design-product.md'), body('../.opencode/agents/design-product.md'))
 })

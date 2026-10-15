@@ -10,13 +10,25 @@ In the project being designed:
 /design-product Staff coordinate shift swaps in chat, but the roster stays wrong.
 ```
 
-It asks which level to stop at: Understand, Design documents, Mockup, or Full. Name the level to skip that question. Say `advise` for a suggested solution and design in one pass:
+If the idea is too general, it first interviews you in small turns to establish the actor, concrete task/current workflow, problem or opportunity, outcome, scope, and critical constraints. It summarizes that understanding for confirmation before shaping a solution. A sufficient brief skips this interview. See the [context gate](skills/design-product/references/discovery-interview.md).
+
+It asks which level to stop at: Understand, Design documents, Mockup, or Full. Name the level to skip that question. Say `advise` for a suggested solution and design in one pass once enough context is known:
 
 ```text
 /design-product advise Staff coordinate shift swaps in chat, but the roster stays wrong.
 ```
 
 In Claude Code the command is `/product-design:design-product`. Output lands in `docs/product-design/<slug>/`. What gets written, and the skills behind it, is in the [guide](docs/guide/README.md).
+
+Neither `advise` nor `Full` bypasses missing core context. If you forbid questions, an underspecified request receives only a discovery summary, gaps, and research plan—not speculative screens or a build spec. Unknown end-user facts can instead become a human-approved hypothetical exploration premise, never fabricated validation.
+
+## How it learns before designing
+
+The workflow connects the decision and user/service outcomes to source-backed findings, a focused opportunity, alternative approaches, and the assumptions worth testing. It plans the smallest useful investigation **before** detailed screens. Early learning material can be a short scenario in the proposal or linked research material; the complete `mockup.drawio` remains the screen/state design artifact, not proof of usability. See the [breaking naming migration](docs/mockup-migration.md) for existing packages and commands.
+
+Supply real research results to revise a package: the agent separates observations from interpretation, records limitations, and updates the recommendation rather than treating a plan as evidence. A Full handoff also names who will review outcome signals after release and what could trigger another discovery cycle. Building, running participant sessions, and operating the service require people or separate tasks.
+
+The four levels cap output, not evidence maturity or approval. See the [learning loop](skills/design-product/references/learning-loop.md) and [manual regression scenarios](docs/discovery-interview-regressions.md).
 
 ## Install
 

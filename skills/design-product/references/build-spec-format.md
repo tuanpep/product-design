@@ -14,6 +14,8 @@ Source: product-design.md
 
 Choose one status. **draft** means blockers remain, and each is listed under Assumptions and open questions. **ready** means no blocking question remains and `product-design.md` names this slice as ready. Ready is still a proposal for a person to invest in, not approval to build or launch.
 
+When the proposal has a Level header, only `Level: full` permits this file. A legacy proposal without Level retains its existing behavior. Evaluation with next gate specify a slice needs a draft spec; a capped evaluation instead uses test solutions and defers specification. Build-slice requires full when Level is present.
+
 Use these level-two headings in order. Keep each one. A heading that does not apply to the slice says why in one sentence.
 
 ```markdown
@@ -64,7 +66,7 @@ Checked by: C1 (tester, scripted walkthrough), C2 (rule unit check by engineer)
 
 **Quality requirements.** Accessibility target and checks, privacy, security, performance, reliability, and observability or analytics events, each measurable or marked unknown. Link the data-flow files when they are drawn, and review each trust boundary crossing they list.
 
-**Rollout and verification.** Transition from the current service, data migration, rollout and rollback, support readiness, how the outcome will be measured, and the definition of done.
+**Rollout and verification.** Transition from the current service, data migration, rollout and rollback, support readiness, how the outcome will be measured, and the definition of done. Hand off post-release learning here: responsible owner, baseline or explicitly unknown, outcome data source, guardrails, review cadence or trigger, and decision actions (continue, change, rollback, or stop). Distinguish planned measurement from actual results; do not invent baselines or thresholds. This uses the existing heading, not a new production stage or mandatory document. See [GOV.UK measuring success](https://www.gov.uk/service-manual/measuring-success).
 
 **Assumptions and open questions.** One table: ID, question or assumption, proposed default if reversible, blocking or not, owner, and what changes if it is wrong.
 

@@ -10,5 +10,5 @@ The people who most need the outcome are often those a polished path excludes fi
 
 - Design for the widest realistic range of ability, access, language, and confidence from the start
 - For web interaction, WCAG 2.2 is the check
-- A mockup cannot establish that the case is included
+- A prototype cannot establish that the case is included
 - Name who would be excluded and what the design does for them

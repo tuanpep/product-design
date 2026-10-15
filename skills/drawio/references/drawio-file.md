@@ -20,7 +20,7 @@ Write this uncompressed XML into the `.drawio` file. Draw.io and diagrams.net op
 
 One file answers one question and draws one close flow: one entry, the main steps, the decisions on that path, and the recovery that belongs to them. A second outcome is a second file.
 
-A mockup is a wireflow: one actor completing one task, with an arrow from the control they use. The caption names both, `Nurse · Ask for cover`. States of those screens, in this order when they exist (default, empty, loading, partial, error, denied, success, offline), and layout alternatives of a screen in that task stay in the file. A second actor who does this same task with less access stays too, as a denied or read-only state. A second actor who does a different task gets their own file. End this file at the handoff. Start the other actor's file at what they receive, and name the handoff in both captions. The screen is drawn once, in the file of the actor who acts on it. The cross-actor picture stays in `process.drawio`.
+A mockup uses a high-fidelity wireflow arrangement: one actor completing one task, with an annotated arrow from the control they use. The caption names both, `Nurse · Ask for cover`. States of those screens, in this order when they exist (default, empty, loading, partial, error, denied, success, offline), and layout alternatives of a screen in that task stay in the file. A second actor who does this same task with less access stays too, as a denied or read-only state. A second actor who does a different task gets their own file. End this file at the handoff. Start the other actor's file at what they receive, and name the handoff in both captions. The screen is drawn once, in the file of the actor who acts on it. The cross-actor picture stays in `process.drawio`.
 
 Name one flow `journey.drawio`, `process.drawio`, `navigation.drawio`, `mockup.drawio`, `context.drawio`, `erd.drawio`, `states.drawio`, `sequence.drawio`, or `dataflow.drawio`, in the package folder.
 
@@ -60,7 +60,7 @@ Draw.io ships a library for most software diagrams. A shape from the library ope
 
 1. Use the built-in library that names the diagram, from the table below. Copy the library's template style exactly, then add only colour, stroke, and font properties after it. Change a template value only when a components reference says which and why.
 2. Use only shape names that appear in a components reference or in a Draw.io library template. Never invent a `shape=mxgraph.*` name: an unknown name draws as a plain box, or as nothing, and the error is silent.
-3. Fall back to a basic shape (rectangle, rounded rectangle, ellipse, rhombus, text, note) only when no library shape means the thing. The components reference says which shapes are basic and why.
+3. Screen mockups are the exception: use product-styled basic shapes from `mockup-drawio/references/web-components.md` to match the target UI. For other diagrams, fall back to a basic shape (rectangle, rounded rectangle, ellipse, rhombus, text, note) only when no library shape means the thing. The components reference says which shapes are basic and why.
 4. Do not mix two libraries for the same kind of element in one file.
 
 | Diagram | File | Built-in library | Skill |
@@ -73,7 +73,7 @@ Draw.io ships a library for most software diagrams. A shape from the library ope
 | Sequence | `sequence.drawio` | UML: lifeline, activation, message, frame | `sequence-drawio` |
 | System context | `context.drawio` | C4 | `context-drawio` |
 | Data flow and trust boundaries | `dataflow.drawio` | Threat Modeling | `dataflow-drawio` |
-| Screen mockup | `mockup.drawio` | Mockup: browser window, window, buttons, fields, lists | `mockup-drawio` |
+| Screen mockup | `mockup.drawio` | Basic shapes styled to the product: chrome, navigation, tables, forms, and feedback | `mockup-drawio` |
 
 ## Edges do not overlap
 

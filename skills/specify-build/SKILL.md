@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Specify Build
 
+Check the proposal's optional Level header first. Only `Level: full` permits `build-spec.md`; absence retains legacy behavior. At understand, design-documents, or mockup, defer this file and keep evaluation's next gate at test solutions, not specify a slice. Do not silently raise the requested output level. Build-slice requires full when Level is present. Level permits deliverables; it does not establish evidence confidence or readiness.
+
 Read the story shape and requirement checks in [the workflow reference](../design-product/references/workflow.md), and the precedence in [the principles index](../design-product/references/principles.md). Read [principle-make-it-testable](../principle-make-it-testable/SKILL.md) and [principle-decide-the-reversible](../principle-decide-the-reversible/SKILL.md), and the leaf for any principle the slice claims to meet.
 
 1. Name the slice and its first useful outcome. State what is in, what waits, and what is not being done.
@@ -14,7 +16,7 @@ Read the story shape and requirement checks in [the workflow reference](../desig
 4. Split a story that cannot be built and checked inside one iteration.
 5. For every important behaviour, name the check: method, expected observable result, and responsible role. Separate planned checks from completed results.
 6. Write quality requirements the slice depends on: accessibility target and checks, privacy, security, performance, reliability, and the analytics events that measure the outcome. Use unknown instead of an invented number.
-7. Write rollout and verification: transition from the current service, data migration, rollout and rollback, support readiness, and the definition of done.
+7. Write rollout and verification: transition from the current service, data migration, rollout and rollback, support readiness, and the definition of done. Under that same heading, hand off post-release learning with an owner, baseline or unknown, outcome data source, guardrails, review cadence or trigger, and decision actions (continue, change, rollback, stop). Mark measurement as planned until results exist; do not invent data. This adds neither a production stage nor a mandatory document. See [GOV.UK measuring success](https://www.gov.uk/service-manual/measuring-success).
 8. List every assumption and open question in one table. Give a reversible one a **proposed** default and an owner. Keep one that is irreversible or touches safety, money, law, or privacy as blocking. In advise mode, write a recommended default for that blocking question too, label it **proposed — owner must confirm**, and do not pause the run. It still prevents `Status: ready`.
 9. Fill the traceability table and check it: no Must story without a need, no acceptance outcome without a check, no rule without an owner.
 

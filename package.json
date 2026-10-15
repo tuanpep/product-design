@@ -23,7 +23,7 @@
     "@opencode/plugin": "^2.0.28"
   },
   "scripts": {
-    "test": "node --test scripts/check-plugin.test.mjs scripts/opencode.test.mjs scripts/check-output.test.mjs && node scripts/check-plugin.mjs",
+    "test": "node --test scripts/check-plugin.test.mjs scripts/opencode.test.mjs scripts/check-output.test.mjs scripts/mockup-example.test.mjs scripts/component-recipes.test.mjs && node scripts/check-plugin.mjs",
     "check:output": "node scripts/check-output.mjs"
   }
 }
