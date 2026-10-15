@@ -192,30 +192,34 @@ function packageDiagrams(folder) {
   const diagrams = []
   const steps = []
   const errors = []
-  for (const name of readdirSync(folder)) {
-    const path = join(folder, name)
-    if (statSync(path).isDirectory()) {
-      const entries = readdirSync(path)
-      for (const file of entries.filter((file) => ['product-design.md', 'screens.md', 'build-spec.md'].includes(file))) {
-        errors.push(`${name}/${file}: Canonical Markdown files belong in the package root, not a subfolder.`)
-      }
-      const drawios = entries.filter((file) => file.endsWith('.drawio'))
-      const index = stepFolderName.exec(name)
-      if (!index) {
-        if (drawios.length) errors.push(`${name}: Group a business step as <index>-<step>, such as 1-nurse-ask-cover or 1.1-nurse-choose-colleague.`)
+  function visit(directory, relative = '', parentIndex = '') {
+    for (const name of readdirSync(directory)) {
+      const path = join(directory, name)
+      const rel = relative ? `${relative}/${name}` : name
+      if (statSync(path).isDirectory()) {
+        const index = stepFolderName.exec(name)
+        if (!index) {
+          errors.push(`${rel}: Group a business step as <index>-<step>, such as 1-nurse-ask-cover or 1.1-nurse-choose-colleague.`)
+        } else {
+          steps.push(index[1])
+          const expectedParent = index[1].includes('.') ? index[1].split('.')[0] : ''
+          if (expectedParent !== parentIndex || (relative && !parentIndex)) {
+            errors.push(`${rel}: Step ${index[1]} must be ${expectedParent ? `nested directly inside its parent folder ${expectedParent}-` : 'in the package root'}.`)
+          }
+        }
+        visit(path, rel, index?.[1] ?? '')
         continue
       }
-      steps.push(index[1])
-      for (const file of drawios) {
-        const kind = drawioFile.exec(file)?.[1]
-        if (!kind) errors.push(`${name}/${file}: Inside a step folder, use the short name, such as mockup.drawio.`)
-        diagrams.push({ kind, rel: `${name}/${file}`, path: join(path, file), dir: name })
+      if (relative && ['product-design.md', 'screens.md', 'build-spec.md'].includes(name)) {
+        errors.push(`${rel}: Canonical Markdown files belong in the package root, not a subfolder.`)
       }
-      continue
+      if (!name.endsWith('.drawio')) continue
+      const kind = drawioFile.exec(name)?.[1]
+      if (relative && !kind) errors.push(`${rel}: Inside a step folder, use the short name, such as mockup.drawio.`)
+      diagrams.push({ kind, rel, path, dir: relative })
     }
-    if (!name.endsWith('.drawio')) continue
-    diagrams.push({ kind: drawioFile.exec(name)?.[1], rel: name, path, dir: '' })
   }
+  visit(folder)
   if (steps.length) errors.push(...checkStepOrder(steps))
   for (const diagram of diagrams) {
     if (diagram.rel.split('/').at(-1) === 'prototype.drawio') {

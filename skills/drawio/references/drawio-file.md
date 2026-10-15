@@ -24,7 +24,7 @@ A mockup uses a high-fidelity wireflow arrangement: one actor completing one tas
 
 Name one flow `journey.drawio`, `process.drawio`, `navigation.drawio`, `mockup.drawio`, `context.drawio`, `erd.drawio`, `states.drawio`, `sequence.drawio`, or `dataflow.drawio`, in the package folder.
 
-Several flows are grouped in step folders. The index is a parent, or that parent and a child: `1`, then `1.1`, then `2`. It starts at `1`. Do not pad it with a zero. The folder is the group a reader opens. The files inside keep the short names:
+Several flows are grouped in step folders. Parent steps live in the package root; child steps are physically nested inside their parent folder, never beside it. The index is a parent, or that parent and a child: `1`, then `1.1`, then `2`. It starts at `1`. Do not pad it with a zero. Numbering alone does not group folders. The files inside keep the short names:
 
 ```text
 docs/product-design/shift-swaps/
@@ -33,8 +33,8 @@ docs/product-design/shift-swaps/
   1-nurse-ask-cover/
     journey.drawio
     mockup.drawio
-  1.1-nurse-choose-colleague/
-    mockup.drawio
+    1.1-nurse-choose-colleague/
+      mockup.drawio
   2-colleague-accept-cover/
     journey.drawio
     mockup.drawio
@@ -42,6 +42,8 @@ docs/product-design/shift-swaps/
 ```
 
 `1` is the first business step. `1.1` is a split of that step, such as the next handoff inside the same task. `2` is the next business step. Parents run `1`, `2`, `3` with no gaps. Children of a parent run `.1`, `.2`, `.3` with no gaps, and a child is named only when that parent folder exists. The folder name is the business step, and includes the actor when the step is one actor's task. A folder holds every diagram of that step: the journey, the mockup, the sequence, the state machine. The decision documents stay in the package folder. A diagram of the whole product that was not split stays there too, such as one `context.drawio`. A kind lives in the package folder or in the step folders. After a step is added or removed, renumber that parent and its children so the sequence has no gaps, and update the links. Screen IDs stay as they are. Link each folder in index order, parent before its children, with the actor, the task, and the question it answers. A flow arrow stays inside its file.
+
+For example, the child mockup path is `1-nurse-ask-cover/1.1-nurse-choose-colleague/mockup.drawio`. Use this full nested path in links from root documents. When revising an existing flat package, move each child into its matching parent and update all artifact links; preserve file contents and screen IDs. Do not create duplicate flat and nested copies.
 
 Keep one page. A second `<diagram>` is a paired view of that same flow, and only when each view still fits: as-is and to-be in a process, logical and physical in an ERD, context and containers in a context diagram.
 

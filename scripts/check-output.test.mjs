@@ -405,7 +405,7 @@ test('reads several flows from step folders in parent/child order', () => {
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
     '1-nurse-ask-cover/mockup.drawio': example,
-    '1.1-nurse-choose-colleague/journey.drawio': journey,
+    '1-nurse-ask-cover/1.1-nurse-choose-colleague/journey.drawio': journey,
     '2-colleague-accept-cover/journey.drawio': journey,
   }, (folder) => assert.deepEqual(checkPackage(folder), []))
   withPackage({
@@ -418,7 +418,7 @@ test('reads several flows from step folders in parent/child order', () => {
     'product-design.md': proposal('evaluation', 'test solutions'),
     'screens.md': screens,
     '1-ask/mockup.drawio': example,
-    '1.2-later/journey.drawio': journey,
+    '1-ask/1.2-later/journey.drawio': journey,
   }, (folder) => assert.ok(checkPackage(folder).includes('Children of step 1 are not numbered 1.1, 1.2.')))
   withPackage({
     'product-design.md': proposal('evaluation', 'test solutions'),
@@ -447,6 +447,32 @@ test('reads several flows from step folders in parent/child order', () => {
     'product-design.md': proposal('discovery', 'stop'),
     '1-ask/mockup.drawio': example,
   }, (folder) => assert.ok(checkPackage(folder).includes('A discovery proposal must not design screens.')))
+})
+
+test('rejects flat children and children nested under the wrong parent', () => {
+  for (const child of ['1.1-choose', '2-accept/1.1-choose']) {
+    withPackage({
+      'product-design.md': proposal('evaluation', 'test solutions'),
+      'screens.md': screens,
+      '1-ask/mockup.drawio': example,
+      '2-accept/journey.drawio': journey,
+      [`${child}/journey.drawio`]: journey,
+    }, (folder) => assert.ok(checkPackage(folder).some((error) => error.includes('Step 1.1 must be nested directly inside its parent folder 1-'))))
+  }
+})
+
+test('validates diagrams and canonical documents inside nested child folders', () => {
+  withPackage({
+    'product-design.md': proposal('evaluation', 'test solutions'),
+    'screens.md': screens,
+    '1-ask/mockup.drawio': example,
+    '1-ask/1.1-choose/journey.drawio': journey.replace('target="b"', 'target="missing"'),
+    '1-ask/1.1-choose/screens.md': screens,
+  }, (folder) => {
+    const errors = checkPackage(folder)
+    assert.ok(errors.some((error) => error.includes('1-ask/1.1-choose/journey.drawio: Edge e points to unknown target missing.')))
+    assert.ok(errors.includes('1-ask/1.1-choose/screens.md: Canonical Markdown files belong in the package root, not a subfolder.'))
+  })
 })
 
 test('every Draw.io skill example is a valid diagram', () => {

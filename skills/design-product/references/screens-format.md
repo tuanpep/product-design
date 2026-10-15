@@ -20,7 +20,7 @@ Use these level-two headings in order:
 ## Accessibility
 ```
 
-**Navigation map.** Entry points, the path through the journey, back and cancel destinations, and exits. Link the journey and navigation files if they exist. Several flows are linked in parent/child index order: `1-<step>/journey.drawio`, then `1.1-<step>/` for a split of that step, then `2-<step>/navigation.drawio`.
+**Navigation map.** Entry points, the path through the journey, back and cancel destinations, and exits. Link the journey and navigation files if they exist. Several flows are linked in parent/child index order: `1-<step>/journey.drawio`, then `1-<step>/1.1-<substep>/` for a nested split of that step, then `2-<step>/navigation.drawio`.
 
 Begin with a business-stage table: stage, actor, task, prerequisite/decision, resulting view, and handoff/outcome. Distinguish parallel work from mandatory dependencies. Put setup/configuration and post-completion support outside the main task sequence. Keep stable SC IDs even when the presentation order changes.
 

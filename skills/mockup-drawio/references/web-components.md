@@ -53,7 +53,7 @@ See [Measured default pairs](#measured-default-pairs) for calculated contrast; m
 ## Composition before components
 
 1. Read `screens.md` for task, screen order, states, exact copy, permissions, and recovery. Do not invent a new state contract through decoration.
-2. One actor/task per file. A close flow stays at root `mockup.drawio`; multiple flows use `1-<actor>-<task>/mockup.drawio`, with child steps such as `1.1-<actor>-<task>/mockup.drawio`. Keep that step's journey alongside it.
+2. One actor/task per file. A close flow stays at root `mockup.drawio`; multiple flows use `1-<actor>-<task>/mockup.drawio`, with child steps nested inside their parent, such as `1-<actor>-<task>/1.1-<actor>-<subtask>/mockup.drawio`. Keep that step's journey alongside it.
 3. Arrange views in business usage order, left to right and then top to bottom, not numeric SC order or technical-state columns. Keep decision branches near their origin and identify the main path. Same-screen review panels and confirmations can be named business views, not new screen IDs. Do not generate routine technical-state boards.
 4. Default full-size frames: desktop 1440×900, tablet 768×1024, mobile 375×812. These are assumptions, not a device research result. Do not shrink an example to avoid layout work.
 5. Gaps are 240 horizontally and 280 vertically. Caption 40 above a frame; note starts 20 below. Reserve separate lanes for notes and flow edges. For row height 900, next row starts 1180 lower.
