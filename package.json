@@ -20,7 +20,8 @@
     "README.md"
   ],
   "dependencies": {
-    "@opencode/plugin": "^2.0.28"
+    "@opencode/plugin": "^2.0.28",
+    "saxes": "^6.0.0"
   },
   "scripts": {
     "test": "node --test scripts/check-plugin.test.mjs scripts/opencode.test.mjs scripts/check-output.test.mjs scripts/mockup-example.test.mjs scripts/component-recipes.test.mjs && node scripts/check-plugin.mjs",

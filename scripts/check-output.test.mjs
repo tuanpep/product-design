@@ -330,6 +330,45 @@ test('checks every acceptance outcome is traced and no trace cell is empty', () 
   assert.ok(checkBuildSpec(spec('ready').replace('C1 scripted walkthrough', ' ')).includes('build-spec.md: Traceability has an empty cell.'))
 })
 
+test('checks traceability for every supported acceptance definition format', () => {
+  for (const definition of ['A1', '- A1', '* A1', '**A1**', '- **A1**', '### A1', '| A1 |']) {
+    const text = spec('ready').replace('A1 Given', `${definition} Given`)
+    assert.deepEqual(checkBuildSpec(text), [])
+    assert.ok(checkBuildSpec(text.replace('| S1 | A1 |', '| S1 | A2 |'))
+      .includes('build-spec.md: A1 is missing from Traceability.'))
+  }
+})
+
+test('reports undefined IDs in diagram labels with their filename', () => {
+  const diagram = journey.replace('value="Start"', 'value="Apply BR99"')
+  assert.deepEqual(checkIds({}, [diagram]), ['diagram 1: BR99 is referenced but never defined.'])
+  assert.deepEqual(checkIds({}, [{ name: '1-ask/process.drawio', xml: diagram }]), [
+    '1-ask/process.drawio: BR99 is referenced but never defined.',
+  ])
+  assert.deepEqual(checkIds({ 'build-spec.md': '- BR99: require approval.' }, [diagram]), [])
+  withPackage({ 'product-design.md': document, 'journey.drawio': diagram }, (folder) => {
+    assert.ok(checkPackage(folder).includes('journey.drawio: BR99 is referenced but never defined.'))
+  })
+})
+
+test('rejects malformed XML and diagrams without a graph', () => {
+  for (const xml of [
+    '<mxfile>', '<mxfile></mxfile>', '<mxfile/>',
+    journey.slice(0, -9), journey.replace('</root>', '</wrong>'),
+    journey.replace('value="Start"', 'value="A & B"'),
+    '<mxfile><diagram id="p"/></mxfile>',
+    '<mxfile><diagram id="p"></diagram></mxfile>',
+    '<mxfile><diagram id="p"><mxGraphModel/></diagram></mxfile>',
+    `<other>${journey}</other>`,
+  ]) {
+    assert.ok(checkDrawio(xml).length > 0, xml)
+    withPackage({ 'product-design.md': document, 'journey.drawio': xml }, (folder) => {
+      assert.ok(checkPackage(folder).some((error) => error.startsWith('journey.drawio:')), xml)
+    })
+  }
+  assert.deepEqual(checkDrawio(journey.replace('value="Start"', 'value="A &amp; B"')), [])
+})
+
 test('checks Draw.io ids, parents, and edge references', () => {
   assert.deepEqual(checkDrawio(journey), [])
   assert.ok(checkDrawio(journey.replace('target="b"', 'target="z"')).includes('diagram.drawio: Edge e points to unknown target z.'))

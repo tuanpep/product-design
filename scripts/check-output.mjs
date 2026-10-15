@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { SaxesParser } from 'saxes'
 
 const headings = [
   'Recommendation', 'Problem and outcome', 'Evidence and unknowns',
@@ -100,7 +101,8 @@ export function checkBuildSpec(markdown) {
   const stories = sections.find((match) => match[1] === 'Stories and acceptance criteria')?.[2] ?? ''
   if (!/\bGiven\b[\s\S]*?\bWhen\b[\s\S]*?\bThen\b/.test(stories)) errors.push(`${label}Acceptance criteria need Given, When, Then.`)
   const trace = sections.find((match) => match[1] === 'Traceability')?.[2] ?? ''
-  for (const id of new Set(stories.match(/^A\d+\b/gm))) {
+  const outcomes = [...stories.matchAll(definitionPattern)].map((match) => match[1]).filter((id) => /^A\d+$/.test(id))
+  for (const id of new Set(outcomes)) {
     if (!new RegExp(`\\b${id}\\b`).test(trace)) errors.push(`${label}${id} is missing from Traceability.`)
   }
   if (/^\|.*\|[ \t]*\|/m.test(trace)) errors.push(`${label}Traceability has an empty cell.`)
@@ -307,11 +309,15 @@ export function checkIds(markdownFiles, diagrams = []) {
   for (const text of Object.values(markdownFiles)) {
     for (const match of normalize(text).matchAll(definitionPattern)) defined.add(match[1])
   }
-  const values = diagrams.flatMap((xml) => cellsOf(xml).map((cell) => cell.value))
-  for (const text of [...Object.values(markdownFiles), ...values]) {
+  const sources = Object.entries(markdownFiles)
+  for (const [index, diagram] of diagrams.entries()) {
+    const { name, xml } = typeof diagram === 'string' ? { name: `diagram ${index + 1}`, xml: diagram } : diagram
+    sources.push([name, cellsOf(xml).map((cell) => cell.value).join('\n')])
+  }
+  for (const [, text] of sources) {
     for (const [id] of text.matchAll(idPattern)) uses.set(id, (uses.get(id) ?? 0) + 1)
   }
-  for (const [name, text] of Object.entries(markdownFiles)) {
+  for (const [name, text] of sources) {
     for (const id of new Set(text.match(idPattern))) {
       if (!defined.has(id)) errors.push(`${name}: ${id} is referenced but never defined.`)
     }
@@ -325,7 +331,29 @@ export function checkIds(markdownFiles, diagrams = []) {
 export function checkDrawio(xml, name = 'diagram.drawio') {
   const errors = []
   const label = `${name}: `
-  if (!/<mxfile\b/.test(xml)) errors.push(`${label}Expected an uncompressed <mxfile>.`)
+  const elements = []
+  const pages = []
+  let root
+  const parser = new SaxesParser()
+  parser.on('opentag', (tag) => {
+    if (!elements.length) root = tag.name
+    elements.push(tag.name)
+    if (elements.join('/') === 'mxfile/diagram') pages.push({ graph: false })
+    if (elements.join('/') === 'mxfile/diagram/mxGraphModel/root') pages.at(-1).graph = true
+  })
+  parser.on('closetag', () => elements.pop())
+  try {
+    parser.write(xml).close()
+  } catch {
+    return [`${label}Expected well-formed XML.`]
+  }
+  if (root !== 'mxfile') return [`${label}Expected an uncompressed <mxfile>.`]
+  if (!pages.length) errors.push(`${label}Expected at least one diagram with an mxGraphModel and root.`)
+  for (const page of pages) {
+    if (!page.graph) {
+      errors.push(`${label}Each diagram needs an mxGraphModel and root.`)
+    }
+  }
   const diagrams = [...xml.matchAll(/<diagram\b[^>]*>([\s\S]*?)<\/diagram>/g)]
   if (diagrams.length > maxDrawioPages) errors.push(`${label}Has ${diagrams.length} pages. Split into one file per close flow.`)
   const shapes = xml.match(/\bvertex="1"/g)?.length ?? 0
@@ -408,7 +436,7 @@ export function checkPackage(folder) {
     if (!covered.has(diagram.rel)) errors.push(...checkDrawio(readFileSync(diagram.path, 'utf8'), diagram.rel))
   }
   const markdown = Object.fromEntries(['product-design.md', 'screens.md', 'build-spec.md'].filter(has).map((name) => [name, read(name)]))
-  errors.push(...checkIds(markdown, diagrams.map((diagram) => readFileSync(diagram.path, 'utf8'))))
+  errors.push(...checkIds(markdown, diagrams.map(readDiagram)))
   return errors
 }
 
