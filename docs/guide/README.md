@@ -4,7 +4,7 @@
 
 1. [Start](01-start.md). Install the plugin and run the first prompt.
 2. [Route work through `/design-product`](02-design-product.md). A new idea and a revision take different playbooks.
-3. [Steer with principle names](03-principles.md). The twelve names that redirect a design choice.
+3. [Steer with principle names](03-principles.md). The eighteen names that redirect a design choice.
 4. [Check output quality](04-output-standard.md). Validate a design package and review it.
 
 Read the pages in order the first time. After that, each page stands alone.

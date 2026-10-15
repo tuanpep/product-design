@@ -19,7 +19,7 @@ Every element and relationship has `placeholders="1"`. Escape `&`, `<`, `>`, and
 ## Pages
 
 - Page 1 is `Context`, with `<diagram id="context" name="Context">`. It is always drawn: the product as one system, the people who use it, and the systems it talks to directly.
-- Page 2 is `Containers`, with `<diagram id="containers" name="Containers">`. Draw it only when the target project already has an architecture, from its code or docs, and the slice changes which part talks to which. Mark each container existing or new in its description.
+- Page 2 is `Containers`, with `<diagram id="containers" name="Containers">`. `context-drawio` does not draw it. `design-composition` adds it when the composition view is included and this product owns more than one software part. The parts come from Composition. Mark each existing, changed, or new.
 - One slice is `context.drawio`. A second slice with different dependencies is `1-<slice>/context.drawio`, numbered in parent/child index order.
 
 ## Layout
@@ -54,7 +54,7 @@ The C4 template's connection points, shared by systems, containers, boundaries, 
 | Person or system | `c4Name`, `c4Type`, `c4Description` | `<font style="font-size: 16px"><b>%c4Name%</b></font><div>[%c4Type%]</div><br><div><font style="font-size: 11px"><font color="#cccccc">%c4Description%</font></div>` |
 | Container | add `c4Technology` | `<font style="font-size: 16px"><b>%c4Name%</b></font><div>[%c4Type%: %c4Technology%]</div><br><div><font style="font-size: 11px"><font color="#E6E6E6">%c4Description%</font></div>` |
 
-`c4Name` is the glossary or product name. `c4Description` says in one sentence what the element does for this product, in plain words, and ends with its integration ID for another system, such as `System of record for shifts and who works them. I1.` For the product, add whether it is new or changed in this slice. `c4Technology` is only what the target project already uses; a container without a known technology is not drawn.
+`c4Name` is the glossary or product name. `c4Description` says in one sentence what the element does for this product, in plain words, and ends with its integration ID for another system, such as `System of record for shifts and who works them. I1.` For the product, add whether it is new or changed in this slice. `c4Technology` is what the target project already uses, or `proposed` when Composition recorded a reversible default and named its owner. Do not invent a product.
 
 ## Boundaries and title
 

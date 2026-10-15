@@ -1,6 +1,6 @@
 # Data flow components for Draw.io
 
-Every shape below is a template from Draw.io's built-in **Threat Modeling** library: external entity, process, data store, data flow, trust boundary, and the asset, control, and threat labels. Each style is the library template followed by a font size. Two template values change: a data flow's label is dark instead of red, so red marks only trust boundaries and open threats, and the labels carry this plugin's IDs instead of the library's A01, C01, and TA01, because A and C already mean acceptance outcome and check. Copy a style exactly and change only the label, position, and size. [example.drawio](example.drawio) uses each one.
+Every shape below is a template from Draw.io's built-in **Threat Modeling** library: external entity, process, data store, data flow, trust boundary, and the asset and control labels. Each style is the library template followed by a font size. Two template values change: a data flow's label is dark instead of red, so red marks only trust boundaries, and a control label carries a rule or integration ID instead of the library's C01, because C already means a check. Copy a style exactly and change only the label, position, and size. [example.drawio](example.drawio) uses each one. Do not draw a threat label. `assess-threats` owns threat IDs and open questions.
 
 ## Layout
 
@@ -41,10 +41,9 @@ Label a flow with the data it carries, in plain words, then the ID it traces to:
 | Label | Size | style | Text |
 | --- | --- | --- | --- |
 | Asset: personal or sensitive data | 56×20 | `text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=10;` | `personal` or `sensitive` |
-| Control at a crossing | as needed × 20 | `text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=10;` | the rule or integration that controls it, such as `BR1 ward only` or `I2 sign-in` |
-| Open threat | as needed × 20 | `text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=10;` | the open question's ID and a short name, such as `Q5 retention` |
+| Control pointer | as needed × 20 | `text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;fontSize=10;` | an existing rule or integration ID, such as `BR1` or `I2` |
 
-Place a label beside the flow or store it describes, not on the line. A control label names something that exists in `build-spec.md`; a control that does not exist yet is an open threat with a question ID.
+Place a label beside the flow or store it describes, not on the line. A control pointer names an ID that already exists in `build-spec.md`. A crossing with no such ID is named in the note and left for `assess-threats`. Do not draw a question ID on the diagram.
 
 ## Board annotations
 
@@ -52,7 +51,7 @@ Place a label beside the flow or store it describes, not on the line. A control 
 | --- | --- |
 | Caption | `text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;` labelled `Data flow · shift swaps` |
 | Legend text | `text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#57606a;` beside one label of each kind |
-| Note | `shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;` naming the question, every flow that crosses a boundary, the sources, the blocking questions, and what the diagram does not test |
+| Note | `shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;` naming the question, every flow that crosses a boundary, the sources, and what the diagram does not test |
 
 ## What to leave out
 

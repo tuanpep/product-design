@@ -14,6 +14,11 @@ const specHeadings = [
   'Integrations and data', 'Quality requirements', 'Rollout and verification',
   'Assumptions and open questions', 'Traceability',
 ]
+const technicalHeadings = [
+  'Design subject', 'Design concerns', 'Design views', 'Composition', 'Dependencies',
+  'Information model', 'Service contract', 'Deployment and resources', 'Threats',
+  'Decisions', 'Correspondences',
+]
 const screenHeadings = ['Navigation map', 'Screen inventory', 'Screens', 'Content and copy', 'Accessibility']
 const gates = {
   discovery: ['stop', 'repeat discovery'],
@@ -106,6 +111,20 @@ export function checkBuildSpec(markdown) {
     if (!new RegExp(`\\b${id}\\b`).test(trace)) errors.push(`${label}${id} is missing from Traceability.`)
   }
   if (/^\|.*\|[ \t]*\|/m.test(trace)) errors.push(`${label}Traceability has an empty cell.`)
+  return errors
+}
+
+export function checkTechnicalDesign(markdown) {
+  const errors = []
+  const label = 'technical-design.md: '
+  const text = normalize(markdown)
+  const field = headerOf(text, errors, label)
+  if (field('Standard') !== 'technical-design/1.0') errors.push(`${label}Unsupported standard.`)
+  if (!['draft', 'ready'].includes(field('Status'))) errors.push(`${label}Status must be draft or ready.`)
+  field('Slice')
+  checkDate(field('Updated'), errors, label)
+  field('Source')
+  sectionsOf(text, technicalHeadings, errors, label)
   return errors
 }
 
@@ -210,8 +229,11 @@ function packageDiagrams(folder) {
         visit(path, rel, index?.[1] ?? '')
         continue
       }
-      if (relative && ['product-design.md', 'screens.md', 'build-spec.md'].includes(name)) {
+      if (relative && ['product-design.md', 'screens.md', 'build-spec.md', 'technical-design.md'].includes(name)) {
         errors.push(`${rel}: Canonical Markdown files belong in the package root, not a subfolder.`)
+      }
+      if (relative && ['openapi.yaml', 'asyncapi.yaml'].includes(name)) {
+        errors.push(`${rel}: Contract files belong in the package root, not a subfolder.`)
       }
       if (!name.endsWith('.drawio')) continue
       const kind = drawioFile.exec(name)?.[1]
@@ -433,6 +455,10 @@ export function checkPackage(folder) {
     errors.push(`Level ${level} must not include screens.md or mockup.drawio.`)
   }
   if (level !== undefined && level !== 'full' && has('build-spec.md')) errors.push(`Level ${level} must not include build-spec.md.`)
+  if (level !== undefined && level !== 'full' && has('technical-design.md')) errors.push(`Level ${level} must not include technical-design.md.`)
+  for (const name of ['openapi.yaml', 'asyncapi.yaml']) {
+    if (level !== undefined && level !== 'full' && has(name)) errors.push(`Level ${level} must not include ${name}.`)
+  }
   const readDiagram = (diagram) => ({ name: diagram.rel, xml: readFileSync(diagram.path, 'utf8') })
   if (mockups.length) {
     if (!has('screens.md')) errors.push('mockup.drawio needs screens.md.')
@@ -447,8 +473,16 @@ export function checkPackage(folder) {
     if (profile === 'discovery') errors.push('A discovery proposal must not have a build spec.')
     if (status === 'ready' && profile !== 'build-slice') errors.push('build-spec.md is ready but the proposal is not a build-slice.')
     if (status !== 'ready' && profile === 'build-slice') errors.push('A build-slice proposal needs build-spec.md with Status: ready.')
+    if (has('technical-design.md')) {
+      const technical = read('technical-design.md')
+      errors.push(...checkTechnicalDesign(technical))
+      const technicalStatus = /^Status: (.+)$/m.exec(normalize(technical))?.[1].trim()
+      if (technicalStatus && status && technicalStatus !== status) errors.push('technical-design.md status must match build-spec.md.')
+    }
   } else if (v11 && profile === 'build-slice') errors.push('A build-slice proposal needs build-spec.md.')
   else if (v11 && gate === 'specify a slice' && (level === undefined || level === 'full')) errors.push('Next gate specify a slice needs a draft build-spec.md.')
+
+  if (has('technical-design.md') && !has('build-spec.md')) errors.push(...checkTechnicalDesign(read('technical-design.md')))
 
   if (profile === 'discovery' && v11 && (has('screens.md') || mockups.length)) errors.push('A discovery proposal must not design screens.')
 

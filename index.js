@@ -65,20 +65,27 @@ function definition(id) {
   }
 }
 
-function agentDefinition() {
-  const path = join(directory, '.opencode', 'agents', 'design-product.md')
+function agentDefinition(id) {
+  const path = join(directory, '.opencode', 'agents', `${id}.md`)
   const { fields, body } = frontmatterOf(path)
   const description = field(fields, 'description')
   const mode = field(fields, 'mode')
   if (!description || !mode || !body) throw new Error(`Incomplete agent definition: ${path}`)
   return {
-    id: 'design-product',
+    id,
     description,
     mode,
     color: field(fields, 'color'),
     system: body,
     permissions: permissionRules(fields),
   }
+}
+
+function agentDefinitions() {
+  return readdirSync(join(directory, '.opencode', 'agents'))
+    .filter((name) => name.endsWith('.md'))
+    .map((name) => agentDefinition(name.slice(0, -3)))
+    .sort((a, b) => a.id.localeCompare(b.id))
 }
 
 export default Plugin.define({
@@ -88,16 +95,18 @@ export default Plugin.define({
     await ctx.skill.transform((editor) => {
       for (const skill of definitions) editor.add(skill)
     })
-    const agent = agentDefinition()
+    const agents = agentDefinitions()
     await ctx.agent.transform((editor) => {
-      editor.update(agent.id, (current) => {
-        current.description = agent.description
-        current.mode = agent.mode
-        current.color = agent.color
-        current.system = agent.system
-        current.hidden = false
-        current.permissions.push(...agent.permissions)
-      })
+      for (const agent of agents) {
+        editor.update(agent.id, (current) => {
+          current.description = agent.description
+          current.mode = agent.mode
+          current.color = agent.color
+          current.system = agent.system
+          current.hidden = false
+          current.permissions.push(...agent.permissions)
+        })
+      }
     })
     await ctx.command.transform((editor) => {
       editor.add({

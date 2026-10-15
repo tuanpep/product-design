@@ -1,6 +1,6 @@
 # Steer with principle names
 
-The plugin ships twelve principles as individual skills: seven that decide the design, and five that keep the specification buildable. `/design-product` reads a principle's skill before it cites that principle, and names the decision the principle changed.
+The plugin ships eighteen principles as individual skills: seven that decide the design, and eleven that keep the specification and its technical design buildable. `/design-product` reads a principle's skill before it cites that principle, and names the decision the principle changed.
 
 You can also say the name yourself when a choice is stuck. One phrase redirects the work.
 
@@ -28,13 +28,19 @@ They yield in this order. An earlier principle settles the conflict.
 - [Behave predictably and recoverably](../../skills/principle-behave-predictably/SKILL.md) when shaping the interaction itself.
 - [Spend less of the world](../../skills/principle-spend-less-of-the-world/SKILL.md) when a real choice changes energy, duplication, retained data, or repeated work.
 
-The specification-quality principles come after those seven and never override them:
+The specification and technical-design principles come after those seven and never override them:
 
 - [Design every state](../../skills/principle-design-every-state/SKILL.md) when specifying a screen, a record with a lifecycle, or an integration.
 - [Make it testable](../../skills/principle-make-it-testable/SKILL.md) when writing a requirement, rule, or acceptance outcome.
 - [One source of truth](../../skills/principle-one-source-of-truth/SKILL.md) when a term, rule, state, or message appears in more than one place.
 - [Decide the reversible](../../skills/principle-decide-the-reversible/SKILL.md) when an open question would leave a builder guessing.
 - [Use real content](../../skills/principle-use-real-content/SKILL.md) when drafting screens, examples, copy, or a mockup.
+- [Choose the view for the concern](../../skills/principle-choose-the-view/SKILL.md) when a diagram would be added because a template lists it, or a real concern has no view.
+- [Keep the schemas apart](../../skills/principle-keep-the-schemas-apart/SKILL.md) when an API, a screen, and a database schema would be written as copies of each other.
+- [Write the contract first](../../skills/principle-write-the-contract-first/SKILL.md) when builders would have to infer the service interface from screens or tables.
+- [Record the decision](../../skills/principle-record-the-decision/SKILL.md) when a technical choice is hard to reverse and only the resulting picture was going to be kept.
+- [Settle the logical model](../../skills/principle-settle-the-logical-model/SKILL.md) when a database design would choose types, indexes, or a product before identifiers, cardinality, and third normal form are settled.
+- [Prefer the standard method](../../skills/principle-prefer-the-standard-method/SKILL.md) when an API operation would be a custom action or a private error body.
 
 ```text
 design every state. what does the nurse see when nobody qualified is free to cover?
@@ -42,6 +48,18 @@ design every state. what does the nurse see when nobody qualified is free to cov
 
 ```text
 decide the reversible. propose a default reminder time instead of leaving it open; the ward manager can change it.
+```
+
+```text
+keep the schemas apart. the cover-request API is the caller's view of the roster, with the mapping written down.
+```
+
+```text
+settle the logical model. name the identifier and the cardinality before choosing column types.
+```
+
+```text
+prefer the standard method. accepting a cover request is a guarded transition on that resource, with a problem-details error when the rule denies it.
 ```
 
 In advise mode that default is written into the package and the run continues. A choice that is hard to reverse, or that touches safety, money, law, or privacy, stays a confirmation item on the draft. It does not pause the suggestion, and it does not make the build spec ready.

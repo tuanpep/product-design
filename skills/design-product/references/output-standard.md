@@ -14,8 +14,8 @@ The optional `Level` header is recommended for new packages. Select one cap:
 
 - **understand:** discovery only; no `screens.md`, `mockup.drawio`, or `build-spec.md`.
 - **design-documents:** discovery or evaluation; document options, experience, and an evaluation plan, deliberately deferring canonical screens and mockups. No `screens.md`, `mockup.drawio`, or `build-spec.md`, even when an option has an interface. Explain the deferral under Product experience.
-- **mockup:** discovery or evaluation; interface evaluation retains the screen/mockup coverage below. No `build-spec.md`.
-- **full:** any profile; permits the complete package but does not require unnecessary artifacts or imply build readiness.
+- **mockup:** discovery or evaluation; interface evaluation retains the screen/mockup coverage below. No `build-spec.md`, `technical-design.md`, or contract file.
+- **full:** any profile; permits the complete package, including `technical-design.md` when the slice will be implemented in software, but does not require unnecessary artifacts or imply build readiness.
 
 Only full (or a legacy proposal without Level) can use build-slice or the next gate specify a slice. A capped evaluation uses test solutions instead. Without Level, existing profile/package requirements remain unchanged; do not infer a level from prose or retrofit one silently.
 
@@ -33,16 +33,19 @@ The proposal decides. The package shows the shape and hands it to builders. All 
 | `mockup.drawio` | `mockup-drawio` | none | required when `screens.md` exists | required when `screens.md` exists |
 | `context.drawio` | `context-drawio` | none | when the option depends on other systems | same |
 | `build-spec.md` | `specify-build` | none | `Status: draft` when the next gate is specify a slice | `Status: ready`, required |
-| `erd.drawio` | `erd-drawio` | none | optional, with a draft `build-spec.md` | when the domain model has more than two related entities, or builders need a proposed schema |
+| `technical-design.md` | `select-views` and the included view skills | none | none | when the slice will be implemented in software |
+| `openapi.yaml` | `design-contract` | none | none | when the interface view includes an HTTP boundary |
+| `asyncapi.yaml` | `design-contract` | none | none | when the interface view includes an event boundary |
+| `erd.drawio` | `design-data`, `erd-drawio` | none | optional, with a draft `build-spec.md` | when the information view is included |
 | `states.drawio` | `state-drawio` | none | optional, with a draft `build-spec.md` | when a record has more than two states, a reversal, or a time limit |
 | `sequence.drawio` | `sequence-drawio` | none | optional, with a draft `build-spec.md` | when an integration, notification, or handoff can fail or arrive late |
 | `dataflow.drawio` | `dataflow-drawio` | none | optional, with a draft `build-spec.md` | when the slice handles personal or sensitive data, or sends data to another party |
 
-Formats: [screens](screens-format.md) and [build spec](build-spec-format.md). When an option has no interface, such as a process or training change, say so in Product experience and skip the screen files. A file that is required but missing makes the package incomplete. Do not create files to fill the table. Structural validation detects existing `screens.md` and checks its coverage; it does not infer an interface or a deliberate deferral from keywords. Human review checks those scope decisions.
+Formats: [screens](screens-format.md), [build spec](build-spec-format.md), and [technical design](technical-design-format.md). When an option has no interface, such as a process or training change, say so in Product experience and skip the screen files. A software slice at Full also skips a technical view that Design views omits, and says why. A file that is required but missing makes the package incomplete. Do not create files to fill the table. Structural validation detects existing `screens.md` and checks its coverage; it does not infer an interface or a deliberate deferral from keywords. Human review checks those scope decisions.
 
 A Draw.io file holds one close flow. One flow keeps the name in the table. A mockup file is one actor and one task. Several flows are step folders in parent/child index order, `1-nurse-ask-cover/` then `1-nurse-ask-cover/1.1-nurse-choose-colleague/` then `2-colleague-accept-cover/`, and each folder holds that step's diagrams under their short names. Children must be physically inside their parent, not sibling folders with decimal names. The index starts at `1`. States of that task stay with it. A second page is a paired view of that same flow: as-is and to-be, logical and physical, or context and containers. The rule is [one file per close flow](../../drawio/references/drawio-file.md#one-file-per-close-flow).
 
-Define each term, rule, state, screen, and message once and reference its ID elsewhere. When the same fact appears in two files, the owning file wins and the other must link to it: rules, states, and stories belong to `build-spec.md`, screens and copy to `screens.md`, and needs, evidence, and decisions to `product-design.md`. Before `build-spec.md` exists, proposed rules and the draft permission matrix sit under Needs and requirements in `product-design.md`. When the build spec is written, they move there with the same IDs, and the proposal links to them.
+Define each term, rule, state, screen, and message once and reference its ID elsewhere. When the same fact appears in two files, the owning file wins and the other must link to it: rules, states, and stories belong to `build-spec.md`, screens and copy to `screens.md`, needs, evidence, and the decision to build to `product-design.md`, and design concerns, views, contracts, threats, and technical decisions to `technical-design.md`. Before `build-spec.md` exists, proposed rules and the draft permission matrix sit under Needs and requirements in `product-design.md`. When the build spec is written, they move there with the same IDs, and the proposal links to them.
 
 Profiles describe document depth, not evidence strength. A build-slice can contain untested assumptions, but unresolved safety, policy, feasibility, or ownership issues that block that slice must prevent a ready verdict. Use evaluation instead. Do not manufacture research to reach a profile. Older proposals can adopt this standard during their next revision without discarding their evidence or decision history.
 
@@ -82,6 +85,10 @@ Choose one value, not the list of alternatives. Level is optional; all other fie
   | C1 | Check | `build-spec.md`, or `product-design.md` before it exists |
   | I1 | Integration | `build-spec.md` |
   | Q1 | Assumption or open question | `build-spec.md` |
+  | DC1 | Design concern | `technical-design.md` |
+  | OP1 | Service operation | `technical-design.md` |
+  | TH1 | Threat | `technical-design.md` |
+  | AD1 | Technical decision | `technical-design.md` |
 - Every scoped requirement must derive from a need or attributed constraint. Every build story must serve a need. Every important acceptance outcome must trace to its requirement or rule and a check. Explain justified constraints rather than forcing them into a fictional user need.
 - Checks specify the method, observable expected result, and responsible role. Separate planned checks from completed results. Use unknown rather than invented numeric performance targets or estimates.
 

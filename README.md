@@ -12,7 +12,7 @@ In the project being designed:
 
 If the idea is too general, it first interviews you in small turns to establish the actor, concrete task/current workflow, problem or opportunity, outcome, scope, and critical constraints. It summarizes that understanding for confirmation before shaping a solution. A sufficient brief skips this interview. See the [context gate](skills/design-product/references/discovery-interview.md).
 
-It asks which level to stop at: Understand, Design documents, Mockup, or Full. Name the level to skip that question. Say `advise` for a suggested solution and design in one pass once enough context is known:
+It asks which level to stop at: Understand, Design documents, Mockup, or Full. Name the level to skip that question. Say `advise` for a suggested solution and design in one pass once enough context is known. Full includes the technical views the slice's concerns require, such as the information model and the service contract, and omits a view that no concern needs.
 
 ```text
 /design-product advise Staff coordinate shift swaps in chat, but the roster stays wrong.

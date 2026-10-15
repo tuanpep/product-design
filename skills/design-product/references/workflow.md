@@ -14,13 +14,13 @@ The work moves through four stages. Each stage can send the work back to an earl
 
 1. `frame-problem` names the decision, owner, uncertainty, and discovery goal; separates the proposed feature from the people/problem, and user outcomes from business/service outcomes.
 2. `map-stakeholders` names the actors, the hardest realistic user, decision owners, and conflicting goals.
-3. `discover-needs` describes the context of use: users, tasks, environment, constraints, and the current journey. Synthesize source → observation → pattern including contradictions → finding → opportunity, preserving provenance and uncertainty. Select a bounded solution-neutral opportunity before solution generation. Hypothetical premises remain hypotheses, not findings. It does not build the service.
+3. `discover-needs` describes the context of use: users, tasks, environment, constraints, and the current journey. Synthesize source → observation → pattern including contradictions → finding → opportunity, preserving provenance and uncertainty. Select a bounded solution-neutral opportunity before solution generation. Hypothetical premises remain hypotheses, not findings. It does not build the service. When the target is an existing product, codebase, or service, `survey-existing` then records what that project already has and whether this design must reuse it, should reuse it, or extend it. A greenfield idea skips that survey and says why.
 4. `define-requirements` turns that context into stable user needs and derived requirements.
 5. `decide-next` chooses stop, repeat discovery, test solutions, specify a slice, or ready for a named build slice.
 
 **Shape** (evaluation)
 
-6. `explore-solutions` compares the current path, reuse, non-software options, and product options, including the assumption that would reverse the choice.
+6. `explore-solutions` compares the current path, reuse, non-software options, and product options, including the assumption that would reverse the choice. When `survey-existing` ran, the comparison starts from its must-reuse and should-reuse findings.
    Then `plan-evaluation` **before detailed experience/screens**: consider desirability, usability, feasibility, viability, and ethics; select priority questions and capable methods before least necessary artifacts/fidelity. Design documents includes this plan before its stop. Default partial learning material to inline proposal content or externally supplied links, not `screens.md`.
 7. `model-process` maps the as-is and to-be process across actors when more than one acts. `context-drawio` draws the product, its users, and the systems it depends on when it touches other systems.
 8. `design-experience` describes the chosen approach across the whole journey.
@@ -32,13 +32,16 @@ The work moves through four stages. Each stage can send the work back to an earl
 **Specify** (build slice)
 
 12. `map-stories` arranges the work as a story map and draws the first-release line.
-13. `model-domain` writes the glossary, entities, lifecycle states, and integrations. Then, when the package table calls for them, `erd-drawio` draws the entities and a proposed schema, `state-drawio` the lifecycles, `sequence-drawio` the integrations that can fail, and `dataflow-drawio` the personal data and trust boundaries. Each draws the text; a difference is fixed in the text first.
-14. `define-rules` writes the business rule catalogue with decision tables and examples.
-15. `specify-build` assembles `build-spec.md` with acceptance criteria, quality requirements, rollout, open questions, and traceability.
+13. `model-domain` writes the glossary, entities, lifecycle states, and integrations. This is the conceptual schema: business terms, no column types or URL paths.
+14. `select-views` names the design stakeholders' concerns and marks each IEEE 1016 viewpoint included or omitted. It writes `technical-design.md`. A view without a concern is not drawn. A concern without a view is a gap.
+15. Run only the included views, in this order, so later views can correspond to earlier ones. `design-data` adds identifiers, normalization, and the physical proposal when the internal schema is included, citing the domain model; `erd-drawio` draws both. `state-drawio` draws lifecycles. `design-composition` names the parts and, when more than one software part is owned, adds the containers page. `design-dependency` records which parts require each other and a proposed build order; external failure behaviour stays on the integration. `design-contract` writes the external schema: `openapi.yaml` for HTTP and `asyncapi.yaml` for events, from the stories and the conceptual model. `sequence-drawio` draws interactions that can fail. `design-deployment` records the environment and resources when that concern is included. `dataflow-drawio` draws where personal data crosses a trust boundary. `assess-threats` records what is protected, what can go wrong, which control applies, and the check. Each view cites the owning text; a difference is fixed there first.
+16. `define-rules` writes the business rule catalogue with decision tables and examples. That catalogue is the algorithm view.
+17. `record-decisions` records hard-to-reverse technical choices. A reversible default stays in the open questions.
+18. `specify-build` assembles `build-spec.md` with acceptance criteria, quality requirements, rollout, open questions, and traceability, and fills Correspondences in `technical-design.md`.
 
 **Check**
 
-16. `review-design` checks coherence, evidence, and delivery readiness separately, across every file in the package.
+19. `review-design` checks coherence, evidence, and delivery readiness separately, across every file in the package. When `technical-design.md` exists, also check that every included view is filled, every omitted view says why, and correspondences have an owning ID.
     Check workflow coverage and UI fidelity separately: trace each task from actual entry through completion and revisit; compare the persistent shell, page hierarchy, component grouping, density, and tokens with the recorded UI baseline. Require every declared populated collection view in the mockup. A valid XML file, attractive palette, or component specimen board alone cannot pass this review. Use the [layout audit](../../mockup-drawio/references/product-layouts.md#handoff-audit); report missing references and uninspected rendering as limitations rather than claiming product fidelity.
 
 A small idea can satisfy a skill in a few sentences. Write into the package files named in [the output standard](output-standard.md). Do not open a new document per skill.

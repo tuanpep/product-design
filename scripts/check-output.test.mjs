@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import test from 'node:test'
-import { checkBuildSpec, checkDrawio, checkIds, checkMockupDrawio, checkOutput, checkPackage, checkScreens, screenStates } from './check-output.mjs'
+import { checkBuildSpec, checkDrawio, checkIds, checkMockupDrawio, checkOutput, checkPackage, checkScreens, checkTechnicalDesign, screenStates } from './check-output.mjs'
 
 const example = readFileSync(new URL('../skills/mockup-drawio/references/example.drawio', import.meta.url), 'utf8')
 
@@ -94,6 +94,16 @@ ${['Integrations and data', 'Quality requirements', 'Rollout and verification', 
 | Story | Outcome | Check |
 | --- | --- | --- |
 | S1 | A1 | C1 scripted walkthrough |
+`
+
+const technical = (status) => `# Shift swap technical design
+Standard: technical-design/1.0
+Status: ${status}
+Slice: request cover
+Updated: 2026-10-14
+Source: product-design.md
+
+${['Design subject', 'Design concerns', 'Design views', 'Composition', 'Dependencies', 'Information model', 'Service contract', 'Deployment and resources', 'Threats', 'Decisions', 'Correspondences'].map((heading) => `## ${heading}\nIncluded or omitted with a reason.\n`).join('')}
 `
 
 const journey = `<mxfile><diagram id="p" name="Journey"><mxGraphModel><root>
@@ -237,6 +247,33 @@ test('accepts a complete evaluation package and a ready build-slice package', ()
     'mockup.drawio': example,
     'build-spec.md': spec('ready'),
   }, (folder) => assert.deepEqual(checkPackage(folder), []))
+  withPackage({
+    'product-design.md': proposal('build-slice', 'ready for a named build slice'),
+    'screens.md': screens,
+    'mockup.drawio': example,
+    'build-spec.md': spec('ready'),
+    'technical-design.md': technical('ready'),
+    'openapi.yaml': 'openapi: 3.1.0\n',
+  }, (folder) => assert.deepEqual(checkPackage(folder), []))
+})
+
+test('checks a technical design when the package includes one', () => {
+  assert.deepEqual(checkTechnicalDesign(technical('draft')), [])
+  assert.ok(checkTechnicalDesign(technical('draft').replace('## Correspondences\nIncluded or omitted with a reason.\n', '')).some((error) => error.includes('technical-design.md: Expected the')))
+  const text = atLevel(proposal('evaluation', 'test solutions'), 'mockup')
+  withPackage({ 'product-design.md': text, 'technical-design.md': technical('draft') }, (folder) => {
+    assert.ok(checkPackage(folder).includes('Level mockup must not include technical-design.md.'))
+  })
+  withPackage({ 'product-design.md': text, '1-ask/openapi.yaml': 'openapi: 3.1.0\n' }, (folder) => {
+    assert.ok(checkPackage(folder).includes('1-ask/openapi.yaml: Contract files belong in the package root, not a subfolder.'))
+  })
+  withPackage({
+    'product-design.md': proposal('build-slice', 'ready for a named build slice'),
+    'build-spec.md': spec('ready'),
+    'technical-design.md': technical('draft'),
+  }, (folder) => {
+    assert.ok(checkPackage(folder).includes('technical-design.md status must match build-spec.md.'))
+  })
 })
 
 test('rejects packages whose files disagree with the profile', () => {

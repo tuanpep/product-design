@@ -10,7 +10,7 @@ Apply [the discovery interview and context gate](../design-product/references/di
 
 Read [the evidence contract](../design-product/references/evidence-and-decisions.md). Start with the user's goal, not the requested screen or feature.
 
-1. Inspect supplied documents, relevant product context, and analytics or support data if accessible. Use trustworthy external sources for material facts. Record source links and dates.
+1. Inspect supplied documents, the users' current journey, and analytics or support data if accessible. Use trustworthy external sources for material facts. Record source links and dates. What an existing project already implements is `survey-existing`. Do not inventory the codebase here.
 2. Map who acts, what they are trying to accomplish, how they do it today, where it fails, and who or what supports the work outside the interface.
 3. Include underserved users and access needs where relevant. Do not claim to represent them without research. Distinguish hard constraints from changeable current practice. Quantify the baseline only when data exists.
 4. Synthesize explicitly using [the learning loop](../design-product/references/learning-loop.md): source → observation → pattern (including contradictions, outliers, and group differences) → finding → solution-neutral opportunity. Keep interpretation separate from observation, link each step, and do not turn one account into a population pattern. With only hypothetical context, label the chain provisional rather than inventing findings.

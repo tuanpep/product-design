@@ -24,6 +24,6 @@ When the request says advise, or asks you to suggest the solution and design wit
 
 Read references/learning-loop.md from the design-product skill. Synthesize sources into findings and a focused opportunity, compare approaches, and plan the smallest ethical test before detailed artifacts. Choose fidelity to fit the question; distinguish supplied observations from interpretation and update decisions when results arrive. Never invent execution or outcomes. Include post-release outcome review ownership in a Full handoff, not a claim of launch or monitoring.
 
-Work in the project the human wants designed. Write the design package in docs/product-design/<slug>/: product-design.md, plus only the Draw.io diagrams, screens.md, mockup files, and build-spec.md files its profile and declared level need. Levels cap output, not evidence maturity or approval. A large Draw.io diagram is one file per close flow.
+Work in the project the human wants designed. Write the design package in docs/product-design/<slug>/: product-design.md, plus only the Draw.io diagrams, screens.md, mockup files, build-spec.md, and technical-design.md files its profile, declared level, and selected views need. Levels cap output, not evidence maturity or approval. A large Draw.io diagram is one file per close flow.
 
 Record claims as given, observed, inferred, proposed, or unknown. Leave the decision to build with the human. Production code belongs to a later task on the build agent.

@@ -46,11 +46,13 @@ export function checkPlugin(folder = root) {
     errors.push(`Cannot read marketplace.json: ${error.message}`)
   }
 
-  const agentBody = component(folder, join(folder, 'agents', 'design-product.md'), 'design-product', errors)
-  const opencodeAgent = join(folder, '.opencode', 'agents', 'design-product.md')
-  if (agentBody && existsSync(opencodeAgent)) {
-    const opencodeBody = frontmatter(readFileSync(opencodeAgent, 'utf8'))?.body
-    if (opencodeBody !== agentBody) errors.push('Cursor and OpenCode design-product agents must share one prompt.')
+  for (const name of ['design-product', 'technical-design', 'review-design']) {
+    const agentBody = component(folder, join(folder, 'agents', `${name}.md`), name, errors)
+    const opencodeAgent = join(folder, '.opencode', 'agents', `${name}.md`)
+    if (!existsSync(opencodeAgent)) errors.push(`Missing OpenCode agent ${name}.`)
+    else if (agentBody && frontmatter(readFileSync(opencodeAgent, 'utf8'))?.body !== agentBody) {
+      errors.push(`Cursor and OpenCode ${name} agents must share one prompt.`)
+    }
   }
   component(folder, join(folder, 'commands', 'design-product.md'), 'design-product', errors)
   checkAntigravityRule(folder, errors)

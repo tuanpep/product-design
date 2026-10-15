@@ -1,6 +1,6 @@
 # Build spec format
 
-`docs/product-design/<slug>/build-spec.md` is the implementation handoff for one named slice. Engineers, testers, and designers should be able to build and check the slice from it without guessing. It follows [the output standard](output-standard.md), keeps every ID from `product-design.md`, and is written by `specify-build` with `map-stories`, `model-domain`, and `define-rules`.
+`docs/product-design/<slug>/build-spec.md` is the implementation handoff for one named slice. Engineers, testers, and designers should be able to build and check the slice from it without guessing. It follows [the output standard](output-standard.md), keeps every ID from `product-design.md`, and is written by `specify-build` with `map-stories`, `model-domain`, `define-rules`, and the technical views selected in [technical-design.md](technical-design-format.md).
 
 Start with a title and this header:
 
@@ -34,13 +34,13 @@ Use these level-two headings in order. Keep each one. A heading that does not ap
 ## Traceability
 ```
 
-**Overview.** The slice outcome, who it serves, what is in and out of scope, and a link to the proposal. Two paragraphs at most.
+**Overview.** The slice outcome, who it serves, what is in and out of scope, and a link to the proposal. When `technical-design.md` exists, link it and the contract files here. Two paragraphs at most.
 
 **Glossary.** Each term once: definition, example, and synonyms to avoid.
 
 **Roles and permissions.** Actions as rows, roles as columns, each cell allowed, denied, or conditional with the rule ID.
 
-**Domain model.** Entities, key attributes (meaning, required, example, source, sensitivity), relationships with cardinality, and the system of record. Link `erd.drawio`, or each `1-<cluster>/erd.drawio` in parent/child index order, when it is drawn. A physical schema appears only on its physical page, as a **proposed** design that follows the target project's conventions; no framework choices, SQL, or migrations.
+**Domain model.** Entities, key attributes (meaning, required, example, source, sensitivity), relationships with cardinality read both ways, and the system of record. This section owns those facts. It is the conceptual schema. Identifiers, normalization, and a physical proposal are the logical additions in Information model. Link `erd.drawio`, or each `1-<cluster>/erd.drawio` in parent/child index order, when it is drawn. A physical schema appears only on its physical page, as a **proposed** internal schema that follows the target project's conventions. The service contract in `technical-design.md` is the external schema. No framework choices, SQL, or migrations.
 
 **States and lifecycle.** For each entity with a lifecycle: state, meaning, allowed next states, trigger and actor, guarding rule, side effect. Link `states.drawio`, or each `1-<entity>/states.drawio` in parent/child index order, when it is drawn.
 
@@ -62,9 +62,9 @@ A2 Given Lan has 40 hours this week
 Checked by: C1 (tester, scripted walkthrough), C2 (rule unit check by engineer)
 ```
 
-**Integrations and data.** Each integration: direction, data, trigger, frequency, failure behaviour, owner, feasibility evidence class. Personal data: purpose, visibility, proposed retention. Link the context and sequence files when they are drawn.
+**Integrations and data.** Each integration: direction, data, trigger, frequency, failure behaviour, owner, feasibility evidence class. This section owns how an external system fails. Personal data: purpose, visibility, proposed retention. Link the context and sequence files when they are drawn.
 
-**Quality requirements.** Accessibility target and checks, privacy, security, performance, reliability, and observability or analytics events, each measurable or marked unknown. Link the data-flow files when they are drawn, and review each trust boundary crossing they list.
+**Quality requirements.** Accessibility target and checks, privacy, security, performance, reliability, and observability or analytics events, each measurable or marked unknown. Link the data-flow files when they are drawn. Threats, controls, and blocking security questions are written once, under Threats in `technical-design.md`.
 
 **Rollout and verification.** Transition from the current service, data migration, rollout and rollback, support readiness, how the outcome will be measured, and the definition of done. Hand off post-release learning here: responsible owner, baseline or explicitly unknown, outcome data source, guardrails, review cadence or trigger, and decision actions (continue, change, rollback, or stop). Distinguish planned measurement from actual results; do not invent baselines or thresholds. This uses the existing heading, not a new production stage or mandatory document. See [GOV.UK measuring success](https://www.gov.uk/service-manual/measuring-success).
 
