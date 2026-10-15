@@ -52,6 +52,8 @@ See [Measured default pairs](#measured-default-pairs) for calculated contrast; m
 
 ## Composition before components
 
+Use [product page layouts and workflow coverage](product-layouts.md) before picking controls. Its [collection → detail → edit example](collection-flow.drawio), owned by [collection-screens.md](collection-screens.md), complements the legacy cover-request board with a populated searchable list and an explicit return loop. Component specimens alone are not complete product screens.
+
 1. Read `screens.md` for task, screen order, states, exact copy, permissions, and recovery. Do not invent a new state contract through decoration.
 2. One actor/task per file. A close flow stays at root `mockup.drawio`; multiple flows use `1-<actor>-<task>/mockup.drawio`, with child steps nested inside their parent, such as `1-<actor>-<task>/1.1-<actor>-<subtask>/mockup.drawio`. Keep that step's journey alongside it.
 3. Arrange views in business usage order, left to right and then top to bottom, not numeric SC order or technical-state columns. Keep decision branches near their origin and identify the main path. Same-screen review panels and confirmations can be named business views, not new screen IDs. Do not generate routine technical-state boards.
@@ -59,6 +61,7 @@ See [Measured default pairs](#measured-default-pairs) for calculated contrast; m
 5. Gaps are 240 horizontally and 280 vertically. Caption 40 above a frame; note starts 20 below. Reserve separate lanes for notes and flow edges. For row height 900, next row starts 1180 lower.
 6. All cells use absolute coordinates and `parent="1"`. Frame ID `<screen>-<view>`; interior cells prefix that ID. Captions and notes end in `-caption` and `-note`; edges are `flow-1`, etc. View names must not prefix other view names of that screen. Keep SC IDs stable when order changes.
 7. Repeat the same shell and data across states; change only what the state requires. An empty filtered result is different from having no records; a denied action is different from a validation error.
+8. Inside a screen frame, draw only real end-user UI components and product copy. Keep screen IDs/view labels, design rationale, workflow narration, layout/token/viewport assumptions, interaction specifications and accessibility annotations outside the screen in captions/notes. A genuine product alert, field hint, validation error, permission notice or save confirmation belongs inside only when users would actually see it. Do not disguise a design explanation as an in-app notice.
 
 ### Desktop layout
 

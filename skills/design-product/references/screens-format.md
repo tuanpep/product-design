@@ -24,6 +24,10 @@ Use these level-two headings in order:
 
 Begin with a business-stage table: stage, actor, task, prerequisite/decision, resulting view, and handoff/outcome. Distinguish parallel work from mandatory dependencies. Put setup/configuration and post-completion support outside the main task sequence. Keep stable SC IDs even when the presentation order changes.
 
+Before writing individual screens, check the whole task loop: entry → find/select work → inspect → act → outcome → return or handoff. For repeated records, include a real collection screen (list, table, queue, or task-appropriate board), not only a dashboard, detail, form, or confirmation. Show how people reopen existing work and see its updated status. Do not invent CRUD operations that the task does not need. For a one-off task with no collection, explain that exception under Navigation map.
+
+Under Navigation map, record **UI baseline:** source paths or supplied screenshot references, target design-system/version if known, theme, shell, typography, spacing, density, and component conventions. Existing product components and relevant screens take precedence over the fallback kit. Identify what is observed versus proposed, any conflicting references, and deliberate deviations. With no references, explicitly call the Carbon-informed White baseline proposed; do not claim a match to an unseen product.
+
 **Screen inventory.** One row per screen, in journey order, numbered SC1, SC2, and so on. Several flows are step folders, parent before its children (`1`, then `1.1`, then `2`). Serves lists story IDs once a story map exists, and requirement IDs before that:
 
 | ID | Screen | Role | Purpose | Entered from | Exits to | Serves |
@@ -33,6 +37,8 @@ Begin with a business-stage table: stage, actor, task, prerequisite/decision, re
 **Screens.** One level-three heading per screen, written `### SC1 My shifts`. Under each:
 
 - **Purpose** and the journey step it serves.
+- **Layout:** page archetype (collection, detail, form, review, or outcome), persistent shell/current navigation, ordered content regions, primary action placement, viewport/fold, scroll/sticky behavior, and narrow-screen treatment. Reuse the same shell and component geometry across related screens; use the [page recipes](../../mockup-drawio/references/product-layouts.md), not a generic card grid for every task.
+- **Frame boundary:** only actual end-user UI and product copy inside mockup screens. Put design notes, SC/view captions, workflow narration, technical/accessibility explanations and layout assumptions outside frames. Genuine product notices, field help, errors and confirmations remain inside where users would see them; do not turn a design annotation into a fake product banner.
 - **Content:** what is shown, with the entity attribute it comes from.
 - **Inputs:** field, type, required or optional, validation rule ID, example value.
 - **Actions:** the real label, its result, and the next screen.
@@ -40,6 +46,8 @@ Begin with a business-stage table: stage, actor, task, prerequisite/decision, re
 - **Technical behavior:** concise prose for shared loading, empty-result, validation, permission, and network patterns where relevant. No mandatory technical-state list and no explanation required for every omitted technical state. Add a technical exception to Views only when it changes the business action, risk, recovery, or handoff, or detailed UI states are explicitly requested. Retain safety, privacy, and recovery requirements without multiplying frames.
 - Legacy **States:** lists remain supported and their declared frames are still required. Do not create them for new journey-first designs by default. When revising an existing state-heavy package, update the owning specification and drawings together only within the requested scope; do not silently remove listed coverage.
 - **Rules:** referenced by ID, not restated.
+
+For collection screens, specify meaningful row/card data and at least one realistic populated view: identity link, decision-relevant attributes, explicit status, and contextual action. Define search/filter/sort only when needed, their active values and counts, empty collection versus no matches, and pagination only for a credible dataset. State which query, filters, sort, page, scroll position, and focus survive opening a record and returning. Save/cancel must have explicit destinations and observable effects on the collection. Never replace the populated list with only an empty or loading frame.
 
 **Content and copy.** Voice, terms from the glossary, and the message catalogue:
 

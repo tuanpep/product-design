@@ -25,6 +25,7 @@ The work moves through four stages. Each stage can send the work back to an earl
 7. `model-process` maps the as-is and to-be process across actors when more than one acts. `context-drawio` draws the product, its users, and the systems it depends on when it touches other systems.
 8. `design-experience` describes the chosen approach across the whole journey.
 9. `design-screens` and `write-content` turn the journey into screens, states, and words.
+   Before mockups, audit entry → collection/find → detail → action → outcome → return/handoff for every in-scope actor task. Repeated-record tasks need a populated list/table/queue screen with explicit row navigation and updated-status return, not just forms and success panels. Explain a genuinely unnecessary collection in Navigation map instead of adding irrelevant CRUD. Record the UI baseline and page archetypes in `screens.md` using [screens-format.md](screens-format.md).
 10. At Mockup or Full, `mockup-drawio` draws every screen and state from `screens.md` with product-styled basic shapes, matching the project's UI or the default component palette. At Mockup in guided mode, when a layout option is open, a person reviews the mockup. At Full or in advise mode, recommend a proposed layout and continue; neither bypasses the context gate.
 11. Update the earlier evaluation plan for new risks. A plan is not a result. Ingest supplied results through the learning loop, compare with prior criteria and revise the earliest affected decision; never fabricate actual execution. Add post-release learning ownership, user and business/service measures, harm guardrails, review cadence/triggers, and decision responsibilities. Implementation and live research execution are external.
 
@@ -38,6 +39,7 @@ The work moves through four stages. Each stage can send the work back to an earl
 **Check**
 
 16. `review-design` checks coherence, evidence, and delivery readiness separately, across every file in the package.
+    Check workflow coverage and UI fidelity separately: trace each task from actual entry through completion and revisit; compare the persistent shell, page hierarchy, component grouping, density, and tokens with the recorded UI baseline. Require every declared populated collection view in the mockup. A valid XML file, attractive palette, or component specimen board alone cannot pass this review. Use the [layout audit](../../mockup-drawio/references/product-layouts.md#handoff-audit); report missing references and uninspected rendering as limitations rather than claiming product fidelity.
 
 A small idea can satisfy a skill in a few sentences. Write into the package files named in [the output standard](output-standard.md). Do not open a new document per skill.
 

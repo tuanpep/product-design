@@ -295,6 +295,17 @@ function checkStatePlacement(xml, name, ids, declared) {
 
 function checkClipping(xml, name) {
   const errors = []
+  for (const page of xml.matchAll(/<diagram\b[^>]*>([\s\S]*?)<\/diagram>/g)) {
+    const pageCells = cellsOf(page[1])
+    for (const annotation of pageCells.filter((cell) => /-(caption|note)$/.test(cell.id))) {
+      for (const frame of framesOf(pageCells)) {
+        if (annotation.x < frame.x + frame.width && annotation.x + annotation.width > frame.x
+          && annotation.y < frame.y + frame.height && annotation.y + annotation.height > frame.y) {
+          errors.push(`${name}: Annotation ${annotation.id} overlaps screen ${frame.id}; keep design notes and captions outside screens.`)
+        }
+      }
+    }
+  }
   const cells = cellsOf(xml)
   for (const frame of framesOf(cells)) {
     for (const cell of cells) {
