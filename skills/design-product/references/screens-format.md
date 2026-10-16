@@ -37,7 +37,7 @@ Under Navigation map, record **UI baseline:** source paths or supplied screensho
 **Screens.** One level-three heading per screen, written `### SC1 My shifts`. Under each:
 
 - **Purpose** and the journey step it serves.
-- **Layout:** page archetype (collection, detail, form, review, or outcome), persistent shell/current navigation, ordered content regions, primary action placement, viewport/fold, scroll/sticky behavior, and narrow-screen treatment. Reuse the same shell and component geometry across related screens; use the [page recipes](../../mockup-drawio/references/product-layouts.md), not a generic card grid for every task.
+- **Layout:** page archetype (start, collection, detail, question, form, review, or outcome), persistent shell/current navigation, ordered content regions in the same order a keyboard or screen reader would follow, primary action placement, viewport/fold, scroll/sticky behavior, and narrow-screen treatment. Reuse the same shell and component geometry across related screens; use the [page recipes](../../mockup-drawio/references/product-layouts.md), not a generic card grid for every task. On a review, record that each Change action returns to that review.
 - **Frame boundary:** only actual end-user UI and product copy inside mockup screens. Put design notes, SC/view captions, workflow narration, technical/accessibility explanations and layout assumptions outside frames. Genuine product notices, field help, errors and confirmations remain inside where users would see them; do not turn a design annotation into a fake product banner.
 - **Content:** what is shown, with the entity attribute it comes from.
 - **Inputs:** field, type, required or optional, validation rule ID, example value.
