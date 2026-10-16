@@ -15,7 +15,7 @@ The optional `Level` header is recommended for new packages. Select one cap:
 - **understand:** discovery only; no `screens.md`, `mockup.drawio`, or `build-spec.md`.
 - **design-documents:** discovery or evaluation; document options, experience, and an evaluation plan, deliberately deferring canonical screens and mockups. No `screens.md`, `mockup.drawio`, or `build-spec.md`, even when an option has an interface. Explain the deferral under Product experience.
 - **mockup:** discovery or evaluation; interface evaluation retains the screen/mockup coverage below. No `build-spec.md`, `technical-design.md`, or contract file.
-- **full:** any profile; permits the complete package, including `technical-design.md` when the slice will be implemented in software, but does not require unnecessary artifacts or imply build readiness.
+- **full:** any profile; permits `build-spec.md` and, only when the person runs `/technical-design`, `technical-design.md` for a slice that will be implemented in software. `/design-product` does not write the technical design. Full does not require unnecessary artifacts or imply build readiness.
 
 Only full (or a legacy proposal without Level) can use build-slice or the next gate specify a slice. A capped evaluation uses test solutions instead. Without Level, existing profile/package requirements remain unchanged; do not infer a level from prose or retrofit one silently.
 
@@ -33,7 +33,7 @@ The proposal decides. The package shows the shape and hands it to builders. All 
 | `mockup.drawio` | `mockup-drawio` | none | required when `screens.md` exists | required when `screens.md` exists |
 | `context.drawio` | `context-drawio` | none | when the option depends on other systems | same |
 | `build-spec.md` | `specify-build` | none | `Status: draft` when the next gate is specify a slice | `Status: ready`, required |
-| `technical-design.md` | `select-views` and the included view skills | none | none | when the slice will be implemented in software |
+| `technical-design.md` | `/technical-design` (`select-views` and the included view skills) | none | none | after `/technical-design`, when the slice will be implemented in software |
 | `openapi.yaml` | `design-contract` | none | none | when the interface view includes an HTTP boundary |
 | `asyncapi.yaml` | `design-contract` | none | none | when the interface view includes an event boundary |
 | `erd.drawio` | `design-data`, `erd-drawio` | none | optional, with a draft `build-spec.md` | when the information view is included |
@@ -41,7 +41,7 @@ The proposal decides. The package shows the shape and hands it to builders. All 
 | `sequence.drawio` | `sequence-drawio` | none | optional, with a draft `build-spec.md` | when an integration, notification, or handoff can fail or arrive late |
 | `dataflow.drawio` | `dataflow-drawio` | none | optional, with a draft `build-spec.md` | when the slice handles personal or sensitive data, or sends data to another party |
 
-Formats: [screens](screens-format.md), [build spec](build-spec-format.md), and [technical design](technical-design-format.md). When an option has no interface, such as a process or training change, say so in Product experience and skip the screen files. A software slice at Full also skips a technical view that Design views omits, and says why. A file that is required but missing makes the package incomplete. Do not create files to fill the table. Structural validation detects existing `screens.md` and checks its coverage; it does not infer an interface or a deliberate deferral from keywords. Human review checks those scope decisions.
+Formats: [screens](screens-format.md), [build spec](build-spec-format.md), and [technical design](technical-design-format.md). When an option has no interface, such as a process or training change, say so in Product experience and skip the screen files. `/design-product` does not create `technical-design.md`, contract files, or the build diagrams; their absence is not a gap until the person runs `/technical-design`. A software slice in that later phase also skips a technical view that Design views omits, and says why. A file that is required but missing makes the package incomplete. Do not create files to fill the table. Structural validation detects existing `screens.md` and checks its coverage; it does not infer an interface or a deliberate deferral from keywords. Human review checks those scope decisions.
 
 A Draw.io file holds one close flow. One flow keeps the name in the table. A mockup file is one actor and one task. Several flows are step folders in parent/child index order, `1-nurse-ask-cover/` then `1-nurse-ask-cover/1.1-nurse-choose-colleague/` then `2-colleague-accept-cover/`, and each folder holds that step's diagrams under their short names. Children must be physically inside their parent, not sibling folders with decimal names. The index starts at `1`. States of that task stay with it. A second page is a paired view of that same flow: as-is and to-be, logical and physical, or context and containers. The rule is [one file per close flow](../../drawio/references/drawio-file.md#one-file-per-close-flow).
 

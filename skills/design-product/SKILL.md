@@ -1,6 +1,6 @@
 ---
 name: design-product
-description: "Turn a human idea into an evidence-labeled product design package, from the problem through screens, a Draw.io mockup, and an implementation-ready build spec with the technical views that slice needs, or revise one when evidence or a decision changes. Use for /design-product, product discovery, product design, business analysis, technical design, and scoping a first useful release. Use advise mode when the person wants a suggested solution and design without waiting for a decision."
+description: "Turn a human idea into an evidence-labeled product design, one phase at a time: Understand, then Shape, then Specify. Use for /design-product, product discovery, product design, business analysis, and scoping a first useful release. Do not start the next phase unless the person approved the previous phase or asked to brainstorm the next one. Technical design is /technical-design and has the same gate. Use advise mode to recommend choices inside the current phase."
 disable-model-invocation: true
 ---
 
@@ -12,8 +12,9 @@ Bundled skills live at `../<name>/SKILL.md` from this file. You own the product 
 
 The Principles section below grounds every trade-off. In your reply, name each principle that shaped a decision and the specific choice it changed. Cite only principles whose leaf SKILL.md you read this session.
 
+- Run one phase, then stop. The phases are Understand, Shape, Specify, then technical design. Do not start the next phase in this run unless this human message approves the previous phase or asks to brainstorm that next phase. A named level, advise, or "the whole package" is not that approval and is not a brainstorm. Record approval as an attributed human decision. A brainstorm stays **proposed** and is not approval.
 - First apply [the discovery interview and context gate](references/discovery-interview.md). Missing core context keeps every mode and level in Understand; interview before progression. This takes precedence over advise, Full, proposed defaults, and no-question requests.
-- Advise mode, when the person says advise or asks you to suggest the solution and design without waiting for a decision → read [advise-mode.md](references/advise-mode.md) and apply it before the playbook. Once the context gate passes, do not stop for a level or layout decision. Then [new-idea.md](playbooks/new-idea.md), or [revise-design.md](playbooks/revise-design.md) when a design already exists.
+- Advise mode, when the person says advise or asks you to suggest the solution and design without waiting for a decision → read [advise-mode.md](references/advise-mode.md) and apply it before the playbook. Recommend inside the open phase. Do not cross a phase boundary. Then [new-idea.md](playbooks/new-idea.md), or [revise-design.md](playbooks/revise-design.md) when a design already exists.
 - A new idea, or no existing design, in guided mode → [new-idea.md](playbooks/new-idea.md). Resolve missing core context first. If the person did not name a level, then ask which of Understand, Design documents, Mockup, or Full to run before Shape.
 - An existing design with new evidence, changed scope, or a changed decision → [revise-design.md](playbooks/revise-design.md).
 - The request names a screen, feature, or technology → [principle-start-from-the-outcome](../principle-start-from-the-outcome/SKILL.md), then `frame-problem`.
@@ -23,11 +24,10 @@ The Principles section below grounds every trade-off. In your reply, name each p
 - Shaping the interaction → [principle-behave-predictably](../principle-behave-predictably/SKILL.md), then `design-screens`.
 - More than one role or system acts → `model-process`.
 - Showing the product's shape → `design-screens`, `write-content`, and `mockup-drawio`.
-- Handing a slice to builders → `map-stories`, `model-domain`, `select-views`, the view skills that list includes, `define-rules`, `record-decisions`, `specify-build`.
+- Handing a slice to builders → `map-stories`, `model-domain`, `define-rules`, `specify-build`. Stop there. Do not run `select-views`, the view skills, or `record-decisions`. Those belong to `/technical-design`, and only when the person asks for that phase.
 - The product depends on other systems, or scope is disputed → `context-drawio`.
-- After `model-domain`, when the selected views call for them → `design-data` then `erd-drawio` for identifiers and the drawing, `state-drawio` for lifecycles, `design-composition` for parts and the containers page, `design-dependency` for which parts require each other, `design-contract` for the service interface, `sequence-drawio` for interactions that can fail, `design-deployment` for where it runs, `dataflow-drawio` for trust boundaries, and `assess-threats` for what can go wrong at those boundaries.
-- A database design would assign types or indexes before identifiers and cardinality are settled → [principle-settle-the-logical-model](../principle-settle-the-logical-model/SKILL.md), then `design-data`.
-- A technical choice is hard to reverse → [principle-record-the-decision](../principle-record-the-decision/SKILL.md), then `record-decisions`.
+- A database design would assign types or indexes before identifiers and cardinality are settled → [principle-settle-the-logical-model](../principle-settle-the-logical-model/SKILL.md). Leave `design-data` for `/technical-design`.
+- A technical choice is hard to reverse → [principle-record-the-decision](../principle-record-the-decision/SKILL.md). Leave `record-decisions` for `/technical-design`.
 - An API, a screen, and a schema would copy each other → [principle-keep-the-schemas-apart](../principle-keep-the-schemas-apart/SKILL.md).
 - A journey, process, or navigation diagram → `drawio`. Every Draw.io file uses Draw.io's built-in shapes first ([drawio-file.md](../drawio/references/drawio-file.md#built-in-shapes-first)).
 - Read [the evidence contract](references/evidence-and-decisions.md) before classifying a claim. A plan to test is not a test result.

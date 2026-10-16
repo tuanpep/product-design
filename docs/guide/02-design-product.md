@@ -10,12 +10,12 @@
 
 That matches [new-idea.md](../../skills/design-product/playbooks/new-idea.md). First it applies the [discovery interview and context gate](../../skills/design-product/references/discovery-interview.md). A general request such as “build a task app” gets 1–3 focused open questions per turn, usually one main question, about missing context rather than immediate solution ideas. It reuses facts you already supplied. After an interview, it summarizes its understanding for your confirmation before Shape. A complete brief needs no extra interview or confirmation.
 
-Once context is sufficient, guided mode asks which level to run before Shape, unless your message already names one:
+Each run finishes one phase and stops. The next phase starts only when you approve the previous phase or ask to brainstorm that next phase. "Design the product", Full, and advise do not open a later phase.
 
 1. **Understand.** Problem, needs, and whether to continue. Only `product-design.md`.
-2. **Design documents.** The proposal, alternatives, evaluation plan, and useful journey/process diagrams. No screens or build spec.
-3. **Mockup.** Screens and a static high-fidelity Draw.io mockup with annotated flows. When a layout option is open, guided mode stops to choose it.
-4. **Full.** The whole package in one pass, including the build spec and the technical views the slice's concerns require.
+2. **Shape.** After you approve Understand, or say brainstorm the solution: alternatives, evaluation plan, journey, and process. Screens and the mockup are included unless you cap this phase at design documents.
+3. **Specify.** After you approve Shape, or say brainstorm the slice: `build-spec.md`.
+4. **Technical.** `/technical-design`, after you approve Specify or ask to brainstorm the technical design.
 
 ## Advise mode
 
@@ -23,7 +23,7 @@ Once context is sufficient, guided mode asks which level to run before Shape, un
 /design-product advise Staff coordinate shift swaps in chat, but the roster stays wrong.
 ```
 
-That uses the same playbook with level and design-choice stops removed, as [advise-mode.md](../../skills/design-product/references/advise-mode.md) defines. It still interviews when core context is missing. With sufficient context and no level named, it runs Full and records that choice as proposed. It recommends one option at each open choice, names the principle that decided it, and keeps writing screens, the mockup, and a draft build spec.
+That uses the same playbook inside the current phase, as [advise-mode.md](../../skills/design-product/references/advise-mode.md) defines. It still interviews when core context is missing. It recommends one option at each open choice in that phase, names the principle that decided it, and stops at the end of the phase.
 
 A hard choice, such as safety, money, law, or privacy, still gets a recommended default, labeled **proposed — owner must confirm**. That confirmation keeps `Status: draft`. It does not stop the run. `advise mockup` caps the run at the mockup and still does not ask you to pick the layout.
 
@@ -35,7 +35,7 @@ The four stages under those levels:
 
 1. **Understand:** frame the problem, map stakeholders, discover needs, define requirements, decide. If discovery says not to build, it stops here with only `product-design.md`.
 2. **Shape:** choose a source-backed opportunity, compare alternatives, identify risky assumptions, and plan evaluation before detailed design. Choose material and fidelity to fit the question: an inline scenario or linked learning material may be enough. Then model the process and journey; at Mockup or Full write `screens.md` and `mockup.drawio` for an interface. A large journey, process, or mockup is one file per close flow, such as `1-nurse-ask-cover/mockup.drawio`. The complete mockup draws every listed screen and state with product-styled basic shapes. At Mockup, when a layout option is open, guided mode asks which layout to take and whether the screens and their order are right. At Full, and in advise mode, it picks a labeled **proposed** option and continues. Design documents stops without screens but retains its evaluation plan.
-3. **Specify:** only at Full. Map stories, model the domain, and choose the technical views from the concerns that apply. Define rules, record hard-to-reverse decisions, and write `build-spec.md` plus `technical-design.md` when the slice will be software. It is `Status: draft` while blockers remain, and lists each blocker with its owner. Reversible questions get a labeled default instead of blocking. Included views can add an ERD, state and sequence diagrams, a data-flow diagram, a composition, and OpenAPI or AsyncAPI contracts. A view with no concern is omitted, with the reason recorded.
+3. **Specify:** only at Full. Map stories, model the domain, define rules, and write `build-spec.md`. It is `Status: draft` while blockers remain, and lists each blocker with its owner. Reversible questions get a labeled default instead of blocking. This stage does not choose technical views or write `technical-design.md`. Run `/technical-design` afterward when the slice will be software. That command can add an ERD, state and sequence diagrams, a data-flow diagram, a composition, and OpenAPI or AsyncAPI contracts. A view with no concern is omitted, with the reason recorded.
 4. **Check:** review what this level wrote and name the next gate.
 
 Open `mockup.drawio` in Draw.io, diagrams.net, or the Draw.io VS Code extension to see each screen and state side by side. Hand `build-spec.md` to engineers once it says `Status: ready` and a person has decided to invest.

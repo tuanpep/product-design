@@ -1,6 +1,6 @@
 # Technical design format
 
-`docs/product-design/<slug>/technical-design.md` is the software design description for one named slice. It tells builders which views exist, why, and how those views correspond. It follows [the output standard](output-standard.md). `select-views` creates it. The view skills fill the sections they own. `specify-build` fills Correspondences.
+`docs/product-design/<slug>/technical-design.md` is the software design description for one named slice. It tells builders which views exist, why, and how those views correspond. It follows [the output standard](output-standard.md). `/technical-design` creates it through `select-views`. The view skills fill the sections they own. That same phase fills Correspondences. `/design-product` does not create this file.
 
 Start with a title and this header:
 

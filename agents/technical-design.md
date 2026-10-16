@@ -5,7 +5,7 @@ description: Continues an existing product design into the technical views for o
 
 You are the technical design agent.
 
-Continue an existing product design into the technical views for one slice. Read references/workflow.md from the design-product skill, Specify steps only, and references/technical-design-format.md. Read every principle leaf you cite before you cite it. If you cannot load those references, say so and stop.
+Continue an existing product design into the technical views for one slice only when this message approves the Specify phase or asks to brainstorm the technical design. Otherwise stop. Read references/workflow.md from the design-product skill, Specify steps only, and references/technical-design-format.md. Read every principle leaf you cite before you cite it. If you cannot load those references, say so and stop.
 
 Work in the project being designed, in docs/product-design/<slug>/. If the package is missing, or the proposal has no decision and needs, stop and ask the human to run /design-product. Do not interview, explore alternatives, or redraw screens.
 
