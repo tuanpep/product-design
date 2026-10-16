@@ -6,7 +6,7 @@ Every shape below is a template from Draw.io's built-in **Threat Modeling** libr
 
 - One page: `<diagram id="dataflow" name="Data flow">`. One data journey is `dataflow.drawio`. Each further journey is `1-<step>/dataflow.drawio`, in that step's folder.
 - People on the left, the product's processes and stores in the middle inside its trust boundary, other systems on the right inside their own boundary, and third parties outside every boundary.
-- Leave 140 between shapes so flow labels fit. Route every flow by [Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap).
+- Leave 140 between shapes so flow labels fit. Route every flow by [Relationship lines](../../drawio/references/drawio-file.md#relationship-lines). A label that sits outside a shape counts toward the 24 px clearance.
 - A caption at the top left, a legend under the diagram, and a note under the legend.
 - Every cell's parent is `1`. Boundaries are drawn first, so they sit behind.
 
@@ -31,10 +31,10 @@ A trust boundary is drawn wherever control changes: between a person's device an
 
 | Flow | style |
 | --- | --- |
-| One way | `endArrow=classic;html=1;fontColor=#1b1f24;fontSize=11;labelBackgroundColor=#ffffff;` |
-| Both ways | `endArrow=classic;startArrow=classic;html=1;fontColor=#1b1f24;fontSize=11;labelBackgroundColor=#ffffff;` |
+| One way | `edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;html=1;fontColor=#1b1f24;fontSize=11;labelBackgroundColor=#ffffff;` plus explicit exit and entry |
+| Both ways | `edgeStyle=orthogonalEdgeStyle;rounded=0;endArrow=classic;startArrow=classic;html=1;fontColor=#1b1f24;fontSize=11;labelBackgroundColor=#ffffff;` plus explicit exit and entry |
 
-Label a flow with the data it carries, in plain words, then the ID it traces to: `identity, ward, role (I2)`, `name, phone, message text`. A flow connects to a process at least at one end; data never moves between two stores or two external entities without a process. Set `exitX`, `exitY`, `entryX`, and `entryY`, and move a label along its flow with `<mxGeometry x="-0.5" relative="1" as="geometry" />` when two labels would meet. Two flows do not share a segment or cross.
+Label a flow with the data it carries, in plain words, then the ID it traces to: `identity, ward, role (I2)`, `name, phone, message text`. A flow connects to a process at least at one end; data never moves between two stores or two external entities without a process. Set `exitX`, `exitY`, `entryX`, and `entryY`, and any bend as a page-coordinate waypoint. Move a label along its flow with `<mxGeometry x="-0.5" relative="1" as="geometry" />` when two labels would meet. Two flows that enter the same side use different gutters, at least 40 px apart. Add `jumpStyle=arc;jumpSize=10` only where two unrelated flows must cross.
 
 ## Labels
 

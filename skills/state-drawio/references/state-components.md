@@ -51,7 +51,7 @@ The transition template is `endArrow=open;html=1;rounded=0;align=center;vertical
 
 Label a transition `event [guard] / effect`, for example `Lan accepts [BR2] / update roster (I1)`. The event is what happens or who acts. The guard is the rule ID that must pass. The effect is the message, notification, or integration call. Leave out a part that does not apply, and keep the label on one line.
 
-Route every transition by [Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap). When two transitions leave the same side of a state, spread their exits so the segments do not stack. Every transition has a `source` and a `target`, and connects to the state, never to its behaviour row.
+Route every transition by [Relationship lines](../../drawio/references/drawio-file.md#relationship-lines). A fork shares one spine, then one branch per target at that target's centre, at least 40 px from the state column. Two transitions that enter the same side use different gutters and different entry points. A choice caption sits outside the diamond, so the first segment leaves the opposite side. Every transition has a `source` and a `target`, and connects to the state, never to its behaviour row. Add `jumpStyle=arc;jumpSize=10` only where two unrelated transitions must cross.
 
 ## Board annotations
 

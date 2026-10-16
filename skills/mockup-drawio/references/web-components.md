@@ -189,7 +189,7 @@ Caption: text, 20/28 regular, e.g. `SC2 Ask for cover · denied`. Note: square l
 
 Flow style: `edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeColor=#0f62fe;strokeWidth=2;fontFamily=Arial;fontSize=14;fontColor=#0f62fe;labelBackgroundColor=#ffffff;`
 
-Source an action edge from its control; label the action. Source a system transition from the frame; label `System:` and the condition. A path users can take is solid, including errors and recovery; dashed lines are reserved for layout alternatives. Use explicit waypoints in frame/row gaps and ports on the destination boundary. Avoid passing through unrelated frames, notes, captions, controls, or other labels; follow [edge rules](../../drawio/references/drawio-file.md#edges-do-not-overlap). Notes describe alternative outcomes that cannot be routed clearly without clutter; do not draw a spaghetti inventory of every theoretical path.
+Source an action edge from its control; label the action. Source a system transition from the frame; label `System:` and the condition. A path users can take is solid, including errors and recovery; dashed lines are reserved for layout alternatives. Use explicit waypoints in frame/row gaps and ports on the destination boundary. Avoid passing through unrelated frames, notes, captions, controls, or other labels; follow [edge rules](../../drawio/references/drawio-file.md#relationship-lines). Notes describe alternative outcomes that cannot be routed clearly without clutter; do not draw a spaghetti inventory of every theoretical path.
 
 ## Accessibility and viewport intent
 

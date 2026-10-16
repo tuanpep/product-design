@@ -32,7 +32,7 @@ Draw each relationship between rows, never between cells: cells are `connectable
 
 - Put parent entities on the left and their children to the right, so relationships run left to right. Columns of tables are 400 apart on the logical page and 560 apart on the physical page. Start at x 40, y 80.
 - A label that would not fit its cell is shortened, not wrapped.
-- When a relationship's vertical segment would cross another table, move the target table down until the path is clear. Two relationships do not share a segment ([Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap)). When several leave one row, give each its own exit and a parallel lane.
+- When a relationship's vertical segment would cross another table, move the target table down until the path is clear. Two relationships do not share a segment ([Edges do not overlap](../../drawio/references/drawio-file.md#relationship-lines)). When several leave one row, give each its own exit and a parallel lane.
 
 ## IDs
 

@@ -68,14 +68,14 @@ The boundary label is `<font style="font-size: 16px"><b><div style="text-align: 
 
 ## Relationships
 
-`endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;jumpStyle=arc;jumpSize=16;rounded=0;edgeStyle=orthogonalEdgeStyle;` then the exit and entry points.
+`endArrow=blockThin;html=1;fontSize=10;fontColor=#404040;strokeWidth=1;endFill=1;strokeColor=#828282;elbow=vertical;metaEdit=1;endSize=14;startSize=14;rounded=0;edgeStyle=orthogonalEdgeStyle;` then the exit and entry points. Add `jumpStyle=arc;jumpSize=10` only when [Relationship lines](../../drawio/references/drawio-file.md#relationship-lines) allows a crossing.
 
 | Relationship | Properties | label |
 | --- | --- | --- |
 | With a description | `c4Type` `Relationship`, `c4Description` | `<div style="text-align: left"><div style="text-align: center"><b>%c4Description%</b></div>` |
 | With a technology, only when the project already uses it | add `c4Technology` | `<div style="text-align: left"><div style="text-align: center"><b>%c4Description%</b></div><div style="text-align: center">[%c4Technology%]</div></div>` |
 
-A relationship is an `<object>` wrapping an `<mxCell edge="1" parent="1" source="…" target="…">`. Point it from the one who acts to the one acted on, and describe what flows in the words of the build-spec, with the integration ID: `Reads shifts, changes shift owner (I1)`. Route it by [Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap): set `exitX`, `exitY`, `entryX`, and `entryY` so two relationships do not share a point, and do not rely on the style's arc jump when a separate lane exists.
+A relationship is an `<object>` wrapping an `<mxCell edge="1" parent="1" source="…" target="…">`. Point it from the one who acts to the one acted on, and describe what flows in the words of the build-spec, with the integration ID: `Reads shifts, changes shift owner (I1)`. Route it by [Relationship lines](../../drawio/references/drawio-file.md#relationship-lines). Two relationships that enter the same side use different gutters, at least 40 px apart, and different entry points. A boundary does not count as a waypoint parent: points are page coordinates.
 
 ## Board annotations
 

@@ -1,12 +1,12 @@
 # Sequence diagram components for Draw.io
 
-Every shape below is a template from Draw.io's built-in **UML** library: lifeline, activation bar, message, return, self call, and frame. Each style is the library template followed by colour and font properties. Messages use the library's `sequenceEdgeStyle`, which keeps them horizontal, and also set their exit and entry points so they stay horizontal in older Draw.io builds. Copy a style exactly and change only the label, position, and size. [example.drawio](example.drawio) uses each one.
+Every shape below is a template from Draw.io's built-in **UML** library: lifeline, activation bar, message, return, self call, and frame. Each style is the library template followed by colour and font properties. Messages use `orthogonalEdgeStyle` with explicit ends so a message between lifelines stays one horizontal segment. Copy a style exactly and change only the label, position, and size. [example.drawio](example.drawio) uses each one.
 
 ## Layout
 
 - One file per scenario, one page: `<diagram id="<scenario>" name="<Scenario>">`, such as `Accept cover`. One scenario is `sequence.drawio`. Each further scenario is `1-<step>/sequence.drawio`, in that step's folder.
 - Lifelines are 160 wide, 240 apart, starting at x 40, y 80. The people who start the scenario are on the left, then the product, then other systems, then the people who are told last.
-- Messages run top to bottom, one every 40 to 50 down, starting at y 160. Every message is horizontal: its two ends share one y, and no two messages share a y ([Edges do not overlap](../../drawio/references/drawio-file.md#edges-do-not-overlap)). A self-call loop stays 50 right of that lifeline, clear of the next one.
+- Messages run top to bottom, one every 40 to 50 down, starting at y 160. Every message between lifelines is one horizontal segment: its two ends share one page y, and no two messages share a y ([Relationship lines](../../drawio/references/drawio-file.md#relationship-lines)). A self-call loop stays 50 right of that lifeline, clear of the next one, with both waypoints in page coordinates.
 - A caption sits at the top left. A note under the lifelines names the question, the source sections, and what the diagram does not test.
 
 ## Structure
@@ -19,7 +19,7 @@ Every shape below is a template from Draw.io's built-in **UML** library: lifelin
 | Message, return, self call | `1` | `relative="1"`; source and target are activation bars |
 | Frame, guard, divider | `1` | absolute, drawn before the lifelines so they sit behind |
 
-Every message connects two activation bars, never a lifeline, so it has a `source` and a `target`. Set the ends so the line is horizontal at the message's y: `exitX=1` and `entryX=0` when the target is to the right, `exitX=0` and `entryX=1` when it is to the left, and `exitY` and `entryY` equal to the message's y minus the bar's top, divided by the bar's height.
+Every message connects two activation bars, never a lifeline, so it has a `source` and a `target`. Do not use a bare `sourcePoint`. Set the ends so the line is horizontal at the message's y: `exitX=1;exitY=<along the bar>` and `entryX=0;entryY=<along the bar>` when the target is to the right, swapped when it is to the left. `exitY` and `entryY` equal the message's page y minus the bar's page top, divided by the bar's height. The bar's page top is the lifeline's page y plus the bar's local y. A self-call waypoint uses that same page origin. Two messages do not enter the same side of one bar within 40 px; add bar height or message spacing until they clear.
 
 ## IDs
 
@@ -55,7 +55,7 @@ A bar starts 10 above the first message it sends or receives and ends 10 below t
 
 ## Messages
 
-All messages share the library's sequence routing, `edgeStyle=sequenceEdgeStyle;libavoidRouting=0;curved=0;rounded=0;`, then `strokeColor=#1f2937;fontSize=11;fontColor=#1b1f24;labelBackgroundColor=#ffffff;`, then the exit and entry points.
+All messages use `edgeStyle=orthogonalEdgeStyle;rounded=0;`, then `strokeColor=#1f2937;fontSize=11;fontColor=#1b1f24;labelBackgroundColor=#ffffff;`, then the exit and entry points. The lifeline and bar templates keep the library `newEdgeStyle`. A message between lifelines has no waypoint. A self-call has two page-coordinate waypoints. Messages do not cross, so they do not set `jumpStyle`.
 
 | Message | Template before the routing | Use |
 | --- | --- | --- |

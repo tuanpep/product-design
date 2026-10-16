@@ -77,15 +77,22 @@ Draw.io ships a library for most software diagrams. A shape from the library ope
 | Data flow and trust boundaries | `dataflow.drawio` | Threat Modeling | `dataflow-drawio` |
 | Screen mockup | `mockup.drawio` | Basic shapes styled to the product: chrome, navigation, tables, forms, and feedback | `mockup-drawio` |
 
-## Edges do not overlap
+<a id="edges-do-not-overlap"></a>
 
-Every connector keeps its own lane. Two edges do not share a segment, and they do not cross. A label does not sit on another edge or on a shape. This applies to every Draw.io file: journey, process, navigation, mockup, context, ERD, state, sequence, and data flow.
+## Relationship lines
 
-1. Leave a gap between shapes wide enough for the label. That gap is the lane.
-2. Set `exitX`, `exitY`, `entryX`, and `entryY` so two edges do not leave or enter the same point. When several edges use one side, spread them (`0.25`, `0.5`, `0.75`).
-3. Add waypoints so each segment stays in its lane and runs through the gap, not across a shape. A waypoint is an `<mxPoint>` inside `<Array as="points">`.
-4. When two labels would meet, move one along its edge with `<mxGeometry x="-0.5" relative="1" as="geometry" />` (`x` from `-1` to `1`). A labelled edge keeps `labelBackgroundColor=#ffffff`.
-5. Reroute before you allow a crossing. A crossing that cannot be rerouted adds `jumpStyle=arc;jumpSize=12;`. Sequence messages stay horizontal, one y each, so they never jump. A crow's-foot line moves its table instead of crossing another table.
+A reader follows each edge without tracing through a bundle. This is the routing rule for every journey, process, navigation, context, data-flow, sequence, and state diagram. It does not change which nodes connect, the labels, or the evidence codes. Crow's-foot ERD links keep `entityRelationEdgeStyle` and move a table instead of crossing it. Mockup arrows use the same clearance and explicit ends, in the frame gaps named under [Lines](#lines).
+
+1. **Orthogonal, with the ends written down.** Set `edgeStyle=orthogonalEdgeStyle;rounded=0;` and explicit `exitX`, `exitY`, `entryX`, and `entryY` (`exitDx`, `exitDy`, `entryDx`, and `entryDy` are `0`). Each end sits on one side: one axis is `0` or `1`, and the other is the point along that side. One arrival uses the middle (`0.5`). A second arrival on that side uses a different point, still on that side. Do not set `jettySize=auto` or `elbowEdgeStyle`. A single straight segment needs no waypoint. Any bend is an `<mxPoint>` in `<Array as="points">`. Do not leave the router to invent the path.
+2. **Page coordinates, and both ends.** A waypoint is a page x and y. A child inside a swimlane, boundary, or lifeline stores local x and y. Add the parent's page x and y (and each ancestor's) to that local origin before placing a point. Every edge has `source` and `target`. Do not use a bare `sourcePoint` or `targetPoint`.
+3. **Touch a shape only at the end.** The exit segment and the entry segment are the only parts that may meet a shape. Every other segment stays at least 24 px outside every shape, including a caption or label that sits outside the shape (a BPMN event or gateway label under the diamond, a note, an asset tag).
+4. **One spine for a fork.** From a gateway or fork, go to a single vertical gutter (or one horizontal gutter), then branch once per target at that target's centre. Do not draw several verticals 8–20 px apart; they render as one muddy stroke. Leave at least 40 px between the spine and the task column. Move the tasks to open that gutter. Do not thread the line through them.
+5. **Separate arrivals.** Two flows that enter the same side of the same node use different gutters, at least 40 px apart, and different entry points on that side. A long return across swimlanes uses the left or right margin, not the same x as the forward flow.
+6. **Leave a gateway away from its caption.** When the caption sits outside the shape, the first segment leaves the opposite side. A BPMN gateway or event caption is below, so the flow does not use the bottom edge (`exitY=1`).
+7. **A jump is a last resort.** Add `jumpStyle=arc;jumpSize=10` only where two unrelated lines must cross. A jump does not replace a gutter. Sequence messages stay on their own y, so they do not jump.
+8. **Check the geometry after writing.** No segment through a shape. No near-duplicate parallel segments. No two arrows entering the same side within 40 px. No waypoint inside a node except the intended end. Fix the file before treating the diagram as done.
+
+When two labels would meet, move one along its edge with `<mxGeometry x="-0.5" relative="1" as="geometry" />` (`x` from `-1` to `1`). A labelled edge keeps `labelBackgroundColor=#ffffff`. A label does not sit on another edge or on a shape.
 
 Mockup frames use the gap between frames as the lane. The component page for a diagram says which lane is which.
 
@@ -98,7 +105,7 @@ A line is the relationship. The same stroke means the same thing in a flowchart,
 
 Every edge has `edge="1"`, a `source`, and a `target`. A flowchart, navigation, or mockup edge has `parent="1"`. A swimlane sequence flow also has `parent="1"`, including a flow that stays inside one lane. A labelled edge keeps `labelBackgroundColor=#ffffff`.
 
-Direction is left to right and top to bottom. A line enters a shape on the left (`entryX=0`) or the top (`entryY=0`) and leaves on the right (`exitX=1`) or the bottom (`exitY=1`). Two lines that use one side take `0.25` and `0.75`, not the same point. A waypoint sits in the gap named below, not on a shape. When two lines arrive at one shape, offset the join so they do not share a segment.
+Direction is left to right and top to bottom. A line enters a shape on the left (`entryX=0;entryY=0.5`) or the top (`entryX=0.5;entryY=0`) and leaves on the right (`exitX=1;exitY=0.5`) or the bottom (`exitX=0.5;exitY=1`). Two lines that use one side take different gutters and different entry points, as [Relationship lines](#relationship-lines) requires. A waypoint sits in a gutter, at least 24 px outside every shape.
 
 A wireflow arrow starts on the control the person uses. When nobody acts, it starts on the frame. A same-row arrow travels in the column gap and enters the next frame on the left. An arrow to the row below travels in the row gap, beside the caption and the note, and enters the next frame on the top.
 
@@ -129,7 +136,7 @@ An action label is a verb plus an object (`Ask a colleague to cover`). The same 
 | The line continues in the next file | 60×60 | `strokeWidth=2;html=1;shape=mxgraph.flowchart.off-page_reference;whiteSpace=wrap;` |
 | Note that does not fit in the shape | as needed | `strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_1;whiteSpace=wrap;` |
 
-**Relate.** The connector is `edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;fontSize=12;labelBackgroundColor=#ffffff;`. The main path leaves the bottom and enters the top. Yes leaves the bottom. No leaves the right and enters the side column on the left. A third condition leaves the left. Follow [Lines](#lines) and [Edges do not overlap](#edges-do-not-overlap).
+**Relate.** The connector is `edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;fontSize=12;labelBackgroundColor=#ffffff;`, plus the exit and entry points from [Relationship lines](#relationship-lines). The main path leaves the bottom and enters the top. Yes leaves the bottom. No leaves the right and enters the side column on the left. A third condition leaves the left. A return uses the margin, not the main column. Follow [Lines](#lines).
 
 ```xml
 <mxCell id="start" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
@@ -147,13 +154,13 @@ An action label is a verb plus an object (`Ask a colleague to cover`). The same 
 <mxCell id="handoff" value="Ask the charge nurse" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
   <mxGeometry x="620" y="210" width="120" height="60" as="geometry" />
 </mxCell>
-<mxCell id="to-choice" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;fontSize=12;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="choice">
+<mxCell id="to-choice" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;fontSize=12;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="choice">
   <mxGeometry relative="1" as="geometry" />
 </mxCell>
-<mxCell id="yes" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="choice" target="ask">
+<mxCell id="yes" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="choice" target="ask">
   <mxGeometry relative="1" as="geometry" />
 </mxCell>
-<mxCell id="no" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeWidth=2;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="choice" target="handoff">
+<mxCell id="no" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;strokeWidth=2;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="choice" target="handoff">
   <mxGeometry relative="1" as="geometry" />
 </mxCell>
 ```
@@ -182,7 +189,7 @@ Events, tasks, and gateways share these template prefixes; the table adds the re
 | Rule check | 120×80 | Task, then `taskMarker=businessRule;`, labelled with the rule ID |
 | Decision | 50×50 | Gateway, then `outline=none;symbol=none;gwType=exclusive;`, with the question as its label |
 | Parallel split or join | 50×50 | Gateway, then `outline=none;symbol=none;gwType=parallel;` |
-| Flow | edge | `edgeStyle=elbowEdgeStyle;fontSize=12;html=1;endArrow=blockThin;endFill=1;` |
+| Flow | edge | `edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=12;html=1;endArrow=blockThin;endFill=1;` plus explicit exit and entry |
 
 ```xml
 <mxCell id="lane-nurse" value="Nurse" style="swimlane;html=1;startSize=20;fontStyle=0;collapsible=0;horizontal=0;swimlaneLine=1;swimlaneFillColor=#ffffff;strokeWidth=2;whiteSpace=wrap;" vertex="1" parent="1">
@@ -197,8 +204,13 @@ Events, tasks, and gateways share these template prefixes; the table adds the re
 <mxCell id="check" value="Check hours rule (BR2)" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task2;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=businessRule;" vertex="1" parent="lane-roster">
   <mxGeometry x="300" y="40" width="120" height="80" as="geometry" />
 </mxCell>
-<mxCell id="ask-check" value="" style="edgeStyle=elbowEdgeStyle;fontSize=12;html=1;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="ask" target="check">
-  <mxGeometry relative="1" as="geometry" />
+<mxCell id="ask-check" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;fontSize=12;html=1;endArrow=blockThin;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ask" target="check">
+  <mxGeometry relative="1" as="geometry">
+    <Array as="points">
+      <mxPoint x="290" y="120" />
+      <mxPoint x="290" y="280" />
+    </Array>
+  </mxGeometry>
 </mxCell>
 ```
 
@@ -206,7 +218,7 @@ Events, tasks, and gateways share these template prefixes; the table adds the re
 
 **Place.** The first step in a lane is at x = 40, and each next step is 200 to the right (an 80 gap after a 120-wide task). A wait is a timer event in the lane of whoever waits, not a task.
 
-**Relate.** Follow [Lines](#lines). A cross-lane flow runs through the gap between steps, not across a task, and follows [Edges do not overlap](#edges-do-not-overlap). An exclusive exit is labelled Yes or No, or with the condition, and leaves the side that faces its target (`exitX=1` going right, `entryX=0` on the target).
+**Relate.** Follow [Lines](#lines) and [Relationship lines](#relationship-lines). The edge `parent` is `1`, so each waypoint is page x and y: lane x plus the step's local x, and lane y plus the step's local y. In the sample, `ask` is at page (120, 80) and `check` is at page (340, 240); the gutter x = 290 sits in the gap and 24 px clear of both tasks. A parallel fork uses one spine at least 40 px from the task column, then one branch per target at that target's centre. A gateway caption hangs below the diamond, so the first segment leaves the top, left, or right. An exclusive exit is labelled Yes or No, or with the condition. A return across lanes uses the page margin, not the forward gutter.
 
 ## Navigation map cells
 
@@ -230,4 +242,4 @@ Use the built-in **Sitemap** library. One shape per screen, 160×90, labelled `S
 | Warning | `warning` |
 | Help | `faq` |
 
-Use `page` for any screen the table does not cover, rather than guessing another name. Place the entry screen at the left or the top, and step 200 to the next screen so the gap holds the label. Label each arrow with the action that moves between screens, in the words the user sees, using the flow chart connector. The line follows [Lines](#lines): it leaves the right or the bottom and enters the left or the top, and it follows [Edges do not overlap](#edges-do-not-overlap). Screen mockups use the component library in `mockup-drawio`.
+Use `page` for any screen the table does not cover, rather than guessing another name. Place the entry screen at the left or the top, and step 200 to the next screen so the gap holds the label. Label each arrow with the action that moves between screens, in the words the user sees, using the flow chart connector. The line follows [Lines](#lines) and [Relationship lines](#relationship-lines): it leaves the right or the bottom and enters the left or the top. Screen mockups use the component library in `mockup-drawio`.
