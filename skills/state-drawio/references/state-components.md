@@ -6,7 +6,8 @@ Every shape below is a template from Draw.io's built-in **UML 2.5** library (sta
 
 - One file per entity, one page: `<diagram id="<entity>" name="<Entity>">`, using the glossary term. One entity is `states.drawio`. Each further entity is `1-<entity>/states.drawio`, numbered in parent/child index order.
 - A caption at the top left names the entity and the slice. A note under the diagram names the question, the source sections, and what the diagram does not test.
-- The main path runs left to right at the top. Exceptions, failures, and terminal states sit in a column or a row below it.
+- The initial pseudostate is the leftmost shape. The main path runs left to right along the top row. A normal end, including the final pseudostate, is the rightmost shape on that row.
+- Exceptions, failures, and the way back sit on a row below the main path. A transition that returns to the same state is a small loop beside that state. It does not cross the main row.
 - States are 160×70. Leave at least 280 between columns so a transition label fits on one line, and 120 between rows.
 - Coordinates are absolute on the page, and every cell's parent is `1`, except a behaviour row, whose parent is its state.
 

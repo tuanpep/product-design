@@ -5,8 +5,10 @@ Every shape below is a template from Draw.io's built-in **Threat Modeling** libr
 ## Layout
 
 - One page: `<diagram id="dataflow" name="Data flow">`. One data journey is `dataflow.drawio`. Each further journey is `1-<step>/dataflow.drawio`, in that step's folder.
-- People on the left, the product's processes and stores in the middle inside its trust boundary, other systems on the right inside their own boundary, and third parties outside every boundary.
-- Leave 140 between shapes so flow labels fit. Route every flow by [Relationship lines](../../drawio/references/drawio-file.md#relationship-lines). A label that sits outside a shape counts toward the 24 px clearance.
+- People on the left, the product's processes and stores in the middle inside its trust boundary, other systems on the right inside their own boundary, and third parties outside every boundary. Reading order is left to right, then top to bottom.
+- A trust boundary is crossed only by a data flow. A shape stays inside the boundary of whoever controls it.
+- Leave 140 between shapes so flow labels fit. Keep each flow short. Move a shape to clear a crossing before adding a bend. Route every flow by [Relationship lines](../../drawio/references/drawio-file.md#relationship-lines). A label that sits outside a shape counts toward the 24 px clearance.
+- Label every flow with the data it carries. A slice diagram does not leave flows blank.
 - A caption at the top left, a legend under the diagram, and a note under the legend.
 - Every cell's parent is `1`. Boundaries are drawn first, so they sit behind.
 

@@ -5,7 +5,7 @@ Every shape below is a template from Draw.io's built-in **UML** library: lifelin
 ## Layout
 
 - One file per scenario, one page: `<diagram id="<scenario>" name="<Scenario>">`, such as `Accept cover`. One scenario is `sequence.drawio`. Each further scenario is `1-<step>/sequence.drawio`, in that step's folder.
-- Lifelines are 160 wide, 240 apart, starting at x 40, y 80. The people who start the scenario are on the left, then the product, then other systems, then the people who are told last.
+- Lifelines are 160 wide, 240 apart, starting at x 40, y 80. UML gives lifeline order no meaning. Place the person or system that starts the scenario on the left, then the product, then other systems, then the people who are only told, on the right. Keep the gaps even so a message stays short. One scenario is one file. Do not add a second scenario to the page.
 - Messages run top to bottom, one every 40 to 50 down, starting at y 160. Every message between lifelines is one horizontal segment: its two ends share one page y, and no two messages share a y ([Relationship lines](../../drawio/references/drawio-file.md#relationship-lines)). A self-call loop stays 50 right of that lifeline, clear of the next one, with both waypoints in page coordinates.
 - A caption sits at the top left. A note under the lifelines names the question, the source sections, and what the diagram does not test.
 

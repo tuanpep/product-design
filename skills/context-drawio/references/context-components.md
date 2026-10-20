@@ -24,8 +24,10 @@ Every element and relationship has `placeholders="1"`. Escape `&`, `<`, `>`, and
 
 ## Layout
 
-- People in the top row, the product in the middle, the systems it depends on in the bottom row, and systems outside the organisation to the right, outside the boundary.
-- People are 200×180 and systems 240×120; both have `resizable=0`. Leave 240 across and 100 down between elements so relationship labels fit.
+- The product is the centre. People sit in the top row. Systems it depends on sit in the bottom row. Systems outside the organisation sit to the right, outside the boundary.
+- The context page shows people and software systems. It does not show databases, protocols, networks, or internal parts. Those belong on the containers page or in the text.
+- When more than six external systems would appear, group the ones that play the same role, name the group, and list the members in the note.
+- People are 200×180 and systems 240×120; both have `resizable=0`. Leave 240 across and 100 down between elements so relationship labels fit. Move an element to clear a crossing before adding a bend.
 - Every element's parent is `1`. The boundary is drawn first, so it sits behind.
 
 ## IDs
@@ -85,4 +87,4 @@ A relationship is an `<object>` wrapping an `<mxCell edge="1" parent="1" source=
 
 ## What to leave out
 
-Servers, networks, cloud services, and frameworks the project does not already use. Components and code belong to the build. Systems that the product does not talk to directly, even if they are nearby.
+Databases, protocols, servers, networks, cloud services, and frameworks on the context page. A technology name appears only on the containers page, and only when the project already uses it. Components and code belong to the build. Systems that the product does not talk to directly, even if they are nearby.

@@ -67,7 +67,7 @@ Conventions: `snake_case`, `bigint` identity, `timestamptz`. `decline_reason` pe
 ## Does not demonstrate
 
 - External-reference (dashed) entities — see [erd-components.md](erd-components.md)
-- Alternate keys as `AK` rows
+- Alternate keys as `AK` rows — the style is in [erd-components.md](erd-components.md); this specimen has none
 - SQL, migrations, or retention enforcement
 
 Open each `.drawio` in Draw.io or diagrams.net.

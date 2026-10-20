@@ -21,6 +21,22 @@ Both pages use formal identifiers. Neither page uses spaced prose labels (`Cover
 
 Meaning, examples, and plain-language definitions stay in Glossary and Domain model. The ERD does not restate them.
 
+## Layout
+
+Sources consulted 2026-10-20 for how to place tables and route lines.
+
+| Source | Relevant guidance | Application here |
+| --- | --- | --- |
+| [British Columbia ER modeling standard](https://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/information-technology/standards/economy-sector/entity_relationship_modeling_standards_and_guidelines.pdf) (v2.0.2), diagramming style | Independent entities sit above dependents. The many end is at the bottom or the right. Relationship names stay horizontal and do not overlap. | Parents are the left column. Crow's feet point right. Labels sit on the line with a white background. |
+| Crow's-foot reading practice | Read each end from the entity outward. The mark nearest the entity is the maximum. The mark nearer the line is the minimum. | A straight left-to-right stroke makes that pair readable. See [Relationships](erd-components.md#relationships). |
+| Diagram layout practice (orthogonal routing, crossing reduction) | Move boxes to remove crossings. Prefer one horizontal or vertical stroke. A turn is 90 degrees. Keep related entities close and reference data off the main chain. | [Layout](erd-components.md#layout): one straight stroke, then at most one elbow. Move a table instead of adding a bend or a jump. External references stay in the rightmost column. |
+
+Not adopted:
+
+- High-volume entities at the top left, with feet pointing down. That fights parent-on-the-left.
+- A keys-only picture with attributes only in a side list. A slice ERD still draws the attributes from the domain model. The glossary remains the dictionary.
+- A hard cap of about 15 entities per page. A second file is only for a cluster that shares no relationship with the first.
+
 ## Boundaries
 
 - Notation is Draw.io Entity Relation crow's foot, not IDEF1X or Barker IE boxes.

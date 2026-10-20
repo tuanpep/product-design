@@ -5,7 +5,7 @@ Entities use Draw.io's built-in **Entity Relation → Table** shape (`shape=tabl
 ## Pages
 
 - Page 1 is `Logical`, with `<diagram id="logical" name="Logical">`. It is always drawn.
-- Page 2 is `Physical`, with `<diagram id="physical" name="Physical">`. It is drawn only when the target project has a database or the human asks.
+- Page 2 is `Physical`, with `<diagram id="physical" name="Physical">`. It is drawn only when `design-data` wrote a physical proposal.
 - In a product package, one cluster of entities that share relationships is one file, `erd.drawio`, with those two pages. A second cluster that shares none is `1-<cluster>/erd.drawio`, numbered in parent/child index order, with the same two pages when a physical view is drawn.
 - The skill references keep the pages as separate specimen files (`example-logical.drawio`, `example-physical.drawio`) so each view opens on its own. Package output still combines them in `erd.drawio`.
 - Each page starts with a caption at the top left, and ends with a note under the diagram that names the question, the source sections in `build-spec.md`, the conventions followed, and what the diagram does not test.
@@ -51,9 +51,22 @@ Rules:
 
 ## Layout
 
-- Put parent entities on the left and their children to the right, so relationships run left to right. Columns of tables are 400 apart on the logical page and 560 apart on the physical page. Start at x 40, y 80.
-- A label that would not fit its cell is shortened, not wrapped.
-- When a relationship's vertical segment would cross another table, move the target table down until the path is clear. Two relationships do not share a segment ([Edges do not overlap](../../drawio/references/drawio-file.md#relationship-lines)). When several leave one row, give each its own exit and a parallel lane.
+A reader starts at the top left and follows the main chain left to right. The "one" side is the parent, on the left. The crow's foot points right, toward the child. Snap every `x` and `y` to the 10 grid. Sources and the choices this section does not take are in [erd-research.md](erd-research.md#layout).
+
+**Columns.** A table with no foreign key is rank 0. Every other table is one rank higher than its highest-rank parent. Same rank, same x. A child is never left of its parent.
+
+| Page | First column | Next column | Table width | Gutter between edges |
+| --- | --- | --- | --- | --- |
+| Logical | x 40 | +400 | 280 | 120 |
+| Physical | x 40 | +560 | 480 | 80 |
+
+The first table in a column starts at y 80, under the caption. Stack later tables in that column with at least 40 between them, or 80 when a line must pass through the gap. Do not overlap a table, the caption, the legend, or the note. Keep the main chain short: a parent and its child sit in neighbouring columns. An external reference stays in the rightmost column, dashed, and is not inserted between a parent and its child.
+
+**One straight stroke, then at most one elbow.** Give the parent key row and the child foreign-key row the same page y (`table y + row y`) so the crow's foot is one horizontal segment in the gutter. If that alignment would cover the caption or another table, keep the column x and move the child down. The line is then one vertical in the gutter and one horizontal into the row. Do not draw a diagonal. Move a table to clear a crossing. Do not add bends or a jump arc to hide one.
+
+**Lines.** Keep `entityRelationEdgeStyle`. Draw from the parent key row to the child foreign-key row. A line touches a table only at those two rows. Every other part stays in the gutter, at least 24 outside every table. Two lines in one gutter run parallel and at least 40 apart. They do not share a segment ([Edges do not overlap](../../drawio/references/drawio-file.md#relationship-lines)). Two roles from the same parent (requester and colleague) end on two foreign-key rows. A relationship from a table to itself stays in that table's right gutter and does not cross another table. Give each label a different `x` on `<mxGeometry x="0.3" relative="1" as="geometry" />` (`x` from `-1` to `1`) so the words do not stack. A label keeps `labelBackgroundColor=#ffffff` and does not sit on a table.
+
+**Frame.** The caption is top left. The physical legend is top right, 24 clear of the nearest table. The note sits 40 below the lowest table. Set `pageWidth` and `pageHeight` to the bounds of every shape plus 40, rounded up to a multiple of 10. A label that would not fit its cell is shortened, not wrapped. After placing, zoom out: the main chain should still read left to right without tracing a line.
 
 ## IDs
 
@@ -101,6 +114,7 @@ Then vary the row's cells by what the row holds:
 | Row | Key cell | Name cell | Logical example | Physical example |
 | --- | --- | --- | --- | --- |
 | Primary key | `PK` | add `fontStyle=5;` (bold, underlined) | `PK` · `CoverRequestId` | `PK` · `id` · `bigint` · `identity` |
+| Alternate key | `AK` | as is | `AK` · `WorkEmail` | `AK` · `work_email` · empty · `unique` |
 | Foreign key | `FK` | as is | `FK` · `ShiftId` | `FK` · `shift_id` · `bigint` · `not null · on delete restrict` |
 | Attribute | empty | as is | `SentAt` or `DecidedAt (optional)` | `sent_at` · `timestamptz` · `not null · default now()` |
 | Personal or sensitive | as its key kind | every cell `fontColor=#b42318;` | `DeclineReason (optional, personal)` | `decline_reason` · `text` · `null · personal` |
@@ -122,7 +136,7 @@ Draw each relationship from the row of the parent's key to the row of the child'
 | One or many | `ERoneToMany` |
 | Zero or many | `ERzeroToMany` |
 
-For example, a ward runs zero or many shifts: `startArrow=ERmandOne;endArrow=ERzeroToMany;`. Label the logical relationship with the domain model's present-tense verb, such as `runs`, or `runs / belongs to` when the reverse reading differs and the label still fits. The domain model owns the full both-way sentence with cardinality. When several relationships leave the same row, give each label a different `x` on `<mxGeometry x="0.3" relative="1" as="geometry" />` (from `-1` to `1`) so the labels do not stack.
+For example, a ward runs zero or many shifts: `startArrow=ERmandOne;endArrow=ERzeroToMany;`. Read each end from the table outward: the mark nearest the table is the maximum, and the mark nearer the line is the minimum. Label the logical relationship with the domain model's present-tense verb, such as `runs`, or `runs / belongs to` when the reverse reading differs and the label still fits. The domain model owns the full both-way sentence with cardinality. Place the tables and route the line with [Layout](#layout).
 
 A link to an external reference uses `edgeStyle=entityRelationEdgeStyle;html=1;dashed=1;startArrow=none;endArrow=open;strokeColor=#8c959f;fontSize=11;fontColor=#57606a;labelBackgroundColor=#ffffff;`, labelled with the integration ID.
 
@@ -130,7 +144,7 @@ A link to an external reference uses `edgeStyle=entityRelationEdgeStyle;html=1;d
 
 | Item | style |
 | --- | --- |
-| Caption | `text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;` labelled `Logical model · shift swaps` |
+| Caption | `text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1b1f24;` labelled `Logical · ShiftSwaps` |
 | Legend swatch | 100×24, the table style without the prefix, plus `rounded=0;whiteSpace=wrap;html=1;fontSize=11;`, labelled `New`, `Existing`, `Changed`, or `External` |
 | Note | `shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;verticalAlign=top;fontSize=12;` |
 
