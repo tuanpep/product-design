@@ -513,8 +513,12 @@ test('validates diagrams and canonical documents inside nested child folders', (
 })
 
 test('every Draw.io skill example is a valid diagram', () => {
-  for (const skill of ['mockup-drawio', 'erd-drawio', 'state-drawio', 'sequence-drawio', 'context-drawio', 'dataflow-drawio']) {
+  for (const skill of ['mockup-drawio', 'state-drawio', 'sequence-drawio', 'context-drawio', 'dataflow-drawio']) {
     const xml = readFileSync(new URL(`../skills/${skill}/references/example.drawio`, import.meta.url), 'utf8')
     assert.deepEqual(checkDrawio(xml, `${skill}/example.drawio`), [])
+  }
+  for (const name of ['example-logical.drawio', 'example-physical.drawio']) {
+    const xml = readFileSync(new URL(`../skills/erd-drawio/references/${name}`, import.meta.url), 'utf8')
+    assert.deepEqual(checkDrawio(xml, `erd-drawio/${name}`), [])
   }
 })

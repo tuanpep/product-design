@@ -1,12 +1,13 @@
 # ERD components for Draw.io
 
-Entities use Draw.io's built-in **Entity Relation → Table** shape (`shape=table`, `shape=tableRow`, `shape=partialRectangle`), and relationships use its built-in crow's-foot arrow ends. The file opens in Draw.io desktop, diagrams.net, and the VS Code extension as a real table: rows can be added, moved, and resized in the editor. Copy a style exactly and change only the label, position, and size. [example.drawio](example.drawio) uses each one on a logical and a physical page.
+Entities use Draw.io's built-in **Entity Relation → Table** shape (`shape=table`, `shape=tableRow`, `shape=partialRectangle`), and relationships use its built-in crow's-foot arrow ends. The file opens in Draw.io desktop, diagrams.net, and the VS Code extension as a real table: rows can be added, moved, and resized in the editor. Copy a style exactly and change only the label, position, and size. Specimens: [example-logical.drawio](example-logical.drawio) and [example-physical.drawio](example-physical.drawio); [example-erd.md](example-erd.md) lists the entities, relationships, and naming choices. Naming and layering follow [erd-research.md](erd-research.md).
 
 ## Pages
 
 - Page 1 is `Logical`, with `<diagram id="logical" name="Logical">`. It is always drawn.
 - Page 2 is `Physical`, with `<diagram id="physical" name="Physical">`. It is drawn only when the target project has a database or the human asks.
-- One cluster of entities that share relationships is one file, `erd.drawio`. A second cluster that shares none is `1-<cluster>/erd.drawio`, numbered in parent/child index order, with the same two pages when a physical view is drawn.
+- In a product package, one cluster of entities that share relationships is one file, `erd.drawio`, with those two pages. A second cluster that shares none is `1-<cluster>/erd.drawio`, numbered in parent/child index order, with the same two pages when a physical view is drawn.
+- The skill references keep the pages as separate specimen files (`example-logical.drawio`, `example-physical.drawio`) so each view opens on its own. Package output still combines them in `erd.drawio`.
 - Each page starts with a caption at the top left, and ends with a note under the diagram that names the question, the source sections in `build-spec.md`, the conventions followed, and what the diagram does not test.
 
 ## Structure
@@ -27,6 +28,26 @@ Every row has the same cells in the same order, so the columns line up:
 | Physical | key 40, column 150, type 100, constraints 190 | 480 |
 
 Draw each relationship between rows, never between cells: cells are `connectable=0`.
+
+## Naming
+
+Both pages use formal identifiers. Logical is PascalCase; physical follows the schema. Spaced prose (`Cover request`, `Sent at`) stays in the glossary, not on the board.
+
+| Kind | Logical page | Physical page |
+| --- | --- | --- |
+| Entity / table | Singular PascalCase from the glossary term: `CoverRequest` | Table name from the proposal: `cover_request` |
+| Attribute / column | Singular PascalCase: `SentAt`, `DeclineReason (optional, personal)` | Column name from the proposal: `sent_at`, `decline_reason` |
+| Primary identifier | Entity-qualified or `Id`: `CoverRequestId` | Column name: `id` or `cover_request_id` as the proposal uses |
+| Foreign key | Role or entity + `Id`: `ShiftId`, `RequesterId` | Column name: `shift_id`, `requester_id` |
+| Relationship | Present-tense verb from the domain model: `runs`. When the reverse reading differs and fits, `runs / belongs to` | Usually unlabelled; cardinality stays in the crow's-foot ends |
+
+Rules:
+
+- Derive logical PascalCase from the glossary term by removing spaces and capitalising each word. Do not invent a different concept name.
+- Do not put types, nullability SQL, or DBMS keywords on the logical page. Marks `(optional)` and `(personal)` are allowed after the identifier.
+- Physical names follow the existing schema or the physical proposal. Do not paste PascalCase or glossary phrases as column labels.
+- Draw.io cell `id` values stay kebab-case (`ent-cover-request`); they are not ER names.
+- Row order inside a table: primary key, then foreign keys, then required attributes, then optional attributes. Index rows come last on the physical page.
 
 ## Layout
 
@@ -52,9 +73,9 @@ All table styles share the built-in table prefix:
 | New table | a table this slice adds | `fillColor=#1f6b4a;strokeColor=#1f6b4a;fontColor=#ffffff;` |
 | Existing table | a table that already exists, unchanged | `fillColor=#eaeef2;strokeColor=#8c959f;fontColor=#1b1f24;` |
 | Changed table | an existing table this slice changes | `fillColor=#fff4ce;strokeColor=#7a5a00;fontColor=#7a5a00;` |
-| External reference | an entity whose system of record is another system | `fillColor=#f6f8fa;strokeColor=#8c959f;fontColor=#57606a;dashed=1;` labelled with the entity and its integration, such as `Roster shift (I1)` |
+| External reference | an entity whose system of record is another system | `fillColor=#f6f8fa;strokeColor=#8c959f;fontColor=#57606a;dashed=1;` labelled with the PascalCase entity and its integration, such as `RosterShift (I1)` |
 
-Label a table with its real name: the glossary term on the logical page, such as `Cover request`, and the table name on the physical page, such as `cover_request`.
+Label a table with its identifier for that page only: PascalCase on the logical page (`CoverRequest`), and the table name on the physical page (`cover_request`).
 
 ## Rows
 
@@ -79,14 +100,14 @@ Then vary the row's cells by what the row holds:
 
 | Row | Key cell | Name cell | Logical example | Physical example |
 | --- | --- | --- | --- | --- |
-| Primary key | `PK` | add `fontStyle=5;` (bold, underlined) | `PK` · `Cover request ID` | `PK` · `id` · `bigint` · `identity` |
-| Foreign key | `FK` | as is | `FK` · `Shift` | `FK` · `shift_id` · `bigint` · `not null · on delete restrict` |
-| Attribute | empty | as is | `Sent at` or `Decided at (optional)` | `sent_at` · `timestamptz` · `not null · default now()` |
-| Personal or sensitive | as its key kind | every cell `fontColor=#b42318;` | `Decline reason (optional, personal)` | `decline_reason` · `text` · `null · personal` |
+| Primary key | `PK` | add `fontStyle=5;` (bold, underlined) | `PK` · `CoverRequestId` | `PK` · `id` · `bigint` · `identity` |
+| Foreign key | `FK` | as is | `FK` · `ShiftId` | `FK` · `shift_id` · `bigint` · `not null · on delete restrict` |
+| Attribute | empty | as is | `SentAt` or `DecidedAt (optional)` | `sent_at` · `timestamptz` · `not null · default now()` |
+| Personal or sensitive | as its key kind | every cell `fontColor=#b42318;` | `DeclineReason (optional, personal)` | `decline_reason` · `text` · `null · personal` |
 | Changed or new column in an existing table | as its key kind | every cell `fontColor=#7a5a00;`, name cell `fontStyle=1;` | not used | `qualified_ward_ids` · `bigint[]` · `proposed` |
 | Index or constraint | `UQ` or `IX` | every cell `fontSize=11;fontColor=#57606a;` in place of `fontSize=12;fontColor=#1b1f24;` | not used | `UQ` · `shift_id` · empty · `where status = 'waiting' · BR3` |
 
-A lifecycle is an attribute that points to its source rather than repeating the states: `Status (States and lifecycle)` on the logical page, and `status` · `text` · `check: lifecycle states` on the physical page. Draw the lifecycle itself with `state-drawio`.
+A lifecycle is an attribute that points to its source rather than repeating the states: `Status` on the logical page (source named in the board note), and `status` · `text` · `check: lifecycle states` on the physical page. Draw the lifecycle itself with `state-drawio`.
 
 ## Relationships
 
@@ -101,7 +122,7 @@ Draw each relationship from the row of the parent's key to the row of the child'
 | One or many | `ERoneToMany` |
 | Zero or many | `ERzeroToMany` |
 
-For example, a ward runs zero or many shifts: `startArrow=ERmandOne;endArrow=ERzeroToMany;`. Label the logical relationship with its glossary verb, such as `runs`. When several relationships leave the same row, give each label a different `x` on `<mxGeometry x="0.3" relative="1" as="geometry" />` (from `-1` to `1`) so the labels do not stack.
+For example, a ward runs zero or many shifts: `startArrow=ERmandOne;endArrow=ERzeroToMany;`. Label the logical relationship with the domain model's present-tense verb, such as `runs`, or `runs / belongs to` when the reverse reading differs and the label still fits. The domain model owns the full both-way sentence with cardinality. When several relationships leave the same row, give each label a different `x` on `<mxGeometry x="0.3" relative="1" as="geometry" />` (from `-1` to `1`) so the labels do not stack.
 
 A link to an external reference uses `edgeStyle=entityRelationEdgeStyle;html=1;dashed=1;startArrow=none;endArrow=open;strokeColor=#8c959f;fontSize=11;fontColor=#57606a;labelBackgroundColor=#ffffff;`, labelled with the integration ID.
 

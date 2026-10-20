@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "product-design",
   "displayName": "Product Design",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Turn a human idea into an evidence-labeled product design, from the problem through screens, a Draw.io mockup, and an implementation-ready build spec.",
   "author": {
     "name": "tuanpep",

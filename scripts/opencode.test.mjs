@@ -69,7 +69,7 @@ test('OpenCode V2 registers bundled skills, the design agent, and a command that
     .map((entry) => entry.name)
     .sort()
   assert.deepEqual(skills.map(({ id }) => id), bundled)
-  assert.equal(bundled.length, 51)
+  assert.equal(bundled.length, 52)
   assert.ok(!bundled.includes('prototype-drawio'))
   assert.ok(!bundled.includes('sketch-drawio'))
   for (const id of ['design-product', 'mockup-drawio', 'erd-drawio', 'state-drawio', 'sequence-drawio', 'context-drawio', 'dataflow-drawio', 'principle-use-real-content', 'survey-existing']) assert.ok(bundled.includes(id))
