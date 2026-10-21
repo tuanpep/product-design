@@ -8,14 +8,14 @@
 /design-product Staff coordinate shift swaps in chat, but the roster stays wrong. Design a product approach.
 ```
 
-That matches [new-idea.md](../../skills/design-product/playbooks/new-idea.md). First it applies the [discovery interview and context gate](../../skills/design-product/references/discovery-interview.md). A general request such as “build a task app” gets 1–3 focused open questions per turn, usually one main question, about missing context rather than immediate solution ideas. It reuses facts you already supplied. After an interview, it summarizes its understanding for your confirmation before Shape. A complete brief needs no extra interview or confirmation.
+That matches [new-idea.md](../../skills/design-product/playbooks/new-idea.md). First it applies the [discovery interview and context gate](../../skills/design-product/references/discovery-interview.md). A general request such as “build a task app” gets 1–3 focused open questions per turn, usually one main question, about missing context rather than immediate solution ideas. It reuses facts you already supplied. A complete brief needs no interview. Say `next` to leave Understand. That opens Shape in the same turn and does not ask you to confirm a summary, pick approval versus a brainstorm, or choose a level.
 
-Each run finishes one phase and stops. The next phase starts only when you approve the previous phase or ask to brainstorm that next phase. "Design the product", Full, and advise do not open a later phase.
+Each run finishes one phase and stops. The next phase starts when you say next, approve the previous phase, or ask to brainstorm that next phase. "Design the product", Full, and advise do not by themselves open a later phase.
 
 1. **Understand.** Problem, needs, and whether to continue. Only `product-design.md`.
-2. **Shape.** After you approve Understand, or say brainstorm the solution: alternatives, evaluation plan, journey, and process. Screens and the mockup are included unless you cap this phase at design documents.
-3. **Specify.** After you approve Shape, or say brainstorm the slice: `build-spec.md`.
-4. **Technical.** `/technical-design`, after you approve Specify or ask to brainstorm the technical design.
+2. **Shape.** After you say next, approve Understand, or say brainstorm the solution: alternatives, evaluation plan, journey, and process. Screens and the mockup are included unless you cap this phase at design documents. Gaps still unknown are recorded, not asked again.
+3. **Specify.** After you say next, approve Shape, or say brainstorm the slice: `build-spec.md`.
+4. **Technical.** `/technical-design`, after you say next, approve Specify, or ask to brainstorm the technical design.
 
 ## Advise mode
 
@@ -23,13 +23,13 @@ Each run finishes one phase and stops. The next phase starts only when you appro
 /design-product advise Staff coordinate shift swaps in chat, but the roster stays wrong.
 ```
 
-That uses the same playbook inside the current phase, as [advise-mode.md](../../skills/design-product/references/advise-mode.md) defines. It still interviews when core context is missing. It recommends one option at each open choice in that phase, names the principle that decided it, and stops at the end of the phase.
+That uses the same playbook inside the current phase, as [advise-mode.md](../../skills/design-product/references/advise-mode.md) defines. It still interviews when a new brief is vague and you have not asked to continue. It recommends one option at each open choice in that phase, names the principle that decided it, and stops at the end of the phase unless you already said next.
 
 A hard choice, such as safety, money, law, or privacy, still gets a recommended default, labeled **proposed — owner must confirm**. That confirmation keeps `Status: draft`. It does not stop the run. `advise mockup` caps the run at the mockup and still does not ask you to pick the layout.
 
-Neither advise nor Full overrides the context gate. An explicit “no questions” on an insufficient brief returns only a discovery summary, gaps, and research plan, then stops. Critical unknown constraints cannot be defaulted away. If you do not know the user context, approve an explicitly hypothetical scenario for exploration or plan real research; your approval is not end-user validation.
+Neither advise nor Full skips the first interview on a vague brief. An explicit “no questions” that does not ask to continue returns only a discovery summary, gaps, and research plan, then stops. Saying next anyway continues, and critical unknown constraints are excluded from the design rather than invented. If you do not know the user context, you can still agree a hypothetical scenario for exploration or plan real research; that agreement is not end-user validation.
 
-The hard-choice defaults above apply only once the context gate passes; they cannot supply missing core facts or critical constraints.
+Those hard-choice defaults apply inside an open phase. They cannot invent missing core facts. After you say next, a missing safety or privacy constraint is excluded from the design and left unknown.
 
 The four stages under those levels:
 

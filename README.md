@@ -10,9 +10,11 @@ In the project being designed:
 /design-product Staff coordinate shift swaps in chat, but the roster stays wrong.
 ```
 
-If the idea is too general, it first interviews you in small turns to establish the actor, concrete task/current workflow, problem or opportunity, outcome, scope, and critical constraints. It summarizes that understanding for confirmation before shaping a solution. A sufficient brief skips this interview. See the [context gate](skills/design-product/references/discovery-interview.md).
+If the idea is too general, it first interviews you in small turns to establish the actor, concrete task/current workflow, problem or opportunity, outcome, scope, and critical constraints. A sufficient brief skips this interview. See the [context gate](skills/design-product/references/discovery-interview.md).
 
-It asks which level to stop at: Understand, Design documents, Mockup, or Full. Name the level to skip that question. Say `advise` for a suggested solution and design in one pass once enough context is known. Full includes the technical views the slice's concerns require, such as the information model and the service contract, and omits a view that no concern needs.
+Say `next` when you want the next phase. That leaves Understand and continues into Shape. It does not ask you to confirm the summary again, pick a level, or answer another discovery question. Facts you have not given stay unknown. Name a level — Understand, Design documents, Mockup, or Full — when you want a shorter or longer stop. With no level, `next` runs Shape through the mockup.
+
+Say `advise` for a suggested solution and design inside the open phase. Full includes the technical views the slice's concerns require, such as the information model and the service contract, and omits a view that no concern needs.
 
 ```text
 /design-product advise Staff coordinate shift swaps in chat, but the roster stays wrong.
@@ -20,7 +22,7 @@ It asks which level to stop at: Understand, Design documents, Mockup, or Full. N
 
 In Claude Code the command is `/product-design:design-product`. Output lands in `docs/product-design/<slug>/`. What gets written, and the skills behind it, is in the [guide](docs/guide/README.md).
 
-Neither `advise` nor `Full` bypasses missing core context. If you forbid questions, an underspecified request receives only a discovery summary, gaps, and research plan—not speculative screens or a build spec. Unknown end-user facts can instead become a human-approved hypothetical exploration premise, never fabricated validation.
+Neither `advise` nor `Full` skips the first interview on a vague brief. If you forbid questions and do not ask to continue, an underspecified request receives only a discovery summary, gaps, and research plan. Saying `next` anyway continues, with the gaps left unknown rather than invented. Unknown end-user facts can instead become a hypothetical exploration premise you agreed to, never fabricated validation.
 
 ## How it learns before designing
 
@@ -54,6 +56,20 @@ agy plugin install https://github.com/tuanpep/product-design
 claude plugin marketplace add tuanpep/product-design
 claude plugin install product-design@product-design
 ```
+
+**Paseo.** Turn on **Enable plugins** under Settings → Plugins, then install this plugin on the daemon. Plugins are trusted code: the server runs as the daemon user, and the client runs inside the Paseo app.
+
+```sh
+paseo plugin install /absolute/path/to/product-design/paseo
+```
+
+From Git, the plugin is the `paseo` directory. The skills stay in the repository beside it:
+
+```sh
+paseo plugin add github:tuanpep/product-design:paseo
+```
+
+Focus an agent in the project being designed and run `/design-product`, `/review-design`, or `/technical-design`. The same actions are in the command center. In this repository the agent reads `skills/` directly. In any other project the plugin copies that catalog to `.paseo/product-design/skills` for the agent. Leave `.paseo/` uncommitted. Open **Product design packages** for the packages under `docs/product-design/`.
 
 ## Develop
 

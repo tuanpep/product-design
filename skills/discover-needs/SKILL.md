@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Discover Needs
 
-Apply [the discovery interview and context gate](../design-product/references/discovery-interview.md). When supplied context is too general, interview in small turns, probe concrete examples, and separate stakeholder accounts from observed research. Confirm the summarized understanding before first Shape when an interview was needed. Core gaps keep the work in Understand, including advise and Full.
+Apply [the discovery interview and context gate](../design-product/references/discovery-interview.md). When supplied context is too general and the person has not asked to continue, interview in small turns, probe concrete examples, and separate stakeholder accounts from observed research. One summary is enough. An advance request records core gaps as unknown and leaves Understand, including when advise or Full was named. Do not ask again.
 
 Read [the evidence contract](../design-product/references/evidence-and-decisions.md). Start with the user's goal, not the requested screen or feature.
 
