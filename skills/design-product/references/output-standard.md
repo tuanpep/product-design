@@ -2,6 +2,8 @@
 
 Version 1.1. This is the plugin's output contract, not an ISO certification or proof of product validity. Use it with [the proposal format](proposal-format.md) and [the evidence contract](evidence-and-decisions.md). Version 1.1 adds the design package. A 1.0 proposal remains valid on its own.
 
+Apply [the shared content contract](content-quality.md) to decision-support writing and service copy throughout the flow. Record document language separately from user-facing language/locale, establish vocabulary early, and check business truth as well as plain language. This adds no mandatory file, phase, or machine-required header.
+
 ## Purpose and depth
 
 Write one decision-support document at `docs/product-design/<slug>/product-design.md`, plus the package files allowed by its output level and needed by its profile. Level, profile, and evidence confidence are independent: level caps deliverables, profile names the decision supported, and evidence confidence reports what is actually known. More artifacts do not mean stronger evidence. Choose the smallest profile that supports the next decision:
@@ -36,16 +38,17 @@ The proposal decides. The package shows the shape and hands it to builders. All 
 | `technical-design.md` | `/technical-design` (`select-views` and the included view skills) | none | none | after `/technical-design`, when the slice will be implemented in software |
 | `openapi.yaml` | `design-contract` | none | none | when the interface view includes an HTTP boundary |
 | `asyncapi.yaml` | `design-contract` | none | none | when the interface view includes an event boundary |
-| `erd.drawio` | `design-data`, `erd-drawio` | none | optional, with a draft `build-spec.md` | when the information view is included |
+| `erd-logical.drawio` | `design-data`, `erd-drawio` | none | optional, with a draft `build-spec.md` | when the information view is included |
+| `erd-physical.drawio` | `design-data`, `erd-drawio` | none | when an ERD is drawn and a physical proposal exists | when the information view includes a physical proposal |
 | `states.drawio` | `state-drawio` | none | optional, with a draft `build-spec.md` | when a record has more than two states, a reversal, or a time limit |
 | `sequence.drawio` | `sequence-drawio` | none | optional, with a draft `build-spec.md` | when an integration, notification, or handoff can fail or arrive late |
 | `dataflow.drawio` | `dataflow-drawio` | none | optional, with a draft `build-spec.md` | when the slice handles personal or sensitive data, or sends data to another party |
 
 Formats: [screens](screens-format.md), [build spec](build-spec-format.md), and [technical design](technical-design-format.md). When an option has no interface, such as a process or training change, say so in Product experience and skip the screen files. `/design-product` does not create `technical-design.md`, contract files, or the build diagrams; their absence is not a gap until the person runs `/technical-design`. A software slice in that later phase also skips a technical view that Design views omits, and says why. A file that is required but missing makes the package incomplete. Do not create files to fill the table. Structural validation detects existing `screens.md` and checks its coverage; it does not infer an interface or a deliberate deferral from keywords. Human review checks those scope decisions.
 
-A Draw.io file holds one close flow. One flow keeps the name in the table. A mockup file is one actor and one task. Several flows are step folders in parent/child index order, `1-nurse-ask-cover/` then `1-nurse-ask-cover/1.1-nurse-choose-colleague/` then `2-colleague-accept-cover/`, and each folder holds that step's diagrams under their short names. Children must be physically inside their parent, not sibling folders with decimal names. The index starts at `1`. States of that task stay with it. A second page is a paired view of that same flow: as-is and to-be, logical and physical, or context and containers. The rule is [one file per close flow](../../drawio/references/drawio-file.md#one-file-per-close-flow).
+A Draw.io file holds one close flow. One flow keeps the name in the table. A mockup file is one actor and one task. Several flows are step folders in parent/child index order, `1-nurse-ask-cover/` then `1-nurse-ask-cover/1.1-nurse-choose-colleague/` then `2-colleague-accept-cover/`, and each folder holds that step's diagrams under their short names. Children must be physically inside their parent, not sibling folders with decimal names. The index starts at `1`. States of that task stay with it. A second page is a paired view of that same flow: as-is and to-be, or context and containers. ERDs always split logical and physical into separate, single-page files; never create a combined `erd.drawio`. The rule is [one file per close flow](../../drawio/references/drawio-file.md#one-file-per-close-flow).
 
-Define each term, rule, state, screen, and message once and reference its ID elsewhere. When the same fact appears in two files, the owning file wins and the other must link to it: rules, states, and stories belong to `build-spec.md`, screens and copy to `screens.md`, needs, evidence, and the decision to build to `product-design.md`, and design concerns, views, contracts, threats, and technical decisions to `technical-design.md`. Before `build-spec.md` exists, proposed rules and the draft permission matrix sit under Needs and requirements in `product-design.md`. When the build spec is written, they move there with the same IDs, and the proposal links to them.
+Define each term, rule, state, screen, and message once and reference its ID elsewhere. When the same fact appears in two files, the owning file wins and the other must link to it: rules, states, and stories belong to `build-spec.md`, screens and copy to `screens.md` when it exists, needs, evidence, and the decision to build to `product-design.md`, and design concerns, views, contracts, threats, and technical decisions to `technical-design.md`. Without screen files, Product experience in `product-design.md` owns service copy and its M catalogue, including off-screen communications. If screens are added later, move that catalogue to `screens.md`, preserve IDs, and leave links, not duplicate definitions. Before `build-spec.md` exists, proposed rules, the working vocabulary, and the draft permission matrix sit under Needs and requirements in `product-design.md`. When the build spec is written, they move to their owning sections there with the same terms and IDs, and the proposal links to them.
 
 Profiles describe document depth, not evidence strength. A build-slice can contain untested assumptions, but unresolved safety, policy, feasibility, or ownership issues that block that slice must prevent a ready verdict. Use evaluation instead. Do not manufacture research to reach a profile. Older proposals can adopt this standard during their next revision without discarding their evidence or decision history.
 
@@ -79,7 +82,7 @@ Choose one value, not the list of alternatives. Level is optional; all other fie
   | R1 | Requirement or constraint | `product-design.md` |
   | BR1 | Business rule | `build-spec.md`, or `product-design.md` before it exists |
   | SC1 | Screen | `screens.md` |
-  | M1 | Message or notification | `screens.md` |
+  | M1 | Message or notification | `screens.md`, or Product experience in `product-design.md` without screen files |
   | S1 | Story | `build-spec.md` |
   | A1 | Acceptance outcome | `build-spec.md` |
   | C1 | Check | `build-spec.md`, or `product-design.md` before it exists |
@@ -115,6 +118,8 @@ For a build-slice, acceptance outcomes use Given, When, Then with concrete value
 Report design coherence, evidence confidence, and delivery readiness separately, with reasons. Inspect the traceability chain for orphan requirements and unchecked outcomes. Record actual checks, remaining blockers, the next gate, and the human decision. Resolve contradictions in their owning sections.
 
 On revision, preserve stable IDs and human edits, mark superseded claims, update dependent journeys/stories/checks/diagrams, and append the date, changed premise, old/new recommendation, and approval status to decision history. Withdraw invalidated readiness before revising. Do not silently rewrite an approved decision.
+
+At Shape, Specify, and technical handoffs, reconcile affected copy against the latest rules, permissions, lifecycles, and integration outcomes, using [the content checks](content-quality.md#reconcile-at-handoffs). Report clarity, business accuracy, journey/channel coverage, and cross-artifact consistency separately. If a dependent artifact cannot be updated in the current scope, identify its stale M ID/file and required follow-up; do not claim readiness for that affected use.
 
 ## Research basis
 

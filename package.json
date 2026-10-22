@@ -9,6 +9,7 @@
     "assets/",
     "plugin.json",
     "index.js",
+    "runtime/",
     "LICENSE",
     ".opencode/",
     "agents/",
@@ -17,7 +18,17 @@
     "skills/",
     "docs/",
     "scripts/check-output.mjs",
-    "paseo/",
+    "scripts/record-evaluation.mjs",
+    "scripts/sync-agent-prompts.mjs",
+    "paseo/client/",
+    "paseo/server/",
+    "paseo/shared/",
+    "paseo/index.client.tsx",
+    "paseo/index.server.ts",
+    "paseo/paseo-plugin.json",
+    "paseo/package.json",
+    "paseo/package-lock.json",
+    "paseo/tsconfig.json",
     "README.md"
   ],
   "dependencies": {
@@ -25,7 +36,9 @@
     "saxes": "^6.0.0"
   },
   "scripts": {
-    "test": "node --test scripts/check-plugin.test.mjs scripts/opencode.test.mjs scripts/check-output.test.mjs scripts/mockup-example.test.mjs scripts/component-recipes.test.mjs scripts/product-layouts.test.mjs scripts/paseo-plugin.test.mjs && node scripts/check-plugin.mjs",
-    "check:output": "node scripts/check-output.mjs"
+    "test": "node scripts/sync-agent-prompts.mjs && node --test scripts/check-plugin.test.mjs scripts/opencode.test.mjs scripts/check-output.test.mjs scripts/mockup-example.test.mjs scripts/component-recipes.test.mjs scripts/product-layouts.test.mjs scripts/paseo-plugin.test.mjs scripts/catalog-policy.test.mjs scripts/record-evaluation.test.mjs scripts/orchestration.test.mjs scripts/usage.test.mjs scripts/sketch-drawio.test.mjs && node scripts/check-plugin.mjs",
+    "check:output": "node scripts/check-output.mjs",
+    "eval:record": "node scripts/record-evaluation.mjs",
+    "sync:agents": "node scripts/sync-agent-prompts.mjs --write"
   }
 }

@@ -6,7 +6,9 @@ disable-model-invocation: true
 
 # Data flow Draw.io
 
-Read [principle-protect-before-you-enable](../principle-protect-before-you-enable/SKILL.md), [principle-spend-less-of-the-world](../principle-spend-less-of-the-world/SKILL.md), and [principle-one-source-of-truth](../principle-one-source-of-truth/SKILL.md). The diagram shows where data goes and where control changes hands, following the data flow diagram that the [OWASP threat modelling cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html) describes. `assess-threats` writes what can go wrong, which control applies, and the blocking question. This diagram is not that assessment.
+Apply [the shared execution contract](../design-product/references/specialist-execution.md). Principle links below are selective candidates, not mandatory preloads; read a leaf before citing it.
+
+Relevant principles: [protection](../principle-protect-before-you-enable/SKILL.md), [resource/data cost](../principle-spend-less-of-the-world/SKILL.md), and [single ownership](../principle-one-source-of-truth/SKILL.md). The diagram shows data movement and control changes following the [OWASP data-flow method](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html). `assess-threats` owns security risks/controls/questions; [privacy-risk guidance](../design-product/references/privacy-risk.md) covers processing harms. The diagram is neither assessment.
 
 1. Name the question the diagram answers, for example: where does a nurse's phone number go, and who can read it? Read Domain model, Integrations and data, Business rules, Roles and permissions, and Quality requirements in `build-spec.md`. If the data or integrations are not described, run `model-domain` first.
 2. Draw a data flow when the slice handles personal or sensitive data, sends data to another system or a third party, or changes who can read data. A slice with no data leaving the product is clearer as a row in Quality requirements.

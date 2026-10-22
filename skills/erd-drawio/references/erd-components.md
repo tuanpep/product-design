@@ -4,10 +4,11 @@ Entities use Draw.io's built-in **Entity Relation → Table** shape (`shape=tabl
 
 ## Pages
 
-- Page 1 is `Logical`, with `<diagram id="logical" name="Logical">`. It is always drawn.
-- Page 2 is `Physical`, with `<diagram id="physical" name="Physical">`. It is drawn only when `design-data` wrote a physical proposal.
-- In a product package, one cluster of entities that share relationships is one file, `erd.drawio`, with those two pages. A second cluster that shares none is `1-<cluster>/erd.drawio`, numbered in parent/child index order, with the same two pages when a physical view is drawn.
-- The skill references keep the pages as separate specimen files (`example-logical.drawio`, `example-physical.drawio`) so each view opens on its own. Package output still combines them in `erd.drawio`.
+- `erd-logical.drawio` has exactly one page, `Logical`, with `<diagram id="logical" name="Logical">`. It is always drawn.
+- `erd-physical.drawio` has exactly one page, `Physical`, with `<diagram id="physical" name="Physical">`. It is drawn only when `design-data` wrote a physical proposal; otherwise omit the file.
+- Always keep these views in separate files, even for a small model. Do not create a combined `erd.drawio` or put both pages in either file.
+- In a product package, one cluster of entities that share relationships uses those short filenames. Multiple unrelated clusters use `1-<cluster>/erd-logical.drawio` and, when applicable, `1-<cluster>/erd-physical.drawio`, numbered in parent/child index order.
+- The separate specimen files (`example-logical.drawio`, `example-physical.drawio`) match the package's split-file structure.
 - Each page starts with a caption at the top left, and ends with a note under the diagram that names the question, the source sections in `build-spec.md`, the conventions followed, and what the diagram does not test.
 
 ## Structure

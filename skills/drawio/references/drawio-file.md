@@ -22,7 +22,7 @@ One file answers one question and draws one close flow: one entry, the main step
 
 A mockup uses a high-fidelity wireflow arrangement: one actor completing one task, with an annotated arrow from the control they use. The caption names both, `Nurse · Ask for cover`. Arrange business views in the usage order declared by `screens.md`, left to right and then top to bottom, with important branches clearly labelled. Do not use fixed technical-state columns. A role variant that makes a distinct business decision needs its actual inputs and actions drawn, not just a denied frame or annotation. A second actor doing a different task gets their own file. End this file at the handoff. Start the other actor's file at what they receive, and name the handoff in both captions. Reuse screen IDs across meaningful business views. The cross-actor picture stays in `process.drawio`, with parallel work visibly parallel rather than explained away in a note.
 
-Name one flow `journey.drawio`, `process.drawio`, `navigation.drawio`, `mockup.drawio`, `context.drawio`, `erd.drawio`, `states.drawio`, `sequence.drawio`, or `dataflow.drawio`, in the package folder.
+Name one flow `journey.drawio`, `process.drawio`, `navigation.drawio`, `mockup.drawio`, `context.drawio`, `erd-logical.drawio`, `erd-physical.drawio`, `states.drawio`, `sequence.drawio`, or `dataflow.drawio`, in the package folder.
 
 Several flows are grouped in step folders. Parent steps live in the package root; child steps are physically nested inside their parent folder, never beside it. The index is a parent, or that parent and a child: `1`, then `1.1`, then `2`. It starts at `1`. Do not pad it with a zero. Numbering alone does not group folders. The files inside keep the short names:
 
@@ -45,7 +45,7 @@ docs/product-design/shift-swaps/
 
 For example, the child mockup path is `1-nurse-ask-cover/1.1-nurse-choose-colleague/mockup.drawio`. Use this full nested path in links from root documents. When revising an existing flat package, move each child into its matching parent and update all artifact links; preserve file contents and screen IDs. Do not create duplicate flat and nested copies.
 
-Keep one page. A second `<diagram>` is a paired view of that same flow, and only when each view still fits: as-is and to-be in a process, logical and physical in an ERD, context and containers in a context diagram.
+Keep one page. A second `<diagram>` is a paired view of that same flow, and only when each view still fits: as-is and to-be in a process, or context and containers in a context diagram. ERDs are always separate single-page files: `erd-logical.drawio` and, when a physical proposal exists, `erd-physical.drawio`. Never combine them in `erd.drawio`.
 
 Split when any of these is true:
 
@@ -54,7 +54,7 @@ Split when any of these is true:
 - A mockup happy path would need more than 6 screens. State frames of those screens stay with the task.
 - The file would have more than 400 shapes, or a third page.
 
-An ERD splits when a second cluster of entities shares no relationship with the first. Logical and physical of one cluster stay together.
+An ERD always splits logical and physical into separate files. Split further into step folders when a second cluster of entities shares no relationship with the first. Keep each cluster's logical and physical files in the same folder, not in the same file.
 
 ## Built-in shapes first
 
@@ -70,7 +70,7 @@ Draw.io ships a library for most software diagrams. A shape from the library ope
 | Journey flow | `journey.drawio` | Flowchart | `drawio` |
 | Swimlane process | `process.drawio` | BPMN 2.0: lanes, events, tasks, gateways, sequence flow | `drawio` |
 | Navigation map | `navigation.drawio` | Sitemap | `drawio` |
-| Entity relationship | `erd.drawio` | Entity Relation: table, crow's-foot ends | `erd-drawio` |
+| Entity relationship | `erd-logical.drawio`, `erd-physical.drawio` | Entity Relation: table, crow's-foot ends | `erd-drawio` |
 | State machine | `states.drawio` | UML 2.5: state, pseudostates, transition | `state-drawio` |
 | Sequence | `sequence.drawio` | UML: lifeline, activation, message, frame | `sequence-drawio` |
 | System context | `context.drawio` | C4 | `context-drawio` |

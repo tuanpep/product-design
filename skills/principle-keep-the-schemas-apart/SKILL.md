@@ -12,4 +12,4 @@ The conceptual model says what the business keeps. The external contract says wh
 - Derive the external contract from the stories and the conceptual model. Hide, combine, or rename a stored fact when the consumer's task needs a different shape
 - Derive the internal schema from the conceptual model and the access the stories need. Mark it **proposed**
 - Where a contract field or a column is not one glossary attribute, state the mapping
-- When two schemas disagree, correct the conceptual model first, then the view that drifted
+- Diagnose disagreements before editing: changed business meaning belongs to the conceptual owner; intentional external/internal representation differences need explicit mappings; implementation drift belongs to the drifting representation. Never change business meaning merely to match a table or API

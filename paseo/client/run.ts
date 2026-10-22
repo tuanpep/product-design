@@ -1,5 +1,5 @@
 import { prepareSkillsRpc } from "../shared/contract";
-import { workflowPrompt, type WorkflowId } from "../shared/prompt.mjs";
+import { assertWorkflowLaunch, workflowPrompt, type WorkflowId } from "../shared/prompt.mjs";
 
 interface AgentApi {
   agents: {
@@ -15,6 +15,7 @@ export async function startWorkflow(options: {
   prepareSkills: (directory: string) => Promise<{ skillRoot: string }>;
   paseo: AgentApi;
 }) {
+  assertWorkflowLaunch(options.id);
   const { skillRoot } = await options.prepareSkills(options.directory);
   await options.paseo.agents.ref(options.agentId).send(workflowPrompt(options.id, skillRoot, options.args));
 }

@@ -6,9 +6,11 @@ disable-model-invocation: true
 
 # Frame Problem
 
-Apply [the discovery interview and context gate](../design-product/references/discovery-interview.md). Reuse known facts and ask focused open questions for core gaps rather than inventing a problem behind the requested feature. Stay in Understand until the gate passes.
+Apply [the shared execution contract](../design-product/references/specialist-execution.md). Principle links below are selective candidates, not mandatory preloads; read a leaf before citing it.
 
-Read [the evidence contract](../design-product/references/evidence-and-decisions.md) and [principle-start-from-the-outcome](../principle-start-from-the-outcome/SKILL.md).
+Apply [the discovery interview and context gate](../design-product/references/discovery-interview.md). Reuse known facts and ask focused open questions for core gaps when no advance was requested. An explicit advance leaves Understand with unknowns recorded, without another interview or confirmation; do not invent a problem behind the requested feature.
+
+Read [the evidence contract](../design-product/references/evidence-and-decisions.md). Load [start from the outcome](../principle-start-from-the-outcome/SKILL.md) when it could change the framing or support an explicit citation.
 
 1. Restate the request as the people affected, what they are trying to achieve, how they do it today if that is known, the intended outcome, and the proposed feature if one was supplied.
 2. Keep the feature distinct from the need. State what is not part of the problem.

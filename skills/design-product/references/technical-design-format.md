@@ -2,6 +2,24 @@
 
 `docs/product-design/<slug>/technical-design.md` is the software design description for one named slice. It tells builders which views exist, why, and how those views correspond. It follows [the output standard](output-standard.md). `/technical-design` creates it through `select-views`. The view skills fill the sections they own. That same phase fills Correspondences. `/design-product` does not create this file.
 
+Apply [the shared content contract](content-quality.md): explain structural choices in concrete terms without simplifying away technical meaning. Map consequential asynchronous outcomes, timeouts, and failures to existing M IDs in Correspondences, referencing their owning catalogue rather than copying message text into contracts. If technical decisions change user-visible outcomes, reconcile affected copy in place; do not add or redraw screens. Name missing copy and stale mockup instances, their owners or unknown owners, and the required product-design revision. Unresolved contradictions prevent readiness for the affected use.
+
+## Correctness and change-safety review
+
+Apply this review proportionately to the named slice before declaring readiness. Use the existing sections and IDs, not additional mandatory documents. Reuse authoritative architecture, schemas, contracts, ADRs, and threat models after checking applicability; distinguish existing, changed, and new. A copied contract is not a second authority: record its canonical source/version and whether the package file is a proposed replacement, a synchronized snapshot, or a proposal for a change. Keep the package-root artifact contract below; do not silently relocate canonical project files or claim a proposal is deployed.
+
+**Invariants and enforcement.** Identify consequential conditions that must remain true, referencing the owning business rule rather than redefining it. In the appropriate view, name the authoritative state owner, enforcement mechanism, atomic decision boundary, threatening race/failure, and verification case. Distinguish duplicate retries from competing requests, stale requests, and partially committed work. An idempotency key alone does not prevent two different requests violating the same invariant. Describe conditional updates, uniqueness constraints, transaction scope, or another justified mechanism where needed; do not prescribe a technology without context.
+
+**Boundary behavior.** For consequential writes, specify success/commit meaning, lost-response ambiguity, duplicate identity and scope, changed intent with the same identity, safe retry/reconciliation, and recovery ownership where applicable. For asynchronous work, identify the application's producer/consumer perspective, acknowledgment meaning, duplicate/ordering/replay handling, retry exhaustion, and consistency between stored state and publication. Do not infer delivery guarantees from an AsyncAPI schema, or invent brokers, outboxes, or exactly-once guarantees. Keep external failure behavior owned by Integrations and data in `build-spec.md`; technical mechanisms and contracts reference it. A mechanism that changes business behavior requires an explicit revision of the owning rule/acceptance outcome, not a silent technical default.
+
+**Compatibility and transition.** Identify affected consumers and the applicable source, wire, and semantic compatibility expectations. Changed defaults, pagination, response enums, and meaning can break callers even with valid schemas. For persistence or deployment changes, describe applicable old/new coexistence, backfill/validation, sequencing, cutover/cleanup conditions, and interrupted-transition recovery. Application rollback does not necessarily reverse data changes or external effects; distinguish rollback, roll-forward, and compensation. Link the owning Rollout and verification plan in `build-spec.md` and add technical detail under Information model, Dependencies, or Deployment and resources without duplicating the plan. No SQL, migration scripts, or infrastructure code is generated.
+
+**Concern coverage and reconciliation.** Assess relevant integrity, authorization, security, operational ownership, recovery, and compatibility concerns even when no new diagram is warranted. A concern may be addressed by cited existing evidence/text instead of a new artifact; omission of a diagram is not omission of the obligation. Identify significant security/feasibility constraints before drafting views. The view order is an initial authoring order, not a waterfall: reconcile only affected owning definitions when later views expose conflicts. Do not repeat the whole phase mechanically. Compare consequential technical alternatives without reopening settled product alternatives unless evidence invalidates them.
+
+**Evidence and readiness.** Report checks separately as inspected, structurally validated, contract-validated, engineering-reviewed, experimentally demonstrated, or planned/not performed, naming the subject and limitation. Contract validation includes applicable reference resolution and schema/example checks; compatibility and runtime enforcement need their own evidence. Structural passes and matching status strings establish neither feasibility nor assurance. Missing consequential evidence/review remains an explicit blocker with an owner or Unknown; not every nonblocking assumption requires an experiment. If Technical discovers a blocker, set this file and `build-spec.md` to draft, withdraw the dependent ready/build-slice claim in `product-design.md` using its existing profile/gate contract, and preserve unaffected IDs and human work. Name the next owner/revision; do not redraw screens to conceal an unresolved product impact.
+
+## Document contract
+
 Start with a title and this header:
 
 ```text
@@ -64,7 +82,7 @@ Name a [ISO/IEC 25010:2023](https://www.iso.org/standard/78176.html) characteris
 
 **Dependencies.** Part-to-part requirements: which part requires which, what a change inside the product breaks, and a proposed build order. An external system is an integration ID. Failure behaviour stays in Integrations and data. Do not restate it.
 
-**Information model.** The logical additions from `design-data`: primary identifier, alternate business key when a surrogate is proposed, third normal form or a recorded exception, and the physical proposal when this product stores the data. Point at Glossary and Domain model in `build-spec.md` for purpose, attribute meaning, examples, sensitivity, and cardinality. Do not restate them. Point at `erd.drawio` for the drawing. The service contract is the external schema and is not restated here. A physical column names its type family, nullability, constraint, and the story or rule for any index.
+**Information model.** The logical additions from `design-data`: primary identifier, alternate business key when a surrogate is proposed, third normal form or a recorded exception, and the physical proposal when this product stores the data. Point at Glossary and Domain model in `build-spec.md` for purpose, attribute meaning, examples, sensitivity, and cardinality. Do not restate them. Point at `erd-logical.drawio` and, when drawn, the separate `erd-physical.drawio`. Each file has one page. The service contract is the external schema and is not restated here. A physical column names its type family, nullability, constraint, and the story or rule for any index.
 
 **Service contract.** The boundaries callers program against. Link `openapi.yaml` for HTTP and `asyncapi.yaml` for events. List each operation:
 
@@ -77,7 +95,7 @@ Errors: 403 problem+json when BR1 denies the caller
 
 **Deployment and resources.** Where the slice runs, what it needs from that environment, and any contention or availability constraint a story actually has. Unknown stays unknown.
 
-**Threats.** For each abuse of a trust boundary:
+**Threats.** Assess consequential misuse and failures affecting assets, permissions, identities, and operations, including risks within existing boundaries. Cite the boundary where relevant; a new boundary or diagram is not required for every threat. Reuse applicable assessments and review the slice's change. Record controls, ownership, residual risk, and checks without claiming verification from documentation alone. For example:
 
 ```text
 TH1 A caller reads another ward's requests
@@ -89,7 +107,7 @@ Check: C4
 Blocking: no
 ```
 
-**Decisions.** One record per hard-to-reverse technical choice:
+**Decisions.** One record per architecturally significant choice, especially hard-to-reverse ones. Reversible choices affecting security, compatibility, operation, or later slices may still merit a record. Reuse applicable ADRs and preserve supersession history. Distinguish proposed, accepted, and implemented; never infer human acceptance from an agent draft. For example:
 
 ```text
 AD1 Keep shift ownership in the roster
@@ -104,9 +122,25 @@ Owner: roster product owner
 
 A cheap default stays in Assumptions and open questions in `build-spec.md`.
 
-**Correspondences.** One row per fact that appears in more than one view: contract field, column, operation, part, or threat control, and the single owning ID. An empty mapping cell is a gap. Fix a conflict in the owning file: glossary and domain model own meaning, rules own conditions, screens own copy, this file owns structure, `build-spec.md` owns stories and acceptance.
+**Correspondences.** One row per fact that appears in more than one view: contract field, column, operation, part, threat control, or consequential outcome mapped to an M ID, and the single owning ID. An empty mapping cell is a gap. Fix a conflict in the owning file: glossary and domain model own meaning, rules own conditions, screens own copy (or Product experience in the proposal without screens), this file owns structure, `build-spec.md` owns stories and acceptance.
 
 Contract files live in the package root. `openapi.yaml` is an OpenAPI 3 description. `asyncapi.yaml` is an AsyncAPI description. Do not generate server or client code from them.
+
+## Additional research and adaptation boundaries
+
+External pages read 2026-10-22:
+
+- [C4 diagrams](https://c4model.com/diagrams) and [review checklist](https://c4model.com/diagrams/checklist): selective depth, clear scope, responsibilities, and labeled relationships; not a reason to omit consequential concerns.
+- [OpenAPI best practices](https://learn.openapis.org/best-practices.html): design-first, authoritative descriptions, reusable definitions, and validation. Package-root proposed copies remain a plugin policy, not a recommendation to create competing authorities.
+- [AWS: safe retries](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/): ambiguous outcomes, request identity, changed intent, retention, and atomic handling. [AIP-154](https://google.aip.dev/154): stale-state protection. Mechanisms are context-dependent, not universal prescriptions.
+- [AIP-180](https://google.aip.dev/180): source, wire and semantic compatibility; its independently updating consumer assumptions and transport-specific rules must be adapted to the actual project.
+- [AsyncAPI 3.0 specification](https://www.asyncapi.com/docs/reference/specification/v3.0.0): application-specific send/receive operations, protocol bindings, and limits on deriving opposite-party contracts. A description does not establish runtime delivery guarantees. Follow the project's supported version, not an automatic upgrade.
+- [Sadalage and Fowler: evolutionary database design](https://martinfowler.com/articles/evodb.html): schema/data/application changes, transition periods and compatibility. This plugin documents transition design, not executable migrations.
+- [OWASP threat modeling](https://owasp.org/www-community/Threat_Modeling): scoped, iterative assessment of threats and mitigations; not exhaustive enumeration or a penetration test.
+- [ADR guidance](https://adr.github.io/) and [GDS architecture decisions](https://gds-way.digital.cabinet-office.gov.uk/standards/architecture-decisions.html): significant choices, rationale, consequences, review and supersession. GDS merge-as-acceptance conventions are not assumed here.
+- [Google SRE: embracing risk](https://sre.google/sre-book/embracing-risk/): reliability aligned to user consequences, cost and accountable tolerance; not permission to relax privacy, safety or mandatory obligations.
+
+The invariant-to-enforcement review, existing-section placement, readiness propagation and check labels are this plugin's adaptation. Sources inform the method, not a compliance claim or measured efficiency gain.
 
 ## Research basis
 

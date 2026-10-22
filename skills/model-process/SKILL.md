@@ -6,7 +6,9 @@ disable-model-invocation: true
 
 # Model Process
 
-Read [principle-see-the-whole-service](../principle-see-the-whole-service/SKILL.md) and [principle-take-on-the-hard-work](../principle-take-on-the-hard-work/SKILL.md). A process is the whole service, including the parts outside any screen.
+Apply [the shared execution contract](../design-product/references/specialist-execution.md). Principle links below are selective candidates, not mandatory preloads; read a leaf before citing it. Reuse an adequate process description; do not draw trivial handoffs solely to complete a checklist.
+
+Relevant principles: [whole service](../principle-see-the-whole-service/SKILL.md) and [take on hard work](../principle-take-on-the-hard-work/SKILL.md). A process includes service work outside screens.
 
 1. Model the **as-is** process from discovery evidence: trigger, each step, the actor who performs it, handoffs, waits, decisions, rework loops, and where the outcome fails. Label each step's evidence class. Leave gaps unknown rather than inventing a current process.
 2. Mark each pain point with the evidence that shows it: delay, duplicate entry, lost information, error, or workaround.

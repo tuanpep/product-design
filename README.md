@@ -14,7 +14,7 @@ If the idea is too general, it first interviews you in small turns to establish 
 
 Say `next` when you want the next phase. That leaves Understand and continues into Shape. It does not ask you to confirm the summary again, pick a level, or answer another discovery question. Facts you have not given stay unknown. Name a level — Understand, Design documents, Mockup, or Full — when you want a shorter or longer stop. With no level, `next` runs Shape through the mockup.
 
-Say `advise` for a suggested solution and design inside the open phase. Full includes the technical views the slice's concerns require, such as the information model and the service contract, and omits a view that no concern needs.
+Say `advise` for a proposed recommendation inside the open phase. Full permits the build specification once Specify is opened; technical views require the separately requested `/technical-design` phase. Neither the level nor advise opens later phases or approves a build.
 
 ```text
 /design-product advise Staff coordinate shift swaps in chat, but the roster stays wrong.
@@ -69,11 +69,22 @@ From Git, the plugin is the `paseo` directory. The skills stay in the repository
 paseo plugin add github:tuanpep/product-design:paseo
 ```
 
-Focus an agent in the project being designed and run `/design-product`, `/review-design`, or `/technical-design`. The same actions are in the command center. In this repository the agent reads `skills/` directly. In any other project the plugin copies that catalog to `.paseo/product-design/skills` for the agent. Leave `.paseo/` uncommitted. Open **Product design packages** for the packages under `docs/product-design/`.
+Focus an agent in the project being designed and run `/design-product` or `/technical-design`. The send-only Paseo adapter refuses `/review-design` because it cannot enforce read-only tools; run that review in the configured underlying host profile. The same actions and limitation appear in the command center. In this repository the agent reads `skills/` directly. In other projects it copies the catalog to `.paseo/product-design/skills`; leave `.paseo/` uncommitted. Open **Product design packages** for packages under `docs/product-design/`.
+
+## Quick mockups without the full workflow
+
+Use `/sketch-drawio` for a small editable UI mockup with labeled screen-to-screen arrows. It creates compact JSON plus a native `.drawio` file, using a bundled renderer rather than model-written XML boilerplate. No design package or MCP is required; Node.js 20.0+ is needed. Manual diagram edits are protected against overwrite. See [quick connected-screen mockups](docs/guide/07-quick-mockups.md).
+
+This is standalone exploration, not the canonical `/mockup-drawio` handoff. Keep sketches outside product-design packages; existing phase and complete-view requirements remain unchanged. Token savings are not yet measured.
+
+## Workers and usage
+
+The active phase owner works inline by default. Optional bounded research/artifact workers and a read-only reviewer preserve decisions with that owner; no worker per skill. OpenCode enforces scoped delegation and supports configurable worker models/steps plus opt-in usage/loading telemetry. Token savings remain unmeasured. See [orchestration, host limitations and token accounting](docs/guide/06-orchestration-and-tokens.md).
 
 ## Develop
 
 ```sh
+npm run sync:agents # after editing canonical agents/*.md
 npm test
 ```
 

@@ -1,72 +1,20 @@
 ---
 name: design-product
-description: "Turn a human idea into an evidence-labeled product design, one phase at a time: Understand, then Shape, then Specify. Use for /design-product, product discovery, product design, business analysis, and scoping a first useful release. Start the next phase when the person says next, continue, or the phase name, or when they approve or ask to brainstorm it. Do not ask another question before that phase. Technical design is /technical-design and has the same gate. Use advise mode to recommend choices inside the open phase."
+description: "Develop or revise an evidence-labeled product design one phase at a time: Understand, Shape, Specify, then separately requested Technical. Use for /design-product, discovery, business analysis and first-release scoping. Next/continue/approval or naming the next phase opens it without another interview or confirmation; advise recommends only inside the open phase."
 disable-model-invocation: true
 ---
 
 # Design product
 
-Bundled skills live at `../<name>/SKILL.md` from this file. You own the product proposal, not the decision to build. Work in the **project the human wants designed**. If the target project is unclear, use the current working project and state that choice.
+You own the proposal, not approval to build. Use the human's target project, or state that the current project is assumed. Bundled procedures live at `../<name>/SKILL.md`. Read [the execution kernel](references/execution-kernel.md), then [phase routing](references/phase-routing.md) and only the active pack. These are the default path, not a full read of every playbook/reference. Read a changed or consequential source when needed; never skip a safety/correctness gap to save tokens.
 
-## Non-negotiables
+- A new brief without advance stays Understand. Next/continue, approval or a request for the next phase opens it now with gaps unknown and unsafe behavior excluded; no extra discovery/confirmation/level question. Full/advise alone do not advance. [Discovery policy](references/discovery-interview.md) owns exact semantics.
+- A revision, including "analyze these research results", uses the [revision pack](references/phases/revise.md) and relevant learning-loop ingestion sections. Do not invent sessions or research results. Copy-only edits do not restart discovery.
+- Respect the level/profile, one authoritative owner per fact and human edits. `product-design.md` lives at `docs/product-design/<slug>/`; use relevant [output-standard](references/output-standard.md) and [proposal-format](references/proposal-format.md) sections only for files actually being written. Preserve legacy absent headers and stable IDs.
+- Understand owns context/needs; Shape owns alternatives/evaluation/experience and allowed complete screens; Specify owns the Full bounded build spec. Technical is separately requested; do not run technical view skills or create technical schemas/diagrams from Specify. A technical choice is architecturally significant even if reversible when it affects compatibility, security or operation; cheap local defaults need no ADR.
+- Load specialist procedures only for actual work. Use [principle triggers/precedence](references/principles.md) only for relevant choices/conflicts; read a leaf before citing. Keep protection, inclusion, recovery, meaningful condition/boundary coverage, testability and single ownership regardless of citations.
+- Triggered [accessibility planning](references/accessibility-planning.md), [privacy-risk](references/privacy-risk.md) and [quality scenarios](references/quality-scenarios.md) keep existing skill/section owners and inline outputs, with no mandatory new reports. Security is not all privacy; a drawing/scan is not accessibility conformance.
+- The active phase owner keeps human interviews, decisions and integration. Optional [bounded delegation](references/orchestration.md) is for large research/artifact work or separate read-only review, not one worker per skill. Do small/coupled work inline. Consume review findings in `decide-next` rather than repeating whole-package review.
+- No production code or diagram-generating/rendering scripts unless separately requested. Every Draw.io artifact uses applicable [built-in shapes and close-flow rules](../drawio/references/drawio-file.md); opening/rendering must actually occur before claimed visual verification. Do not duplicate large XML/schema outputs into chat.
 
-The Principles section below grounds every trade-off. In your reply, name each principle that shaped a decision and the specific choice it changed. Cite only principles whose leaf SKILL.md you read this session.
-
-- Run one phase, then stop, unless this message asks to go next. The phases are Understand, Shape, Specify, then technical design. Next, next gate, continue, proceed, approve, yes to a summary, or the next phase by name opens that phase in this run. Do not ask another discovery, confirmation, or level question first. A named level, advise, or "the whole package" does not by itself open a later phase. Record the request as an attributed human decision. A brainstorm stays **proposed**.
-- First apply [the discovery interview and context gate](references/discovery-interview.md). A new brief that does not ask to continue stays in Understand and is interviewed, including advise and Full. An advance request leaves Understand: record missing facts as unknown and continue. A bare "no questions" with no request to continue still stops at discovery.
-- Advise mode, when the person says advise or asks you to suggest the solution and design without waiting for a decision → read [advise-mode.md](references/advise-mode.md) and apply it before the playbook. Recommend inside the open phase. Cross a phase boundary only when this message asks to go next. Then [new-idea.md](playbooks/new-idea.md), or [revise-design.md](playbooks/revise-design.md) when a design already exists.
-- A new idea, or no existing design, in guided mode → [new-idea.md](playbooks/new-idea.md). Interview only when they have not asked to continue. Ask which of Understand, Design documents, Mockup, or Full only when they are still in Understand and have not asked to leave. When they ask to go next without a level, open Shape at Mockup.
-- An existing design with new evidence, changed scope, or a changed decision → [revise-design.md](playbooks/revise-design.md).
-- The request names a screen, feature, or technology → [principle-start-from-the-outcome](../principle-start-from-the-outcome/SKILL.md), then `frame-problem`.
-- A faster path could hide harm, trap a person, or spend their trust → [principle-protect-before-you-enable](../principle-protect-before-you-enable/SKILL.md).
-- Choosing what to build or not build → [principle-see-the-whole-service](../principle-see-the-whole-service/SKILL.md).
-- The design target is an existing product, codebase, or service → `survey-existing` before `explore-solutions` and before a new part, schema, screen, or contract.
-- Shaping the interaction → [principle-behave-predictably](../principle-behave-predictably/SKILL.md), then `design-screens`.
-- More than one role or system acts → `model-process`.
-- Showing the product's shape → `design-screens`, `write-content`, and `mockup-drawio`.
-- Handing a slice to builders → `map-stories`, `model-domain`, `define-rules`, `specify-build`. Stop there. Do not run `select-views`, the view skills, or `record-decisions`. Those belong to `/technical-design`, and only when the person asks for that phase.
-- The product depends on other systems, or scope is disputed → `context-drawio`.
-- A database design would assign types or indexes before identifiers and cardinality are settled → [principle-settle-the-logical-model](../principle-settle-the-logical-model/SKILL.md). Leave `design-data` for `/technical-design`.
-- A technical choice is hard to reverse → [principle-record-the-decision](../principle-record-the-decision/SKILL.md). Leave `record-decisions` for `/technical-design`.
-- An API, a screen, and a schema would copy each other → [principle-keep-the-schemas-apart](../principle-keep-the-schemas-apart/SKILL.md).
-- A journey, process, or navigation diagram → `drawio`. Every Draw.io file uses Draw.io's built-in shapes first ([drawio-file.md](../drawio/references/drawio-file.md#built-in-shapes-first)).
-- Read [the evidence contract](references/evidence-and-decisions.md) before classifying a claim. A plan to test is not a test result.
-- Follow [the canonical learning loop](references/learning-loop.md): decision and distinct user/business-service outcomes first; synthesize sources through observations, patterns including contradictions, findings, and opportunities; choose an opportunity before alternatives. Plan evaluation after alternatives and before detailed experience/screens, choosing question → method → least necessary artifact. Ingest supplied results and revise decisions without inventing research execution.
-- Do not write production code, or a script that generates or renders a diagram, unless explicitly asked in a separate task. The Draw.io screen files in the design folder are the mockup.
-- Do not delegate stakeholder interviews or human approval to an agent.
-
-## Principles
-
-Read the leaf skill in full for any principle you apply. Each entry names when it applies. Each leaf is the **principle-<title>** skill. When two conflict, the earlier entry wins. The same order is in [the principles index](references/principles.md).
-
-- **Protect before you enable** ([principle-protect-before-you-enable](../principle-protect-before-you-enable/SKILL.md)). A faster path would hide harm, trap a person, or spend their trust.
-- **Start from the outcome** ([principle-start-from-the-outcome](../principle-start-from-the-outcome/SKILL.md)). The request names a feature, screen, or technology.
-- **Include the hardest realistic case** ([principle-include-the-hardest-case](../principle-include-the-hardest-case/SKILL.md)). A polished path would exclude the people who most need the outcome.
-- **See the whole service, then do less** ([principle-see-the-whole-service](../principle-see-the-whole-service/SKILL.md)). Choosing what this product will and will not do.
-- **Take on the hard work** ([principle-take-on-the-hard-work](../principle-take-on-the-hard-work/SKILL.md)). Simplicity came from leaving a rule, exception, or hard case to the user.
-- **Behave predictably and recoverably** ([principle-behave-predictably](../principle-behave-predictably/SKILL.md)). Shaping the interaction itself.
-- **Spend less of the world** ([principle-spend-less-of-the-world](../principle-spend-less-of-the-world/SKILL.md)). A real choice changes energy, duplication, retained data, or repeated work.
-
-Specification quality, below the seven above:
-
-- **Design every state** ([principle-design-every-state](../principle-design-every-state/SKILL.md)). Specifying a screen, a record with a lifecycle, or an integration.
-- **Make it testable** ([principle-make-it-testable](../principle-make-it-testable/SKILL.md)). Writing a requirement, rule, or acceptance outcome.
-- **One source of truth** ([principle-one-source-of-truth](../principle-one-source-of-truth/SKILL.md)). A term, rule, state, or message appears in more than one place.
-- **Decide the reversible** ([principle-decide-the-reversible](../principle-decide-the-reversible/SKILL.md)). An open question would leave a builder guessing.
-- **Use real content** ([principle-use-real-content](../principle-use-real-content/SKILL.md)). Drafting screens, examples, copy, or a mockup.
-- **Choose the view for the concern** ([principle-choose-the-view](../principle-choose-the-view/SKILL.md)). A diagram or interface would be added from a template, or a real concern would have no view.
-- **Keep the schemas apart** ([principle-keep-the-schemas-apart](../principle-keep-the-schemas-apart/SKILL.md)). An API, a screen, and a database schema would be written as copies of each other.
-- **Write the contract first** ([principle-write-the-contract-first](../principle-write-the-contract-first/SKILL.md)). Builders would have to infer the service interface from screens, a schema, or code.
-- **Record the decision** ([principle-record-the-decision](../principle-record-the-decision/SKILL.md)). A technical choice is hard to reverse or sets a precedent, and only the resulting diagram was going to be kept.
-- **Settle the logical model** ([principle-settle-the-logical-model](../principle-settle-the-logical-model/SKILL.md)). A database design would choose types, indexes, or a product before identifiers, cardinality, and third normal form are settled.
-- **Prefer the standard method** ([principle-prefer-the-standard-method](../principle-prefer-the-standard-method/SKILL.md)). An API operation would be a custom action, a screen endpoint, or a private error body when a standard HTTP method and problem details would say the same thing.
-
-Polish, novelty, and satisfaction yield to all of the above.
-
-## Write the package
-
-Create `docs/product-design/<slug>/` with a short kebab-case slug, and reuse the folder for revisions. `product-design.md` is the decision document. Follow [the output standard](references/output-standard.md) and [the proposal format](references/proposal-format.md). The standard's design package table says which other files each profile needs: `journey.drawio`, `process.drawio`, `navigation.drawio`, `screens.md` ([format](references/screens-format.md)), `mockup.drawio`, `context.drawio`, `build-spec.md` ([format](references/build-spec-format.md)), `technical-design.md` ([format](references/technical-design-format.md)), `openapi.yaml`, `asyncapi.yaml`, and the build diagrams `erd.drawio`, `states.drawio`, `sequence.drawio`, and `dataflow.drawio`. A large diagram is one file per close flow, grouped in a step folder `1-<step>/` in parent/child index order, as [drawio-file.md](../drawio/references/drawio-file.md#one-file-per-close-flow) defines. A split of that step is physically nested at `1-<step>/1.1-<substep>/`, never beside its parent.
-
-Choose discovery, evaluation, or build-slice depth based on the next gate, not on how polished the design is. The four levels are output caps, not evidence maturity: Understand stops after the discovery decision, Design documents includes alternatives and an evaluation plan before stopping without screens, Mockup after the complete screen mockup, and Full through the build spec. "Brainstorm" may mean problem or solution exploration; ask if unclear and they have not asked to go next. An advance request leaves Understand with gaps recorded as unknown. A new brief that does not ask to continue still goes through the context gate. Separate partial learning material (default inline in the proposal or an externally supplied link) from the complete `screens.md` / `mockup.drawio` handoff. Draft the build spec only when the level is Full. Full can be an honest provisional draft, not fake proof. Keep context sufficiency, evidence confidence, specification completeness, and human approval separate, with risk-proportionate readiness and post-release learning owners. Preserve needs, requirements, and traceability. A small idea warrants small files. Link each artifact to the question it answers. Follow the output standard's optional `Level: understand | design-documents | mockup | full` header; absent Level retains legacy behavior, and build-slice requires full when Level is present.
-
-**Reply:** what you recommend, the files written, the strongest evidence and weakest assumption, each principle that changed a choice, the proposed defaults an owner should review, what you actually checked, and the next human decision or test. In advise mode, record that decision in the package and do not end the run by asking it. A design package is not user validation, feasibility approval, or permission to launch.
+**Reply:** phase completed, recommendation, file paths, decisive evidence/weakest premise, principles that actually changed a choice, proposed defaults/owners, performed checks/limitations and next human action. A plan, coherent package, agent review or phase advance is not validation, feasibility approval or build/launch permission. Stop at the phase boundary unless this message already opens the next.

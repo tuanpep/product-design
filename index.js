@@ -2,6 +2,9 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Plugin } from '@opencode/plugin'
+import { createDelegator, delegationSchema, orchestrationOptions, parseModel } from './runtime/delegation.mjs'
+import { createUsageCollector } from './runtime/usage.mjs'
+import { enforceDesignPermissions } from './runtime/permissions.mjs'
 
 const directory = dirname(fileURLToPath(import.meta.url))
 const skills = readdirSync(join(directory, 'skills'), { withFileTypes: true })
@@ -70,7 +73,10 @@ function agentDefinition(id) {
   const { fields, body } = frontmatterOf(path)
   const description = field(fields, 'description')
   const mode = field(fields, 'mode')
+  const model = field(fields, 'model')
+  const steps = field(fields, 'steps')
   if (!description || !mode || !body) throw new Error(`Incomplete agent definition: ${path}`)
+  if (steps && (!/^\d+$/.test(steps) || Number(steps) < 1)) throw new Error(`Invalid steps: ${path}`)
   return {
     id,
     description,
@@ -78,6 +84,8 @@ function agentDefinition(id) {
     color: field(fields, 'color'),
     system: body,
     permissions: permissionRules(fields),
+    ...(model ? { model: parseModel(model) } : {}),
+    ...(steps ? { steps: Number(steps) } : {}),
   }
 }
 
@@ -91,6 +99,7 @@ function agentDefinitions() {
 export default Plugin.define({
   id: 'product-design',
   async setup(ctx) {
+    const options = orchestrationOptions(ctx.options)
     const definitions = skills.map(definition)
     await ctx.skill.transform((editor) => {
       for (const skill of definitions) editor.add(skill)
@@ -105,8 +114,33 @@ export default Plugin.define({
           current.system = agent.system
           current.hidden = false
           current.permissions.push(...agent.permissions)
+          const model = options.workerModels[agent.id] ?? agent.model
+          if (model) current.model = model
+          const steps = options.agentSteps[agent.id] ?? agent.steps
+          if (steps) current.steps = steps
         })
       }
+    })
+    const usage = createUsageCollector(ctx, options.telemetry)
+    await enforceDesignPermissions(ctx)
+    await usage.setup()
+    const delegator = createDelegator(ctx, options, usage)
+    await ctx.tool.transform((editor) => {
+      if (options.enabled) editor.add({
+        name: 'product_design_delegate',
+        description: 'Optional bounded product-design research, specified Draw.io production or read-only review. Active phase owner only; fresh child, no recursive delegation, exact writes and quotas. Small/coupled work stays inline.',
+        input: delegationSchema,
+        execute: delegator.execute,
+      })
+      editor.add({
+        name: 'product_design_usage',
+        description: 'Read this session and child usage with cache/reasoning buckets and coverage limits. Does not run a model or estimate missing tokens. Optional telemetry provides loading/context counts, never document contents.',
+        input: { type: 'object', properties: { detail: { type: 'boolean', description: 'Explicitly return the full bounded ledger for external evaluation recording; otherwise a compact summary only.' } }, additionalProperties: false },
+        execute: async (input, context) => {
+          const document = await usage.exportUsage(context.sessionID)
+          return { content: JSON.stringify(input.detail ? document : { rootSessionID: document.rootSessionID, summary: document.summary, coverage: document.coverage, sessions: document.sessions.map((session) => ({ sessionID: session.sessionID, requests: session.requests.length, retries: session.retries, requestKinds: session.requestKinds, readCalls: session.loads.length, repeatedSources: session.loads.length - new Set(session.loads.map((load) => load.sourceHash)).size })) }) }
+        },
+      })
     })
     await ctx.command.transform((editor) => {
       editor.add({

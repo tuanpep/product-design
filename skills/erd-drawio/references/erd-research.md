@@ -19,6 +19,8 @@ Sources consulted 2026-10-20. These support the naming and layering practices be
 
 Both pages use formal identifiers. Neither page uses spaced prose labels (`Cover request`, `Sent at`). Optionality and sensitivity stay as short marks after the identifier: `(optional)`, `(personal)`.
 
+The plugin always puts these pages in separate files: `erd-logical.drawio` and, when a physical proposal exists, `erd-physical.drawio`. This split-file output is a plugin convention, not a requirement attributed to the sources above.
+
 Meaning, examples, and plain-language definitions stay in Glossary and Domain model. The ERD does not restate them.
 
 ## Layout
@@ -35,7 +37,7 @@ Not adopted:
 
 - High-volume entities at the top left, with feet pointing down. That fights parent-on-the-left.
 - A keys-only picture with attributes only in a side list. A slice ERD still draws the attributes from the domain model. The glossary remains the dictionary.
-- A hard cap of about 15 entities per page. A second file is only for a cluster that shares no relationship with the first.
+- A hard cap of about 15 entities per page. Beyond the mandatory logical/physical file split, a separate cluster gets its own files only when it shares no relationship with the first.
 
 ## Boundaries
 

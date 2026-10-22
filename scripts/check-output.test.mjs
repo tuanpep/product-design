@@ -378,6 +378,52 @@ test('flags IDs that are used but never defined, and requirements nobody uses', 
   assert.deepEqual(checkIds({ 'product-design.md': proposal }, ['<mxCell id="n" value="Serves R1 and R2" vertex="1" parent="1" />']), [])
 })
 
+test('allows one service message catalogue in the proposal without screen files', () => {
+  const content = proposal('evaluation', 'test solutions').replace(
+    '## Product experience\n',
+    '## Product experience\nM1: Request sent. Waiting for approval.\nSupport handoff: See M1.\n',
+  )
+  for (const level of ['design-documents', 'mockup', 'full']) {
+    withPackage({ 'product-design.md': atLevel(content, level) }, (folder) => assert.deepEqual(checkPackage(folder), []))
+  }
+  withPackage({
+    'product-design.md': atLevel(content, 'full'),
+    'build-spec.md': spec('draft').replace('Then Lan receives the request.', 'Then the sender sees M1.'),
+  }, (folder) => assert.deepEqual(checkPackage(folder), []))
+})
+
+test('rejects duplicate message definitions within or across catalogues', () => {
+  for (const definition of ['M1: Request sent.', '- M1: Request sent.', '**M1** Request sent.', '| M1 | Submit | Request sent. | Wait |']) {
+    for (const newline of ['\n', '\r\n']) {
+      const duplicate = checkIds({ 'screens.md': `${definition}${newline}${definition}` })
+      assert.equal(duplicate.length, 1)
+      assert.ok(duplicate[0].includes('M1 is defined more than once'))
+    }
+    assert.ok(checkIds({ 'product-design.md': definition, 'screens.md': definition })
+      .some((error) => error.includes('screens.md: M1 is defined more than once (first in product-design.md)')))
+  }
+})
+
+test('moving a catalogue preserves message references without duplicate definitions', () => {
+  const catalogue = '| M1 | Submit | Waiting for approval. | Check status |'
+  const references = 'Outcome: See M1.\nNotification: See M1.\n'
+  assert.deepEqual(checkIds({ 'product-design.md': `${catalogue}\n${references}` }), [])
+  assert.deepEqual(checkIds({ 'product-design.md': references, 'screens.md': catalogue, 'build-spec.md': references }), [])
+  assert.ok(checkIds({ 'product-design.md': references }).includes('product-design.md: M1 is referenced but never defined.'))
+})
+
+test('checks technical outcome message references against the owning catalogue', () => {
+  const files = {
+    'product-design.md': proposal('evaluation', 'specify a slice').replace('## Product experience\n', '## Product experience\nM1: Waiting for approval.\n'),
+    'build-spec.md': spec('draft'),
+    'technical-design.md': technical('draft').replace('## Correspondences\n', '## Correspondences\nAccepted request outcome: See M1.\n'),
+  }
+  withPackage(files, (folder) => assert.deepEqual(checkPackage(folder), []))
+  withPackage({ ...files, 'technical-design.md': files['technical-design.md'].replace('See M1.', 'See M99.') }, (folder) => {
+    assert.ok(checkPackage(folder).includes('technical-design.md: M99 is referenced but never defined.'))
+  })
+})
+
 test('checks every acceptance outcome is traced and no trace cell is empty', () => {
   assert.deepEqual(checkBuildSpec(spec('ready')), [])
   assert.ok(checkBuildSpec(spec('ready').replace('| S1 | A1 |', '| S1 | A2 |')).includes('build-spec.md: A1 is missing from Traceability.'))
@@ -510,6 +556,40 @@ test('validates diagrams and canonical documents inside nested child folders', (
     assert.ok(errors.some((error) => error.includes('1-ask/1.1-choose/journey.drawio: Edge e points to unknown target missing.')))
     assert.ok(errors.includes('1-ask/1.1-choose/screens.md: Canonical Markdown files belong in the package root, not a subfolder.'))
   })
+})
+
+test('accepts split ERD filenames at the package root and in nested step folders', () => {
+  for (const prefix of ['', '1-cover/', '1-cover/1.1-request/']) {
+    for (const physical of [false, true]) {
+      const files = {
+        'product-design.md': proposal('evaluation', 'test solutions'),
+        [`${prefix}erd-logical.drawio`]: journey,
+      }
+      if (prefix.includes('1.1-')) files['1-cover/journey.drawio'] = journey
+      if (physical) files[`${prefix}erd-physical.drawio`] = journey
+      withPackage(files, (folder) => assert.deepEqual(checkPackage(folder), []))
+    }
+  }
+})
+
+test('rejects combined ERDs at the package root and in step folders', () => {
+  for (const name of ['erd.drawio', '1-cover/erd.drawio']) {
+    withPackage({
+      'product-design.md': proposal('evaluation', 'test solutions'),
+      [name]: journey,
+    }, (folder) => assert.ok(checkPackage(folder).some((error) => error.includes(`${name}: Combined ERDs are not supported.`))))
+  }
+})
+
+test('requires exactly one page in each split ERD file', () => {
+  const page = /<diagram\b[\s\S]*<\/diagram>/.exec(journey)[0]
+  const combined = `<mxfile>${page}${page.replace('id="p"', 'id="physical"')}</mxfile>`
+  for (const name of ['erd-logical.drawio', '1-cover/erd-physical.drawio']) {
+    assert.deepEqual(checkDrawio(journey, name), [])
+    for (const xml of [combined, '<mxfile/>']) {
+      assert.ok(checkDrawio(xml, name).some((error) => error.includes('Each ERD file must have exactly one page.')))
+    }
+  }
 })
 
 test('every Draw.io skill example is a valid diagram', () => {

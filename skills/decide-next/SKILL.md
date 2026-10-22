@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Decide Next
 
+Apply [the shared execution contract](../design-product/references/specialist-execution.md). Reuse current review findings; check only changed or missing decision inputs rather than repeating a whole-package review.
+
 Read the gates in [the workflow reference](../design-product/references/workflow.md). Recommend exactly one next step.
 
 Apply [the learning loop](../design-product/references/learning-loop.md): when results are supplied, separate sourced observations from interpretation, explain what supported or weakened the assumption, and revise the decision rather than retaining an invalidated recommendation. A planned investigation is not a result. The output level caps deliverables, not evidence confidence or human authority.

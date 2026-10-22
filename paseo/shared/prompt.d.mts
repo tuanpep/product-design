@@ -14,4 +14,5 @@ export interface Workflow {
 
 export const workflows: readonly Workflow[];
 export function workflowById(id: WorkflowId): Workflow;
+export function assertWorkflowLaunch(id: WorkflowId): void;
 export function workflowPrompt(id: WorkflowId, skillRoot: string, request: string): string;

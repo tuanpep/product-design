@@ -3,6 +3,8 @@ import { readFileSync, readdirSync } from 'node:fs'
 import test from 'node:test'
 import { basename } from 'node:path'
 import plugin from '../index.js'
+import { agentPrompts } from '../paseo/shared/agent-prompts.mjs'
+import { canonicalAgent, syncAgents } from './sync-agent-prompts.mjs'
 
 test('OpenCode V2 registers bundled skills, the design agent, and a command that attaches the entry skill', async () => {
   const skills = []
@@ -11,7 +13,10 @@ test('OpenCode V2 registers bundled skills, the design agent, and a command that
   const switches = []
   const agents = new Map()
   const defaults = []
+  const tools = []
   await plugin.setup({
+    tool: { transform: async (callback) => callback({ add: (tool) => tools.push(tool) }), hook: async () => {} },
+    permission: { hook: async () => {} },
     skill: { transform: async (callback) => callback({ add: (skill) => skills.push(skill) }) },
     agent: {
       transform: async (callback) => callback({
@@ -41,38 +46,42 @@ test('OpenCode V2 registers bundled skills, the design agent, and a command that
   })
   const agent = agents.get('design-product')
   assert.equal(defaults.length, 0)
-  assert.equal(agents.size, 3)
+  assert.equal(agents.size, 5)
   assert.equal(agent.mode, 'all')
   assert.equal(agent.hidden, false)
   assert.equal(agent.color, '#1f6b4a')
-  assert.equal(agent.description, 'Turns a human idea into an evidence-labeled product design proposal')
+  assert.equal(agent.description, canonicalAgent('design-product').description)
   assert.match(agent.system, /Load the design-product skill/)
   assert.match(agent.system, /references\/learning-loop\.md/)
-  const packagePermissions = [
-    { action: 'edit', resource: '*', effect: 'deny' },
-    { action: 'edit', resource: 'docs/product-design/**', effect: 'allow' },
-    { action: 'shell', resource: '*', effect: 'deny' },
-  ]
-  assert.deepEqual(agent.permissions.slice(1), packagePermissions)
+  assert.deepEqual(agent.permissions[1], { action: '*', resource: '*', effect: 'deny' })
+  assert.ok(agent.permissions.some((rule) => rule.action === 'edit' && rule.resource === 'docs/product-design/**' && rule.effect === 'allow'))
+  assert.ok(agent.permissions.some((rule) => rule.action === 'product_design_delegate' && rule.effect === 'allow'))
+  assert.ok(!agent.permissions.some((rule) => rule.action === 'subagent' && rule.effect === 'allow'))
   const technical = agents.get('technical-design')
   assert.equal(technical.mode, 'all')
   assert.equal(technical.color, '#1a4f8b')
-  assert.match(technical.system, /select-views/)
-  assert.deepEqual(technical.permissions.slice(1), packagePermissions)
+  assert.match(technical.system, /phases\/technical\.md/)
+  assert.deepEqual(technical.permissions.slice(1), agent.permissions.slice(1))
   const review = agents.get('review-design')
   assert.equal(review.mode, 'all')
   assert.equal(review.color, '#8a4b1f')
   assert.match(review.system, /Load the review-design skill/)
-  assert.deepEqual(review.permissions.slice(1), packagePermissions)
+  assert.ok(!review.permissions.some((rule) => rule.action === 'edit' && rule.effect === 'allow'))
+  assert.ok(!review.permissions.some((rule) => rule.action === 'product_design_delegate' && rule.effect === 'allow'))
+  assert.equal(review.steps, 24)
+  for (const name of ['design-research', 'design-artifact']) {
+    assert.equal(agents.get(name).mode, 'subagent')
+    assert.ok(!agents.get(name).permissions.some((rule) => rule.action === 'subagent' && rule.effect === 'allow'))
+  }
+  assert.deepEqual(tools.map((tool) => tool.name), ['product_design_delegate', 'product_design_usage'])
   const bundled = readdirSync(new URL('../skills/', import.meta.url), { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
     .sort()
   assert.deepEqual(skills.map(({ id }) => id), bundled)
-  assert.equal(bundled.length, 52)
+  assert.equal(bundled.length, 53)
   assert.ok(!bundled.includes('prototype-drawio'))
-  assert.ok(!bundled.includes('sketch-drawio'))
-  for (const id of ['design-product', 'mockup-drawio', 'erd-drawio', 'state-drawio', 'sequence-drawio', 'context-drawio', 'dataflow-drawio', 'principle-use-real-content', 'survey-existing']) assert.ok(bundled.includes(id))
+  for (const id of ['design-product', 'mockup-drawio', 'sketch-drawio', 'erd-drawio', 'state-drawio', 'sequence-drawio', 'context-drawio', 'dataflow-drawio', 'principle-use-real-content', 'survey-existing']) assert.ok(bundled.includes(id))
   assert.ok(skills.every(({ autoinvoke, description }) => autoinvoke === false && description && !description.startsWith('"')))
   assert.equal(skills.find(({ id }) => id === 'principle-start-from-the-outcome').description, 'Apply when a request names a feature, screen, or technology. Design for the goal and the people who have it. Effectiveness outranks speed and delight.')
   assert.ok(skills.every(({ path, content, description }) => basename(path) === 'SKILL.md' && content.startsWith('# ') && description))
@@ -96,7 +105,9 @@ test('OpenCode V2 registers bundled skills, the design agent, and a command that
 test('host agent prompts share the same workflow instructions', () => {
   const body = (path) => readFileSync(new URL(path, import.meta.url), 'utf8')
     .replace(/\r\n/g, '\n').replace(/^---\n[\s\S]*?\n---\n/, '').trim()
-  for (const name of ['design-product', 'technical-design', 'review-design']) {
+  for (const name of ['design-product', 'technical-design', 'review-design', 'design-research', 'design-artifact']) {
     assert.equal(body(`../agents/${name}.md`), body(`../.opencode/agents/${name}.md`))
+    assert.equal(body(`../agents/${name}.md`), agentPrompts[name])
   }
+  assert.deepEqual(syncAgents(), [])
 })

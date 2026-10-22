@@ -5,7 +5,8 @@ import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import test from 'node:test'
 import { findSkillCatalog, listDesignPackages, materializeSkills, resolveSkillCatalog } from '../paseo/server/workspace.mjs'
-import { workflowPrompt, workflows } from '../paseo/shared/prompt.mjs'
+import { assertWorkflowLaunch, workflowPrompt, workflows } from '../paseo/shared/prompt.mjs'
+import { canonicalAgent } from './sync-agent-prompts.mjs'
 
 const repo = resolve(fileURLToPath(new URL('..', import.meta.url)))
 
@@ -28,9 +29,15 @@ test('paseo commands cover the three product design workflows', () => {
   assert.match(prompt, /Staff swap shifts in chat\./)
   assert.match(prompt, /Run one phase, then stop/)
   assert.match(prompt, /asks to go next/)
-  assert.match(prompt, /Do not ask another discovery/)
+  assert.match(prompt, /without another discovery, confirmation or level question/)
   assert.match(workflowPrompt('technical-design', '/skills', ''), /without additional text/)
   assert.match(workflowPrompt('review-design', '/skills', 'roster'), /review-design\/SKILL\.md/)
+  for (const workflow of workflows) assert.equal(workflow.procedure, canonicalAgent(workflow.id).body)
+  assert.doesNotMatch(prompt, /Read every other skill and reference/)
+  assert.doesNotMatch(workflowPrompt('technical-design', '/skills', 'next'), /Read \/skills\/design-product\/SKILL\.md/)
+  assert.throws(() => assertWorkflowLaunch('review-design'), /cannot enforce read-only/)
+  assert.doesNotThrow(() => assertWorkflowLaunch('design-product'))
+  assert.doesNotThrow(() => assertWorkflowLaunch('technical-design'))
 })
 
 test('finds the repository skill catalog from the paseo directory', () => {

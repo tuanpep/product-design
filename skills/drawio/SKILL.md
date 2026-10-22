@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Drawio
 
+Apply [the shared execution contract](../design-product/references/specialist-execution.md). Rendering consumes the owning model; do not invent product behavior in XML. A focused supplied-diagram task does not require a product package.
+
 Draw journey flow charts, swimlane processes, and navigation maps as [Draw.io](https://www.drawio.com/) files. Screen mockups are `mockup-drawio`, and the specialist diagrams are `erd-drawio`, `state-drawio`, `sequence-drawio`, `context-drawio`, and `dataflow-drawio`. Copy the skeleton in [drawio-file.md](references/drawio-file.md) and fill it. Write uncompressed XML into the `.drawio` file. Do not base64-encode the diagram, and do not create a Python script, an HTML page, or an image to generate or preview it.
 
 Use Draw.io's built-in library shapes first, as [drawio-file.md](references/drawio-file.md#built-in-shapes-first) lists: Flowchart for a journey, BPMN for a process, and Sitemap for a navigation map. Never invent a shape name.

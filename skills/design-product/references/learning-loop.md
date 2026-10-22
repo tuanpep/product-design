@@ -18,6 +18,14 @@ Keep a traceable chain, using existing IDs or short inline references:
 
 Choose a bounded target opportunity **before** generating solutions. Compare importance to users, consequence/frequency/reach where known, connection to business/service outcomes, inclusion/harm, and evidence uncertainty. Explain why this opportunity and not the others; do not invent opportunity scores or assume the requested feature is the opportunity. With only a human-confirmed hypothetical scenario, record a provisional opportunity hypothesis, not a research finding. The context gate still applies.
 
+## Shape proportionately
+
+Reuse the existing synthesis and bounded opportunity when their premises and source applicability remain adequate. Check relevant changes in workflow, audience, source age, and evidence quality; an unchanged document alone is not enough. Do not repeat discovery, rebuild the evidence chain, or manufacture opportunities just to show a comparison. Revisit only affected claims. A single supported opportunity needs a short rationale, not an opportunity tree or scoring exercise.
+
+Compare approaches at decision-making depth before detailing the proposed one. Reuse the known current approach as the baseline; include reuse and non-software changes where credible. Alternatives must differ in how they achieve the outcome, not merely in layout. Do not pad a fixed option count, invent implausible competitors, or fully design rejected options. Develop alternatives only as far as needed for a defensible comparison: a rough sketch, walkthrough, data review, or planned specialist investigation may be needed. Do not reject an uncertain alternative just because the preferred option is more developed. If only one direction remains, explain the evidence or binding constraints excluding plausible alternatives; distinguish verified constraints from preferences and assumptions. Record trade-offs and the assumption that could reverse the recommendation in the proposal, not a separate comparison document.
+
+Generate and evaluate separately, but not necessarily in separate conversation turns. Use ideas already supplied. After an advance request or in advise mode, propose options and a recommendation in that run rather than waiting for the human's ideas or repeating discovery. Unknown core facts stay unknown; hypothetical alternatives are not evidence.
+
 ## Question → method → artifact
 
 After comparing alternatives and before detailed experience or screens, use `plan-evaluation`. Identify assumptions across **desirability, usability, feasibility, viability, and ethics**. Prioritize those with serious consequences and weak evidence; do not demand every assumption be tested. Link each priority to a research question, a method capable of answering it, and only then the least necessary artifact/fidelity:
@@ -31,9 +39,17 @@ After comparing alternatives and before detailed experience or screens, use `pla
 
 Record the assumption/alternative, question, method, audience/recruitment, neutral tasks or procedure, observations/measures, support/weaken/reverse criteria agreed before results, owner, consent/privacy safeguards, limitations, and the resulting decision. Criteria can be qualitative and proposed; do not manufacture numeric precision. Separate proposed tests, actual execution, supplied reports, and inspection-only checks. An artifact by itself is not a test. Participant use of a prototype can supply usability evidence within that study's limits; agent inspection cannot substitute for it. Human approval of a hypothetical premise permits exploration, not evidence of demand or success.
 
+Consider all five risk categories, but elaborate only decision-changing questions; do not create one test per category or every minor assumption. Combine questions only when the same method can genuinely answer them. Keep one evaluation plan in the proposal and update affected entries after shaping instead of writing another plan. Use not applicable with a reason for irrelevant method fields, and Unknown for missing applicable details. A pending test has a proposed decision rule, not a claimed result. Feasibility or authorization that could invalidate the approach warrants an early specialist investigation plan, not more screens as a substitute.
+
+Prioritizing tests does not establish that untested assumptions are safe. In particular, absent customer contact or contrary evidence is not support for a low-risk classification. For participant-based work, retain a recruitment rationale, relevant access/support needs, neutral believable tasks that do not reveal the answer, a pilot check of tasks/material, and method limitations. Combine questions only when each remains answerable without undermining the session. Record a plan rather than implying recruitment, pilot checks, or research were executed.
+
 ### Learning material is not the complete screen handoff
 
 A **learning prototype** isolates a question and may deliberately omit most of the journey. Default to an inline concept, task, or scenario in the proposal, or a link to externally supplied material. Respect the level's no-screen cap. Do not put a partial learning stimulus in `screens.md` or call it the complete `mockup.drawio` handoff. Complete artifacts cover the declared screens, business views, consequential branches, and task handoffs; completeness does not require routine technical-state boards. Legacy explicitly declared states remain covered until the owning specification changes. Do not generate production code or diagram scripts as a side effect of planning research.
+
+Do not create both a learning prototype and a complete mockup automatically. If the requested mockup can answer the question, reference it in the plan; otherwise add only the material the question needs. This does not waive required screen/view coverage at Mockup or Full, change the output cap, or claim research happened. Detail the proposed approach, not every rejected alternative. Link shared descriptions rather than copying the same narrative across journey, process, and screens; each required view must still expose its own decisions, handoffs, and material exceptions.
+
+Before reusing a complete mockup for evaluation, check its interaction, visual, and content fidelity against the question. A complete static Draw.io board can support an appropriately facilitated walkthrough or content task, not establish realistic keyboard behavior, screen-reader compatibility, or response timing. Record what cannot be tested and plan suitable externally owned material/method where needed; do not silently generate code or waive handoff coverage.
 
 ## Ingest supplied results and revise the decision
 
@@ -47,7 +63,7 @@ Never claim to have recruited participants, run sessions, or executed a test mer
 
 ## Four independent gates, not four maturity levels
 
-- **Context sufficiency:** enough grounded or explicitly human-confirmed hypothetical context to explore; missing core facts block Shape in every mode.
+- **Context sufficiency:** enough grounded or explicitly human-confirmed hypothetical context to explore. Missing core facts trigger the interview unless an explicit advance request opens Shape under the discovery policy; gaps stay unknown and unsafe behavior stays excluded.
 - **Evidence confidence:** what actual support exists for consequential claims, including contradictions and unresolved risk.
 - **Specification completeness:** whether the artifacts needed for the requested level/profile and named slice agree and are sufficiently explicit.
 - **Human approval:** who accepted which decision, with scope/date; neither context confirmation nor specification grants investment, feasibility, policy, or launch approval.
@@ -57,6 +73,18 @@ Understand / Design documents / Mockup / Full are **output caps**, not evidence 
 ## Post-release learning handoff
 
 Implementation and live research execution are external to this design task. In the evaluation/handoff section name owners (or Unknown) for instrumentation and consent/privacy, user research and support feedback, reviewing user and business/service measures, and deciding changes. Specify baseline/source, proposed success and harm guardrails, review cadence or trigger, and what evidence would prompt iteration, rollback, stopping, or renewed discovery. Do not claim instrumentation, release, or monitoring actually happened. Supplied live results return through the same ingestion and revision loop.
+
+## Additional research and reassessment
+
+External pages read 2026-10-22:
+
+- [Product Talk: assumption testing](https://www.producttalk.org/assumption-testing/): compare alternatives through underlying assumptions, prioritize importance and weak evidence, and set criteria before results. Its guidance that many assumptions need not be tested is conditioned on regular customer engagement; absence of customer evidence is not assurance.
+- [NN/g: prototype fidelity](https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/): interaction, visual, and content fidelity vary independently; choose material according to test goals and pilot it. Static material requires appropriate facilitation and has limitations.
+- [GOV.UK: making prototypes](https://www.gov.uk/service-manual/design/making-prototypes): use suitable prototypes to explore alternatives; realistic interactions may require code prototypes, which remain distinct from production. This plugin plans or links externally owned material rather than generating code.
+- [GOV.UK: planning research](https://www.gov.uk/service-manual/user-research/plan-user-research-for-your-service) and [moderated usability testing](https://www.gov.uk/service-manual/user-research/using-moderated-usability-testing): question-appropriate methods, relevant inclusive participants, neutral tasks, and trying out instructions/material before sessions.
+- [NN/g: journey-mapping approaches](https://www.nngroup.com/articles/journey-mapping-approaches/): assess existing evidence and distinguish current/future state from assumption/research basis.
+
+The no-fixed-option-count, single evolving plan, complete handoff coverage, and no automatic extra prototype are plugin adaptations, not universal prescriptions from these sources. Their efficiency remains unverified without comparative installed-host runs.
 
 ## Sources and adaptation
 

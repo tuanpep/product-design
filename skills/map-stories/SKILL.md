@@ -6,7 +6,9 @@ disable-model-invocation: true
 
 # Map Stories
 
-Read the story shape in [the workflow reference](../design-product/references/workflow.md) and [principle-see-the-whole-service](../principle-see-the-whole-service/SKILL.md). A first release is a thin path through the whole journey, not a pile of features.
+Apply [the shared execution contract](../design-product/references/specialist-execution.md). Reuse the existing journey backbone; do not remap unchanged work or expand a bounded slice into a whole-product backlog. Principle links below are selective candidates, not mandatory preloads.
+
+Use the story shape in [the workflow reference](../design-product/references/workflow.md). [Whole service](../principle-see-the-whole-service/SKILL.md) is a relevant principle: a first release is a thin path through the journey, not a pile of features.
 
 1. Write the backbone: the user activities in journey order, taken from the to-be process or journey. Under each activity, list the user tasks.
 2. Under each task, list stories in priority order. Each story is: As a role, I need to do something, so that an outcome. Link each story to the need and requirement it serves.

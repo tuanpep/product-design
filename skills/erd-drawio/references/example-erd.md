@@ -1,7 +1,7 @@
 # Shift-swaps ERD example
 
 Standard: erd/1.0
-Updated: 2026-10-20
+Updated: 2026-10-22
 Source: illustrative erd-drawio specimen, not a researched product proposal
 
 All names, policies, and schema choices are fictional and **proposed**. This companion describes the two specimen boards. It is not a complete product-design package, SQL, or evidence that a schema performs or migrates safely. Naming follows [erd-research.md](erd-research.md) and [erd-components.md](erd-components.md).
@@ -11,7 +11,7 @@ All names, policies, and schema choices are fictional and **proposed**. This com
 | [example-logical.drawio](example-logical.drawio) | Logical · PascalCase identifiers |
 | [example-physical.drawio](example-physical.drawio) | Physical · `snake_case` schema identifiers |
 
-In a product package, both views live as two pages inside one `erd.drawio`. The skill keeps them as separate files so each opens on its own.
+In a product package, keep these views in separate, single-page files: `erd-logical.drawio` and `erd-physical.drawio`. Never combine them in `erd.drawio`. The logical file is always drawn; omit the physical file when there is no physical proposal. These specimens already follow that split structure.
 
 ## Question
 

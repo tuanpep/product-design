@@ -6,11 +6,13 @@ disable-model-invocation: true
 
 # Define Requirements
 
+Apply [the shared execution contract](../design-product/references/specialist-execution.md). Keep Understand at needs/constraints depth; elaborate solution-dependent requirements only within an open later phase.
+
 Read [the evidence contract](../design-product/references/evidence-and-decisions.md) and the requirement checks in [the workflow reference](../design-product/references/workflow.md).
 
 1. Write user needs before requirements. A need names who, what they need to do, and why. Add the trigger or constraint when it is known. Needs stay broader and more stable than a feature.
 2. Classify each need as given, observed, inferred, or unknown. Do not upgrade a stakeholder request into an observed need.
-3. Derive requirements from those needs. Each requirement states one capability, quality, or constraint, only as detailed as the evidence supports. Do not freeze an implementation. Read [principle-make-it-testable](../principle-make-it-testable/SKILL.md): say how each would be checked, and give quality requirements such as accessibility, privacy, performance, and reliability an observable result or mark the target unknown.
+3. Derive requirements from those needs. Each states one capability, quality or constraint at evidence-supported depth, without freezing an implementation. Say how it would be checked; load [make it testable](../principle-make-it-testable/SKILL.md) when it could change that choice. Use [quality scenarios](../design-product/references/quality-scenarios.md) for consequential targets, [accessibility planning](../design-product/references/accessibility-planning.md) for barriers/responsibility and [privacy-risk guidance](../design-product/references/privacy-risk.md) for processing harms when triggered. Keep outputs inline and targets sourced, proposed or unknown, not invented.
 4. Use unknown for missing policy, numbers, or feasibility. Record trade-offs as **proposed** and name the person who can accept them.
 5. Check the set for contradictions and for requirements that no need supports.
 

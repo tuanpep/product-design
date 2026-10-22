@@ -28,7 +28,7 @@ const gates = {
 const standards = ['product-design/1.0', 'product-design/1.1']
 const levels = ['understand', 'design-documents', 'mockup', 'full']
 const stateNames = ['default', 'empty', 'loading', 'partial', 'error', 'denied', 'success', 'offline']
-const drawioKinds = ['journey', 'process', 'navigation', 'mockup', 'context', 'erd', 'states', 'sequence', 'dataflow']
+const drawioKinds = ['journey', 'process', 'navigation', 'mockup', 'context', 'erd-logical', 'erd-physical', 'states', 'sequence', 'dataflow']
 const drawioFile = new RegExp(`^(${drawioKinds.join('|')})\\.drawio$`)
 const stepFolderName = /^([1-9]\d*(?:\.[1-9]\d*)?)-[a-z0-9]+(?:-[a-z0-9]+)*$/
 const maxDrawioPages = 2
@@ -349,8 +349,15 @@ export function checkIds(markdownFiles, diagrams = []) {
   const errors = []
   const defined = new Set()
   const uses = new Map()
-  for (const text of Object.values(markdownFiles)) {
-    for (const match of normalize(text).matchAll(definitionPattern)) defined.add(match[1])
+  const messageOwners = new Map()
+  for (const [name, text] of Object.entries(markdownFiles)) {
+    for (const match of normalize(text).matchAll(definitionPattern)) {
+      const id = match[1]
+      defined.add(id)
+      if (!/^M\d+$/.test(id)) continue
+      if (messageOwners.has(id)) errors.push(`${name}: ${id} is defined more than once (first in ${messageOwners.get(id)}). Keep one message catalogue and reference it elsewhere.`)
+      else messageOwners.set(id, name)
+    }
   }
   const sources = Object.entries(markdownFiles)
   for (const [index, diagram] of diagrams.entries()) {
@@ -374,6 +381,8 @@ export function checkIds(markdownFiles, diagrams = []) {
 export function checkDrawio(xml, name = 'diagram.drawio') {
   const errors = []
   const label = `${name}: `
+  const filename = name.split(/[\\/]/).at(-1)
+  if (filename === 'erd.drawio') errors.push(`${label}Combined ERDs are not supported. Split into erd-logical.drawio and, when a physical proposal exists, erd-physical.drawio; update links and remove erd.drawio.`)
   const elements = []
   const pages = []
   let root
@@ -391,6 +400,9 @@ export function checkDrawio(xml, name = 'diagram.drawio') {
     return [`${label}Expected well-formed XML.`]
   }
   if (root !== 'mxfile') return [`${label}Expected an uncompressed <mxfile>.`]
+  if (['erd-logical.drawio', 'erd-physical.drawio'].includes(filename) && pages.length !== 1) {
+    errors.push(`${label}Each ERD file must have exactly one page. Keep logical and physical ERDs in separate files.`)
+  }
   if (!pages.length) errors.push(`${label}Expected at least one diagram with an mxGraphModel and root.`)
   for (const page of pages) {
     if (!page.graph) {
@@ -490,7 +502,7 @@ export function checkPackage(folder) {
   for (const diagram of diagrams) {
     if (!covered.has(diagram.rel)) errors.push(...checkDrawio(readFileSync(diagram.path, 'utf8'), diagram.rel))
   }
-  const markdown = Object.fromEntries(['product-design.md', 'screens.md', 'build-spec.md'].filter(has).map((name) => [name, read(name)]))
+  const markdown = Object.fromEntries(['product-design.md', 'screens.md', 'build-spec.md', 'technical-design.md'].filter(has).map((name) => [name, read(name)]))
   errors.push(...checkIds(markdown, diagrams.map(readDiagram)))
   return errors
 }

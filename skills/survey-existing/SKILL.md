@@ -6,7 +6,9 @@ disable-model-invocation: true
 
 # Survey Existing
 
-Read [principle-see-the-whole-service](../principle-see-the-whole-service/SKILL.md), [principle-one-source-of-truth](../principle-one-source-of-truth/SKILL.md), [principle-spend-less-of-the-world](../principle-spend-less-of-the-world/SKILL.md), and [principle-decide-the-reversible](../principle-decide-the-reversible/SKILL.md). This skill finds what the target project already has. It does not choose the product approach; `explore-solutions` does that from these findings. It does not interview users; `discover-needs` does that.
+Apply [the shared execution contract](../design-product/references/specialist-execution.md). Principle links below are selective candidates, not mandatory preloads; read a leaf before citing it.
+
+Relevant principles: [whole service](../principle-see-the-whole-service/SKILL.md), [single ownership](../principle-one-source-of-truth/SKILL.md), [resource cost](../principle-spend-less-of-the-world/SKILL.md), and [reversible choices](../principle-decide-the-reversible/SKILL.md). Find what the target already has; `explore-solutions` chooses an approach from these findings and `discover-needs` owns user investigation.
 
 The reuse order follows [GOV.UK's "Do less"](https://www.gov.uk/guidance/government-design-principles), [Service Standard point 2](https://www.gov.uk/service-manual/service-standard/point-2-solve-a-whole-problem) (check whether the problem is already solved), and [point 13](https://www.gov.uk/service-manual/service-standard/point-13-use-common-standards-components-patterns) (use common components and authoritative data). It is not a claim that the package meets the Service Standard.
 

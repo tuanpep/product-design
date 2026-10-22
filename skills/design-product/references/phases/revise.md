@@ -1,0 +1,9 @@
+# Bounded revision
+
+Read the changed source/result and existing decision/owner, phase/cap and named handoff. For supplied results load only the [learning-loop ingestion](../learning-loop.md) procedure: provenance/method/audience/artifact version, observations separate from interpretation, contradictions, findings, comparison with prior criteria and supported/weakened/reversed/inconclusive impact. Never invent execution, quotes or task times.
+
+Find the earliest changed premise and affected definitions/claims/artifacts. Withdraw invalid dependent readiness before claiming closure. Preserve unaffected evidence, IDs, human edits and supersession history. Reopen discovery only for an affected core premise without an advance; cosmetic/copy edits do not trigger interviews. Explicit advance leaves missing facts unknown and excludes unsafe behavior.
+
+Load only the affected specialist and phase sections. Changed opportunities/alternatives precede revised evaluation/experience. Change the authoritative owner first, then authorized dependents, including copy/translations/mockup instances. Technical redesign is a separately authorized phase; readiness withdrawal alone permits no technical mechanisms. Report stale files/IDs, impact, owner or Unknown and next authorized update where scope prevents reconciliation.
+
+Use [the detailed revision playbook](../../playbooks/revise-design.md) only for an ambiguous revision dependency or method question. Review changed work and consequential shared dependencies against the named handoff. Preserve findings/repair evidence; one supported correction/recheck cycle, then report unresolved blockers rather than repeated agent-to-agent passes. Standalone review remains read-only; repairs require the owner/request's authorization. Existing next-action findings are consumed, not another whole-package review.

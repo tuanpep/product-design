@@ -6,7 +6,9 @@ disable-model-invocation: true
 
 # Context Draw.io
 
-Read [principle-see-the-whole-service](../principle-see-the-whole-service/SKILL.md), [principle-one-source-of-truth](../principle-one-source-of-truth/SKILL.md), [principle-protect-before-you-enable](../principle-protect-before-you-enable/SKILL.md), and [principle-decide-the-reversible](../principle-decide-the-reversible/SKILL.md). The diagram shows the product's scope and dependencies to everyone, including people outside engineering, following the [C4 model](https://c4model.com/diagrams/system-context). It does not choose an architecture.
+Apply [the shared execution contract](../design-product/references/specialist-execution.md). Principle links below are selective candidates, not mandatory preloads; read a leaf before citing it.
+
+Relevant principles: [whole service](../principle-see-the-whole-service/SKILL.md), [single ownership](../principle-one-source-of-truth/SKILL.md), [protection](../principle-protect-before-you-enable/SKILL.md), and [reversible choices](../principle-decide-the-reversible/SKILL.md). The diagram shows scope/dependencies for people including those outside engineering, following [C4](https://c4model.com/diagrams/system-context). It does not choose an architecture.
 
 1. Name the question the diagram answers, for example: which systems does shift swaps depend on, and who is the system of record? Read the stakeholder map and the scope in `product-design.md`, and Integrations and data in `build-spec.md` when it exists.
 2. Write uncompressed XML in `docs/product-design/<slug>/`, following [the Draw.io file skeleton](../drawio/references/drawio-file.md) and [the C4 context components](references/context-components.md). One slice keeps `context.drawio` as the context page only. `design-composition` adds the containers page when that view is included. A second slice with different dependencies is `1-<slice>/context.drawio`, numbered in parent/child index order, as [one file per close flow](../drawio/references/drawio-file.md#one-file-per-close-flow).

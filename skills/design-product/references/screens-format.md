@@ -51,10 +51,14 @@ For collection screens, specify meaningful row/card data and at least one realis
 
 **Content and copy.** Voice, terms from the glossary, and the message catalogue:
 
-| ID | Trigger | Text | Recovery |
-| --- | --- | --- | --- |
-| M1 | BR2 denies the request | Lan would work more than 48 hours this week. Choose another colleague, or ask the charge nurse to approve an exception. | Choose another colleague (SC2) |
+Apply [the shared content contract](content-quality.md). Reference the proposal's Content baseline for document versus interface language and locale, and the working vocabulary or owning glossary for terms. This section owns the single catalogue, including off-screen communications, whenever `screens.md` exists. Move any earlier catalogue here with the same M IDs and leave links in the proposal. Labels stay with their screen; assign M IDs only to consequential or reused messages, not every string.
 
-Notifications record channel, trigger, recipient, content, and opt-out.
+| ID | Trigger/source | Text | Recovery |
+| --- | --- | --- | --- |
+| M1 | BR2 denies the request; illustrative proposed rule | This colleague would exceed the weekly hours limit. Choose another colleague. | Choose another colleague (SC2), if permitted by BR2 |
+
+Add audience, placement (SC/view or channel), variables with examples, action/destination, and approval owner/status only where context requires them. Reference the rule or lifecycle outcome; without a settled rule, cite proposed journey behavior rather than inventing an ID. Definition rows appear once; use "See M1" or a link elsewhere.
+
+Notifications record sender, channel, trigger, recipient, subject/title when needed, minimum safe preview/body, destination access, delay/failure behavior, and preference/opt-out rules. Distinguish optional from essential notices; do not invent a universal opt-out. Check permissions before revealing another person's details, and distinguish pending, completed, and unknown outcomes. Content is proposed, not approval of policy or a guarantee of delivery.
 
 **Accessibility.** The target, for example WCAG 2.2 AA for the web, the criteria to check per screen, and who checks them. A screens document cannot establish conformance.

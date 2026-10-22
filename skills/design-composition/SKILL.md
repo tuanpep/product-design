@@ -6,7 +6,9 @@ disable-model-invocation: true
 
 # Design Composition
 
-Read [principle-choose-the-view](../principle-choose-the-view/SKILL.md), [principle-see-the-whole-service](../principle-see-the-whole-service/SKILL.md), [principle-one-source-of-truth](../principle-one-source-of-truth/SKILL.md), and [principle-decide-the-reversible](../principle-decide-the-reversible/SKILL.md). This is the composition view from IEEE 1016-2009: the parts and their responsibilities. It does not choose a framework.
+Apply [the shared execution contract](../design-product/references/specialist-execution.md). Use [the shared structure/dependency procedure](../design-product/references/structure-and-dependencies.md) once for both included views, retaining their separate owners. Principle links below are selective candidates, not mandatory preloads.
+
+Relevant principles: [choose the view](../principle-choose-the-view/SKILL.md), [see the whole service](../principle-see-the-whole-service/SKILL.md), [one source of truth](../principle-one-source-of-truth/SKILL.md), and [decide the reversible](../principle-decide-the-reversible/SKILL.md). This is the composition view from IEEE 1016-2009: parts and responsibilities, not a framework choice.
 
 1. Read Design views in `technical-design.md`. If composition is omitted, stop. If the file is missing, run `select-views` first.
 2. List the parts this slice adds or changes. For each part give its name, kind (application, data store, or external system), purpose, whether it is built, bought, or reused, and whether it is existing, changed, or new. Cite the `survey-existing` evidence ID when one exists. An external system must already be an integration (I1). A new part that duplicates a must-reuse or should-reuse finding goes back to `explore-solutions`.

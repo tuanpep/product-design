@@ -1,0 +1,125 @@
+# Orchestration, isolation and token accounting
+
+## What ships
+
+All **52 skill names** remain. Skills are inline procedures, not automatically separate agents. OpenCode registers their bodies without advertising disabled skills; full bodies/supporting references enter context only when loaded/read. Do not equate registration or total repository text with token consumption.
+
+The default instruction path is the small product entry → [execution kernel](../../skills/design-product/references/execution-kernel.md) → [active phase pack](../../skills/design-product/references/phase-routing.md). Detailed discovery, workflow and compatibility playbooks remain available for relevant methods/sections; agents should not preload every phase or reference. A fresh child needs relevant facts/authorization and source pointers; switching an agent in an existing session does not reset its history.
+
+There are three retained public agent profiles and two optional workers:
+
+| Profile | Ownership / tools |
+| --- | --- |
+| `design-product` | Human clarification, product phases, canonical decisions and integration |
+| `technical-design` | Explicit Full technical continuation and cross-view integration |
+| `review-design` | Read-only findings and three independent verdicts; never repairs in this profile |
+| `design-research` | Bounded read-only source/repository investigation, no human decisions |
+| `design-artifact` | Large specified Draw.io output, no owning-text/rule/copy redesign |
+
+Small copy work, tightly coupled domain/rule/interface decisions and interviews stay inline. Large research, artifact production or a material skeptical review may justify delegation. No agent per principle/skill, compulsory swarm or automatic repeated critic/repair loop. The phase owner performs supported authorized corrections, retains original findings and rechecks affected dependencies once before reporting unresolved issues.
+
+## Canonical prompts and host adapters
+
+Edit **`agents/*.md`** as the prompt source. Run:
+
+```text
+npm run sync:agents
+npm test
+```
+
+This generates OpenCode bodies/frontmatter and the Paseo prompt module. Tests reject drift across every generated body, including the five profiles and all three Paseo workflows. Do not manually edit generated adapters. Runtime/model/step overrides belong in host/plugin configuration, not copies of procedural policy. Portable agent files use Claude tool allowlists and Cursor's `readonly` field; their accepted frontmatter differs by host.
+
+| Host | Enforced boundary | Limitations |
+| --- | --- | --- |
+| OpenCode V2 plugin | Permission-evaluation and tool guards keep review/research read-only despite session allows; artifact edits require exact scoped paths; native spawning is blocked for owners/workers | Other installed hooks/configuration can further restrict work. This is not an OS sandbox or engineering assurance |
+| Cursor | Read-only profiles declare `readonly: true`; workers lack child-spawning instructions/tools appropriate to the role | Native scheduler/model behavior and quotas require installed-host verification. Artifact production requires a path policy or isolated copy/parent integration; otherwise inline |
+| Claude Code | Review/research tool allowlists exclude writes/shell/Agent; artifact excludes shell/Agent | Disabled skills must be read by path when tool invocation/preloading is unavailable. Per-file artifact permissions/isolation and budgets are host-specific, not supplied by the OpenCode runtime |
+| Paseo send-only adapter | **Standalone review launch is refused before sending a prompt** because this adapter cannot enforce read-only tool access | Run review in its configured underlying host profile. Product/technical prompts share canonical policy, but `.send()` does not switch tools/model, create a fresh context or enforce OpenCode quotas |
+
+Explicit repair through the read-only review profile still produces findings for the authoring owner. This intentionally replaces the old unsafe implicit-repair behavior. Paseo no longer pretends that a review prompt makes an arbitrary selected writable agent read-only.
+
+## OpenCode configuration
+
+Defaults: optional delegation available, at most **2 concurrent** workers and **4 launches per user request**, no child-of-child delegation, **120 seconds** including setup per invocation, and at most 5 additional seconds of bounded termination/persistence cleanup. Default worker steps: research 20, reviewer 24, artifact 40. No automatic retry. These are trial guardrails, not measured optimal settings or guaranteed output-token limits.
+
+```json
+{
+  "plugins": [
+    {
+      "package": "opencode-product-design",
+      "options": {
+        "delegation": {
+          "enabled": true,
+          "maxConcurrent": 2,
+          "maxLaunches": 4,
+          "timeoutMs": 120000
+        },
+        "telemetry": false,
+        "agentSteps": {
+          "design-research": 20,
+          "review-design": 24,
+          "design-artifact": 40
+        }
+      }
+    }
+  ]
+}
+```
+
+Set `delegation.enabled` false to remove the delegation tool and keep authoring inline. `maxConcurrent` accepts 1–2, `maxLaunches` 1–20, `timeoutMs` 1–600000, and step overrides 1–200. A cap/timeout may leave honest partial work; never treat exhaustion as success or increase a limit automatically to evade it.
+
+Optional `workerModels` maps `design-research`, `review-design` or `design-artifact` to an **available** `provider/model#variant` string. No model is hard-coded. The delegator uses explicit plugin worker override, otherwise the configured worker model, otherwise the parent's model. It never calls `switchModel` on the primary session. Availability/permissions must be verified in the actual host; no silent expensive fallback is promised. Primary model selection remains the user's session choice.
+
+## Scoped delegation and recovery
+
+OpenCode owners use `product_design_delegate`, not the native subagent tool. The handoff requires objective/stopping condition, package, authoritative source paths/version/known facts, open phase, cap, named handoff/authorization, checks and exact `writePaths` (empty for research/review). It does not carry the full parent conversation. The owner remains responsible for whether the phase and behavior are genuinely authorized; syntactically valid inputs are not human approval.
+
+For an artifact, only Shape at Mockup/Full or Technical at Full is permitted. Each path must be a `.drawio` within the named package, without traversal/globs/symlinks. Edit permission checks narrow to those exact paths and recheck path ancestors. An artifact writer occupies the delegation lane exclusively, including across new user turns. No concurrent canonical-text writers are created. The filesystem must be trusted/quiescent; path checks are not a race-proof OS sandbox.
+
+Children receive a snapshot of ordered parent agent/session rules, including approval requests and allow-list exceptions; a capability hook **only narrows** the resolved effect. It never upgrades ask/deny to allow. Research/review cannot write, run shell, call arbitrary MCP tools or spawn. Artifact workers can read and edit only scoped artifacts; invoking an unscoped artifact profile cannot grant it edit rights.
+
+Parent-wide reservations are persisted **before** child creation using a preallocated child ID. Launch counts are per attributed user request; active reservations are across turns. Deadlines bound the caller's wait for setup and model execution, not cancellation of underlying SDK operations: the installed Promise adapter ignores request abort options. Cleanup waits for outstanding creation/prompt admission to settle before attempting interruption and checking idle. A late admission, uncertain creation or unconfirmed termination leaves a durable fail-closed reservation instead of freeing a writer lane or retrying work. Definitive pre-submission failures release the lane. Replaying an identical tool call is rejected rather than launching again.
+
+After a runtime reload, a previously admitted/running reservation is reconciled only when the linked child is confirmed idle. Reserved/submitting/uncertain admissions require operator inspection even if an idle snapshot exists, because an old SDK operation could still be admitted later. If a child is missing/unreachable or termination is uncertain, inspect/stop that child in the host using the reported session ID before resuming. Do not start another parent just to evade a hold. A crash before session creation can require operator inspection of plugin storage `delegation/<parent-session-id>`; only after confirming no late/active child exists should an operator repair an orphaned reservation. Do not delete the child permission scope while it can still run. There is deliberately no model-callable "force clear" escape hatch.
+
+Workers save large artifacts once and return concise evidence/paths/checks/limitations. Reports longer than 12,000 characters are explicitly truncated/partial. The parent inspects consequential source/artifact content and applicable checks. A complete worker report is not semantic validity, rendering verification or readiness.
+
+## Usage and loading telemetry
+
+`product_design_usage` makes **no model calls**. By default it returns a compact observed-usage summary, coverage, retry/request-kind counts and repeated-source counts for the current session and plugin-managed children. `detail: true` explicitly returns the bounded ledger for evaluation export; use this only when needed, since that tool result itself consumes context. Extract the original JSON tool result from the host trace into a file outside the measured workspace rather than asking an agent to rewrite it.
+
+With `telemetry: false` (default), no sampling hooks or usage persistence run. An on-demand snapshot can read current context usage, but compaction may already have removed history. Delegation reservations/child permission scopes are still persisted because they are safety state, not optional telemetry.
+
+With `telemetry: true`, the plugin retains:
+
+- Per-request OpenCode-normalized input, output, reasoning, cache-read/cache-write and reported cost, deduplicated by session/request ID.
+- Character counts of assembled system/messages/tool schemas at dispatch, **not token counts or their contents**.
+- Successful native read/skill events: category, requested range and a per-session keyed source identifier. Repeated reads within a session can be counted; different sessions use different keys. Exported ledgers omit the key and raw paths. This is not encryption/anonymization, and plugin-storage access remains sensitive.
+- Retry counts and request-kind dispatch counts. No automatic model runs or billing-price inference.
+
+No prompts, file contents, XML, credentials or raw provider bodies are intentionally persisted by this telemetry. Counts, models and session IDs still warrant retention/access controls. There is no automatic retention purge; manage the host's plugin storage deliberately. Do not delete active delegation safety records merely to clear telemetry.
+
+**Coverage is explicitly incomplete.** The installed 2.0.28 plugin SDK has no `session.list` or `permission.assert`; runtime code uses supported hooks and its own durable child registry instead. Native/unrelated children are not enumerated. Title/generate dispatches may be counted without their billed tokens, failed attempts may have unreported charges, and normalized host fields are not raw provider invoices. Usage exports remain marked incomplete even when all observed requests have numbers. Missing values are `null`, not zero.
+
+Bounds: at most 20 exported sessions, 2,000 requests/context samples/load events per retained session and 100 parent registry entries before completed-history pruning. Truncation/missing children stay visible. The summary separates observed sums, missing-field counts and nullable bucket totals. OpenCode V2 buckets are disjoint: do not add reasoning/cache a second time. For another provider/SDK, normalize inclusive fields first and retain original usage evidence externally; run aggregates must never be mixed with child/request records. Request-duration sums are not parallel wall time.
+
+## Evaluation and accounting integration
+
+The existing recorder accepts optional `"usageFile": "usage.json"` in `trial.json`. It hashes and retains that execution-usage document, validates request uniqueness and acyclic parentage, rejects non-disjoint/run-aggregate records, and includes observed/missing usage in each trial summary. Legacy records without usage remain valid. `metrics` still holds operator-reported latency/tokens/cost; it is **not added** to the usage ledger totals.
+
+Record optional `run.cacheState` (`cold`, `warm`, `mixed`, `unknown`) and `run.settings` (model/effort, worker settings, permission/config limitations) so unlike conditions are not grouped together. Preserve the actual per-request worker models; the parent's model alone does not describe a mixed-model run. Use authoritative provider billing/export evidence for realized cost, and distinguish subscription usage from estimated API list-price cost.
+
+Trial conditions, with identical fixtures/settings and fresh isolated sessions:
+
+1. Archived previous catalog, if its exact installed source is available.
+2. Phase-specific loading with delegation disabled.
+3. Bounded read-only research/review enabled.
+4. Configuration 3 plus optional specified artifact delegation.
+
+Cover a tiny copy edit (inline expected), vague interview, advance-with-gaps, supplied-results revision, large existing-system survey, multi-actor mockup, correctness-heavy technical slice, seeded/no-defect read-only reviews and explicit repair. Include cancellation, quota, denied writes and incomplete work. Repeat runs; compare semantic findings and unauthorized edits alongside observed tokens/cache, cost and wall time. Do not reward more artifacts or more findings. Preserve failures and unknown metrics, and separate cold/warm caches or changed models/settings.
+
+See [recording instructions](05-skill-evaluations.md) and [manual scenarios](../skill-catalog-regressions.md). Automated tests use synthetic SDK fixtures, not paid host/model executions. **No installed-host performance trials or token-saving claims accompany this implementation.**
+
+## Research basis
+
+Read during the 2026-10-22 research: [OpenCode V2 skills](https://opencode.ai/v2/docs/skills/), [agents](https://opencode.ai/v2/docs/agents/) and [plugin API](https://opencode.ai/v2/docs/build/plugins/); [Claude Code subagents](https://code.claude.com/docs/en/sub-agents), [skills](https://code.claude.com/docs/en/skills) and [costs](https://code.claude.com/docs/en/costs); [Cursor subagents](https://cursor.com/docs/subagents); [OpenAI orchestration](https://openai.github.io/openai-agents-python/multi_agent/), [usage](https://openai.github.io/openai-agents-python/usage/) and [prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching); [Anthropic multi-agent research](https://www.anthropic.com/engineering/multi-agent-research-system) and [context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents). Runtime implementation follows the **installed SDK surface**, which can lag live documentation. Budget values, phase packs, narrowing policy and recorder integration are plugin adaptations, not externally measured efficiency guarantees.

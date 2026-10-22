@@ -46,7 +46,7 @@ export function checkPlugin(folder = root) {
     errors.push(`Cannot read marketplace.json: ${error.message}`)
   }
 
-  for (const name of ['design-product', 'technical-design', 'review-design']) {
+  for (const name of ['design-product', 'technical-design', 'review-design', 'design-research', 'design-artifact']) {
     const agentBody = component(folder, join(folder, 'agents', `${name}.md`), name, errors)
     const opencodeAgent = join(folder, '.opencode', 'agents', `${name}.md`)
     if (!existsSync(opencodeAgent)) errors.push(`Missing OpenCode agent ${name}.`)

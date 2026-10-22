@@ -28,6 +28,13 @@ test('bundled plugin has valid metadata and links', () => {
   assert.deepEqual(checkPlugin(root), [])
 })
 
+test('package includes runtime and host sources without including Paseo local dependencies', () => {
+  const { files } = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
+  for (const path of ['runtime/', 'paseo/client/', 'paseo/server/', 'paseo/shared/', 'paseo/index.client.tsx', 'paseo/index.server.ts', 'paseo/paseo-plugin.json']) assert.ok(files.includes(path), path)
+  assert.ok(!files.includes('paseo/'))
+  assert.ok(!files.some((path) => path.includes('node_modules')))
+})
+
 test('detects a missing skill and a broken local link', (t) => {
   const folder = fixture(t)
   rmSync(join(folder, 'skills', 'design-product', 'SKILL.md'))

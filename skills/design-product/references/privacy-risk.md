@@ -1,0 +1,13 @@
+# Privacy risk from processing
+
+Trigger: collection, inference, sharing, monitoring, retention or deletion of personal/sensitive information could affect people, even when access is authorized. Security threat modeling and a data-flow diagram do not cover all such risks. No processing detail means unknown, not an invented data inventory or legal basis.
+
+**Owners and outputs:** `define-requirements` owns privacy outcomes/constraints; `model-domain` owns the conceptual data-purpose/lifecycle/recipient inventory in Integrations and data and Domain model; `select-views` routes technical implications to the existing information, interface, resource and security views. `assess-threats` owns security threats only. Put processing-risk notes alongside the owning data/integration, not a second mandatory report. Human privacy/legal decisions require an accountable owner and source.
+
+1. For consequential information, link subject/category, actual purpose, collection/source, necessary granularity, inferred/derived uses, recipients and authority boundaries. Minimize what is needed; distinguish a proposed use from an accepted purpose.
+2. Consider harms from authorized processing: unwanted inference, excessive collection/retention, incompatible reuse, exposure to a legitimate but inappropriate recipient, loss of autonomy, discrimination or inability to exercise applicable rights. Record who is affected, scenario, uncertainty and source. Do not reduce this to a breach checklist.
+3. Link controls to those harms: purpose/use restriction, minimization, access/recipient rules, safe previews, retention/deletion including backups/derived data where relevant, correction and applicable rights routes. Mark policy, jurisdiction, lawful authority and feasibility unknown unless supplied; a checkbox or consent sentence is not proof of lawful processing.
+4. Record owner, residual risk/decision, verification method and dependencies. Trace a needed control to an existing requirement/rule or proposed technical concern. Never claim NIST use establishes legal compliance or that proposed controls have been implemented.
+5. Feed changed processing facts/results into the learning-loop/revision procedure. Reconcile affected models, contracts, copy and ready claims within scope; report stale dependents otherwise. Security assessment remains complementary, not a replacement.
+
+Basis: [NIST Privacy Framework FAQ](https://www.nist.gov/privacy-framework/frequently-asked-questions), read 2026-10-22: privacy problems can arise from data processing without a cybersecurity incident. This reference adapts that distinction, not a certification or complete privacy impact assessment.
