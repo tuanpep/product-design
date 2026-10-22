@@ -46,7 +46,7 @@ Rules:
 
 - Derive logical PascalCase from the glossary term by removing spaces and capitalising each word. Do not invent a different concept name.
 - Do not put types, nullability SQL, or DBMS keywords on the logical page. Marks `(optional)` and `(personal)` are allowed after the identifier.
-- Physical names follow the existing schema or the physical proposal. Do not paste PascalCase or glossary phrases as column labels.
+- Physical names follow the existing schema or the physical proposal, using [the database standard](../../design-data/references/database-standard.md). New identifiers and authored captions, legends, and notes use English; preserve existing identifiers and externally governed codes exactly. Do not paste PascalCase or glossary phrases as column labels.
 - Draw.io cell `id` values stay kebab-case (`ent-cover-request`); they are not ER names.
 - Row order inside a table: primary key, then foreign keys, then required attributes, then optional attributes. Index rows come last on the physical page.
 
@@ -67,7 +67,7 @@ The first table in a column starts at y 80, under the caption. Stack later table
 
 **Lines.** Keep `entityRelationEdgeStyle`. Draw from the parent key row to the child foreign-key row. A line touches a table only at those two rows. Every other part stays in the gutter, at least 24 outside every table. Two lines in one gutter run parallel and at least 40 apart. They do not share a segment ([Edges do not overlap](../../drawio/references/drawio-file.md#relationship-lines)). Two roles from the same parent (requester and colleague) end on two foreign-key rows. A relationship from a table to itself stays in that table's right gutter and does not cross another table. Give each label a different `x` on `<mxGeometry x="0.3" relative="1" as="geometry" />` (`x` from `-1` to `1`) so the words do not stack. A label keeps `labelBackgroundColor=#ffffff` and does not sit on a table.
 
-**Frame.** The caption is top left. The physical legend is top right, 24 clear of the nearest table. The note sits 40 below the lowest table. Set `pageWidth` and `pageHeight` to the bounds of every shape plus 40, rounded up to a multiple of 10. A label that would not fit its cell is shortened, not wrapped. After placing, zoom out: the main chain should still read left to right without tracing a line.
+**Frame.** The caption is top left. The physical legend is top right, 24 clear of the nearest table. The note sits 40 below the lowest table. Set `pageWidth` and `pageHeight` to the bounds of every shape plus 40, rounded up to a multiple of 10. Shorten explanatory labels rather than wrapping them. Never shorten a schema identifier to fit: widen the table's columns consistently and increase the column pitch to retain the gutter, or move constraint detail to a keyed note. After placing, zoom out: the main chain should still read left to right without tracing a line.
 
 ## IDs
 

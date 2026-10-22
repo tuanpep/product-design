@@ -103,3 +103,19 @@ test('command and rule adapters retain selective loading and read-only reviewer 
   }
   assert.match(read('rules/review-design.md'), /Keep this review read-only/)
 })
+
+test('physical database policy has one owner and preserves exact legacy names', () => {
+  const path = 'design-data/references/database-standard.md'
+  const standard = readFileSync(new URL(`../skills/${path}`, import.meta.url), 'utf8')
+  for (const name of ['design-data', 'erd-drawio']) {
+    assert.match(skill(name), /references\/database-standard\.md/)
+    assert.match(skill(name), /Use English/)
+    assert.match(skill(name), /preserve existing identifiers and externally governed codes exactly/)
+  }
+  assert.match(reference('technical-design-format'), /design-data\/references\/database-standard\.md/)
+  for (const requirement of [/not universal SQL requirements/, /English-only metadata does not mean English-only stored data/, /engine unresolved/, /ON DELETE/, /ON UPDATE/, /ordered child columns/, /does not automatically create a child-side FK index/, /Physical ERD acceptance/, /External research/]) {
+    assert.match(standard, requirement)
+  }
+  assert.match(skill('design-data'), /reason for omitting it/)
+  assert.match(skill('erd-drawio'), /not as independent column constraints/)
+})
