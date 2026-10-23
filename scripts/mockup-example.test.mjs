@@ -18,17 +18,17 @@ const value = (id) => byId.get(id)?.value
 const style = (id) => Object.fromEntries(byId.get(id).style.split(';').filter((part) => part.includes('=')).map((part) => part.split('=')))
 const bounds = (id) => Object.fromEntries(['x', 'y', 'width', 'height'].map((key) => [key, Number(byId.get(id).geometry[key])]))
 
-test('Carbon-informed White uses a neutral palette, blue actions and reserved status accents', () => {
-  const palette = new Set(['#ffffff', '#f4f4f4', '#161616', '#525252', '#8d8d8d', '#e0e0e0', '#0f62fe', '#393939', '#da1e28', '#24a148', '#c6c6c6'])
+test('Ant Design light uses contrast-adapted blue primary, default buttons and semantic status roles', () => {
+  const palette = new Set(['#ffffff', '#f5f5f5', '#1f1f1f', '#595959', '#8c8c8c', '#d9d9d9', '#0958d9', '#c41d24', '#fff2f0', '#e6f4ff', '#1677ff', '#fafafa', '#f0f0f0', '#91caff', '#ffccc7'])
   const colors = [...xml.matchAll(/#[\da-f]{6}/gi)].map(([color]) => color)
   for (const color of colors) assert.ok(palette.has(color), color)
   for (const color of palette) assert.ok(colors.includes(color), `Missing token ${color}`)
-  assert.doesNotMatch(xml, /rounded=1;|arcSize=|fontSize=(?:16|18|24);|#(?:286344|245b40|244c3b|e4efe8|608d70)/i)
+  assert.doesNotMatch(xml, /Carbon|#(?:0f62fe|161616|da1e28|24a148)\b/i)
   for (const frame of states) {
     assert.equal(style(frame).fillColor, '#ffffff')
-    assert.match(value(`${frame}-note`), /Carbon-informed White; Arial fallback/)
-    assert.equal(style(`${frame}-title`).fontSize, '32')
-    assert.equal(style(`${frame}-title`).fontStyle, '0')
+    assert.match(value(`${frame}-note`), /Ant Design light antd 6\.6\.7; Arial fallback/)
+    assert.equal(style(`${frame}-title`).fontSize, '30')
+    assert.equal(style(`${frame}-title`).fontStyle, '1')
     assert.equal(bounds(`${frame}-header`).height, 48)
     const header = bounds(`${frame}-header`)
     const sidebar = bounds(`${frame}-sidebar`)
@@ -38,23 +38,36 @@ test('Carbon-informed White uses a neutral palette, blue actions and reserved st
     assert.ok(account.y >= header.y && account.y + account.height <= header.y + header.height)
   }
   for (const cell of cells.filter((cell) => /-(send|request|return)$/.test(cell.id) && cell.id !== 'SC2-denied-send')) {
-    assert.equal(style(cell.id).fillColor, '#0f62fe', cell.id)
+    assert.equal(style(cell.id).fillColor, '#0958d9', cell.id)
     assert.equal(style(cell.id).fontColor, '#ffffff', cell.id)
+    assert.equal(style(cell.id).rounded, '1', cell.id)
+    assert.equal(style(cell.id).absoluteArcSize, '1', cell.id)
+    assert.equal(style(cell.id).arcSize, '12', cell.id)
   }
   for (const state of ['default', 'error', 'denied']) {
-    assert.equal(style(`SC2-${state}-cancel`).fillColor, '#393939')
-    assert.equal(style(`SC2-${state}-cancel`).fontColor, '#ffffff')
+    assert.equal(style(`SC2-${state}-cancel`).fillColor, '#ffffff')
+    assert.equal(style(`SC2-${state}-cancel`).strokeColor, '#d9d9d9')
+    assert.equal(style(`SC2-${state}-cancel`).fontColor, '#1f1f1f')
   }
   for (const cell of cells.filter((cell) => /-(previous|next|retry)$/.test(cell.id) && cell.id !== 'SC2-success-next')) {
-    assert.equal(style(cell.id).strokeColor, '#0f62fe')
-    assert.equal(style(cell.id).fontColor, '#0f62fe')
+    assert.equal(style(cell.id).strokeColor, '#d9d9d9')
+    assert.equal(style(cell.id).fontColor, '#1f1f1f')
   }
-  for (const cell of cells.filter((cell) => cell.style?.includes('#24a148'))) assert.equal(cell.id, 'SC2-success-panel-accent')
-  assert.equal(style('SC2-success-status').fontColor, '#161616')
-  assert.equal(style('SC2-success-status').fillColor, '#f4f4f4')
+  assert.ok(!byId.has('SC2-success-panel-accent'), 'Dedicated completion view does not need a redundant success alert')
+  assert.equal(style('SC2-success-status').fontColor, '#0958d9')
+  assert.equal(style('SC2-success-status').fillColor, '#e6f4ff')
+  assert.equal(style('SC2-success-status').strokeColor, '#91caff')
+  assert.equal(style('SC2-success-status').arcSize, '8')
+  assert.equal(style('SC1-default-status').fillColor, '#f5f5f5')
+  assert.equal(style('SC1-default-status').arcSize, '8')
+  for (const frame of states) {
+    assert.equal(style(`${frame}-nav`).fillColor, '#e6f4ff')
+    assert.equal(style(`${frame}-nav`).fontColor, '#1677ff')
+  }
+  assert.equal(bounds('SC2-success-status').height, 24)
 })
 
-test('controls retain containment, focus clearance, radio targets and filled textarea rules', () => {
+test('controls retain containment, white focus clearance and full-outline Ant Design fields', () => {
   const focus = bounds('SC1-default-focus')
   const action = bounds('SC1-default-request')
   // Six pixels on each side leave the two-pixel focus stroke clear of the action.
@@ -64,61 +77,60 @@ test('controls retain containment, focus clearance, radio targets and filled tex
   for (const state of ['default', 'error', 'denied']) {
     const prefix = `SC2-${state}`
     const input = bounds(`${prefix}-note-input`)
-    const rule = bounds(`${prefix}-note-input-rule`)
-    assert.equal(style(`${prefix}-note-input`).fillColor, '#f4f4f4')
-    assert.equal(style(`${prefix}-note-input`).strokeColor, 'none')
-    assert.equal(style(`${prefix}-note-input-rule`).fillColor, '#8d8d8d')
-    assert.equal(rule.height, 1)
-    assert.equal(rule.y + rule.height, input.y + input.height)
-    assert.equal(rule.x, input.x)
-    assert.equal(rule.width, input.width)
+    assert.ok(!byId.has(`${prefix}-note-input-rule`))
+    assert.equal(style(`${prefix}-note-input`).fillColor, '#ffffff')
+    assert.equal(style(`${prefix}-note-input`).strokeColor, '#8c8c8c')
+    assert.equal(style(`${prefix}-note-input`).arcSize, '12')
+    assert.equal(style(`${prefix}-note-input`).spacingLeft, '12')
     assert.ok(bounds(`${prefix}-send`).y - input.y - input.height >= 16)
     assert.ok(bounds(`${prefix}-cancel`).x - bounds(`${prefix}-send`).x - bounds(`${prefix}-send`).width >= 16)
-    assert.equal(style(`${prefix}-legend`).fontSize, '12')
+    assert.equal(style(`${prefix}-legend`).fontSize, '14')
+    assert.equal(style(`${prefix}-legend`).fontStyle, '1')
     for (const colleague of ['alex', 'lan']) {
       const id = `${prefix}-${colleague}`
       const radio = bounds(`${id}-radio`)
       const label = bounds(`${id}-label`)
       const card = bounds(`${id}-card`)
-      assert.equal(radio.width, 20)
-      assert.equal(radio.height, 20)
-      assert.equal(style(`${id}-radio`).strokeColor, '#161616')
+      assert.equal(radio.width, 16)
+      assert.equal(radio.height, 16)
+      assert.equal(style(`${id}-radio`).strokeColor, byId.has(`${id}-selected`) ? '#1677ff' : '#8c8c8c')
       assert.equal(label.height, 48)
-      assert.equal(label.x - radio.x - radio.width, 8)
+      assert.equal(label.x - radio.x - radio.width, 10)
       assert.equal(style(`${id}-label`).fontSize, '14')
+      assert.equal(style(`${id}-label`).fontStyle, '0')
       assert.ok(label.y >= card.y && label.y + label.height <= card.y + card.height)
       if (byId.has(`${id}-selected`)) {
         const dot = bounds(`${id}-selected`)
-        assert.equal(dot.width, 8)
-        assert.equal(dot.height, 8)
+        assert.equal(dot.width, 6)
+        assert.equal(dot.height, 6)
         assert.equal(dot.x + dot.width / 2, radio.x + radio.width / 2)
         assert.equal(dot.y + dot.height / 2, radio.y + radio.height / 2)
-        assert.equal(style(`${id}-selected`).fillColor, '#161616')
+        assert.equal(style(`${id}-selected`).fillColor, '#ffffff')
       }
     }
   }
 })
 
-test('validation is visible with two-pixel invalid outlines and three-pixel notification accents', () => {
+test('validation maps Alert errorBg/errorBorder, a leading icon and explicit recovery', () => {
   for (const state of ['error', 'denied']) {
     const id = `SC2-${state}-summary`
-    assert.equal(style(id).strokeColor, '#da1e28')
-    assert.equal(style(id).strokeWidth, '2')
-    assert.equal(style(id).fontColor, '#161616')
+    assert.equal(style(id).strokeColor, '#ffccc7')
+    assert.equal(style(id).fillColor, '#fff2f0')
+    assert.equal(style(id).fontColor, '#1f1f1f')
     assert.equal(style(id).fontSize, '14')
     assert.equal(style(id).fontStyle, '1')
-    assert.equal(style(id).spacingTop, '12')
-    assert.equal(style(id).spacingBottom, '12')
-    assert.ok(bounds(id).height >= 48)
-    assert.equal(bounds(`${id}-accent`).width, 3)
-    assert.equal(style(`${id}-accent`).fillColor, '#da1e28')
-    assert.equal(style(`SC2-${state}-inline`).fontColor, '#da1e28')
+    assert.equal(style(id).spacingTop, '16')
+    assert.equal(style(id).spacingBottom, '16')
+    assert.ok(bounds(id).height >= 72)
+    assert.ok(!byId.has(`${id}-accent`))
+    assert.equal(bounds(`${id}-icon`).width, 16)
+    assert.equal(style(`${id}-icon`).strokeColor, '#c41d24')
+    assert.equal(style(`SC2-${state}-inline`).fontColor, '#c41d24')
   }
   for (const id of ['SC2-error-alex-card', 'SC2-error-lan-card', 'SC2-denied-lan-card']) {
-    assert.equal(style(id).strokeWidth, '2')
-    assert.equal(style(id).strokeColor, '#da1e28')
+    assert.equal(style(id).strokeColor, 'none', 'Radio group is not a set of invalid outlined cards')
   }
-  assert.equal(bounds('SC2-success-panel-accent').width, 3)
+  assert.equal(style('SC2-success-panel').arcSize, '16')
 })
 
 test('example remains valid and covers the existing screen/state contract', () => {
@@ -145,7 +157,7 @@ test('frames are full size, flat, task ordered and consistently spaced', () => {
     assert.deepEqual(frame.geometry, { x: String(40 + column * 1680), y: index < 3 ? '100' : '1280', width: '1440', height: '900', as: 'geometry' })
     assert.equal(Number(byId.get(`${frame.id}-caption`).geometry.y), Number(frame.geometry.y) - 40)
     assert.equal(Number(byId.get(`${frame.id}-note`).geometry.y), Number(frame.geometry.y) + 920)
-    assert.match(byId.get(`${frame.id}-title`).style, /fontSize=32;/)
+    assert.match(byId.get(`${frame.id}-title`).style, /fontSize=30;/)
     assert.match(value(`${frame.id}-account`), /Mai Tran · Nurse/)
     assert.match(value(`${frame.id}-note`), /intent, not tested/)
   }
@@ -154,7 +166,7 @@ test('frames are full size, flat, task ordered and consistently spaced', () => {
 test('editable basic shapes have no runtime controls, links or embedded images', () => {
   assert.doesNotMatch(xml, /<(?:object|UserObject|script|iframe|img)\b|\b(?:link|onclick|onload)\s*=|data:|https?:|shape=mxgraph|image=/i)
   assert.match(value('SC1-default-note'), /Static, not interactive/)
-  assert.match(byId.get('SC1-default-focus').style, /strokeColor=#0f62fe;strokeWidth=2;/)
+  assert.match(byId.get('SC1-default-focus').style, /strokeColor=#0958d9;strokeWidth=2;/)
   for (const cell of cells.filter((cell) => /-(send|cancel|request|return|retry|previous|next|week)$/.test(cell.id) && cell.id !== 'SC2-success-next')) {
     assert.equal(cell.geometry.height, '48', cell.id)
   }

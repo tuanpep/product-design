@@ -23,7 +23,7 @@ export function workflowPrompt(id, skillRoot, request) {
   return `Installed skill catalog: ${skillRoot}
 Read ${skillRoot}/${workflow.skillFile}. Read only needed procedures and reference sections from this same catalog, never the entire catalog. Disabled automatic invocation does not prevent reading the file. If required sources are inaccessible, report it and stop affected work.
 The .paseo/product-design/skills copy is local agent support; do not commit .paseo/.
-Paseo sends this to the selected existing agent; this does not enforce a new role, reset history or configure worker models/permissions. Only delegate when the underlying host can enforce the required boundaries; otherwise do bounded work inline. Do not claim runtime isolation or read-only enforcement from this prompt.
+Paseo sends this to the selected existing agent; this does not enforce a new role, reset history or configure worker models/permissions. Delegate execution only when the underlying host enforces the required leaf/no-recursion and exact-path boundaries; otherwise report blocked execution rather than work inline. Do not claim runtime isolation or read-only enforcement from this prompt.
 
 ${workflow.procedure}
 

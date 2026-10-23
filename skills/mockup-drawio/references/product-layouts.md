@@ -13,7 +13,7 @@ Resolve the UI baseline before drawing. Inspect supplied screens, repository com
 | Component organization | Page title/actions, toolbar, table/list, detail sections, form groups, action bar and feedback placement |
 | Behavior | Navigation versus action, responsive transformation, focus/return, retained search context, save/cancel semantics |
 
-Without target references, use the **proposed Carbon-informed White** baseline from [web-components.md](web-components.md), explicitly not a pixel-perfect Carbon implementation. Keep one coherent baseline per product mode. Do not add gradients, decorative metrics, large empty cards, or unrelated rounded surfaces to make a working screen look like a marketing page.
+Without target references, use the **proposed Ant Design light** baseline from [web-components.md](web-components.md), pinned to `antd@6.6.7`, explicitly not a pixel-perfect runtime implementation. Record the token version, mode, contrast overrides, Arial fallback and local 48-high density. Keep one coherent baseline per product mode. Do not add gradients, decorative metrics, large empty cards, or unrelated rounded surfaces to make a working screen look like a marketing page.
 
 ## Place each region by principle
 
@@ -31,7 +31,7 @@ Record the visual order in `screens.md` Layout so it matches the order a keyboar
 
 ## Page archetypes
 
-Desktop fallback: 1440×900 frame; 48-high app header; optional 256-wide sidebar; main x=288 to 1408, y=80 onward (no browser chrome). These are local assumptions, not Carbon shell specifications. Keep shell geometry fixed throughout a flow. Use 32 side margins without a sidebar. Browser chrome, when needed, shifts all vertical regions consistently.
+Desktop fallback: 1440×900 frame; 48-high app header; optional 256-wide sidebar; main x=288 to 1408, y=80 onward (no browser chrome). These are local assumptions, not Ant Layout defaults or Ant Design Pro application chrome. Keep shell geometry fixed throughout a flow. Use 32 side margins without a sidebar. Browser chrome, when needed, shifts all vertical regions consistently.
 
 ### Start
 

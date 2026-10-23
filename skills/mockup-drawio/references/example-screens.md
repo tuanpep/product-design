@@ -1,7 +1,7 @@
 # Cedar ward cover-request example
 
 Standard: screens/1.0
-Updated: 2026-10-15
+Updated: 2026-10-23
 Source: illustrative component-kit scenario, not a researched product proposal
 
 All names, records, policies, and outcomes are fictional and proposed. This companion describes [example.drawio](example.drawio); it is not a complete product-design package, clinical guidance, or evidence of user success.
@@ -9,6 +9,8 @@ All names, records, policies, and outcomes are fictional and proposed. This comp
 ## Navigation map
 
 Nurse Mai Tran opens My shifts (SC1), chooses Ask for cover for Friday 23 October 2026, and completes Ask for cover (SC2). Cancel returns to My shifts without sending. After sending, the request is pending colleague acceptance; Mai remains assigned until acceptance. No colleague-response flow is drawn in this task.
+
+UI baseline: Ant Design light, `theme.defaultAlgorithm`, pinned `antd@6.6.7` researched 2026-10-23, from [web-components.md](web-components.md). Fictional shell, not Ant Design Pro chrome. Arial system-stack fallback; local 48-high controls, radius6 fields/buttons, radius8 cards and radius4 tags, 30-bold page headings. Mappings: Table, Button, Form.Item/Radio.Group, Input.TextArea, Tag and Skeleton; validation uses Alert type="error" with icon and matching inline feedback. Contrast adaptations: darker primary Button/link/error text and stronger normal control boundary; exact overrides are owned by the kit guide.
 
 ## Screen inventory
 
@@ -46,11 +48,11 @@ Use plain-language verb labels, explicit date/time and ward, and a visible Pendi
 
 ## Accessibility
 
-Target intent: WCAG 2.2 AA for an eventual web implementation, not verified here. Desktop drawing assumption: 1440×900, with no automatic claim about CSS-pixel mapping or responsive behaviour. Visual default: Carbon-informed White, square controls, blue primary actions, neutral surfaces, and distinct status indicators. Arial is an explicit portable substitution for IBM Plex, not an exact Carbon implementation. The selected control density is 48 high; other Carbon sizes remain valid when specified.
+Target intent: WCAG 2.2 AA for an eventual web implementation, not verified here. Desktop assumption: 1440×900, with no automatic CSS-pixel mapping or responsive claim. Visual baseline: Ant Design light with full-outline fields, adapted blue primary actions, white default/Cancel buttons and explicit status text. Arial is a portable system-stack fallback, not exact platform metrics. The retained48-high density is local, not Ant's default32 or large40. Passing selected contrast pairs does not prove conformance; selected-navigation text needs further review.
 
 - Preserve a heading hierarchy, named navigation, and a clear current location. Tables need semantic column headers; row actions need contextual accessible names.
 - Use native buttons, radios, labels, fieldset/legend, and textarea where appropriate. Intended labelled targets are at least 48 high; glyph size is not the hit area. Tab reaches the radio group, arrow keys change the choice, and subsequent Tab reaches the optional message and actions.
 - On failed submission, focus the validation summary, with links to the affected answer. On a policy denial, announce the reason and keep recovery reachable. On a new success view, focus its heading; for inline updates choose appropriate status announcement without duplicate speech.
 - Show a visible focus outline, readable colours, text status and error instructions, not colour alone. Measure actual final contrast pairs after adapting tokens.
-- Use Carbon's blue for primary actions and focus, not as a universal selected colour. Radio boundaries and dots use primary icon colour. Success, warning and error colours indicate outcomes, never replace their text, and are not alternate brand palettes. A sent request remains Pending acceptance even in the success state.
+- Use adapted blue primary actions and links/outer focus, with blue-tinted selected navigation. Selected radio has blue fill and white center; label/help explain its meaning. Error Alert is tinted/bordered with a leading error icon. A sent request remains Pending acceptance (blue Tag), not accepted cover. The dedicated completion heading/Card does not need a redundant success Alert.
 - Inspect at reading scale in Draw.io; test keyboard, screen readers, zoom, reflow and target geometry on the implemented artifact. The board and its automated structural checks cannot establish conformance.

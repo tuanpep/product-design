@@ -4,10 +4,11 @@ import { fileURLToPath } from 'node:url'
 
 export const root = fileURLToPath(new URL('..', import.meta.url))
 export const profiles = {
-  'design-product': { mode: 'all', color: '#1f6b4a', writes: ['docs/product-design/**'] },
-  'technical-design': { mode: 'all', color: '#1a4f8b', writes: ['docs/product-design/**'] },
-  'review-design': { mode: 'all', color: '#8a4b1f', writes: [], steps: 24 },
+  'design-product': { mode: 'primary', color: '#1f6b4a', writes: [], coordinator: true },
+  'technical-design': { mode: 'primary', color: '#1a4f8b', writes: [], coordinator: true },
+  'review-design': { mode: 'all', color: '#8a4b1f', writes: [], steps: 24, coordinator: true },
   'design-research': { mode: 'subagent', color: '#7952a3', writes: [], steps: 20, web: true },
+  'design-author': { mode: 'subagent', color: '#2563eb', writes: ['docs/product-design/**/*.md'], steps: 40 },
   'design-artifact': { mode: 'subagent', color: '#9a6700', writes: ['docs/product-design/**/*.drawio'], steps: 40 },
 }
 
@@ -29,12 +30,13 @@ export function generatedFiles(directory = root) {
     const rules = [{ action: '*', resource: '*', effect: 'deny' }]
     for (const action of ['read', 'glob', 'grep', 'skill', 'external_directory']) rules.push({ action, resource: '*', effect: 'allow' })
     for (const resource of profile.writes) rules.push({ action: 'edit', resource, effect: 'allow' })
-    if (profile.web || name === 'design-product' || name === 'technical-design') {
+    if (profile.web) {
       for (const action of ['webfetch', 'websearch']) rules.push({ action, resource: '*', effect: 'allow' })
     }
-    if (name === 'design-product' || name === 'technical-design') {
+    if (profile.coordinator) {
       rules.push({ action: 'question', resource: '*', effect: 'allow' })
       rules.push({ action: 'product_design_delegate', resource: '*', effect: 'allow' })
+      rules.push({ action: 'product_design_setup', resource: '*', effect: 'allow' })
     }
     rules.push({ action: 'product_design_usage', resource: '*', effect: 'allow' })
     const header = ['---', `description: ${description}`, `mode: ${profile.mode}`, `color: "${profile.color}"`, ...(profile.steps ? [`steps: ${profile.steps}`] : []), 'permissions:', ...rules.flatMap(({ action, resource, effect }) => [`  - action: ${action}`, `    resource: "${resource}"`, `    effect: ${effect}`]), '---', '', body, ''].join('\n')

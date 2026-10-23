@@ -44,6 +44,14 @@ The four levels cap output, not evidence maturity or approval. See the [learning
 opencode plugin add github:tuanpep/product-design
 ```
 
+On a fresh OpenCode install, run:
+
+```text
+/setup-product-design
+```
+
+This initializes **this plugin's agents and model choices only**. Choose an available model or `inherit` for each product/technical/review primary and research/document/artifact leaf. The plugin checks model availability and tool support, saves choices in its own storage, and reloads its agent definitions. It does not change your provider, credentials, global/default model, default agent, other plugins or project files. It does not infer which model is fastest or cheapest. Run `/setup-product-design status` to inspect choices or `/setup-product-design cancel` to leave setup. See [fresh-install setup](docs/guide/06-orchestration-and-tokens.md#fresh-install-agent-setup).
+
 **Google Antigravity.**
 
 ```sh
@@ -73,13 +81,17 @@ Focus an agent in the project being designed and run `/design-product` or `/tech
 
 ## Quick mockups without the full workflow
 
+The canonical mockup reference kit uses **Ant Design light** (`antd@6.6.7`) with documented contrast and density adaptations. Browse the [16-panel editable component board](skills/mockup-drawio/references/component-recipes.drawio), [component recipes](skills/mockup-drawio/references/extended-components.md), and [theme/component mappings](skills/mockup-drawio/references/web-components.md). These are static Draw.io shapes, not a running React prototype; no Ant Design runtime dependency is needed.
+
+The [input-type catalogue](skills/mockup-drawio/references/input-types.md) and [14-panel input board](skills/mockup-drawio/references/input-types.drawio) define text/contact/secret, numeric, temporal, selection, range and color inputs, including storage types, validation, recovery and read-only/unavailable states.
+
 Use `/sketch-drawio` for a small editable UI mockup with labeled screen-to-screen arrows. It creates compact JSON plus a native `.drawio` file, using a bundled renderer rather than model-written XML boilerplate. No design package or MCP is required; Node.js 20.0+ is needed. Manual diagram edits are protected against overwrite. See [quick connected-screen mockups](docs/guide/07-quick-mockups.md).
 
 This is standalone exploration, not the canonical `/mockup-drawio` handoff. Keep sketches outside product-design packages; existing phase and complete-view requirements remain unchanged. Token savings are not yet measured.
 
 ## Workers and usage
 
-The active phase owner works inline by default. Optional bounded research/artifact workers and a read-only reviewer preserve decisions with that owner; no worker per skill. OpenCode enforces scoped delegation and supports configurable worker models/steps plus opt-in usage/loading telemetry. Token savings remain unmeasured. See [orchestration, host limitations and token accounting](docs/guide/06-orchestration-and-tokens.md).
+Each primary stays specialized: `design-product` coordinates product phases, `technical-design` coordinates technical design, and primary `review-design` coordinates read-only review. They keep human decisions and integration judgment, while leaf workers execute research, exact-path Markdown authoring (`design-author`), specified diagrams and review. OpenCode blocks direct primary mutations and enforces scoped delegation: up to two independent read-only calls in parallel, one canonical writer at a time, twelve launches per request. Small work uses one leaf, not a compulsory swarm. Disabling delegation blocks execution rather than restoring inline authoring. Other hosts need equivalent permissions/isolation. Models/steps and opt-in telemetry remain configurable; speed and token savings are unmeasured. See [orchestration, host limitations and token accounting](docs/guide/06-orchestration-and-tokens.md).
 
 ## Develop
 

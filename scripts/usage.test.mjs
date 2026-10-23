@@ -118,6 +118,21 @@ test('opt-in telemetry captures deduplicated usage and hashed loads, never promp
   for (const secret of ['PRIVATE', 'C:/private', 'private description']) assert.ok(!serialized.includes(secret))
 })
 
+test('Markdown author usage and loads are included in the scoped child ledger', async () => {
+  const f = collectorFixture()
+  f.sessions.set('child', { id: 'child', parentID: 'root', agent: 'design-author' })
+  f.messages.set('child', [message('author-request', { agent: 'design-author' })])
+  const collector = createUsageCollector(f.ctx, true)
+  await collector.setup()
+  await f.hooks.get('retry')({ sessionID: 'child', agent: 'design-author' })
+  await f.toolHooks.get('execute.after')({ sessionID: 'child', agent: 'design-author', tool: 'read', status: 'completed', input: { path: 'docs/product-design/slice/product-design.md' } })
+  const document = await collector.exportUsage('root')
+  const author = document.sessions.find((session) => session.sessionID === 'child')
+  assert.equal(author.requests[0].agent, 'design-author')
+  assert.equal(author.retries, 1)
+  assert.equal(author.loads.length, 1)
+})
+
 test('disabled telemetry adds no hooks or stored data; on-demand snapshots disclose partial coverage', async () => {
   const f = collectorFixture()
   const collector = createUsageCollector(f.ctx)

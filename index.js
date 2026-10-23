@@ -5,6 +5,7 @@ import { Plugin } from '@opencode/plugin'
 import { createDelegator, delegationSchema, orchestrationOptions, parseModel } from './runtime/delegation.mjs'
 import { createUsageCollector } from './runtime/usage.mjs'
 import { enforceDesignPermissions } from './runtime/permissions.mjs'
+import { createSetup } from './runtime/setup.mjs'
 
 const directory = dirname(fileURLToPath(import.meta.url))
 const skills = readdirSync(join(directory, 'skills'), { withFileTypes: true })
@@ -100,6 +101,8 @@ export default Plugin.define({
   id: 'product-design',
   async setup(ctx) {
     const options = orchestrationOptions(ctx.options)
+    let setupModels = {}
+    const setup = await createSetup(ctx, { overrides: options.workerModels, onModels: (models) => { setupModels = models } })
     const definitions = skills.map(definition)
     await ctx.skill.transform((editor) => {
       for (const skill of definitions) editor.add(skill)
@@ -114,7 +117,7 @@ export default Plugin.define({
           current.system = agent.system
           current.hidden = false
           current.permissions.push(...agent.permissions)
-          const model = options.workerModels[agent.id] ?? agent.model
+          const model = options.workerModels[agent.id] ?? setupModels[agent.id] ?? agent.model
           if (model) current.model = model
           const steps = options.agentSteps[agent.id] ?? agent.steps
           if (steps) current.steps = steps
@@ -123,17 +126,26 @@ export default Plugin.define({
     })
     const usage = createUsageCollector(ctx, options.telemetry)
     await enforceDesignPermissions(ctx)
+    await ctx.session.hook('context', async (event) => {
+      if (!await ctx.storage.get(`setup/${event.sessionID}`)) return
+      event.system.push({ type: 'text', text: 'Setup-only turn for this product-design plugin. Do not load skills, design a product, create artifacts, delegate, or change providers/default agents. Ask the human to choose available models for the six plugin roles, then call product_design_setup. Report errors without claiming setup succeeded.' })
+      for (const name of Object.keys(event.tools)) if (!['question', 'product_design_setup'].includes(name)) delete event.tools[name]
+    })
     await usage.setup()
-    const delegator = createDelegator(ctx, options, usage)
+    const delegationOptions = { ...options, get workerModels() { return { ...setupModels, ...options.workerModels } } }
+    const delegator = createDelegator(ctx, delegationOptions, usage)
     await ctx.tool.transform((editor) => {
+      editor.add(setup.tool)
       if (options.enabled) editor.add({
         name: 'product_design_delegate',
-        description: 'Optional bounded product-design research, specified Draw.io production or read-only review. Active phase owner only; fresh child, no recursive delegation, exact writes and quotas. Small/coupled work stays inline.',
+        options: { codemode: false },
+        description: 'Coordinator-only execution through bounded research, Markdown authoring from settled owner instructions, specified Draw.io production or read-only review. Active phase owner retains domain decisions; fresh leaf child, exact writes and quotas. Owners cannot execute work inline.',
         input: delegationSchema,
         execute: delegator.execute,
       })
       editor.add({
         name: 'product_design_usage',
+        options: { codemode: false },
         description: 'Read this session and child usage with cache/reasoning buckets and coverage limits. Does not run a model or estimate missing tokens. Optional telemetry provides loading/context counts, never document contents.',
         input: { type: 'object', properties: { detail: { type: 'boolean', description: 'Explicitly return the full bounded ledger for external evaluation recording; otherwise a compact summary only.' } }, additionalProperties: false },
         execute: async (input, context) => {
@@ -143,6 +155,7 @@ export default Plugin.define({
       })
     })
     await ctx.command.transform((editor) => {
+      editor.add(setup.command)
       editor.add({
         name: 'design-product',
         description: 'Develop or revise an evidence-labeled product design from an idea',

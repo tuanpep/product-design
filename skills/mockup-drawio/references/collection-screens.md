@@ -1,12 +1,12 @@
 # Service requests: collection, detail and edit
 
 Standard: screens/1.0
-Updated: 2026-10-15
+Updated: 2026-10-23
 Source: fictional layout reference, not a researched product
 
 ## Navigation map
 
-UI baseline: proposed Carbon-informed White from [web-components.md](web-components.md); no supplied real-product screenshots. Arial fallback, square geometry, 48-high header and controls, 256-wide navigation, 64-high table rows. The [drawing](collection-flow.drawio) is a static desktop composition example, not a working prototype or an exact Carbon implementation.
+UI baseline: proposed Ant Design light from [web-components.md](web-components.md), pinned `antd@6.6.7` / `theme.defaultAlgorithm` researched 2026-10-23; no supplied product screenshots. Arial system-stack fallback, radius6 fields/buttons, adapted blue primary actions/links, white default/Cancel actions and blue-tinted selected navigation. Contrast overrides darken primary Button/link/error text and strengthen normal field borders. Local48-high header/controls, 256-wide navigation and64-high rows are composition assumptions, not Ant sizing defaults. The [drawing](collection-flow.drawio) maps to Layout/Menu, Table, Typography.Link, Descriptions, Form.Item/Input, Button and Tag; static shapes, not a working React prototype or Ant Design Pro replica.
 
 | Actor/task | Entry | Collection/find | Inspect | Act | Outcome | Return/handoff |
 | --- | --- | --- | --- | --- | --- | --- |

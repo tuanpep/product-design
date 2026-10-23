@@ -46,12 +46,27 @@ export function checkPlugin(folder = root) {
     errors.push(`Cannot read marketplace.json: ${error.message}`)
   }
 
-  for (const name of ['design-product', 'technical-design', 'review-design', 'design-research', 'design-artifact']) {
+  for (const name of ['design-product', 'technical-design', 'review-design', 'design-research', 'design-artifact', 'design-author']) {
     const agentBody = component(folder, join(folder, 'agents', `${name}.md`), name, errors)
     const opencodeAgent = join(folder, '.opencode', 'agents', `${name}.md`)
     if (!existsSync(opencodeAgent)) errors.push(`Missing OpenCode agent ${name}.`)
-    else if (agentBody && frontmatter(readFileSync(opencodeAgent, 'utf8'))?.body !== agentBody) {
-      errors.push(`Cursor and OpenCode ${name} agents must share one prompt.`)
+    else {
+      const parsed = frontmatter(readFileSync(opencodeAgent, 'utf8'))
+      if (agentBody && parsed?.body !== agentBody) errors.push(`Cursor and OpenCode ${name} agents must share one prompt.`)
+      const header = parsed?.header ?? ''
+      const mode = /^mode:\s*(.+)$/m.exec(header)?.[1]?.trim()
+      const allows = [...header.matchAll(/ {2}- action:\s*([^\r\n]+)\r?\n {4}resource:\s*([^\r\n]+)\r?\n {4}effect:\s*allow/g)]
+        .map((match) => ({ action: match[1].replaceAll('"', '').trim(), resource: match[2].replaceAll('"', '').trim() }))
+      if (['design-product', 'technical-design', 'review-design'].includes(name)) {
+        if (mode !== (name === 'review-design' ? 'all' : 'primary')) errors.push(`OpenCode ${name} needs its coordinator mode.`)
+        if (allows.some(({ action }) => ['edit', 'write', 'patch', 'apply_patch', 'shell', 'execute', 'webfetch', 'websearch', 'subagent'].includes(action))) errors.push(`OpenCode ${name} must not allow direct execution.`)
+        if (!allows.some((rule) => rule.action === 'product_design_delegate')) errors.push(`OpenCode ${name} must allow scoped delegation.`)
+      }
+      if (name === 'design-author') {
+        if (mode !== 'subagent') errors.push('OpenCode design-author must be a subagent.')
+        if (!allows.some(({ action, resource }) => action === 'edit' && resource === 'docs/product-design/**/*.md')) errors.push('OpenCode design-author needs Markdown-only package writes.')
+        if (allows.some(({ action }) => ['shell', 'execute', 'subagent', 'product_design_delegate', 'webfetch', 'websearch'].includes(action))) errors.push('OpenCode design-author must remain a scoped leaf.')
+      }
     }
   }
   component(folder, join(folder, 'commands', 'design-product.md'), 'design-product', errors)

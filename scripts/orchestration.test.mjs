@@ -22,9 +22,10 @@ function fixture(t, config = {}) {
   const children = []
   const ctx = {
     storage: { get: async (key) => structuredClone(store.get(key)), set: async (key, value) => { store.set(key, structuredClone(value)) } },
-    agent: { get: async ({ location }) => {
+    agent: { get: async ({ agentID, location }) => {
+      assert.notEqual(agentID, 'design-product', 'Coordinator role permissions must not be looked up or inherited')
       assert.deepEqual(location, parent.location)
-      return { location: parent.location, data: { permissions: [{ action: '*', resource: '*', effect: 'allow' }, { action: 'edit', resource: 'docs/product-design/**', effect: 'ask' }] } }
+      return { location: parent.location, data: { permissions: [{ action: '*', resource: '*', effect: 'allow' }, { action: 'edit', resource: '*', effect: 'deny' }] } }
     } },
     session: {
       get: async ({ sessionID }) => sessionID === 'root' ? parent : children.find((child) => child.id === sessionID),
@@ -53,6 +54,7 @@ function fixture(t, config = {}) {
 test('delegation options preserve primary model choice and validate worker budgets/models', () => {
   assert.deepEqual(parseModel('provider/model#high'), { providerID: 'provider', id: 'model', variant: 'high' })
   assert.equal(orchestrationOptions().concurrent, 2)
+  assert.equal(orchestrationOptions().launches, 12)
   assert.equal(orchestrationOptions({ delegation: { enabled: false } }).enabled, false)
   assert.equal(orchestrationOptions().telemetry, false)
   for (const options of [{ delegation: { maxConcurrent: 3 } }, { delegation: { maxLaunches: 0 } }, { delegation: { timeoutMs: -1 } }, { workerModels: { 'design-product': 'p/m' } }, { workerModels: { 'review-design': 'invalid' } }, { agentSteps: { 'unknown': 4 } }, { telemetry: 'true' }]) assert.throws(() => orchestrationOptions(options))
@@ -75,11 +77,12 @@ test('fresh read-only child gets bounded context, inherited model and narrowing 
 
 test('review stays scoped, worker override is explicit and artifact retains parent approval policy', async (t) => {
   const f = fixture(t, { workerModels: { 'review-design': 'fixture/reviewer#low' } })
+  f.parent.permissions = [{ action: 'edit', resource: 'docs/product-design/**', effect: 'ask' }, { action: 'edit', resource: 'docs/product-design/slice/private.md', effect: 'deny' }]
   await f.delegate.execute({ ...f.input, worker: 'review-design' }, f.context)
   assert.deepEqual(f.requests[0].model, { providerID: 'fixture', id: 'reviewer', variant: 'low' })
   const output = 'docs/product-design/slice/mockup.drawio'
   await f.delegate.execute({ ...f.input, worker: 'design-artifact', writePaths: [output] }, { ...f.context, id: 'call-2' })
-  assert.deepEqual(f.requests[1].permissions.filter((rule) => rule.action === 'edit'), [{ action: 'edit', resource: 'docs/product-design/**', effect: 'ask' }])
+  assert.deepEqual(f.requests[1].permissions, f.parent.permissions)
   const scope = f.store.get(`worker/${f.requests[1].id}`)
   assert.deepEqual(scope.writePaths, [output])
   assert.equal(workerAllows('design-artifact', 'edit', [output], scope, f.root), true)
@@ -135,7 +138,7 @@ test('writer lane is exclusive across turns', async (t) => {
   const writer = f.delegate.execute({ ...f.input, worker: 'design-artifact', writePaths: ['docs/product-design/slice/a.drawio'] }, f.context)
   await started.promise
   f.messages.set('root', [{ type: 'user', id: 'turn-2' }])
-  await assert.rejects(f.delegate.execute(f.input, { ...f.context, id: 'call-2' }), /artifact writer/)
+  await assert.rejects(f.delegate.execute(f.input, { ...f.context, id: 'call-2' }), /design writer/)
   done.resolve()
   await writer
   assert.equal(f.requests.length, 1)
@@ -161,6 +164,8 @@ test('registration propagates configured worker models/steps without switching p
   const agents = new Map()
   const tools = []
   await plugin.setup({
+    storage: { get: async () => undefined },
+    session: { hook: async () => {} },
     options: { delegation: { enabled: false }, workerModels: { 'design-research': 'fixture/research#low' }, agentSteps: { 'design-research': 7 } },
     permission: { hook: async () => {} },
     skill: { transform: async (callback) => callback({ add() {} }) },
@@ -171,7 +176,7 @@ test('registration propagates configured worker models/steps without switching p
   assert.deepEqual(agents.get('design-product').model, { providerID: 'user', id: 'choice' })
   assert.deepEqual(agents.get('design-research').model, { providerID: 'fixture', id: 'research', variant: 'low' })
   assert.equal(agents.get('design-research').steps, 7)
-  assert.deepEqual(tools.map((tool) => tool.name), ['product_design_usage'])
+  assert.deepEqual(tools.map((tool) => tool.name), ['product_design_setup', 'product_design_usage'])
 })
 
 test('permission hook denies reviewer writes despite session allows and never upgrades asks/denies', async (t) => {
@@ -183,8 +188,9 @@ test('permission hook denies reviewer writes despite session allows and never up
     permission: { hook: async (_, callback) => { evaluate = callback } },
     tool: { hook: async (_, callback) => { before = callback } },
   })
+  await f.ctx.storage.set('worker/reviewer', { parentID: 'root', directory: f.root, worker: 'review-design', writePaths: [] })
   for (const action of ['edit', 'shell', 'subagent', 'mcp_write', 'product_design_delegate']) {
-    const event = { sessionID: 'root', agent: 'review-design', action, resources: ['docs/product-design/slice/a.md'], effect: 'allow' }
+    const event = { sessionID: 'reviewer', agent: 'build', action, resources: ['docs/product-design/slice/a.md'], effect: 'allow' }
     await evaluate(event)
     assert.equal(event.effect, 'deny', action)
   }
@@ -193,7 +199,7 @@ test('permission hook denies reviewer writes despite session allows and never up
     await evaluate(event)
     assert.equal(event.effect, effect)
   }
-  await assert.rejects(before({ sessionID: 'root', agent: 'review-design', tool: 'write' }), /not available/)
+  await assert.rejects(before({ sessionID: 'reviewer', agent: 'review-design', tool: 'write' }), /not available/)
   await assert.rejects(before({ sessionID: 'root', agent: 'design-product', tool: 'subagent' }), /bounded/)
   await f.ctx.storage.set('worker/scoped', { parentID: 'root', directory: f.root, worker: 'design-artifact', writePaths: ['docs/product-design/slice/a.drawio'] })
   const escaped = { sessionID: 'scoped', agent: 'build', action: 'edit', resources: ['docs/product-design/slice/screens.md'], effect: 'allow' }
@@ -242,7 +248,7 @@ test('late prompt admission holds the writer lane until admission settles and in
   f.controller.abort()
   f.messages.set('root', [{ type: 'user', id: 'turn-2' }])
   const next = { ...f.context, id: 'call-2', signal: new AbortController().signal }
-  await assert.rejects(f.delegate.execute(f.input, next), /still be running|artifact writer/)
+  await assert.rejects(f.delegate.execute(f.input, next), /still be running|design writer/)
   assert.deepEqual(events, [])
   admission.resolve()
   await interrupted.promise
@@ -351,5 +357,90 @@ test('worker model lookup preserves location envelope and parent ordered asks/de
   }
   await f.delegate.execute(f.input, f.context)
   assert.equal(f.requests[0].model.id, 'configured-worker')
-  assert.deepEqual(f.requests[0].permissions.slice(-2), f.parent.permissions)
+  assert.deepEqual(f.requests[0].permissions, f.parent.permissions)
+})
+
+test('Markdown author uses exact package paths in every phase without inheriting owner role denies', async (t) => {
+  const f = fixture(t)
+  const output = 'docs/product-design/slice/brief.md'
+  for (const phase of ['understand', 'shape', 'specify', 'technical']) validateHandoff({ ...f.input, worker: 'design-author', phase, writePaths: [output] }, f.root)
+  for (const path of ['src/code.md', 'docs/product-design/other/brief.md', 'docs/product-design/slice/a.drawio', 'docs/product-design/slice/code.js']) {
+    assert.throws(() => validateHandoff({ ...f.input, worker: 'design-author', writePaths: [path] }, f.root))
+  }
+  assert.throws(() => validateHandoff({ ...f.input, worker: 'design-author' }, f.root), /exact output/)
+  await assert.rejects(f.delegate.execute({ ...f.input, worker: 'design-author', phase: 'technical', writePaths: [output] }, f.context), /cannot open Technical/)
+  await f.delegate.execute({ ...f.input, worker: 'design-author', writePaths: [output] }, f.context)
+  assert.deepEqual(f.requests[0].permissions, [])
+  const scope = f.store.get(`worker/${f.requests[0].id}`)
+  assert.equal(workerAllows('design-author', 'edit', [output], scope, f.root), true)
+  assert.equal(workerAllows('design-author', 'patch', [output], scope, f.root), true)
+  assert.equal(workerAllows('design-author', 'edit', [output, 'docs/product-design/slice/other.md'], scope, f.root), false)
+})
+
+test('owner hooks allow coordination only and deny Code Mode without overriding session asks/denies', async (t) => {
+  const f = fixture(t)
+  let evaluate, before
+  await enforceDesignPermissions({ ...f.ctx, permission: { hook: async (_, fn) => { evaluate = fn } }, tool: { hook: async (_, fn) => { before = fn } } })
+  for (const agent of ['design-product', 'technical-design', 'review-design']) {
+    f.parent.agent = agent
+    for (const action of ['edit', 'write', 'apply_patch', 'patch', 'shell', 'execute', 'webfetch', 'websearch', 'mcp_read', 'mcp_write', 'subagent']) {
+      const event = { sessionID: 'root', agent, action, effect: 'allow' }
+      await evaluate(event)
+      assert.equal(event.effect, 'deny', `${agent}: ${action}`)
+      await assert.rejects(before({ ...event, tool: action }), /bounded product_design_delegate/)
+    }
+    for (const action of ['read', 'question', 'product_design_delegate', 'product_design_usage', 'product_design_setup']) {
+      for (const effect of ['allow', 'ask', 'deny']) {
+        const event = { sessionID: 'root', agent, action, effect }
+        await evaluate(event)
+        assert.equal(event.effect, effect)
+        await before({ ...event, tool: action })
+      }
+    }
+  }
+  await f.ctx.storage.set('worker/author', { parentID: 'root', directory: f.root, worker: 'design-author', writePaths: ['docs/product-design/slice/a.md'] })
+  await before({ sessionID: 'author', agent: 'design-author', tool: 'patch' })
+  for (const effect of ['allow', 'ask', 'deny']) {
+    const event = { sessionID: 'author', agent: 'design-product', action: 'edit', resources: ['docs/product-design/slice/a.md'], effect }
+    await evaluate(event)
+    assert.equal(event.effect, effect)
+    const escaped = { ...event, resources: ['docs/product-design/slice/escape.md'], effect: 'allow' }
+    await evaluate(escaped)
+    assert.equal(escaped.effect, 'deny')
+  }
+  await assert.rejects(before({ sessionID: 'author', agent: 'design-product', tool: 'execute' }), /not available/)
+})
+
+test('root reviewer delegates only read-only leaves; unscoped child reviewers cannot recurse', async (t) => {
+  const f = fixture(t)
+  f.parent.agent = 'review-design'
+  const context = { ...f.context, agent: 'review-design' }
+  for (const [index, worker] of ['design-research', 'review-design'].entries()) await f.delegate.execute({ ...f.input, worker }, { ...context, id: `review-${index}` })
+  for (const worker of ['design-author', 'design-artifact']) await assert.rejects(f.delegate.execute({ ...f.input, worker, writePaths: [`docs/product-design/slice/a.${worker === 'design-author' ? 'md' : 'drawio'}`] }, context), /only read-only/)
+  f.parent.parentID = 'another-root'
+  await assert.rejects(f.delegate.execute(f.input, context), /Nested/)
+  let evaluate, before
+  await enforceDesignPermissions({ ...f.ctx, permission: { hook: async (_, fn) => { evaluate = fn } }, tool: { hook: async (_, fn) => { before = fn } } })
+  const event = { sessionID: 'root', agent: 'review-design', action: 'product_design_delegate', effect: 'allow' }
+  await evaluate(event)
+  assert.equal(event.effect, 'deny')
+  await assert.rejects(before({ ...event, tool: 'product_design_delegate' }), /not available/)
+})
+
+test('disabled delegation explicitly blocks execution rather than suggesting inline work', async (t) => {
+  const f = fixture(t, { delegation: { enabled: false } })
+  await assert.rejects(f.delegate.execute(f.input, f.context), /execution is blocked/)
+  assert.equal(f.requests.length, 0)
+})
+
+test('Markdown writer cannot overlap an existing reader or another writer', async (t) => {
+  const f = fixture(t)
+  const started = defer(), done = defer()
+  f.ctx.session.wait = async ({ sessionID }) => { started.resolve(); await done.promise; f.messages.set(sessionID, [{ type: 'idle', outcome: 'succeeded' }]) }
+  const reader = f.delegate.execute(f.input, f.context)
+  await started.promise
+  const author = { ...f.input, worker: 'design-author', writePaths: ['docs/product-design/slice/a.md'] }
+  await assert.rejects(f.delegate.execute(author, { ...f.context, id: 'call-2' }), /otherwise idle/)
+  done.resolve()
+  await reader
 })

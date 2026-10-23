@@ -1,6 +1,6 @@
 {
   "name": "opencode-product-design",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "type": "module",
   "exports": "./index.js",
   "files": [
@@ -36,7 +36,7 @@
     "saxes": "^6.0.0"
   },
   "scripts": {
-    "test": "node scripts/sync-agent-prompts.mjs && node --test scripts/check-plugin.test.mjs scripts/opencode.test.mjs scripts/check-output.test.mjs scripts/mockup-example.test.mjs scripts/component-recipes.test.mjs scripts/product-layouts.test.mjs scripts/paseo-plugin.test.mjs scripts/catalog-policy.test.mjs scripts/record-evaluation.test.mjs scripts/orchestration.test.mjs scripts/usage.test.mjs scripts/sketch-drawio.test.mjs && node scripts/check-plugin.mjs",
+    "test": "node scripts/sync-agent-prompts.mjs && node --test scripts/check-plugin.test.mjs scripts/opencode.test.mjs scripts/setup.test.mjs scripts/check-output.test.mjs scripts/mockup-example.test.mjs scripts/component-recipes.test.mjs scripts/ant-design-tokens.test.mjs scripts/input-types.test.mjs scripts/product-layouts.test.mjs scripts/paseo-plugin.test.mjs scripts/catalog-policy.test.mjs scripts/record-evaluation.test.mjs scripts/orchestration.test.mjs scripts/usage.test.mjs scripts/sketch-drawio.test.mjs && node scripts/check-plugin.mjs",
     "check:output": "node scripts/check-output.mjs",
     "eval:record": "node scripts/record-evaluation.mjs",
     "sync:agents": "node scripts/sync-agent-prompts.mjs --write"

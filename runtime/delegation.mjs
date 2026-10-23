@@ -3,8 +3,8 @@ import { lstatSync, realpathSync } from 'node:fs'
 import { dirname, isAbsolute, relative, resolve, sep } from 'node:path'
 import { Error as ToolError } from '@opencode/plugin/promise/tool'
 
-const owners = new Set(['design-product', 'technical-design'])
-const workers = new Set(['design-research', 'design-artifact', 'review-design'])
+const owners = new Set(['design-product', 'technical-design', 'review-design'])
+const workers = new Set(['design-research', 'design-artifact', 'design-author', 'review-design'])
 const pending = (entry) => ['reserved', 'submitting', 'running', 'uncertain'].includes(entry.status)
 const assert = (ok, message) => { if (!ok) throw new Error(message) }
 const text = (value) => typeof value === 'string' && value.trim().length > 0 && value.length <= 16000
@@ -35,7 +35,7 @@ export function orchestrationOptions(options = {}) {
   }
   assert(input.enabled === undefined || typeof input.enabled === 'boolean', 'delegation.enabled must be boolean')
   assert(options.telemetry === undefined || typeof options.telemetry === 'boolean', 'telemetry must be boolean')
-  return { enabled: input.enabled !== false, concurrent: integer(input.maxConcurrent, 2, 2), launches: integer(input.maxLaunches, 4, 20), timeoutMs: integer(input.timeoutMs, 120000, 600000), workerModels, agentSteps, telemetry: options.telemetry === true }
+  return { enabled: input.enabled !== false, concurrent: integer(input.maxConcurrent, 2, 2), launches: integer(input.maxLaunches, 12, 20), timeoutMs: integer(input.timeoutMs, 120000, 600000), workerModels, agentSteps, telemetry: options.telemetry === true }
 }
 
 export function safePath(root, path) {
@@ -60,13 +60,14 @@ export function validateHandoff(input, root) {
   assert(/^docs\/product-design\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(input.packagePath), 'Use docs/product-design/<slug>')
   safePath(root, input.packagePath)
   assert(Array.isArray(input.writePaths) && input.writePaths.length <= 20, 'Explicit writePaths required (up to 20)')
-  if (input.worker !== 'design-artifact') assert(input.writePaths.length === 0, 'Research and review are read-only')
+  if (!['design-artifact', 'design-author'].includes(input.worker)) assert(input.writePaths.length === 0, 'Research and review are read-only')
   else {
-    assert((input.phase === 'shape' && ['mockup', 'full'].includes(input.level)) || (input.phase === 'technical' && input.level === 'full'), 'Artifact requires open Shape at Mockup/Full or Technical at Full')
-    assert(input.writePaths.length > 0, 'Artifact requires exact output paths')
+    if (input.worker === 'design-artifact') assert((input.phase === 'shape' && ['mockup', 'full'].includes(input.level)) || (input.phase === 'technical' && input.level === 'full'), 'Artifact requires open Shape at Mockup/Full or Technical at Full')
+    assert(input.writePaths.length > 0, 'Writer requires exact output paths')
+    const extension = input.worker === 'design-author' ? '.md' : '.drawio'
     for (const path of input.writePaths) {
       safePath(root, path)
-      assert(path.startsWith(`${input.packagePath}/`) && path.endsWith('.drawio'), 'Artifact output must be a .drawio inside this package')
+      assert(path.startsWith(`${input.packagePath}/`) && path.endsWith(extension), `Writer output must be a ${extension} inside this package`)
     }
   }
 }
@@ -123,14 +124,14 @@ export function createDelegator(ctx, options, usage) {
       return current.promise
     }
     try {
-      assert(options.enabled, 'Design delegation is disabled; do bounded work inline')
-      assert(owners.has(context.agent), 'Only the active product/technical owner can delegate')
+      assert(options.enabled, 'Design delegation is disabled; execution is blocked for orchestration-only owners')
+      assert(owners.has(context.agent), 'Only the active design coordinator can delegate')
       const parent = await deadline.call(() => ctx.session.get({ sessionID: context.sessionID }))
       assert(!parent.parentID, 'Nested delegation is disabled')
       const root = realpathSync(parent.location.directory)
       validateHandoff(input, root)
+      assert(context.agent !== 'review-design' || (['design-research', 'review-design'].includes(input.worker) && input.writePaths.length === 0), 'Review owner can delegate only read-only research/review')
       assert(context.agent !== 'design-product' || input.phase !== 'technical', 'Product owner cannot open Technical through delegation')
-      const { data: parentAgent } = await deadline.call(() => ctx.agent.get({ agentID: context.agent, location: parent.location }))
       const messages = await deadline.call(() => ctx.session.context({ sessionID: parent.id }))
       const turn = messages.filter((message) => message.type === 'user').at(-1)?.id
       assert(turn, 'No attributed user request for delegation')
@@ -148,11 +149,11 @@ export function createDelegator(ctx, options, usage) {
         assert(!blocked.has(parent.id), 'A prior child may still be running; inspect/stop it before delegation')
         const running = state.entries.filter(pending)
         assert(!running.some((entry) => entry.status === 'uncertain'), 'Child termination is unconfirmed; stop it before delegation')
-        assert(running.length < options.concurrent, 'Concurrent design-worker budget exhausted; wait or work inline')
+        assert(running.length < options.concurrent, 'Concurrent design-worker budget exhausted; wait for a worker')
         assert(state.entries.filter((entry) => entry.turn === turn).length < options.launches, 'Design-worker launch budget exhausted for this request')
         assert(!state.entries.some((entry) => entry.turn === turn && entry.callID === context.id), 'This delegation call was already reserved; inspect its child instead of replaying it')
-        assert(!running.some((entry) => entry.writePaths.length), 'Do not overlap work with an artifact writer')
-        if (input.writePaths.length) assert(running.length === 0, 'Artifact writer requires an otherwise idle delegation lane')
+        assert(!running.some((entry) => entry.writePaths.length), 'Do not overlap work with a design writer')
+        if (input.writePaths.length) assert(running.length === 0, 'Design writer requires an otherwise idle delegation lane')
         const entry = { sessionID: `ses_pd${randomUUID().replaceAll('-', '')}`, turn, callID: context.id, worker: input.worker, writePaths: input.writePaths, status: 'reserved', epoch }
         reservation = entry
         state.entries.push(entry)
@@ -168,8 +169,9 @@ export function createDelegator(ctx, options, usage) {
       assert(!blocked.has(parent.id), 'A prior child may still be running; inspect/stop it before delegation')
       const { data: worker } = await deadline.call(() => ctx.agent.get({ agentID: input.worker, location: parent.location }))
       const model = options.workerModels[input.worker] ?? worker.model ?? parent.model
-      // Preserve ordered parent policy (including asks/exceptions); the permission hook only narrows it.
-      const permissions = [...parentAgent.permissions, ...(parent.permissions ?? [])]
+      // The child loads its own agent/global policy. Inherit only explicit session constraints,
+      // not the coordinator role's execution denies; the permission hook only narrows policy.
+      const permissions = [...(parent.permissions ?? [])]
       await deadline.call(() => locked(parent.id, (state) => { state.entries.find((entry) => entry.sessionID === reservation.sessionID).status = 'submitting' }))
       await deadline.call(() => submit(() => ctx.session.create({ id: reservation.sessionID, parentID: parent.id, agent: input.worker, title: `Design: ${input.worker}`, ...(model ? { model } : {}), permissions })))
       const prompt = `Bounded design delegation. Parent owns decisions; no child spawning or human approval.\n${JSON.stringify(input, null, 2)}\nReturn evidence locations, changed paths, actual checks and blocked/deferred work. Save authorized artifacts once; do not echo XML, schemas or full logs. Missing prerequisites/safety facts stop affected work, not permission to invent them. Budget: ${options.timeoutMs}ms including setup; step limits may stop you earlier.`
@@ -219,7 +221,7 @@ export function createDelegator(ctx, options, usage) {
 export const delegationSchema = {
   type: 'object', additionalProperties: false,
   properties: {
-    worker: { type: 'string', enum: ['design-research', 'design-artifact', 'review-design'] },
+    worker: { type: 'string', enum: ['design-research', 'design-artifact', 'design-author', 'review-design'] },
     objective: { type: 'string' }, sources: { type: 'string', description: 'Authoritative source paths/version and known facts/unknowns' },
     packagePath: { type: 'string' }, phase: { type: 'string', enum: ['understand', 'shape', 'specify', 'technical'] },
     level: { type: 'string', enum: ['understand', 'design-documents', 'mockup', 'full'] },

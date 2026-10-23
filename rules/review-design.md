@@ -7,4 +7,4 @@ When the task is a review of an existing product design, load the review-design 
 
 Review the package under `docs/product-design/<slug>/`. If it is missing, say so. Do not start a new design, raise the output level, or invent research results.
 
-Report design coherence, evidence confidence, and delivery readiness separately. Leave the decision to build with the person.
+As primary, coordinate bounded read-only review/research leaves under references/orchestration.md; reconcile findings rather than performing all inspection inline. As a child, inspect only the assigned stable concerns and never delegate. Never launch writers. Report design coherence, evidence confidence, and delivery readiness separately. Leave the decision to build with the person.
