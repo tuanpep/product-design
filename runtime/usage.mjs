@@ -116,10 +116,11 @@ export function createUsageCollector(ctx, enabled = false) {
       sessions.push({ sessionID: session.id, parentSessionID: session.id === root.id ? null : session.parentID, requests: saved?.requests ?? current.slice(-limit), contextSamples: saved?.contextSamples ?? [], loads: saved?.loads ?? [], retries: saved?.retries ?? null, requestKinds: saved?.requestKinds ?? null })
       incomplete ||= (saved?.truncated ?? false) || current.length > limit
       try {
-        const registry = await ctx.storage.get(`delegation/${session.id}`)
-        incomplete ||= registry?.truncated ?? false
-        for (const entry of registry?.entries ?? []) {
-          if (!entry.sessionID || seen.has(entry.sessionID)) continue
+        const registry = await ctx.storage.get(`delegation/${session.id}`) // Historical wrapper sessions, if present.
+        const observed = await ctx.storage.get(key(session.id))
+        incomplete ||= (registry?.truncated ?? false) || (observed?.childrenTruncated ?? false)
+        for (const entry of [...(registry?.entries ?? []), ...(observed?.children ?? []).map((sessionID) => ({ sessionID }))]) {
+          if (!entry.sessionID || seen.has(entry.sessionID) || queue.some((child) => child.id === entry.sessionID)) continue
           try { queue.push(await ctx.session.get({ sessionID: entry.sessionID })) }
           catch { incomplete = true; errors.push({ sessionID: entry.sessionID, error: 'Managed child unavailable' }) }
         }
@@ -129,7 +130,7 @@ export function createUsageCollector(ctx, enabled = false) {
       }
     }
     incomplete ||= queue.length > 0
-    const document = { schemaVersion: 1, kind: 'execution-usage', capturedAt: new Date().toISOString(), rootSessionID: root.id, incomplete: true, sessions, errors, coverage: { telemetryEnabled: enabled, inventoryTruncated: incomplete, childInventory: 'Plugin-managed child registry only; unrelated/native children are not enumerated by this SDK.', auxiliaryUsage: 'Title/generate and separately billed failed attempts may be absent; provider-normalized buckets are not raw billing payloads.' } }
+    const document = { schemaVersion: 1, kind: 'execution-usage', capturedAt: new Date().toISOString(), rootSessionID: root.id, incomplete: true, sessions, errors, coverage: { telemetryEnabled: enabled, inventoryTruncated: incomplete, childInventory: 'Observed design child context hooks and historical plugin registry only. Native children not observed by this plugin may be missing; this SDK cannot enumerate children.', auxiliaryUsage: 'Title/generate and separately billed failed attempts may be absent; provider-normalized buckets are not raw billing payloads.' } }
     document.summary = summarizeUsage(document)
     return document
   }
@@ -141,6 +142,13 @@ export function createUsageCollector(ctx, enabled = false) {
     })
     await ctx.session.hook('context', async (event) => {
       if (!designAgents.has(event.agent)) return
+      const session = await ctx.session.get({ sessionID: event.sessionID })
+      if (session.parentID) await update(session.parentID, (data) => {
+        data.children ??= []
+        if (data.children.includes(session.id)) return
+        if (data.children.length >= 100) { data.childrenTruncated = true; return }
+        data.children.push(session.id)
+      })
       await capture(event.sessionID)
       await update(event.sessionID, (data) => {
         if (data.contextSamples.length >= limit) { data.truncated = true; return }

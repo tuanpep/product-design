@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Plugin } from '@opencode/plugin'
-import { createDelegator, delegationSchema, orchestrationOptions, parseModel } from './runtime/delegation.mjs'
+import { orchestrationOptions, parseModel } from './runtime/delegation.mjs'
 import { createUsageCollector } from './runtime/usage.mjs'
 import { enforceDesignPermissions } from './runtime/permissions.mjs'
 import { createSetup } from './runtime/setup.mjs'
@@ -132,17 +132,8 @@ export default Plugin.define({
       for (const name of Object.keys(event.tools)) if (!['question', 'product_design_setup'].includes(name)) delete event.tools[name]
     })
     await usage.setup()
-    const delegationOptions = { ...options, get workerModels() { return { ...setupModels, ...options.workerModels } } }
-    const delegator = createDelegator(ctx, delegationOptions, usage)
     await ctx.tool.transform((editor) => {
       editor.add(setup.tool)
-      if (options.enabled) editor.add({
-        name: 'product_design_delegate',
-        options: { codemode: false },
-        description: 'Coordinator-only execution through bounded research, Markdown authoring from settled owner instructions, specified Draw.io production or read-only review. Active phase owner retains domain decisions; fresh leaf child, exact writes and quotas. Owners cannot execute work inline.',
-        input: delegationSchema,
-        execute: delegator.execute,
-      })
       editor.add({
         name: 'product_design_usage',
         options: { codemode: false },

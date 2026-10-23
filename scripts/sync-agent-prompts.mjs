@@ -35,7 +35,10 @@ export function generatedFiles(directory = root) {
     }
     if (profile.coordinator) {
       rules.push({ action: 'question', resource: '*', effect: 'allow' })
-      rules.push({ action: 'product_design_delegate', resource: '*', effect: 'allow' })
+      const targets = name === 'review-design'
+        ? ['design-research', 'review-design']
+        : ['design-research', 'design-author', 'design-artifact', 'review-design']
+      for (const resource of targets) rules.push({ action: 'subagent', resource, effect: 'allow' })
       rules.push({ action: 'product_design_setup', resource: '*', effect: 'allow' })
     }
     rules.push({ action: 'product_design_usage', resource: '*', effect: 'allow' })

@@ -45,3 +45,27 @@ test('detects a missing skill and a broken local link', (t) => {
     `Broken link in ${join('skills', 'design-product', 'playbooks', 'new-idea.md')}: ../references/absent.md`,
   ])
 })
+
+test('rejects unrestricted native delegation and retired wrapper permissions', (t) => {
+  const folder = fixture(t)
+  const agent = join(folder, '.opencode', 'agents', 'design-product.md')
+  const original = readFileSync(agent, 'utf8')
+  writeFileSync(agent, original.replace('resource: "design-research"', 'resource: "*"'))
+  assert.ok(checkPlugin(folder).includes('OpenCode design-product must allow only its native design subagent targets.'))
+  writeFileSync(agent, original.replace('action: subagent', 'action: product_design_delegate'))
+  assert.ok(checkPlugin(folder).includes('OpenCode design-product must not allow direct execution or the retired delegation wrapper.'))
+})
+
+test('review coordinator cannot acquire native writer targets', (t) => {
+  const folder = fixture(t)
+  const agent = join(folder, '.opencode', 'agents', 'review-design.md')
+  writeFileSync(agent, readFileSync(agent, 'utf8').replace('resource: "design-research"', 'resource: "design-author"'))
+  assert.ok(checkPlugin(folder).includes('OpenCode review-design must allow only its native design subagent targets.'))
+})
+
+test('production artifact leaf cannot gain delegation access', (t) => {
+  const folder = fixture(t)
+  const agent = join(folder, '.opencode', 'agents', 'design-artifact.md')
+  writeFileSync(agent, readFileSync(agent, 'utf8').replace('action: product_design_usage', 'action: subagent'))
+  assert.ok(checkPlugin(folder).includes('OpenCode design-artifact must remain a production leaf.'))
+})

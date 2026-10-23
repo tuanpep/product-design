@@ -59,14 +59,22 @@ export function checkPlugin(folder = root) {
         .map((match) => ({ action: match[1].replaceAll('"', '').trim(), resource: match[2].replaceAll('"', '').trim() }))
       if (['design-product', 'technical-design', 'review-design'].includes(name)) {
         if (mode !== (name === 'review-design' ? 'all' : 'primary')) errors.push(`OpenCode ${name} needs its coordinator mode.`)
-        if (allows.some(({ action }) => ['edit', 'write', 'patch', 'apply_patch', 'shell', 'execute', 'webfetch', 'websearch', 'subagent'].includes(action))) errors.push(`OpenCode ${name} must not allow direct execution.`)
-        if (!allows.some((rule) => rule.action === 'product_design_delegate')) errors.push(`OpenCode ${name} must allow scoped delegation.`)
+        if (allows.some(({ action }) => ['edit', 'write', 'patch', 'apply_patch', 'shell', 'execute', 'webfetch', 'websearch', 'product_design_delegate'].includes(action))) errors.push(`OpenCode ${name} must not allow direct execution or the retired delegation wrapper.`)
+        const expected = name === 'review-design' ? ['design-research', 'review-design'] : ['design-research', 'design-author', 'design-artifact', 'review-design']
+        const targets = allows.filter(({ action }) => action === 'subagent').map(({ resource }) => resource)
+        if (expected.some((target) => !targets.includes(target)) || targets.some((target) => !expected.includes(target))) errors.push(`OpenCode ${name} must allow only its native design subagent targets.`)
       }
       if (name === 'design-author') {
         if (mode !== 'subagent') errors.push('OpenCode design-author must be a subagent.')
         if (!allows.some(({ action, resource }) => action === 'edit' && resource === 'docs/product-design/**/*.md')) errors.push('OpenCode design-author needs Markdown-only package writes.')
         if (allows.some(({ action }) => ['shell', 'execute', 'subagent', 'product_design_delegate', 'webfetch', 'websearch'].includes(action))) errors.push('OpenCode design-author must remain a scoped leaf.')
       }
+      if (name === 'design-artifact') {
+        if (mode !== 'subagent') errors.push('OpenCode design-artifact must be a subagent.')
+        if (!allows.some(({ action, resource }) => action === 'edit' && resource === 'docs/product-design/**/*.drawio')) errors.push('OpenCode design-artifact needs Draw.io-only package writes.')
+        if (allows.some(({ action }) => ['shell', 'execute', 'subagent', 'product_design_delegate', 'webfetch', 'websearch'].includes(action))) errors.push('OpenCode design-artifact must remain a production leaf.')
+      }
+      if (name === 'design-research' && allows.some(({ action }) => ['edit', 'write', 'patch', 'apply_patch', 'shell', 'execute', 'subagent', 'product_design_delegate'].includes(action))) errors.push('OpenCode design-research must remain a read-only leaf.')
     }
   }
   component(folder, join(folder, 'commands', 'design-product.md'), 'design-product', errors)
