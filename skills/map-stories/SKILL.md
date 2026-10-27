@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Map Stories
 
-Apply [the shared execution contract](../design-product/references/specialist-execution.md). Reuse the existing journey backbone; do not remap unchanged work or expand a bounded slice into a whole-product backlog. Principle links below are selective candidates, not mandatory preloads.
+Load [the shared execution contract](../design-product/references/specialist-execution.md) only for a direct call without an owner, or a scope/policy conflict. Prefer the owner's kernel and active pack. Reuse the existing journey backbone; do not remap unchanged work or expand a bounded slice into a whole-product backlog. Principle links below are selective candidates, not mandatory preloads.
 
 Use the story shape in [the workflow reference](../design-product/references/workflow.md). [Whole service](../principle-see-the-whole-service/SKILL.md) is a relevant principle: a first release is a thin path through the journey, not a pile of features.
 

@@ -1,6 +1,6 @@
 # Concrete quality scenarios
 
-Trigger: a quality adjective or vague target could change a product/architecture decision or prevent meaningful verification. `define-requirements` owns the requirement; `specify-build` carries it into Quality requirements; `select-views` links technical concerns/mechanisms and verification to it. Reuse the owning requirement ID instead of copying a second target into every view.
+Trigger: a quality adjective or vague target could change a product decision or prevent meaningful verification. `define-requirements` owns the requirement; `specify-build` carries it into Quality requirements. Reuse the owning requirement ID.
 
 For a consequential usage or change scenario, state:
 

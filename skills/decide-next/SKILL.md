@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Decide Next
 
-Apply [the shared execution contract](../design-product/references/specialist-execution.md). Reuse current review findings; check only changed or missing decision inputs rather than repeating a whole-package review.
+Load [the shared execution contract](../design-product/references/specialist-execution.md) only for a direct call without an owner, or a scope/policy conflict. Prefer the owner's kernel and active pack. Reuse current review findings; check only changed or missing decision inputs rather than repeating a whole-package review.
 
 Read the gates in [the workflow reference](../design-product/references/workflow.md). Recommend exactly one next step.
 

@@ -22,22 +22,18 @@ function writeSkill(catalog, body = '# Design product\n') {
   writeFileSync(join(skill, 'SKILL.md'), body)
 }
 
-test('paseo commands cover the three product design workflows', () => {
-  assert.deepEqual(workflows.map((workflow) => workflow.id), ['design-product', 'review-design', 'technical-design'])
+test('paseo commands cover the two product design workflows', () => {
+  assert.deepEqual(workflows.map((workflow) => workflow.id), ['design-product', 'review-design'])
   const prompt = workflowPrompt('design-product', 'C:/skills', 'Staff swap shifts in chat.')
   assert.match(prompt, /C:\/skills\/design-product\/SKILL\.md/)
   assert.match(prompt, /Staff swap shifts in chat\./)
   assert.match(prompt, /Run one phase, then stop/)
   assert.match(prompt, /asks to go next/)
-  assert.match(prompt, /without another discovery, confirmation or level question/)
-  assert.match(workflowPrompt('technical-design', '/skills', ''), /without additional text/)
   assert.match(workflowPrompt('review-design', '/skills', 'roster'), /review-design\/SKILL\.md/)
   for (const workflow of workflows) assert.equal(workflow.procedure, canonicalAgent(workflow.id).body)
   assert.doesNotMatch(prompt, /Read every other skill and reference/)
-  assert.doesNotMatch(workflowPrompt('technical-design', '/skills', 'next'), /Read \/skills\/design-product\/SKILL\.md/)
   assert.throws(() => assertWorkflowLaunch('review-design'), /cannot enforce read-only/)
   assert.doesNotThrow(() => assertWorkflowLaunch('design-product'))
-  assert.doesNotThrow(() => assertWorkflowLaunch('technical-design'))
 })
 
 test('finds the repository skill catalog from the paseo directory', () => {

@@ -1,12 +1,12 @@
 import { lstatSync, realpathSync } from 'node:fs'
 import { dirname, isAbsolute, relative, resolve, sep } from 'node:path'
 
-const owners = new Set(['design-product', 'technical-design'])
-const workers = new Set(['design-research', 'design-artifact', 'design-author', 'review-design'])
+const owners = new Set(['design-product'])
+const workers = new Set(['design-research', 'design-author', 'review-design'])
 const base = new Set(['read', 'glob', 'grep', 'skill', 'external_directory', 'product_design_usage'])
 const coordination = new Set([...base, 'question', 'subagent', 'product_design_setup'])
 const edits = new Set(['edit', 'write', 'patch', 'apply_patch'])
-const targets = ['design-research', 'design-author', 'design-artifact', 'review-design']
+const targets = ['design-research', 'design-author', 'review-design']
 
 export function delegationTargets(actor) {
   return owners.has(actor) ? targets : actor === 'review-design' ? ['design-research', 'review-design'] : []
@@ -38,8 +38,8 @@ export function writerPath(directory, path, extension) {
 export function workerAllows(worker, action, resources = [], directory) {
   if (base.has(action)) return true
   if (worker === 'design-research' && ['webfetch', 'websearch'].includes(action)) return true
-  if (!['design-artifact', 'design-author'].includes(worker) || !edits.has(action) || !resources.length) return false
-  return resources.every((path) => writerPath(directory, path, worker === 'design-author' ? '.md' : '.drawio'))
+  if (worker !== 'design-author' || !edits.has(action) || !resources.length) return false
+  return resources.every((path) => writerPath(directory, path, '.md'))
 }
 
 function editPaths(input) {
@@ -52,7 +52,7 @@ function editPaths(input) {
 export async function enforceDesignPermissions(ctx) {
   async function classify(event) {
     // Do not change unrelated agents (including pstack children), or query their
-    // ancestry on every tool call. This boundary follows the six design roles.
+    // ancestry on every tool call. This boundary follows the four design roles.
     if (event.agent && !owners.has(event.agent) && !workers.has(event.agent)) return { managed: false, coordinator: false }
     // Inspect actual ancestry even when the event identifies a primary role.
     const session = await ctx.session.get({ sessionID: event.sessionID })
@@ -87,7 +87,7 @@ export async function enforceDesignPermissions(ctx) {
     if (!state.managed) return
     for (const name of Object.keys(event.tools)) {
       const available = state.coordinator ? coordination.has(name)
-        : base.has(name) || (state.actor === 'design-research' && ['webfetch', 'websearch'].includes(name)) || (['design-author', 'design-artifact'].includes(state.actor) && edits.has(name))
+        : base.has(name) || (state.actor === 'design-research' && ['webfetch', 'websearch'].includes(name)) || (state.actor === 'design-author' && edits.has(name))
       if (!available) delete event.tools[name]
     }
   })

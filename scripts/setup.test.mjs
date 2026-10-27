@@ -48,7 +48,7 @@ test('loads persisted refs and applies exact choices, including explicit inherit
   input.models['design-product'] = 'test/model#deep'
   const result = JSON.parse((await setup.tool.execute(input, { sessionID: 'root' })).content)
   assert.deepEqual(result.models, { 'design-product': { providerID: 'test', id: 'model', variant: 'deep' } })
-  assert.equal(result.inherited.length, 5)
+  assert.equal(result.inherited.length, 3)
   assert.match(result.warnings.join(' '), /explicit workerModels option takes precedence/)
   assert.deepEqual(f.storage.get('setup/models'), result.models)
   assert.deepEqual(setup.models, result.models)

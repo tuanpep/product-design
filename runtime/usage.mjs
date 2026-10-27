@@ -4,7 +4,7 @@ const fields = ['input', 'output', 'reasoning', 'cacheRead', 'cacheWrite', 'cost
 const number = (value) => typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null
 const key = (id) => `usage/${id}`
 const limit = 2000
-const designAgents = new Set(['design-product', 'technical-design', 'review-design', 'design-research', 'design-author', 'design-artifact'])
+const designAgents = new Set(['design-product', 'review-design', 'design-research', 'design-author'])
 
 export function requestUsage(message) {
   if (!['assistant', 'compaction'].includes(message.type)) return null

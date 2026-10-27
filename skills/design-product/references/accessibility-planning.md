@@ -2,7 +2,7 @@
 
 Trigger: a service could exclude people through interaction, content, device, disability, assistance or channel constraints. Apply proportionately throughout the lifecycle, not only when screens exist. This is planning guidance, not WCAG conformance or legal advice.
 
-**Owners and outputs:** `define-requirements` owns needs, barriers and applicable targets; `design-experience` owns inclusive service paths; `design-screens` owns interaction intent; `plan-evaluation` owns evaluation method, responsibility and limitations. Record in existing Needs and requirements, Quality requirements, Accessibility and Evaluation plan sections as applicable. No separate document is required. A named accountable human owner may remain Unknown; do not invent one.
+**Owners and outputs:** `define-requirements` owns needs, barriers and applicable targets; `design-experience` owns inclusive service paths; `plan-evaluation` owns evaluation method, responsibility and limitations. Record inline in existing sections. No separate document. A named accountable human owner may remain Unknown; do not invent one.
 
 1. Reuse evidence about people and context. Identify consequential barriers, including disabled users, assistive technology, low literacy, language and constrained devices where relevant. Do not equate personas or an agent simulation with participant evidence.
 2. Record target standard/version/scope and applicable obligations from a source or as proposed/unknown. Trace specific barriers to requirements and paths, including assisted/offline alternatives only when the real service supports them. Do not assume a fallback excuses an inaccessible primary path.

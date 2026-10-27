@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Plan Evaluation
 
-Apply [the shared execution contract](../design-product/references/specialist-execution.md). Use [accessibility planning](../design-product/references/accessibility-planning.md) when inclusion is at risk; this skill owns evaluation responsibilities, methods and limitations, not implementation conformance. Supplied-results analysis uses the learning loop below, not a second research procedure.
+Load [the shared execution contract](../design-product/references/specialist-execution.md) only for a direct call without an owner, or a scope/policy conflict. Prefer the owner's kernel and active pack. Use [accessibility planning](../design-product/references/accessibility-planning.md) when inclusion is at risk; this skill owns evaluation responsibilities, methods and limitations, not implementation conformance. Supplied-results analysis uses the learning loop below, not a second research procedure.
 
 Read [the evidence contract](../design-product/references/evidence-and-decisions.md) and [the canonical learning loop](../design-product/references/learning-loop.md). Plan after alternatives, before detailed experience or screens; update as new risks emerge. Discovery research plans may precede alternatives when context is missing, without granting permission to Shape.
 

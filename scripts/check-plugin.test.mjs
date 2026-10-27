@@ -63,9 +63,9 @@ test('review coordinator cannot acquire native writer targets', (t) => {
   assert.ok(checkPlugin(folder).includes('OpenCode review-design must allow only its native design subagent targets.'))
 })
 
-test('production artifact leaf cannot gain delegation access', (t) => {
+test('markdown author leaf cannot gain delegation access', (t) => {
   const folder = fixture(t)
-  const agent = join(folder, '.opencode', 'agents', 'design-artifact.md')
+  const agent = join(folder, '.opencode', 'agents', 'design-author.md')
   writeFileSync(agent, readFileSync(agent, 'utf8').replace('action: product_design_usage', 'action: subagent'))
-  assert.ok(checkPlugin(folder).includes('OpenCode design-artifact must remain a production leaf.'))
+  assert.ok(checkPlugin(folder).includes('OpenCode design-author must remain a scoped leaf.'))
 })

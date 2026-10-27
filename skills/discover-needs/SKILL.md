@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Discover Needs
 
-Apply [the shared execution contract](../design-product/references/specialist-execution.md). For supplied research results, follow [learning-loop ingestion](../design-product/references/learning-loop.md), then authorized revision; do not restart research or invent execution.
+Load [the shared execution contract](../design-product/references/specialist-execution.md) only for a direct call without an owner, or a scope/policy conflict. Prefer the owner's kernel and active pack. For supplied research results, follow [learning-loop ingestion](../design-product/references/learning-loop.md), then authorized revision; do not restart research or invent execution.
 
 Apply [the discovery interview and context gate](../design-product/references/discovery-interview.md). When supplied context is too general and the person has not asked to continue, interview in small turns, probe concrete examples, and separate stakeholder accounts from observed research. One summary is enough. An advance request records core gaps as unknown and leaves Understand, including when advise or Full was named. Do not ask again.
 

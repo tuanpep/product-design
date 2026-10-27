@@ -37,7 +37,7 @@ export function ProductDesignScreen({ theme, layout }: PluginScreenProps) {
         </View>
       ))}
       <Text style={styles.muted}>
-        /design-product runs one phase and stops: Understand, then Shape, then Specify. Say next to open the next phase; that continues without another question. /technical-design opens when Specify is done and you say next. Say advise to recommend inside the open phase.
+        /design-product runs one essentials phase and stops: Understand, then Shape (documents), then Specify (Full). Say next to open the next phase. No screens, mockups, or technical design. Say advise to recommend inside the open phase.
       </Text>
       <Text style={styles.muted}>
         Open Product design packages from the command center to see packages already in the workspace. A copied catalog under .paseo/ is for the agent; leave it uncommitted.

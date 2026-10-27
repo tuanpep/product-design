@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Write plain copy
 
-Apply [the shared execution contract](../design-product/references/specialist-execution.md). A focused rewrite may use supplied strings without creating package files; preserve their owning business meaning and do not invent approvals.
+Load [the shared execution contract](../design-product/references/specialist-execution.md) only for a direct call without an owner, or a scope/policy conflict. Prefer the owner's kernel and active pack. A focused rewrite may use supplied strings without creating package files; preserve their owning business meaning and do not invent approvals.
 
 Use [the shared plain-copy procedure](references/plain-copy.md) for this focused rewrite. It owns the linguistic method; `write-content` retains service-copy catalogue ownership. Establish reader, task, target language/locale and authoritative meaning; record unknowns instead of inventing policy or a service promise. Rewrite naturally, check business truth, and update only requested owning strings/dependents. A standalone rewrite needs no whole-service audit or mandatory catalogue.
 

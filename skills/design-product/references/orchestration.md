@@ -1,30 +1,19 @@
 # Bounded orchestration
 
-Each existing primary remains its domain orchestrator: design-product owns product phases, technical-design owns the explicitly opened technical continuation, and primary review-design owns review scope and reconciled verdicts. They retain human interviews, phase authorization, recommendations, canonical decisions and integration judgment. Delegate execution, including small document edits, instead of producing files or doing external research inline. Procedures describe responsibilities, not permission for primaries to bypass this boundary. Never create one worker per skill/principle or route through a generic primary. No autonomous phase progression or human approval through a worker.
+`design-product` owns product phases; primary `review-design` owns review scope. They retain interviews, phase authorization, recommendations and integration judgment. Delegate research/authoring/review when the host requires it; do not manufacture a swarm.
 
 ## Allowed work
 
-- Research: bounded existing-system or external-source investigation, read-only, evidence locations and limitations; use a suitable host read-only worker or `design-research`.
-- Author: `design-author` writes exact assigned Markdown files from the owner's settled decisions, preserving IDs, evidence labels and human edits. Missing policy, contract or technical decisions return to the primary; drafting is not authority to invent them.
-- Artifact: specified Draw.io work only after owning behavior is settled, `design-artifact`; exact authorized output paths, no conceptual/rule/copy decisions in XML. One canonical writer at a time, including Markdown; never concurrent edits to the same output.
-- Review: `review-design` on a stable package version/named handoff, read-only findings. The primary reconciles findings and routes authorized corrections to an author; no reviewer edits or recursive review loops. Primary review-design may delegate only research or review, never writers. A separate model pass is not human approval.
+- Research: `design-research` — read-only, evidence locations and limitations
+- Author: `design-author` — assigned Markdown from settled decisions
+- Review: `review-design` leaf — read-only findings on a stable package
 
-Small changes need one leaf, not a swarm. Coupled rules/domain/contracts stay with the primary's decision-making; serialize their production. Interviews remain with the primary. Independent read-only questions may run together within the owner-managed budget below. Start dependent work only after its prerequisites finish, never duplicate a running assignment, and review the final stable state. Do not delegate stakeholder decisions or browse unrelated sources. Use OpenCode's native subagent tool and pass relevant versioned findings; do not assume the child has the owner's conversation or reuse a session without checking its context.
+No Draw.io / artifact worker. Small or coupled work stays with the owner when the host allows writes. Never create one worker per skill/principle. No autonomous phase progression.
 
-## Handoff contract
+## Handoff
 
-Send objective/stopping condition; package and authoritative source paths/version; open phase, level/profile and named handoff; relevant facts/unknowns/accepted decisions; exact operation/write paths; tools/sources/checks needed; budget and escalation conditions. No prior conversation is assumed in a fresh child. Explicitly say read-only when appropriate. Switching primary agents in one session is not fresh context.
+Send objective, package paths/version, phase/cap, facts/unknowns, exact write paths, budget and escalation. Return paths, checks performed, findings and blockers — not whole documents.
 
-Return outcome/evidence locations, changed paths if allowed, checks actually performed, findings/uncertainties, blocked/deferred work and next owner. Save large artifacts once; return paths and a concise report, not entire XML/schemas/logs. The owner must inspect consequential sources/changes and applicable checks, not just accept a worker assurance. Truncation, timeout or step exhaustion is partial work, never success.
+## Budgets
 
-## Budgets and host support
-
-Owner-managed trial procedures: at most two concurrent read-only workers, at most twelve launches per user request; no automatic retry and one authorized correction/affected recheck before unresolved issues are reported. Serialize canonical writers. These are instructions, not runtime quotas, timeouts or exclusive lanes, and not measured optimal budgets. Runtime enforces one delegation level: every child is denied spawning. Select supported worker models/steps through host configuration; do not silently switch the user's primary model. Unavailable native delegation blocks execution; it does not authorize inline production. Do not raise a budget or start a new session just to evade a limit.
-
-OpenCode root design-product and technical-design may launch design-research, design-author, design-artifact and review-design through the native subagent tool. Root review-design may launch only review-design and design-research. Runtime denies spawning from every child, direct primary mutations/external research, execute/Code Mode, shell and MCP. Use direct Read/Glob/Grep for repository inspection; research leaves may use permitted web tools. Writer permissions enforce package/extension path patterns: Markdown for authors and Draw.io for artifact workers under docs/product-design/. Exact task file lists remain instructions, not per-task runtime grants. Do not require confirmation from a removed wrapper or claim exact-file isolation. No viewer is supplied: write authorized artifacts, report structural checks and mark rendering unverified unless actually viewed. If required native delegation, role controls, tools or models are unavailable, report affected blocked execution rather than falling back inline. On other hosts verify equivalent controls; prompts alone are not isolation.
-
-Track native child session IDs and completion state using the host. On interruption or uncertain completion, inspect/stop the child through the host before reassigning overlapping work. Do not assume a custom orphan registry, scheduler reservation, timeout or cancellation guarantee exists. A missing viewer blocks only the visual check, not all writes.
-
-Token accounting should include parent and children, retries and auxiliary requests where available, cache reads/writes and actual models. Native child discovery/usage coverage is incomplete; missing usage stays unknown. Retain provider accounting semantics so aggregate totals or reasoning are not counted twice. Cold/warm-cache runs, changed models and changed settings are separate conditions. No efficiency claim without equivalent repeated host trials; live benchmarks are optional and require separate authorization, not a prerequisite for ordinary design work.
-
-At a phase/context handoff, update existing package headings with the opened/completed phase, attributed advance/repair request, cap/profile, authoritative source/version/IDs, accepted versus proposed decisions, blockers/unknowns and next permitted action. Pass these pointers and relevant facts to a fresh context; do not copy the whole transcript or create a mandatory checkpoint file. A summary is not an alternative source of truth.
+At most two concurrent read-only workers and twelve launches per request; serialize writers; one authorized correction/recheck. These are procedures, not runtime quotas. Children cannot spawn. OpenCode roots may launch only design-research, design-author and review-design.

@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Survey Existing
 
-Apply [the shared execution contract](../design-product/references/specialist-execution.md). Principle links below are selective candidates, not mandatory preloads; read a leaf before citing it.
+Load [the shared execution contract](../design-product/references/specialist-execution.md) only for a direct call without an owner, or a scope/policy conflict. Prefer the owner's kernel and active pack. Principle links below are selective candidates, not mandatory preloads; read a leaf before citing it.
 
 Relevant principles: [whole service](../principle-see-the-whole-service/SKILL.md), [single ownership](../principle-one-source-of-truth/SKILL.md), [resource cost](../principle-spend-less-of-the-world/SKILL.md), and [reversible choices](../principle-decide-the-reversible/SKILL.md). Find what the target already has; `explore-solutions` chooses an approach from these findings and `discover-needs` owns user investigation.
 
@@ -22,6 +22,6 @@ The reuse order follows [GOV.UK's "Do less"](https://www.gov.uk/guidance/governm
    - **Not relevant.** It was found and does not bear on this outcome. Say why in one clause.
 5. A new part, screen, schema, or contract is not a disposition of something that exists. Propose one only after must-reuse, should-reuse, and extend were checked, and name the findings that cannot meet the outcome. `explore-solutions` owns that recommendation.
 
-Write the findings under Evidence and unknowns in `product-design.md`, using [the proposal format](../design-product/references/proposal-format.md). Options uses them as the existing baseline. Do not open a new file. `design-composition`, `design-data`, `design-contract`, `design-screens`, and `context-drawio` cite these IDs. They do not survey the project again. A difference is fixed here first.
+Write the findings under Evidence and unknowns in `product-design.md`, using [the proposal format](../design-product/references/proposal-format.md). Options uses them as the existing baseline. Do not open a new file. Later specialists cite these IDs; they do not survey the project again.
 
 **Reply:** the project, the findings and their dispositions, what was not searched, and any new part that still has to go through `explore-solutions`.

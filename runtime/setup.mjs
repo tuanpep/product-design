@@ -2,17 +2,15 @@ import { Error as ToolError } from '@opencode/plugin/promise/tool'
 import { parseModel } from './delegation.mjs'
 
 export const setupAgentIDs = Object.freeze([
-  'design-product', 'technical-design', 'review-design',
-  'design-research', 'design-author', 'design-artifact',
+  'design-product', 'review-design',
+  'design-research', 'design-author',
 ])
 
 const roles = {
   'design-product': 'Product design coordinator. Owns product decisions and phase approvals.',
-  'technical-design': 'Technical design coordinator. Owns implementation-facing design decisions.',
   'review-design': 'Read-only design reviewer. Checks evidence, risks and readiness.',
   'design-research': 'Read-only researcher. Collects sources and reports findings.',
   'design-author': 'Markdown author. Writes bounded documents from settled owner instructions.',
-  'design-artifact': 'Artifact worker. Produces specified Draw.io diagrams and mockups.',
 }
 const assert = (ok, message) => { if (!ok) throw new Error(message) }
 const copy = (value) => structuredClone(value)
@@ -20,7 +18,7 @@ const eligible = (model) => model.enabled === true && model.capabilities?.tools 
 const modelID = (model) => `${model.providerID}/${model.id}`
 
 export async function createSetup(ctx, { agentIDs = setupAgentIDs, onModels = () => {}, overrides = {} } = {}) {
-  assert(agentIDs.length === setupAgentIDs.length && setupAgentIDs.every((id) => agentIDs.includes(id)), 'Setup requires the six product-design agents')
+  assert(agentIDs.length === setupAgentIDs.length && setupAgentIDs.every((id) => agentIDs.includes(id)), 'Setup requires the four product-design agents')
   let models = copy(await ctx.storage.get('setup/models') ?? {})
   onModels(copy(models))
   let applying = false

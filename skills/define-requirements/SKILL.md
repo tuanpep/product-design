@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Define Requirements
 
-Apply [the shared execution contract](../design-product/references/specialist-execution.md). Keep Understand at needs/constraints depth; elaborate solution-dependent requirements only within an open later phase.
+Load [the shared execution contract](../design-product/references/specialist-execution.md) only for a direct call without an owner, or a scope/policy conflict. Prefer the owner's kernel and active pack. Keep Understand at needs/constraints depth; elaborate solution-dependent requirements only within an open later phase.
 
 Read [the evidence contract](../design-product/references/evidence-and-decisions.md) and the requirement checks in [the workflow reference](../design-product/references/workflow.md).
 

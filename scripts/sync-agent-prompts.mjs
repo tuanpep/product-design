@@ -5,11 +5,9 @@ import { fileURLToPath } from 'node:url'
 export const root = fileURLToPath(new URL('..', import.meta.url))
 export const profiles = {
   'design-product': { mode: 'primary', color: '#1f6b4a', writes: [], coordinator: true },
-  'technical-design': { mode: 'primary', color: '#1a4f8b', writes: [], coordinator: true },
   'review-design': { mode: 'all', color: '#8a4b1f', writes: [], steps: 24, coordinator: true },
   'design-research': { mode: 'subagent', color: '#7952a3', writes: [], steps: 20, web: true },
   'design-author': { mode: 'subagent', color: '#2563eb', writes: ['docs/product-design/**/*.md'], steps: 40 },
-  'design-artifact': { mode: 'subagent', color: '#9a6700', writes: ['docs/product-design/**/*.drawio'], steps: 40 },
 }
 
 export function canonicalAgent(name, directory = root) {
@@ -37,7 +35,7 @@ export function generatedFiles(directory = root) {
       rules.push({ action: 'question', resource: '*', effect: 'allow' })
       const targets = name === 'review-design'
         ? ['design-research', 'review-design']
-        : ['design-research', 'design-author', 'design-artifact', 'review-design']
+        : ['design-research', 'design-author', 'review-design']
       for (const resource of targets) rules.push({ action: 'subagent', resource, effect: 'allow' })
       rules.push({ action: 'product_design_setup', resource: '*', effect: 'allow' })
     }

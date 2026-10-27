@@ -1,6 +1,6 @@
 // Shared model/setup options. Execution belongs to native OpenCode subagents.
-const roles = new Set(['design-product', 'technical-design', 'review-design', 'design-research', 'design-author', 'design-artifact'])
-const workers = new Set(['review-design', 'design-research', 'design-author', 'design-artifact'])
+const roles = new Set(['design-product', 'review-design', 'design-research', 'design-author'])
+const workers = new Set(['review-design', 'design-research', 'design-author'])
 const assert = (ok, message) => { if (!ok) throw new Error(message) }
 
 export function parseModel(value) {

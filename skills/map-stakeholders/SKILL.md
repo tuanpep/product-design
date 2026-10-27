@@ -6,11 +6,11 @@ disable-model-invocation: true
 
 # Map Stakeholders
 
-Apply [the shared execution contract](../design-product/references/specialist-execution.md).
+Load [the shared execution contract](../design-product/references/specialist-execution.md) only for a direct call without an owner, or a scope/policy conflict. Prefer the owner's kernel and active pack.
 
-Read [the evidence contract](../design-product/references/evidence-and-decisions.md). A stakeholder's statement is given, not an observed user need.
+A stakeholder's statement is given, not an observed user need. Load [the evidence contract](../design-product/references/evidence-and-decisions.md) only when classifying a claim.
 
-1. List every actor that touches the outcome: end users by role, people who approve or support them, people affected but absent from the interface, and external systems. Read [principle-include-the-hardest-case](../principle-include-the-hardest-case/SKILL.md) and name the hardest realistic user.
+1. List every actor that touches the outcome: end users by role, people who approve or support them, people affected but absent from the interface, and external systems. Name the hardest realistic user. Load [principle-include-the-hardest-case](../principle-include-the-hardest-case/SKILL.md) only when inclusion could change the framing or support a citation.
 2. For each actor, record their goal, what they do today, what they would lose if the design changes, and the evidence class of each claim.
 3. Name the decision owner for scope, business rules, policy, data, and launch. Use unknown when the owner is not known. Never fill an owner from a guessed job title.
 4. Match authority detail to the phase. In Understand, identify consequential decision/access boundaries and unknowns; do not invent solution actions or require a permission matrix. In Shape, record permissions needed by proposed behavior. In Specify, complete the applicable action/role matrix with allowed, denied or conditional cells referencing rules. Proposed cells are not approval. Reuse an existing authoritative matrix rather than rebuilding it.

@@ -1,20 +1,18 @@
 ---
 name: design-product
-description: "Develop or revise an evidence-labeled product design one phase at a time: Understand, Shape, Specify, then separately requested Technical. Use for /design-product, discovery, business analysis and first-release scoping. Next/continue/approval or naming the next phase opens it without another interview or confirmation; advise recommends only inside the open phase."
+description: "Develop or revise an evidence-labeled product design one phase at a time: Understand, Shape (documents), Specify. Essentials only — no screens, mockups, diagrams, or technical design. Use for /design-product. Next/continue/approval opens the next phase."
 disable-model-invocation: true
 ---
 
 # Design product
 
-You own the proposal, not approval to build. Use the human's target project, or state that the current project is assumed. Bundled procedures live at `../<name>/SKILL.md`. Read [the execution kernel](references/execution-kernel.md), then [phase routing](references/phase-routing.md) and only the active pack. These are the default path, not a full read of every playbook/reference. Read a changed or consequential source when needed; never skip a safety/correctness gap to save tokens.
+Essentials only. You own the proposal, not approval to build. Target project: state if assumed. Bundled procedures: `../<name>/SKILL.md`. Read [execution kernel](references/execution-kernel.md), then [phase routing](references/phase-routing.md) and only the active pack.
 
-- A new brief without advance stays Understand. Next/continue, approval or a request for the next phase opens it now with gaps unknown and unsafe behavior excluded; no extra discovery/confirmation/level question. Full/advise alone do not advance. [Discovery policy](references/discovery-interview.md) owns exact semantics.
-- A revision, including "analyze these research results", uses the [revision pack](references/phases/revise.md) and relevant learning-loop ingestion sections. Do not invent sessions or research results. Copy-only edits do not restart discovery.
-- Respect the level/profile, one authoritative owner per fact and human edits. `product-design.md` lives at `docs/product-design/<slug>/`; use relevant [output-standard](references/output-standard.md) and [proposal-format](references/proposal-format.md) sections only for files actually being written. Preserve legacy absent headers and stable IDs.
-- Understand owns context/needs; Shape owns alternatives/evaluation/experience and allowed complete screens; Specify owns the Full bounded build spec. Technical is separately requested; do not run technical view skills or create technical schemas/diagrams from Specify. A technical choice is architecturally significant even if reversible when it affects compatibility, security or operation; cheap local defaults need no ADR.
-- Load specialist procedures only for actual work. Use [principle triggers/precedence](references/principles.md) only for relevant choices/conflicts; read a leaf before citing. Keep protection, inclusion, recovery, meaningful condition/boundary coverage, testability and single ownership regardless of citations.
-- Triggered [accessibility planning](references/accessibility-planning.md), [privacy-risk](references/privacy-risk.md) and [quality scenarios](references/quality-scenarios.md) keep existing skill/section owners and inline outputs, with no mandatory new reports. Security is not all privacy; a drawing/scan is not accessibility conformance.
-- The active phase owner keeps human interviews, decisions and integration. Optional [bounded delegation](references/orchestration.md) is for large research/artifact work or separate read-only review, not one worker per skill. Do small/coupled work inline. Consume review findings in `decide-next` rather than repeating whole-package review.
-- No production code or diagram-generating/rendering scripts unless separately requested. Every Draw.io artifact uses applicable [built-in shapes and close-flow rules](../drawio/references/drawio-file.md); opening/rendering must actually occur before claimed visual verification. Do not duplicate large XML/schema outputs into chat.
+- New brief without advance → Understand. Next/continue/approval or naming the next phase opens it with gaps unknown; no extra interview/confirmation/level question. Full/advise alone do not advance. [Discovery policy](references/discovery-interview.md) owns exact semantics.
+- Revision / supplied research results → [revision pack](references/phases/revise.md). Do not invent research. Copy-only edits do not restart discovery.
+- Write `docs/product-design/<slug>/product-design.md`. Full + open Specify may add `build-spec.md`. No screens, mockups, Draw.io, contracts, or technical design from this plugin.
+- Levels: `understand` | `design-documents` | `full`. Unnamed Shape after advance defaults to **design-documents**. There is no mockup level.
+- Load specialist procedures only for actual work. Load [principles](references/principles.md) leaves only for a consequential choice/conflict/citation.
+- Optional [delegation](references/orchestration.md) only when the host requires it; prefer one author leaf for document production. No production code.
 
-**Reply:** phase completed, recommendation, file paths, decisive evidence/weakest premise, principles that actually changed a choice, proposed defaults/owners, performed checks/limitations and next human action. A plan, coherent package, agent review or phase advance is not validation, feasibility approval or build/launch permission. Stop at the phase boundary unless this message already opens the next.
+**Reply:** phase completed, recommendation, paths, decisive evidence/weakest premise, principles that changed a choice, proposed defaults/owners, checks/limitations, next human action. Stop at the phase boundary unless this message already opens the next.

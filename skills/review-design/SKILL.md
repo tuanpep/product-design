@@ -1,46 +1,36 @@
 ---
 name: review-design
-description: "Skeptically review a product design proposal for contradictions, unsupported claims, missing journeys, and readiness of its next release. Use for /review-design at handoff or after revising a design."
+description: "Skeptically review a product design proposal for contradictions, unsupported claims, and readiness of its next decision. Use for /review-design at handoff or after revising a design."
 disable-model-invocation: true
 ---
 
 # Review Design
 
-Read [the execution kernel](../design-product/references/execution-kernel.md) once; use [the shared execution contract](../design-product/references/specialist-execution.md) only for a scope/policy conflict. Load guidance only for supplied concerns/readiness claims; inspect package artifacts, not every plugin reference. In the read-only review agent/profile, repairs are never executed: return findings to the authoring owner even if the user requests repair. The repair procedure below applies only when an authorized authoring owner uses this skill inline.
+Read [the execution kernel](../design-product/references/execution-kernel.md) once; use [the shared execution contract](../design-product/references/specialist-execution.md) only for a scope/policy conflict. In the read-only review profile, repairs are never executed: return findings to the authoring owner.
 
-Read the full proposal, every file in its package folder, and [the principles index](../design-product/references/principles.md). Read the leaf for any principle you say the proposal violates or satisfies.
+Read the proposal and package files that exist. This essentials plugin expects `product-design.md` and, when Full Specify ran, `build-spec.md`. Do not demand screens, mockups, diagrams or technical design. Read a principle leaf before citing a violation or satisfaction.
 
-First establish the requested level, profile, next gate, opened/completed phase, named handoff, and actual scope from [the output standard](../design-product/references/output-standard.md). Apply its optional Level header and intentional deferral rules; absent Level retains legacy behavior. Full alone does not mean Technical has opened or completed. Do not demand build-spec, release stories, acceptance criteria, technical views, or complete screen artifacts when legitimately absent at that phase/level/profile. Inspect supplied artifacts and any readiness claim they make even if they are beyond the current phase. Review supplied partial learning material against its question, not the complete-screen contract. Existing complete screen handoffs still require full screen/state coverage; do not excuse accidental gaps as learning material.
+Establish level, profile, next gate and handoff from [the output standard](../design-product/references/output-standard.md). Legacy `mockup` counts as design-documents.
 
-## Review authority and findings
-
-Standalone review is read-only by default: report findings without editing package files or choosing which conflicting policy/rule is correct. Repair requires an explicit repair/revision request or the authoring playbook's authorization to correct its current work within phase and scope. Preserve the original finding and the evidence for any authorized correction, then recheck affected dependents. Never manufacture an owner decision, approval, feasibility result, or default to close a blocker. Changes to human-authored decisions require agreement. An unresolved contradiction remains a finding, not permission to silently redesign the product.
-
-For each material finding report location/owning ID, evidence, consequence, classification (blocker, material issue, or suggestion), affected verdict, smallest correction/investigation/human decision, and owner or Unknown. Distinguish an observed contradiction, missing evidence, and an unverified concern. Explain why a finding blocks the named handoff; uncertainty alone is not automatically a blocker. Group repeated instances of the same root issue while naming affected locations. No finding quota, aggregate score that hides critical failures, or mandatory separate report file. If no material issue is found, say so with review scope and limitations; do not invent defects.
+Standalone review is read-only. Repair requires explicit authorization. Preserve findings and recheck dependents. Unresolved blockers stay findings.
 
 ## Checks
 
-1. Check that the recommendation addresses the supported problem or causal hypothesis rather than merely delivering the original feature request. Do not demand an invented or proven root cause where evidence supports only a provisional hypothesis.
-2. Check the decision and distinct user/business-service outcomes, the source → observation → pattern (including contradictions) → finding → opportunity chain, and opportunity selection before solutions, using [the learning loop](../design-product/references/learning-loop.md). Hypothetical premises must not masquerade as observed findings. When Shape is in scope, check alternatives/current baseline and evaluation planned before detailed experience/screens: risk categories, question → capable method → least necessary artifact, criteria, safeguards, owner, and limitations. For discovery-only work, review the discovery decision/research plan instead of demanding solutions. Check useful first-release outcomes only when a release is in scope.
-3. A consistent proposal can still violate a higher principle. Name that principle and the choice it should have changed.
-4. Compare rules, role permissions, journeys, copy, exceptions, measures and acceptance examples for contradictions. Check relevant operations/transition ownership and [triggered accessibility, privacy and quality assessments](references/package-checks.md#triggered-assessments); these add no mandatory report or phase.
-5. Check [the output standard](../design-product/references/output-standard.md): header/profile/gate agreement, retained needs and requirements, evidence links, traceability through acceptance outcomes and checks, artifact agreement, and decision history. A discovery proposal need not invent release stories. Unresolved blockers to a named slice prevent a ready verdict.
-6. Check required files and cross-artifact agreement within scope. Terms/rules/messages have one owner and stable IDs; open questions retain owners, proposed reversible defaults and visible blockers. Load the relevant [package integrity checks](references/package-checks.md) for supplied screen/diagram handoffs and build/technical artifacts. Complete declared coverage, meaningful traceability and correctness are obligations when those artifacts are in scope; Full alone does not require Technical. Do not treat ID existence as semantic agreement.
-7. Only when a build spec is required or supplied, act as a builder reading `build-spec.md` cold. List each place you would have to guess. A guess on a reversible choice needs a default. A guess on a blocking choice keeps the spec at draft. For lower caps, judge readiness for the named learning/design decision, not fictional build readiness.
-8. Report inconsistencies before repair. When repair is authorized, correct only supported in-scope facts in their owning file, preserve human edits/IDs and decision history, and recheck affected dependencies. If phase/scope prevents an update, identify stale claims/files and the next owner/update; do not report package-wide closure. In read-only review, flag stale readiness as invalid without modifying it. In authorized revision, withdraw dependent readiness in the proposal/build/technical files using their existing profile/gate/status contracts before claiming closure. State which checks actually ran and on which artifact/version; structural validation is not semantic review, engineering review, or user testing. Name uninspected or inaccessible material and its effect on the verdict. Distinguish self-review, a separate model pass, and attributed human/domain review; they are not equivalent independence or approval.
-9. Check supplied results for provenance/method/version, attributed observations, contradictions, criteria comparison, limitations, and decision revision. A plan, stakeholder approval, or prototype artifact is not actual test execution. Check post-release learning owners, measures/guardrails, and review triggers when handing off a direction; do not claim implementation or monitoring ran. Keep context sufficiency, evidence confidence, specification completeness, and human approval separate, and assess readiness proportionately to the named slice's risks.
-10. Apply [the content contract](../design-product/references/content-quality.md) and, for supplied/affected copy, [conditional content checks](references/package-checks.md#content-when-supplied-or-affected). Report **clarity**, **business accuracy**, **journey/channel coverage** and **cross-artifact consistency** separately with failures or not applicable. Preserve pending/completed/unknown truth, safe authorized recovery and one catalogue. Require affected-copy reconciliation or exact stale-file/owner/follow-up reporting; inspection is not comprehension evidence.
+1. Recommendation addresses the supported problem, not only the original feature request.
+2. Decision/outcomes and evidence chain via [learning loop](../design-product/references/learning-loop.md) sections that apply. Discovery-only work needs a research plan, not invented solutions.
+3. Name any higher principle the proposal violates.
+4. Compare rules, permissions, journey prose, copy and acceptance examples for contradictions.
+5. Header/profile/gate agreement, evidence labels, and readiness proportionate to the named handoff.
+6. One owner per term/rule/message ID. No requirement for absent optional artifacts.
+7. If `build-spec.md` is present, act as a cold reader and list guesses; blockers keep draft.
+8. Report performed vs planned checks. In authorized revision, withdraw invalid readiness before claiming closure.
+9. Supplied results keep provenance; plans are not results.
+10. Content clarity, business accuracy and consistency via [content contract](../design-product/references/content-quality.md).
 
-When Technical is opened, supplied, or claimed complete, apply the [Correctness and change-safety review](../design-product/references/technical-design-format.md#correctness-and-change-safety-review). Check invariant ownership/enforcement, competing and stale writes versus duplicate retries, partial/ambiguous outcomes, consumer compatibility, asynchronous semantics, transition/recovery, and the evidence behind checks. Apply only relevant concerns, but do not accept filled sections, valid schemas or matching status strings as proof of enforcement or feasibility. Architecturally significant choices may need rationale even when reversible.
+## Verdicts
 
-Report three independent verdicts:
+- **Design coherence**
+- **Evidence confidence**
+- **Delivery readiness** for the named next action — never permission to build
 
-- **Design coherence:** coherent, or partial with specific contradictions.
-- **Evidence confidence:** supported, mixed, or untested, naming the decisive assumptions and actual observations.
-- **Delivery readiness:** ready for a named next slice/action, conditional on explicitly nonblocking decisions/defaults, or not ready with the blocking reason. An unresolved blocking safety, policy, authorization, feasibility, or integrity question means not ready for the affected handoff, not conditionally ready to build. The package may still be ready for a separately named investigation. State which readiness is assessed; no verdict grants permission to build.
-
-Never equate a coherent proposal with successful user testing, approved policy, engineering feasibility, or permission to build. State the next step with the gates in [the workflow reference](../design-product/references/workflow.md): stop, repeat discovery, test solutions, specify a slice, or ready for a named build slice. A coherent, fully specified slice can still be untested.
-
-Method sources and adaptation limits are in [the research basis](references/research-basis.md); load for methodology questions, not as mandatory review context. Behavioral accuracy and efficiency remain unmeasured until installed-host trials are recorded.
-
-**Reply:** scope/phase and checks performed or limited, material findings (or none), authorized repairs and remaining stale dependents when applicable, the three verdicts, the principle a contradiction violated, and the smallest next test or human decision that changes the verdict.
+**Reply:** scope/checks, findings (or none), three verdicts, and the smallest next human decision.

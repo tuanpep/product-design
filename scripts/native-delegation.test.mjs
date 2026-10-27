@@ -32,17 +32,17 @@ async function fixture(t) {
 
 test('native root delegation targets and all child ancestry are constrained without upgrading policy', async (t) => {
   const f = await fixture(t)
-  for (const role of ['design-product', 'technical-design', 'review-design']) {
+  for (const role of ['design-product', 'review-design']) {
     for (const target of ['design-research', 'review-design']) {
       assert.equal(await f.effect(role, false, 'subagent', [target]), 'allow')
       for (const effect of ['ask', 'deny']) assert.equal(await f.effect(role, false, 'subagent', [target], effect), effect)
     }
-    for (const target of ['design-product', 'technical-design', 'code', '*']) assert.equal(await f.effect(role, false, 'subagent', [target]), 'deny')
+    for (const target of ['design-product', 'technical-design', 'design-artifact', 'code', '*']) assert.equal(await f.effect(role, false, 'subagent', [target]), 'deny')
     assert.equal(await f.effect(role, false, 'subagent'), 'deny')
     assert.equal(await f.effect(role, true, 'subagent', ['design-research']), 'deny')
     for (const action of ['edit', 'shell', 'execute', 'mcp_write', 'product_design_delegate']) assert.equal(await f.effect(role, false, action, ['docs/product-design/slice/a.md']), 'deny')
   }
-  assert.equal(await f.effect('design-product', false, 'subagent', ['design-author', 'design-artifact']), 'allow')
+  assert.equal(await f.effect('design-product', false, 'subagent', ['design-author']), 'allow')
   assert.equal(await f.effect('review-design', false, 'subagent', ['design-author']), 'deny')
   assert.equal(await f.effect('code', true, 'subagent', ['code']), 'allow')
   assert.equal(await f.effect('code', false, 'shell'), 'allow')
@@ -56,7 +56,8 @@ test('writer paths enforce role extensions, nested package paths and worktree co
   if (process.platform === 'win32') assert.equal(writerPath(root, 'docs\\product-design\\slice\\nested\\a.md', '.md'), true)
   for (const path of ['docs/product-design/a.md', '../escape.md', 'docs/product-design/slice/../a.md', 'docs/product-design/slice/a.drawio', 'docs/product-design/slice/a.md:stream', 'C:docs/product-design/slice/a.md', 'D:/docs/product-design/slice/a.md', 'docs/product-design/slice/a.md.', 'docs/product-design/slice/*.md', 'docs/product-design/slice/a.md\0']) assert.equal(writerPath(root, path, '.md'), false, path)
   assert.equal(workerAllows('design-author', 'edit', ['docs/product-design/slice/a.md', 'src/a.md'], root), false)
-  assert.equal(workerAllows('design-artifact', 'edit', ['docs/product-design/slice/nested/a.drawio'], root), true)
+  assert.equal(workerAllows('design-author', 'edit', ['docs/product-design/slice/a.md'], root), true)
+  assert.equal(workerAllows('design-artifact', 'edit', ['docs/product-design/slice/nested/a.drawio'], root), false)
   assert.equal(workerAllows('design-research', 'edit', ['docs/product-design/slice/a.md'], root), false)
   const outside = join(root, 'outside')
   mkdirSync(outside)
