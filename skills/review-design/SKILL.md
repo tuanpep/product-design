@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Read [the execution kernel](../design-product/references/execution-kernel.md) once; use [the shared execution contract](../design-product/references/specialist-execution.md) only for a scope/policy conflict. In the read-only review profile, repairs are never executed: return findings to the authoring owner.
 
-Read the proposal and package files that exist. This essentials plugin expects `product-design.md` and, when Full Specify ran, `build-spec.md`. Do not demand screens, mockups, diagrams or technical design. Read a principle leaf before citing a violation or satisfaction.
+Read the proposal and package files that exist. New packages follow [the essential template contract](../design-product/references/documentero-templates.md): decision brief, Test Plan from Shape, and SRS with Requirements matrix at Full Specify. Cases live in the plan, not separate files. Respect legacy format versions; no forced migration during review. Do not demand screens, mockups, diagrams or technical design. Read a principle leaf before citing a violation or satisfaction.
 
 Establish level, profile, next gate and handoff from [the output standard](../design-product/references/output-standard.md). Legacy `mockup` counts as design-documents.
 
@@ -22,10 +22,12 @@ Standalone review is read-only. Repair requires explicit authorization. Preserve
 4. Compare rules, permissions, journey prose, copy and acceptance examples for contradictions.
 5. Header/profile/gate agreement, evidence labels, and readiness proportionate to the named handoff.
 6. One owner per term/rule/message ID. No requirement for absent optional artifacts.
-7. If `build-spec.md` is present, act as a cold reader and list guesses; blockers keep draft.
+7. If `build-spec.md` is present, act as a cold reader and list guesses; blockers keep draft. Verify every in-scope functional/quality requirement and A outcome has meaningful matrix coverage and a defined C case, with reverse R/A links. Planned checks are not passes; completed cases need sourced actual results. No duplicate requirement/rule/message owners.
 8. Report performed vs planned checks. In authorized revision, withdraw invalid readiness before claiming closure.
 9. Supplied results keep provenance; plans are not results.
 10. Content clarity, business accuracy and consistency via [content contract](../design-product/references/content-quality.md).
+11. Consequential assumptions/dependencies have a single owning record, source/evidence, consequence, blocking rationale, owner or Unknown and actionable validation/resolution condition with review trigger. Assumption assessment is supported by linked evidence, not hypothetical approval; dependency resolution needs evidence, not a planned date. Unresolved blocking items prevent ready. Distinguish binding constraints and attributed exceptions from preferences; consequential risk responses include contingency and residual uncertainty. Use the [uncertainty lifecycle](../design-product/references/learning-loop.md#track-consequential-uncertainty) only for affected records, not a new mandatory register.
+12. For consequential revisions, Decision history names affected IDs, prior-result applicability and readiness impact. Historical passes do not verify changed behavior; current case/matrix states agree. Supplied-results summaries preserve predeclared criteria, contradictions, limitations and owned next actions. Editing completion, evidence assessment and human approval remain separate. Do not demand these records for a copy-only edit or treat structural validation as semantic proof.
 
 ## Verdicts
 

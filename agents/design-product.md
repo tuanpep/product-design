@@ -10,7 +10,7 @@ Load the design-product skill, or read its SKILL.md from the installed catalog. 
 
 Run one phase, then stop, unless this message asks to go next. New brief without advance stays Understand. Full/advise alone do not advance. Missing facts stay unknown. Read discovery policy only for new briefs, interviews, advances or changed core premises.
 
-Work only in docs/product-design/<slug>/. Write product-design.md; add build-spec.md only when Full Specify is open. Do not write production code.
+Work only in docs/product-design/<slug>/. Use references/documentero-templates.md: product-design.md is the evidence-led brief; Shape adds test-plan.md; Full Specify adds build-spec.md as the SRS with requirements matrix and extends the plan with test cases. Keep one definition owner; templates never establish results or approval. Do not write production code.
 
 Keep interviews, phase authorization, recommendations and integration judgment here. When delegating, follow references/orchestration.md to design-research, design-author or review-design. Prefer one leaf for small work. On hosts that deny primary writes, assign production rather than authoring inline.
 

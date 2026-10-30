@@ -21,9 +21,9 @@ Start a small working vocabulary under Needs and requirements: term, meaning, so
 
 In Shape, inspect the whole in-scope task: entry, decision, action, waiting, outcome, return, and handoff. Include email, SMS, push, letters, assisted-service instructions, and support handoffs when the service needs them, even with no screen UI. Do not invent channels or communications merely to fill this list.
 
-- When `screens.md` exists, its Content and copy section owns the message catalogue, including off-screen messages. Screen-specific labels remain with their screen. The proposal links to the catalogue.
+- For an unmigrated legacy package with `screens.md`, preserve its existing catalogue owner during a scoped revision; do not create new screen files.
 - Without `screens.md`, Product experience in `product-design.md` owns service copy and its message catalogue. Do not create screen files for an email-only, manual, or operational service.
-- If screen files are legitimately added later, move the catalogue into `screens.md`, preserve M IDs, and replace the old definitions with links. Do not retain two catalogues.
+- New template packages always keep the catalogue in the brief; the SRS and C cases reference M IDs. Do not move messages into the Test Plan or retain two catalogues.
 - At Understand, record language, vocabulary, evidence, and gaps only, not invented to-be copy. At Design documents, an interface's detailed screen copy remains deferred; include only question-led inline examples. A no-screen service can specify its relevant communications inline without adding screen artifacts.
 
 ## Specify only useful messages
@@ -54,12 +54,11 @@ For each consequential message, check it against the owning journey, rule, permi
 | Phase | Content check |
 | --- | --- |
 | Understand | Concrete, attributed problem and outcomes; language baseline and working vocabulary; no invented solution copy |
-| Shape | Each in-scope actor can understand the decision and next action across screens and off-screen handoffs; wording matches proposed behavior |
+| Shape | Each in-scope actor can understand the decision and next action across service handoffs; wording matches proposed behavior |
 | Specify | Reconcile affected M IDs, labels, and examples after rules, permissions, and lifecycles settle; do not leave Shape copy promising superseded behavior |
-| Technical | Map consequential asynchronous outcomes and integration failures to existing M IDs; flag missing or stale copy without inventing new screen flows |
-| Revise | Trace the changed premise to affected messages, variables, translations, and mockup instances; preserve unaffected content and IDs |
+| Revise | Trace the changed premise to affected messages, variables, translations, and references; preserve unaffected content and IDs |
 | Review | Report clarity, business accuracy, journey/channel coverage, and cross-artifact consistency separately, with concrete failures or "not applicable" |
 
-Fix in-scope contradictions in the owning text and its existing representations. If the phase or requested scope prevents updating a dependent artifact, identify the exact stale message/file, the reason, owner or unknown owner, and the next authorized update. Do not claim that content is reconciled or ready for the affected use while that contradiction remains. Technical design may correct affected copy in place but does not add or redraw screens; flag stale mockup instances for the next product-design revision.
+Fix in-scope contradictions in the owning text and its existing representations. If the phase or requested scope prevents updating a dependent artifact, identify the exact stale message/file, the reason, owner or unknown owner, and the next authorized update. Do not claim that content is reconciled or ready for the affected use while that contradiction remains. External technical or legacy UI artifacts remain outside this plugin; flag their stale instances without redrawing them.
 
-Structural checks can detect missing or duplicate M definitions. They cannot establish natural language quality, true business outcomes, permitted recovery, privacy, or comprehension. The plugin checkout's `docs/guide/04-output-standard.md` contains content scenarios for installed-plugin evaluations; copied skill catalogs need not include that developer guide. Report actual runs and limitations, not an assumed improvement in user success.
+Structural checks can detect missing or duplicate M definitions. They cannot establish natural language quality, true business outcomes, permitted recovery, privacy, or comprehension. Copied skill catalogs need not include developer evaluation guides. Report actual runs and limitations, not an assumed improvement in user success.

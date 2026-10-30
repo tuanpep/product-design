@@ -17,6 +17,6 @@ Use the story shape in [the workflow reference](../design-product/references/wor
 5. Split any story that cannot be built and checked in one iteration. Split by workflow step, rule, data variation, role, or channel, not by technical layer.
 6. Name dependencies between stories and on other teams or systems.
 
-Write the map under Stories and acceptance criteria in `build-spec.md`, and summarize the release line under First useful release in `product-design.md`. When `screens.md` exists, add each story ID to the Serves column of the screens it uses. Acceptance criteria are `specify-build`.
+Write Stories and acceptance criteria as a subsection of Functional requirements in the SRS `build-spec.md`, and summarize/link the release line under First useful release in `product-design.md`. Preserve existing placement for unmigrated legacy files. The SRS matrix references each Must S ID and A outcome; C procedures/results live in `test-plan.md`. Acceptance criteria are `specify-build`.
 
 **Reply:** the backbone, the first-release line and why it is complete, what waits, and the dependencies.

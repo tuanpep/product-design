@@ -42,7 +42,7 @@ export async function createSetup(ctx, { agentIDs = setupAgentIDs, onModels = ()
 
   const command = {
     name: 'setup-product-design',
-    description: 'Choose models for the six product-design agents, or inspect status/cancel setup',
+    description: 'Choose models for the four product-design agents, or inspect status/cancel setup',
     async execute({ sessionID, prompt, delivery }) {
       const argument = (prompt?.text ?? '').trim()
       assert(['', 'status', 'cancel'].includes(argument), 'Use /setup-product-design, /setup-product-design status or /setup-product-design cancel')
@@ -62,12 +62,12 @@ export async function createSetup(ctx, { agentIDs = setupAgentIDs, onModels = ()
           delivery,
           text: [
             'Product-design agent/model setup only. Do not start a design project, invoke a custom workflow, load skills, delegate work, edit files or change global configuration/default agents.',
-            'Use the question tool to ask the user which exact model or inherit to use for each of these six agents. Describe each role. Do not infer model speed, quality, price, capability beyond the supplied tools support, or fallback choices. Never choose a model without the user selecting it.',
+            'Use the question tool to ask the user which exact model or inherit to use for each of these four agents. Describe each role. Do not infer model speed, quality, price, capability beyond the supplied tools support, or fallback choices. Never choose a model without the user selecting it.',
             ...setupAgentIDs.map((id) => `${id}: ${roles[id]}`),
             `Available enabled models with tools support, including exact variant IDs: ${JSON.stringify(available)}`,
             `Current setup settings: ${JSON.stringify(settings())}`,
             'Offer inherit for every agent. It removes only this plugin setup override; existing explicit configuration and defaults remain. If no models are listed, offer inherit only and explain that no enabled tool-capable models were found.',
-            'After the user selects all six choices, call product_design_setup with {"models":{...}} containing every exact agent ID above, each mapped to its selected exact provider/model#variant string or "inherit". Do not omit targets or invent providers/models/variants. Report the actual saved settings and precedence warnings. Then stop. The user can run /setup-product-design cancel to cancel.',
+            'After the user selects all four choices, call product_design_setup with {"models":{...}} containing every exact agent ID above, each mapped to its selected exact provider/model#variant string or "inherit". Do not omit targets or invent providers/models/variants. Report the actual saved settings and precedence warnings. Then stop. The user can run /setup-product-design cancel to cancel.',
           ].join('\n'),
         })
       } catch (error) {
@@ -79,7 +79,7 @@ export async function createSetup(ctx, { agentIDs = setupAgentIDs, onModels = ()
 
   const tool = {
     name: 'product_design_setup',
-    description: 'Save the six explicitly selected agent models in plugin storage during an armed root-session setup. Does not change global configuration.',
+    description: 'Save the four explicitly selected agent models in plugin storage during an armed root-session setup. Does not change global configuration.',
     options: { codemode: false },
     input: {
       type: 'object', additionalProperties: false, required: ['models'],
@@ -98,7 +98,7 @@ export async function createSetup(ctx, { agentIDs = setupAgentIDs, onModels = ()
         assert(await ctx.storage.get(`setup/${context.sessionID}`), 'Run /setup-product-design in this root session before applying settings')
         assert(input && Object.keys(input).length === 1 && input.models && typeof input.models === 'object' && !Array.isArray(input.models), 'Provide only a models object')
         const choices = input.models
-        assert(Object.keys(choices).length === setupAgentIDs.length && setupAgentIDs.every((id) => Object.hasOwn(choices, id)), 'Provide exactly all six product-design agent targets')
+        assert(Object.keys(choices).length === setupAgentIDs.length && setupAgentIDs.every((id) => Object.hasOwn(choices, id)), 'Provide exactly all four product-design agent targets')
         const { data } = await ctx.model.list({ location: session.location })
         const next = {}
         for (const id of setupAgentIDs) {

@@ -4,6 +4,8 @@ Use [discovery policy](../discovery-interview.md). Reuse the brief and directly 
 
 One concise account in `product-design.md`: decision/owner or Unknown, user and business/service outcomes, context/workflow and friction/source, hardest realistic actor, needs/constraints, first scope, evidence/unknowns and next action. `frame-problem`, `map-stakeholders`, `discover-needs`, `define-requirements` and `decide-next` are responsibilities, not five interviews or documents. Do not preload their whole references graph.
 
+For new packages use product-design/1.3 with Phase: understand. Discovery research stays inline; do not create an SRS or test-plan file just to fill the later templates.
+
 When supplied evidence needs synthesis, load only [learning-loop synthesis](../learning-loop.md) sections. Retain source → observation → patterns including contradictions → findings → opportunity and actual evidence labels. Hypothetical premises support hypotheses, not observed findings. Load [content baseline](../content-quality.md#establish-language-and-vocabulary-early) to record document/service language, locale and small sourced vocabulary; no to-be copy. Needs stay stable; solution-dependent requirements remain provisional.
 
 For an existing target, `survey-existing` is bounded to decision-relevant capabilities and may be deferred until solution comparison; greenfield needs no invented inventory. Sensitive constraints exclude unsafe behavior. No mandatory persona, permissions matrix, diagram or quantitative target. Relevant accessibility/privacy/quality gaps stay inline with owners/unknowns, not mandatory new reports.

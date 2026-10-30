@@ -1,6 +1,6 @@
 # Concrete quality scenarios
 
-Trigger: a quality adjective or vague target could change a product decision or prevent meaningful verification. `define-requirements` owns the requirement; `specify-build` carries it into Quality requirements. Reuse the owning requirement ID.
+Trigger: a quality adjective or vague target could change a product decision or prevent meaningful verification. `define-requirements` owns the requirement; `specify-build` carries it into SRS Non-functional requirements. Reuse the owning R requirement ID; procedures/results belong to C cases in the Test Plan.
 
 For a consequential usage or change scenario, state:
 
@@ -14,6 +14,6 @@ Example (proposed, not a benchmark): while an operator views a queue on a constr
 - Start with brief quality goals in Understand. Add scenario detail when Shape/Specify or Technical needs it; do not freeze a mechanism prematurely. Include competing goals and the trade-off decision when relevant.
 - Distinguish planned verification from measured results, workload assumptions from actual traces, and structural validation from behavioral assurance. Reference existing adequate scenarios rather than rewriting them.
 
-Write inline in existing Needs and requirements or Quality requirements; link from Design concerns and Correspondences when Technical is open. No new artifact or formal scenario catalogue is required.
+Write inline in existing Needs and requirements or SRS Non-functional requirements. No extra artifact or formal scenario catalogue is required. Technical architecture remains outside this plugin.
 
 Basis: [arc42 Quality Requirements](https://docs.arc42.org/section-10/), read 2026-10-22, supports concrete usage/change scenarios and references to already specified goals. The compact fields and phase integration above are plugin adaptations.

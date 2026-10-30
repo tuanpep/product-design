@@ -116,13 +116,12 @@ export function createUsageCollector(ctx, enabled = false) {
       sessions.push({ sessionID: session.id, parentSessionID: session.id === root.id ? null : session.parentID, requests: saved?.requests ?? current.slice(-limit), contextSamples: saved?.contextSamples ?? [], loads: saved?.loads ?? [], retries: saved?.retries ?? null, requestKinds: saved?.requestKinds ?? null })
       incomplete ||= (saved?.truncated ?? false) || current.length > limit
       try {
-        const registry = await ctx.storage.get(`delegation/${session.id}`) // Historical wrapper sessions, if present.
         const observed = await ctx.storage.get(key(session.id))
-        incomplete ||= (registry?.truncated ?? false) || (observed?.childrenTruncated ?? false)
-        for (const entry of [...(registry?.entries ?? []), ...(observed?.children ?? []).map((sessionID) => ({ sessionID }))]) {
-          if (!entry.sessionID || seen.has(entry.sessionID) || queue.some((child) => child.id === entry.sessionID)) continue
-          try { queue.push(await ctx.session.get({ sessionID: entry.sessionID })) }
-          catch { incomplete = true; errors.push({ sessionID: entry.sessionID, error: 'Managed child unavailable' }) }
+        incomplete ||= observed?.childrenTruncated ?? false
+        for (const sessionID of observed?.children ?? []) {
+          if (seen.has(sessionID) || queue.some((child) => child.id === sessionID)) continue
+          try { queue.push(await ctx.session.get({ sessionID })) }
+          catch { incomplete = true; errors.push({ sessionID, error: 'Observed child unavailable' }) }
         }
       } catch (error) {
         incomplete = true
@@ -130,7 +129,7 @@ export function createUsageCollector(ctx, enabled = false) {
       }
     }
     incomplete ||= queue.length > 0
-    const document = { schemaVersion: 1, kind: 'execution-usage', capturedAt: new Date().toISOString(), rootSessionID: root.id, incomplete: true, sessions, errors, coverage: { telemetryEnabled: enabled, inventoryTruncated: incomplete, childInventory: 'Observed design child context hooks and historical plugin registry only. Native children not observed by this plugin may be missing; this SDK cannot enumerate children.', auxiliaryUsage: 'Title/generate and separately billed failed attempts may be absent; provider-normalized buckets are not raw billing payloads.' } }
+    const document = { schemaVersion: 1, kind: 'execution-usage', capturedAt: new Date().toISOString(), rootSessionID: root.id, incomplete: true, sessions, errors, coverage: { telemetryEnabled: enabled, inventoryTruncated: incomplete, childInventory: 'Observed design child context hooks only. Native children not observed by this plugin may be missing; this SDK cannot enumerate children.', auxiliaryUsage: 'Title/generate and separately billed failed attempts may be absent; provider-normalized buckets are not raw billing payloads.' } }
     document.summary = summarizeUsage(document)
     return document
   }

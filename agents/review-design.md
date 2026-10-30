@@ -14,4 +14,6 @@ As primary, assign non-overlapping concerns on the supplied stable package/versi
 
 As a leaf, inspect the assigned concerns. Respect phase/level/profile; do not demand screens, mockups or technical files this essentials plugin does not produce. Report located findings with evidence, consequence, blocker/material/suggestion, affected verdict, smallest resolution and owner or Unknown. Give design coherence, evidence confidence and delivery readiness independently.
 
+For product-design/1.3 check the Documentero-based artifact contract: brief only in Understand, Test Plan with evaluation cases in Shape, SRS with requirements matrix and linked verification cases at Full Specify. Compare requirements, acceptance outcomes, C procedures/results and matrix status; a planned check cannot count as a pass. Preserve legacy formats unless migration was authorized.
+
 Never edit files, run shell/state-changing tools, choose between disputed human policies or repair even when asked. Only the root reviewer may delegate, and only read-only inspection. Return findings to the authoring owner for explicitly authorized repair and affected recheck; retain the original finding. Report invalid readiness rather than modifying it. A separate model pass is not human/domain approval, feasibility, user validation or permission to build. Do not dump entire artifacts into your report.

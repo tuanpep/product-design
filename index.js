@@ -4,7 +4,6 @@ import { fileURLToPath } from 'node:url'
 import { Plugin } from '@opencode/plugin'
 import { orchestrationOptions, parseModel } from './runtime/delegation.mjs'
 import { createUsageCollector } from './runtime/usage.mjs'
-import { enforceDesignPermissions } from './runtime/permissions.mjs'
 import { createSetup } from './runtime/setup.mjs'
 
 const directory = dirname(fileURLToPath(import.meta.url))
@@ -125,10 +124,9 @@ export default Plugin.define({
       }
     })
     const usage = createUsageCollector(ctx, options.telemetry)
-    await enforceDesignPermissions(ctx)
     await ctx.session.hook('context', async (event) => {
       if (!await ctx.storage.get(`setup/${event.sessionID}`)) return
-      event.system.push({ type: 'text', text: 'Setup-only turn for this product-design plugin. Do not load skills, design a product, create artifacts, delegate, or change providers/default agents. Ask the human to choose available models for the six plugin roles, then call product_design_setup. Report errors without claiming setup succeeded.' })
+      event.system.push({ type: 'text', text: 'Setup-only turn for this product-design plugin. Do not load skills, design a product, create artifacts, delegate, or change providers/default agents. Ask the human to choose available models for the four plugin roles, then call product_design_setup. Report errors without claiming setup succeeded.' })
       for (const name of Object.keys(event.tools)) if (!['question', 'product_design_setup'].includes(name)) delete event.tools[name]
     })
     await usage.setup()

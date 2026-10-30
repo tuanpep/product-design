@@ -24,6 +24,6 @@ Read the target-language draft naturally; do not claim a native-speaker review u
 - No unexplained internal codes, file names or word-for-word glosses appear as user-facing text.
 - Legal, policy and pricing wording remains marked for its owner; do not invent authoritative language.
 - Apply [the business-truth check](../../design-product/references/content-quality.md#check-business-truth-before-polishing): preserve pending/completed/unknown outcomes, permissions, safe recovery, timing qualifications and privacy. Shorter/friendlier cannot mean less accurate.
-- Revise owning strings first, then affected catalogue/mockup/translation instances within authorized scope. Preserve M IDs and unrelated human edits. Report stale dependents when updates are out of scope.
+- Revise owning strings first, then affected catalogue references and translations within authorized scope. Preserve M IDs and unrelated human edits. Report stale dependents when updates are out of scope.
 
 Sources: [GOV.UK clear language](https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/writing-guidelines/clear-language/), [digital.gov plain language](https://digital.gov/guides/plain-language/writing), [National Archives principles](https://www.archives.gov/open/plain-writing/10-principles.html), and [Google translation guidance](https://developers.google.com/style/translation). Inspection is not participant comprehension evidence.

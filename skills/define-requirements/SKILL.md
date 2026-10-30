@@ -18,4 +18,6 @@ Read [the evidence contract](../design-product/references/evidence-and-decisions
 
 Do not write user stories or business rule catalogues here. Stories belong to `map-stories` and `specify-build`; detailed rules belong to `define-rules`.
 
+At Understand/Shape keep provisional requirements under Needs and requirements in the brief. At Full Specify the [SRS](../design-product/references/build-spec-format.md) owns Functional requirements and Non-functional requirements: R ID, description, need/source, priority, evidence/approval status and owner. Replace earlier definitions with links. Requirements matrix rows reference these definitions and C cases in the Test Plan; they do not establish completed coverage or human approval.
+
 **Reply:** the needs, the requirements that follow from them, and any check a requirement failed.

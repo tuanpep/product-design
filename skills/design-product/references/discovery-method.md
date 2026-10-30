@@ -51,7 +51,7 @@ An advance request opens the next phase in this message. It overrides a still-op
 
 Treat these as that request when they are about moving on: next, next gate, next phase, continue, proceed, go ahead, move on, approve, approved, brainstorm the solution, brainstorm screens, brainstorm the slice, and naming Shape, screens, the mockup, or Specify. Also treat yes, that's right, and looks good when they answer a summary or an offer to continue. "Stop asking" and "no more questions" are an advance request once an interview has started. A bare "no questions" on a new brief that never asks to continue is not one: stop at discovery, as above. "Brainstorm the problem" stays in Understand.
 
-Do not ask another discovery question. Do not ask which level. Do not ask them to choose approval versus a brainstorm. An unnamed cap becomes Mockup: write Shape through the mockup. If Understand is not written yet, write the known discovery decision and the unknowns, then continue into Shape in the same run.
+Do not ask another discovery question. Do not ask which level. Do not ask them to choose approval versus a brainstorm. An unnamed cap becomes design-documents: write Shape's brief and Test Plan without screens or mockups. If Understand is not written yet, write the known discovery decision and the unknowns, then continue into Shape in the same run.
 
 Record unresolved facts as unknown. Do not invent actors, workflows, outcomes, metrics, or constraints. If safety, privacy, or access is still unknown, leave that behavior out of the design and say what is excluded. The request explores the next phase. It is not user validation and it is not permission to build.
 

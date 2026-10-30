@@ -17,9 +17,6 @@
     "rules/",
     "skills/",
     "docs/",
-    "scripts/check-output.mjs",
-    "scripts/record-evaluation.mjs",
-    "scripts/sync-agent-prompts.mjs",
     "paseo/client/",
     "paseo/server/",
     "paseo/shared/",
@@ -32,13 +29,6 @@
     "README.md"
   ],
   "dependencies": {
-    "@opencode/plugin": "^2.0.28",
-    "saxes": "^6.0.0"
-  },
-  "scripts": {
-    "test": "node scripts/sync-agent-prompts.mjs && node --test scripts/check-plugin.test.mjs scripts/opencode.test.mjs scripts/setup.test.mjs scripts/paseo-plugin.test.mjs scripts/catalog-policy.test.mjs scripts/record-evaluation.test.mjs scripts/orchestration.test.mjs scripts/usage.test.mjs scripts/native-delegation.test.mjs && node scripts/check-plugin.mjs",
-    "check:output": "node scripts/check-output.mjs",
-    "eval:record": "node scripts/record-evaluation.mjs",
-    "sync:agents": "node scripts/sync-agent-prompts.mjs --write"
+    "@opencode/plugin": "^2.0.28"
   }
 }

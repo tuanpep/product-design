@@ -40,6 +40,9 @@ export function ProductDesignScreen({ theme, layout }: PluginScreenProps) {
         /design-product runs one essentials phase and stops: Understand, then Shape (documents), then Specify (Full). Say next to open the next phase. No screens, mockups, or technical design. Say advise to recommend inside the open phase.
       </Text>
       <Text style={styles.muted}>
+        Documentero-based Markdown templates keep the package small: a decision brief, a Test Plan with cases from Shape, and an SRS with a Requirements Matrix at Full Specify. No Documentero account or external upload is needed; planned checks are not completed results.
+      </Text>
+      <Text style={styles.muted}>
         Open Product design packages from the command center to see packages already in the workspace. A copied catalog under .paseo/ is for the agent; leave it uncommitted.
       </Text>
       <ExternalLink href="https://github.com/tuanpep/product-design">Open the product design guide</ExternalLink>

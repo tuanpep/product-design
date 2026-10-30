@@ -1,29 +1,13 @@
 # Advise mode
 
-Advise mode recommends choices inside the open phase. It does not approve a phase. A new brief that does not ask to continue still follows [the discovery interview](discovery-interview.md): interview, and do not invent core facts. An advance request opens the next phase and these rules apply inside it with gaps recorded as unknown; do not ask another question. If questions are forbidden and they did not ask to continue, provide only the discovery summary, gaps, and research plan, then stop. The person still owns whether to build. Every suggestion stays **proposed**. Advise mode does not invent interviews, test results, costs, or a legal interpretation.
+Advise recommends choices inside the open phase; it does not approve a later phase or investment. Turn it on when the person asks to advise, run advise mode or recommend without waiting for a preference decision. A product whose users receive advice does not turn it on by itself.
 
-## When it is on
+Follow [discovery policy](discovery-interview.md): new briefs without advance stay in Understand; ask only consequential missing-context questions. After advance carry unknowns forward without another interview, summary-confirmation or level question. Bare no questions without continuation returns discovery summary/gaps/research plan only. Full/advise alone never advances.
 
-Turn it on when the person tells you to advise, to run advise mode, or to suggest the solution and design without waiting for a decision. `advise`, `advise mode`, and `auto advice` count. A product whose users "get advice" does not turn this mode on by itself.
+- **Level:** default Shape is design-documents. Legacy mockup maps to it, without UI artifacts. Full permits Specify only when explicitly opened. New packages record Phase/Level under [the output standard](output-standard.md).
+- **Open choices:** recommend one option, trade-off/principle, cost, reversal condition and owner; label it proposed. Reversible preferences do not need another interview.
+- **Learning before detail:** compare alternatives, then question → method → least necessary material. From Shape use the [Test Plan](test-plan-format.md), linking a summary in the brief. Do not invent execution or results. No screens, mockups or technical architecture.
+- **Hard choices:** recommend a proposed default if useful, label it proposed — owner must confirm, and explain the consequence. Unresolved safety, permission, policy or feasibility remains blocking even when drafting continues. A default cannot invent missing context or grant authorization.
+- **Revision:** change only affected owning definitions and authorized dependents. Preserve human edits, IDs, evidence and prior decisions; withdraw invalid readiness. Older files are not automatically migrated.
 
-Guided mode stays the default when none of that appears. In guided mode, interview only when they have not asked to continue. Ask a missing level only while they are still in Understand and have not asked to leave. When they ask to go next without a level, open Shape at Mockup.
-
-A named level still caps artifacts inside the open phase: `advise mockup` stops after the mockup because that is the level. When they do not name a level, use the cap of the phase this message opened. Do not run a later phase to reach Full.
-
-## What changes
-
-These replace the questions in [new-idea.md](../playbooks/new-idea.md) and [revise-design.md](../playbooks/revise-design.md). A `decide-next` result of stop or repeat discovery still ends the run after `product-design.md`. That is the agent declining to invent a product, not a question for the person.
-
-- **Level.** Do not ask which level to run. Record the cap of the open phase. An advance request that names no cap uses `mockup` for Shape and clears `understand`. New packages record it in the machine-readable Level header: Understand uses `understand`, Shape without screens uses `design-documents`, Shape with a mockup uses `mockup`, and an opened Specify phase uses `full`. The field remains optional for legacy compatibility. A cap is not evidence maturity and not approval of the next phase.
-- **Open choices.** Recommend one option. Name the principle that decided it, the option it costs, and who can reverse it. Label the choice **proposed**. Write the next file. Do not ask a question that must be answered first.
-- **Learning before detail.** Follow [the learning loop](learning-loop.md): synthesize evidence and choose an opportunity, compare alternatives, then `plan-evaluation` before detailed experience/screens. Recommend question, method, and least necessary material, not a screen prototype by default. Keep partial learning material inline or externally linked. Design documents includes that plan but no screens. Do not claim the test ran.
-- **Mockup.** At Mockup or Full only, recommend the layout the deciding principle favours. Skip the shape checkpoint. Write complete `screens.md` and `mockup.drawio` from that recommendation, and list the layouts you did not take. Learning material does not replace their screen/state coverage contract.
-- **Hard choices.** Safety, money, law, privacy, and choices that are hard to reverse still get a recommended default inside this phase. Label it **proposed — owner must confirm**, and say what goes wrong if it is wrong. Finish this phase. Do not set `Status: ready` while one of these is unconfirmed. Do not treat the request for a design as approval to start the next phase. This applies [principle-decide-the-reversible](../../principle-decide-the-reversible/SKILL.md) without pausing inside the phase.
-- **Nonblocking facts you cannot obtain.** Leave them **unknown**. Say how to learn each one, and design the rest around the unknown. Missing core context and critical constraints cannot be handled this way; the context gate wins over hard-choice defaults too.
-- **Revision.** Apply the new evidence and recommend the updated design. Leave a human edit in place, name it, and design around it.
-
-## What stays
-
-Evidence labels, the principles, [the output standard](output-standard.md), and the decision to build. A confirmation item still blocks a ready verdict. It does not block the draft.
-
-**Reply:** the phase just finished, the recommendation, why that option, the files written, each principle that changed a choice, the proposed defaults, the hard confirmations, the strongest evidence, the weakest assumption, and the next test. The next phase opens when they say next. Do not start that phase in this run unless this message already asked to go next.
+Follow [the essential template selection](documentero-templates.md), not one document per task. The person owns whether to build. Reply with phase, recommendation, paths, decisive evidence/weakest premise, proposed defaults/blockers, actual checks and smallest next human action. Stop at the phase boundary unless this message already opens the next.

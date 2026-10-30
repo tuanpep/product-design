@@ -1,7 +1,7 @@
 import { agentPrompts } from './agent-prompts.mjs';
 
 export const workflows = [
-  { id: 'design-product', title: 'Design product', description: 'Develop or revise one essentials phase; next opens the next phase without another interview.', argumentHint: '[advise] [level] <idea>', icon: 'PenLine', keywords: ['discovery', 'proposal', 'product'], skillFile: 'design-product/SKILL.md', role: 'You are the product design agent.', procedure: agentPrompts['design-product'] },
+  { id: 'design-product', title: 'Design product', description: 'Develop one phase using a decision brief, Test Plan and Full-only SRS; next opens the next phase without another interview.', argumentHint: '[advise] [level] <idea>', icon: 'PenLine', keywords: ['discovery', 'proposal', 'product', 'requirements', 'test-plan'], skillFile: 'design-product/SKILL.md', role: 'You are the product design agent.', procedure: agentPrompts['design-product'] },
   { id: 'review-design', title: 'Review design', description: 'Read-only review requires an enforced host profile; the send-only Paseo adapter refuses unsafe launch.', argumentHint: '[package]', icon: 'ScanSearch', keywords: ['review', 'critique', 'handoff'], skillFile: 'review-design/SKILL.md', role: 'You are the read-only review design agent.', procedure: agentPrompts['review-design'] },
 ];
 

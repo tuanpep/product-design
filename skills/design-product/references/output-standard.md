@@ -1,36 +1,26 @@
 # Product design document standard
 
-Version 1.2 essentials. Use with [proposal format](proposal-format.md) and [evidence contract](evidence-and-decisions.md). Apply [content contract](content-quality.md) to decision prose and service copy. No screens, mockups, diagrams or technical design files.
+Version 1.3: evidence-led brief plus essential [Documentero-based templates](documentero-templates.md). No screens, mockups, diagrams or technical design files. Templates are local Markdown adaptations, not a document-generation service dependency.
 
-## Purpose and depth
+## Phase, depth and artifacts
 
-Write `docs/product-design/<slug>/product-design.md`, plus `build-spec.md` only when Level is full and Specify is open.
+Write inside `docs/product-design/<slug>/`:
 
-Profiles:
+| Phase | Level | Files |
+| --- | --- | --- |
+| Understand | understand, design-documents or full | `product-design.md` only |
+| Shape | design-documents or full | `product-design.md` + `test-plan.md` (evaluation) |
+| Specify | full only | `product-design.md` + `build-spec.md` (SRS) + `test-plan.md` (cases) |
 
-- **discovery** — stop or repeat discovery
-- **evaluation** — test solutions or specify a slice (documents only)
-- **build-slice** — ready for a named build slice recommendation (not build approval)
+Levels: `understand` discovery only; `design-documents` permits Shape; `full` permits Specify only after advance. Default unnamed Shape after advance is design-documents. Legacy `mockup` is treated as design-documents. Full/advise alone never advances. Do not create an SRS during Shape to satisfy a future gate.
 
-Levels (recommended on new packages):
-
-- **understand** — discovery only; no build-spec
-- **design-documents** — evaluation documents; no build-spec. Default after advance into Shape
-- **full** — permits `build-spec.md` when Specify is open
-
-Legacy `mockup` level is treated as design-documents. Do not create screens or Draw.io.
-
-| File | Discovery | Evaluation | Build-slice |
-| --- | --- | --- | --- |
-| `product-design.md` | required | required | required |
-| `build-spec.md` | none | none | required when Specify open at full |
-
-Product experience in the proposal owns journey prose and the M catalogue. Before build-spec exists, provisional rules/vocabulary/permissions sit under Needs; then move to build-spec with stable IDs.
+Profiles: discovery recommends stop/repeat discovery; evaluation recommends test solutions (Shape) or specify a slice (draft Specify); build-slice recommends ready for a named build slice (Specify). Missing facts remain unknown, not reasons to fabricate data or force approval.
 
 ## Decision header
 
 ```text
-Standard: product-design/1.2
+Standard: product-design/1.3
+Phase: understand | shape | specify
 Profile: discovery | evaluation | build-slice
 Level: understand | design-documents | full
 Updated: YYYY-MM-DD
@@ -39,12 +29,12 @@ Decision owner: named person/role, or unknown
 Approval: proposed, or an attributed human decision with date and source
 ```
 
-Level is optional for legacy packages; other fields remain required. Never infer approval from a design request.
+Choose one value per field. Phase and Level are required in 1.3; older 1.0–1.2 packages remain valid under their existing formats. Do not silently migrate them; use [the migration policy](documentero-templates.md#existing-packages-and-office-documents) when revision is authorized.
 
-## Evidence and IDs
+Keep [the ten proposal headings](proposal-format.md). The brief owns evidence/needs/alternatives, service copy M catalogue and decision history. In Shape, Evaluation plan summarizes the reversing assumption and links the test plan; procedures/results are owned there. Specify moves provisional requirement/rule/vocabulary/permission definitions into the [SRS](build-spec-format.md) with stable IDs, replacing old definitions with links. Its appendices contain the requirements matrix. The [test plan](test-plan-format.md) contains C cases and actual results.
 
-Label consequential claims given, observed, inferred, proposed, or unknown. Preserve stable IDs (E, N, BR, S, M, Q). Unknowns stay unknown. A plan is not a result.
+## Evidence, traceability and readiness
 
-## Readiness
+Label consequential claims given, observed, inferred, proposed or unknown. Preserve E, N, R, BR, S, A, M, Q and C IDs. Need → requirement/rule → story → acceptance outcome → check remains traceable in both directions, including applicable quality requirements. One owner per definition; a matrix row is a reference, not a duplicate requirement.
 
-`Status: ready` on a build-spec only when no blocker remains for that named slice. Context sufficiency, evidence confidence, specification completeness and human approval remain separate. Coherent documents are not permission to build or launch.
+`Status: ready` requires no blocking question for the named slice, a matching build-slice recommendation and coherent SRS/plan/copy. Plans may remain unexecuted when execution is not a prerequisite; do not claim they passed. Readiness, evidence confidence, context sufficiency and human approval are separate. Generated documents and structural validation are not permission to build or launch.

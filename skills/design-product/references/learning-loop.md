@@ -1,6 +1,6 @@
 # Research-led learning loop
 
-This is the canonical policy for synthesis, opportunity selection, evaluation, supplied results, and continuing learning. [discovery-interview.md](discovery-interview.md) still owns the sufficient-context gate; [evidence-and-decisions.md](evidence-and-decisions.md) owns claim labels and authority. Write the loop into existing `product-design.md` sections, not new mandatory artifacts.
+This is the canonical policy for synthesis, opportunity selection, evaluation, supplied results, and continuing learning. [discovery-interview.md](discovery-interview.md) owns the sufficient-context gate; [evidence-and-decisions.md](evidence-and-decisions.md) owns claim labels and authority. Synthesis/decisions stay in `product-design.md`; from Shape the [Test Plan](test-plan-format.md) owns procedures, criteria and actual check results. Do not add a separate learning-loop document.
 
 ## Start with the decision and outcomes
 
@@ -26,6 +26,18 @@ Compare approaches at decision-making depth before detailing the proposed one. R
 
 Generate and evaluate separately, but not necessarily in separate conversation turns. Use ideas already supplied. After an advance request or in advise mode, propose options and a recommendation in that run rather than waiting for the human's ideas or repeating discovery. Unknown core facts stay unknown; hypothetical alternatives are not evidence.
 
+## Track consequential uncertainty
+
+Keep a compact record only for assumptions or dependencies that could change the decision, slice or safety. Reuse a stable existing ID or short reference across revisions; do not create a second register or classify every minor unknown.
+
+- Record type, statement, source/evidence label, consequence if wrong or unresolved, affected decision/IDs, blocking or nonblocking with reason, owner or Unknown, and next review trigger or sourced date. A proposed reversible default needs a rationale; safety, permission, policy and feasibility blockers cannot be silently defaulted.
+- For an assumption, link the validation question and method, then C cases when Shape is open. Record assessment as `untested`, `supported`, `weakened`, `contradicted` or `inconclusive`, with evidence/version links and limits. Assessment is an interpretation, not human approval or a permanent validation claim. Hypothetical context is not supporting user evidence.
+- For a dependency, identify what another person, system or decision must provide, its resolution owner, and the observable resolution condition. Use `unresolved` or `resolved` with a source for resolution. A proposed plan or expected date alone does not resolve it.
+
+Discovery assumptions and pre-Specify dependencies live under Evidence and unknowns in the brief. At Specify, move slice-specific records into SRS Assumptions and dependencies with references intact, replacing earlier definitions with links. The brief retains discovery evidence and investment assumptions. Procedures and actual results remain in the test plan; link them rather than copying results into each record.
+
+Keep consequential risks beside the affected evidence, requirement or test. Name the harm/impact, likelihood with its basis or Unknown, response owner, proposed mitigation, contingency if it occurs, residual uncertainty and review trigger. Do not invent numeric scores or treat an untested mitigation as effective. Risk detail is proportionate to the next decision, not another mandatory report.
+
 ## Question → method → artifact
 
 After comparing alternatives and before detailed experience or screens, use `plan-evaluation`. Identify assumptions across **desirability, usability, feasibility, viability, and ethics**. Prioritize those with serious consequences and weak evidence; do not demand every assumption be tested. Link each priority to a research question, a method capable of answering it, and only then the least necessary artifact/fidelity:
@@ -39,17 +51,17 @@ After comparing alternatives and before detailed experience or screens, use `pla
 
 Record the assumption/alternative, question, method, audience/recruitment, neutral tasks or procedure, observations/measures, support/weaken/reverse criteria agreed before results, owner, consent/privacy safeguards, limitations, and the resulting decision. Criteria can be qualitative and proposed; do not manufacture numeric precision. Separate proposed tests, actual execution, supplied reports, and inspection-only checks. An artifact by itself is not a test. Participant use of a prototype can supply usability evidence within that study's limits; agent inspection cannot substitute for it. Human approval of a hypothetical premise permits exploration, not evidence of demand or success.
 
-Consider all five risk categories, but elaborate only decision-changing questions; do not create one test per category or every minor assumption. Combine questions only when the same method can genuinely answer them. Keep one evaluation plan in the proposal and update affected entries after shaping instead of writing another plan. Use not applicable with a reason for irrelevant method fields, and Unknown for missing applicable details. A pending test has a proposed decision rule, not a claimed result. Feasibility or authorization that could invalidate the approach warrants an early specialist investigation plan, not more screens as a substitute.
+Consider all five risk categories, but elaborate only decision-changing questions; do not create one test per category or every minor assumption. Combine questions only when the same method can genuinely answer them. Keep discovery research inline; from Shape keep one evolving `test-plan.md` with C cases and a linked summary in the proposal. Specify extends it with verification cases rather than writing a second plan. Use not applicable with a reason for irrelevant method fields, and Unknown for missing applicable details. A pending test has a proposed decision rule, not a claimed result. Feasibility or authorization that could invalidate the approach warrants an early specialist investigation plan, not more detailed product prose as a substitute.
 
 Prioritizing tests does not establish that untested assumptions are safe. In particular, absent customer contact or contrary evidence is not support for a low-risk classification. For participant-based work, retain a recruitment rationale, relevant access/support needs, neutral believable tasks that do not reveal the answer, a pilot check of tasks/material, and method limitations. Combine questions only when each remains answerable without undermining the session. Record a plan rather than implying recruitment, pilot checks, or research were executed.
 
-### Learning material is not the complete screen handoff
+### Learning material is not evidence of execution
 
-A **learning prototype** isolates a question and may deliberately omit most of the journey. Default to an inline concept, task, or scenario in the proposal, or a link to externally supplied material. Respect the level's no-screen cap. Do not put a partial learning stimulus in `screens.md` or call it the complete `mockup.drawio` handoff. Complete artifacts cover the declared screens, business views, consequential branches, and task handoffs; completeness does not require routine technical-state boards. Legacy explicitly declared states remain covered until the owning specification changes. Do not generate production code or diagram scripts as a side effect of planning research.
+A learning stimulus isolates a question and may omit most of the journey. Use inline concepts/tasks/scenarios or link externally supplied material. This plugin creates no screens, mockups, diagrams or production code. Put the neutral procedure and expected criteria in a C case; link the service description rather than duplicating it.
 
-Do not create both a learning prototype and a complete mockup automatically. If the requested mockup can answer the question, reference it in the plan; otherwise add only the material the question needs. This does not waive required screen/view coverage at Mockup or Full, change the output cap, or claim research happened. Detail the proposed approach, not every rejected alternative. Link shared descriptions rather than copying the same narrative across journey, process, and screens; each required view must still expose its own decisions, handoffs, and material exceptions.
+Do not automatically create a separate prototype. Add only material the question needs, detail the proposed approach rather than every rejected alternative, and retain the surrounding handoffs/material exceptions in the brief. A complete-looking document does not change the cap or prove research happened.
 
-Before reusing a complete mockup for evaluation, check its interaction, visual, and content fidelity against the question. A complete static Draw.io board can support an appropriately facilitated walkthrough or content task, not establish realistic keyboard behavior, screen-reader compatibility, or response timing. Record what cannot be tested and plan suitable externally owned material/method where needed; do not silently generate code or waive handoff coverage.
+Before reusing supplied learning material, check interaction, visual and content fidelity against the question. Static material can support a facilitated walkthrough or content task, not establish realistic keyboard behavior, screen-reader compatibility or response timing. Record limitations and plan suitable externally owned material/method where needed; do not silently generate code.
 
 ## Ingest supplied results and revise the decision
 
@@ -61,6 +73,8 @@ Never claim to have recruited participants, run sessions, or executed a test mer
 4. Record whether the evidence supports, weakens, reverses, or leaves the assumption inconclusive, with scope and rationale. Consider the body of evidence rather than treating one pass/fail as whole-product validation.
 5. Use `revise-design`: retain the old decision and reason for supersession, revise the opportunity/options or design at the earliest affected premise, withdraw stale readiness, and propagate only affected changes. Name the next owner and learning step.
 
+Update affected uncertainty assessments and resolution evidence, not just case status. From Shape, use the [results summary](test-plan-format.md#supplied-results-summary) in the plan and link its decision implications from the brief. A completed research case may leave an assumption inconclusive or a dependency unresolved. In Understand, retain supplied evidence and its implications inline without creating a plan file.
+
 ## Four independent gates, not four maturity levels
 
 - **Context sufficiency:** enough grounded or explicitly human-confirmed hypothetical context to explore. Missing core facts trigger the interview unless an explicit advance request opens Shape under the discovery policy; gaps stay unknown and unsafe behavior stays excluded.
@@ -68,7 +82,7 @@ Never claim to have recruited participants, run sessions, or executed a test mer
 - **Specification completeness:** whether the artifacts needed for the requested level/profile and named slice agree and are sufficiently explicit.
 - **Human approval:** who accepted which decision, with scope/date; neither context confirmation nor specification grants investment, feasibility, policy, or launch approval.
 
-Understand / Design documents / Mockup / Full are **output caps**, not evidence maturity. Design documents includes the evaluation plan before stopping, without screens. Full may finish an honest provisional draft after the context gate passes, without fabricated proof or forced execution of research. Readiness is proportionate to the named slice's harm, irreversibility, uncertainty, and accepted risk: unresolved blocking safety, policy, feasibility, or ownership risks prevent ready; low-risk nonblocking assumptions need not all be tested. Completeness and polish never erase uncertainty.
+Understand / Design documents / Full are **output caps**, not evidence maturity; legacy Mockup means Design documents. Shape includes the evaluation Test Plan before stopping, without screens. Full may finish an honest provisional draft without fabricated proof or forced research execution. Readiness is proportionate to the named slice's harm, irreversibility, uncertainty and accepted risk: unresolved blocking safety, policy, feasibility or ownership risks prevent ready; low-risk nonblocking assumptions need not all be tested. Completeness and polish never erase uncertainty.
 
 ## Post-release learning handoff
 
@@ -84,7 +98,7 @@ External pages read 2026-10-22:
 - [GOV.UK: planning research](https://www.gov.uk/service-manual/user-research/plan-user-research-for-your-service) and [moderated usability testing](https://www.gov.uk/service-manual/user-research/using-moderated-usability-testing): question-appropriate methods, relevant inclusive participants, neutral tasks, and trying out instructions/material before sessions.
 - [NN/g: journey-mapping approaches](https://www.nngroup.com/articles/journey-mapping-approaches/): assess existing evidence and distinguish current/future state from assumption/research basis.
 
-The no-fixed-option-count, single evolving plan, complete handoff coverage, and no automatic extra prototype are plugin adaptations, not universal prescriptions from these sources. Their efficiency remains unverified without comparative installed-host runs.
+The no-fixed-option-count, single evolving plan, bounded document handoff and no automatic extra prototype are plugin adaptations, not universal prescriptions from these sources. Their efficiency remains unverified without comparative installed-host runs.
 
 ## Sources and adaptation
 
@@ -98,4 +112,4 @@ Primary sources read 2026-10-15:
 - [Design Council: Double Diamond](https://www.designcouncil.org.uk/our-resources/the-double-diamond/): understand and define before developing alternatives; small-scale testing and iteration.
 - [GOV.UK: Measuring service success](https://www.gov.uk/service-manual/measuring-success/measuring-the-success-of-your-service) and [live phase](https://www.gov.uk/service-manual/agile-delivery/how-the-live-phase-works): combine metrics, research and operational feedback; continue improving with sustainable ownership.
 
-The level caps, complete-screen handoff distinction, approval gates, and file placement are plugin policies, not verbatim requirements or certification under these sources.
+The level caps, learning-versus-verification distinction, approval gates and file placement are plugin policies, not verbatim requirements or certification under these sources.

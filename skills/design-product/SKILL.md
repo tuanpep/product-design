@@ -10,7 +10,7 @@ Essentials only. You own the proposal, not approval to build. Target project: st
 
 - New brief without advance → Understand. Next/continue/approval or naming the next phase opens it with gaps unknown; no extra interview/confirmation/level question. Full/advise alone do not advance. [Discovery policy](references/discovery-interview.md) owns exact semantics.
 - Revision / supplied research results → [revision pack](references/phases/revise.md). Do not invent research. Copy-only edits do not restart discovery.
-- Write `docs/product-design/<slug>/product-design.md`. Full + open Specify may add `build-spec.md`. No screens, mockups, Draw.io, contracts, or technical design from this plugin.
+- Use [the essential Documentero templates](references/documentero-templates.md): `docs/product-design/<slug>/product-design.md` is the decision brief; Shape adds `test-plan.md`; Full + open Specify adds `build-spec.md` as an SRS with an embedded requirements matrix and extends the plan with test cases. No screens, mockups, Draw.io, contracts, or technical design from this plugin.
 - Levels: `understand` | `design-documents` | `full`. Unnamed Shape after advance defaults to **design-documents**. There is no mockup level.
 - Load specialist procedures only for actual work. Load [principles](references/principles.md) leaves only for a consequential choice/conflict/citation.
 - Optional [delegation](references/orchestration.md) only when the host requires it; prefer one author leaf for document production. No production code.

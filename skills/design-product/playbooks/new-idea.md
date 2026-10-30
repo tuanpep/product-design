@@ -5,8 +5,8 @@ Compatibility stub. Prefer [kernel](../references/execution-kernel.md) + [phase 
 | Phase | Opens when | Writes |
 | --- | --- | --- |
 | Understand | New idea / no advance | `product-design.md` |
-| Shape | Advance / approval / brainstorm solutions | Alternatives, evaluation, experience, service copy in the proposal |
-| Specify | Advance / approval / brainstorm slice | `build-spec.md` (Full only) |
+| Shape | Advance / approval / brainstorm solutions | Proposal + `test-plan.md` (evaluation) |
+| Specify | Advance / approval / brainstorm slice | SRS `build-spec.md` with requirements matrix + test cases in the plan (Full only) |
 
 Levels: `understand` | `design-documents` | `full`. Default Shape after advance: design-documents. No mockup or technical artifacts.
 
